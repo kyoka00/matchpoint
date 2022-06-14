@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ログイン</title>
+</head>
+<body>
+	<div th:insert="header"></div>
+	<form action="comp_create" th:object="${compInfo}" method="POST">
+		<div>
+			<label>大会名:</label> <input type="text" name="compName">
+		</div>
+
+		<div>
+			<label>開催日:</label> <input type="text" name="compDate">
+		</div>
+
+		<div>
+			<label>場所:</label> <input type="text" name="compPlace">
+		</div>
+
+		<div>
+			<label>大会ログインID:</label> <input type="text" name="compLoginId">
+		</div>
+
+		<div>
+			<label>ランク区分数:</label> <input type="number" name="rank">
+		</div>
+
+		<div>
+			<label>試合形式:</label>
+				<select name="{gameType}">
+					<option th:value="1" th:text="シングルス"></option>
+					<option th:value="2" th:text="ダブルス"></option>
+				</select>
+		</div>
+
+		<div>
+			<label>大会概要:</label> <input type="text" name="memo">
+		</div>
+		
+		<input type="submit" value="作成">
+	</form>
+</body>
+</html>

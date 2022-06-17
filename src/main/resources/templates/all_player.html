@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>選手一覧</title>
+</head>
+<body>
+	<div th:insert="header"></div>
+	<button type="button" onclick="location.href='tournament'">戻る</button>
+	<button type="button" onclick="location.href='insert_player'">選手登録</button>
+	<table border="1">
+		<tr>
+			<th>番号</th>
+			<th>プレイヤー1</th>
+			<th>プレイヤー2</th>
+			<th>トーナメント番号</th>
+		</tr>
+		<tr>
+			<td><button type="button" onclick="location.href='edit_player'">1</button></td>
+			<td>playerA</td>
+			<td>playerB</td>
+			<td>2</td>
+		</tr>
+	</table>
+</body>
+</html>

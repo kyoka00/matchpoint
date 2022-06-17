@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>	選手登録</title>
+</head>
+<body>
+	<div th:insert="header"></div>
+	<button type="button" onclick="location.href='all_player'">戻る</button>
+	<form action="insert_player" th:object="${insert_player}">
+		<div>
+			<label>プレイヤー1:</label>
+			<input type="text" th:field="*{player1}" placeholder="入力してください(最大●文字)">
+		</div>
+		
+		<div>
+			<label>プレイヤー2:</label>
+			<input type="text" th:field="*{player2}" placeholder="入力してください(最大●文字)">
+		</div>
+		
+		<div>
+			<label>トーナメント番号:</label>
+			<input type="text" th:field="*{tournamentNum}" placeholder="数値を入力(MAX●)">
+		</div>
+		<input type="submit" name="insert" value="登録">
+	</form>
+</body>
+</html>

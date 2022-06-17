@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>	選手編集</title>
+</head>
+<body>
+	<div th:insert="header"></div>
+	<button type="button" onclick="location.href='all_player'">戻る</button>
+	<form action="edit_player" th:object="${edit_player}">
+		<div>
+			<label>プレイヤー1:</label>
+			<input type="text" th:field="*{player1}">
+		</div>
+		
+		<div>
+			<label>プレイヤー2:</label>
+			<input type="text" th:field="*{player2}">
+		</div>
+		
+		<div>
+			<label>トーナメント番号:</label>
+			<input type="text" th:field="*{tournamentNum}">
+		</div>
+		<input type="submit" name="edit" value="更新">
+		<button type="button" onclick="location.href='delete_player'">削除</button>
+	</form>
+</body>
+</html>

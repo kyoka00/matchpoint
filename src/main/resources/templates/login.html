@@ -5,15 +5,15 @@
 <title>ログイン</title>
 </head>
 <body>
-	<form action="login" th:object="${login}" method="POST">
-		<a href="/top">戻る</a>
+	<form action="comp_list" th:object="${login}" method="POST">
+		<button type="button" onclick="location.href='/'" name="create">戻る</button>
 		<div>
 			<label>ログインID:</label>
-			<input type="text" name="loginId">
+			<input type="text" th:field="*{loginId}">
 		</div>
 		<div>
 			<label>パスワード:</label>
-			<input type="password" name="password">
+			<input type="password" th:field="*{password}">
 		</div>
 		<input type="submit" value="ログイン">
 	</form>

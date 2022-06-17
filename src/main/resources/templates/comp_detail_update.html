@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>大会作成</title>
+<title>大会編集</title>
 </head>
 <body>
 	<div th:insert="header"></div>
-	<form action="comp_list" th:object="${compInfo}" method="POST">
-		<button type="button" onclick="location.href='comp_list_back'">戻る</button>
+	<form action="comp_detail_update" th:object="${comp_detail}" method="POST">
+		<button type="submit" name="back">戻る</button>
 		<div>
 			<label>大会名:</label> <input type="text" th:field="*{compName}">
 		</div>
@@ -30,17 +30,16 @@
 
 		<div>
 			<label>試合形式:</label>
-				<select th:field="*{gameType}">
-					<option th:value="1" th:text="シングルス"></option>
-					<option th:value="2" th:text="ダブルス"></option>
-				</select>
+			<select th:field="*{gameType}">
+				<option th:value="1" th:text="シングルス"></option>
+				<option th:value="2" th:text="ダブルス"></option>
+			</select>
 		</div>
 
 		<div>
 			<label>大会概要:</label> <input type="text" th:field="*{memo}">
 		</div>
-		
-		<button type="submit" name="create">作成</button>
+		<button type="submit" name="completion">完了</button>
 	</form>
 </body>
 </html>

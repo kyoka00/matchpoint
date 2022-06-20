@@ -246,7 +246,7 @@ select * from score;
 create view received_result as
 SELECT m.match_id, m.comp_id,  g.game_info_id,m.game_no, g.coat_no, g.judge_name,
  g.record_status, g.record_date, g.max_point, g.game_count, t.tournament_no,
- m.team_id_a, t.player_a_name as team_a_member_1, t.player_b_name as team_a_player_2, 
+ m.team_id_a, t.player_a_name as team_a_player_1, t.player_b_name as team_a_player_2, 
  m.team_id_b, te.player_a_name as team_b_player_1,  te.player_b_name as team_b_player_2
 from match m
 join game_info g on g.match_id = m.match_id

@@ -74,7 +74,6 @@ public class PgManegeDao implements ManegeDao{
 	
 	@Override
 	public void updateManege(Manege manege) {
-//		String sql = DELETE + PgManegeDao.deleteSql(manege);
 		String sql = UPDATE + updateSql(manege);
 		System.out.println(sql);
 //		MapSqlParameterSource param = new MapSqlParameterSource();

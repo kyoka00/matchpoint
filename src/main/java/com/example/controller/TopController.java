@@ -11,14 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.controller.form.CompForm;
 import com.example.controller.form.LoginForm;
 import com.example.controller.form.PlayerForm;
+import com.example.dao.ManegeDao;
+import com.example.entity.Manege;
 
 @Controller
 public class TopController{
 	@Autowired
 	HttpSession session;
 	
+	@Autowired
+	ManegeDao manegeDao;
+	
 	//ログアウト
-	@RequestMapping(value= "logout")
+	@RequestMapping(value="logout")
 	public String logout() {
 		session.invalidate();
 		return "top";
@@ -27,6 +32,10 @@ public class TopController{
 	//トップページ
 	@RequestMapping(value={"/","top"})
 	public String top() {
+		Manege manege = new Manege();
+		manege.setLoginId("aaa");
+		manege.setPassword("pass");
+		manegeDao.deleteManege(manege);
 		return "top";
 	}
 	
@@ -198,5 +207,14 @@ public class TopController{
 			return "top";
 		}
 		return "game_result_all";
+	}
+	
+	//試合結果登録へ
+	@RequestMapping(value="game_result_final")
+	public String resultFinal() {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
+		}
+		return "game_result_final";
 	}
 }

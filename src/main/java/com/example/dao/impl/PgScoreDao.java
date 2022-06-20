@@ -36,19 +36,19 @@ public class PgScoreDao implements ScoreDao {
 		String sql = SELECT + PgScoreDao.selectSql(score);
 		System.out.println(sql);
 //		MapSqlParameterSource param = new MapSqlParameterSource();
-//		if(Utility.notIsEnptyNull(score.getScoreId())) {
+//		if(Utility.notIsEmptyNull(score.getScoreId())) {
 //			param.addValue("score_id", score.getScoreId());
 //		}
-//		if(Utility.notIsEnptyNull(score.getGameInfoId())) {
+//		if(Utility.notIsEmptyNull(score.getGameInfoId())) {
 //			param.addValue("game_info_id", score.getGameInfoId());
 //		}
-//		if(Utility.notIsEnptyNull(score.getSetNo())) {
+//		if(Utility.notIsEmptyNull(score.getSetNo())) {
 //			param.addValue("set_no", score.getSetNo());
 //		}
-//		if(Utility.notIsEnptyNull(score.getTeamAScore())) {
+//		if(Utility.notIsEmptyNull(score.getTeamAScore())) {
 //			param.addValue("team_a_score", score.getTeamAScore());
 //		}
-//		if(Utility.notIsEnptyNull(score.getTeamBScore())) {
+//		if(Utility.notIsEmptyNull(score.getTeamBScore())) {
 //			param.addValue("team_b_score", score.getTeamBScore());
 //		}
 //		List<Manege> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Manege>(Manege.class));
@@ -61,19 +61,19 @@ public class PgScoreDao implements ScoreDao {
 		String sql = INSERT + PgScoreDao.insertSql(score);
 		System.out.println(sql);
 //		MapSqlParameterSource param = new MapSqlParameterSource();
-//		if(Utility.notIsEnptyNull(score.getScoreId())) {
+//		if(Utility.notIsEmptyNull(score.getScoreId())) {
 //			param.addValue("score_id", score.getScoreId());
 //		}
-//		if(Utility.notIsEnptyNull(score.getGameInfoId())) {
+//		if(Utility.notIsEmptyNull(score.getGameInfoId())) {
 //			param.addValue("game_info_id", score.getGameInfoId());
 //		}
-//		if(Utility.notIsEnptyNull(score.getSetNo())) {
+//		if(Utility.notIsEmptyNull(score.getSetNo())) {
 //			param.addValue("set_no", score.getSetNo());
 //		}
-//		if(Utility.notIsEnptyNull(score.getTeamAScore())) {
+//		if(Utility.notIsEmptyNull(score.getTeamAScore())) {
 //			param.addValue("team_a_score", score.getTeamAScore());
 //		}
-//		if(Utility.notIsEnptyNull(score.getTeamBScore())) {
+//		if(Utility.notIsEmptyNull(score.getTeamBScore())) {
 //			param.addValue("team_b_score", score.getTeamBScore());
 //		}
 //		jdbcTemplate.update(sql, param);
@@ -95,23 +95,23 @@ public class PgScoreDao implements ScoreDao {
 	public static String selectSql(Score score) {
 		String where = "";
 		String columnName = "";
-		if (Utility.notIsEnptyNull(score.getScoreId())) {
+		if (Utility.notIsEmptyNull(score.getScoreId())) {
 			columnName = COLUMN_NAME_SCORE_ID + " = :" + COLUMN_NAME_SCORE_ID;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
-		if (Utility.notIsEnptyNull(score.getGameInfoId())) {
+		if (Utility.notIsEmptyNull(score.getGameInfoId())) {
 			columnName = COLUMN_NAME_GAME_INFO_ID + " = :" + COLUMN_NAME_GAME_INFO_ID;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
-		if (Utility.notIsEnptyNull(score.getSetNo())) {
+		if (Utility.notIsEmptyNull(score.getSetNo())) {
 			columnName = COLUMN_NAME_SET_NO + " = :" + COLUMN_NAME_SET_NO;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
-		if (Utility.notIsEnptyNull(score.getTeamAScore())) {
+		if (Utility.notIsEmptyNull(score.getTeamAScore())) {
 			columnName = COLUMN_NAME_TEAM_A_SCORE + " = :" + COLUMN_NAME_TEAM_A_SCORE;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
-		if (Utility.notIsEnptyNull(score.getTeamBScore())) {
+		if (Utility.notIsEmptyNull(score.getTeamBScore())) {
 			columnName = COLUMN_NAME_TEAM_B_SCORE + " = :" + COLUMN_NAME_TEAM_B_SCORE;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
@@ -122,27 +122,27 @@ public class PgScoreDao implements ScoreDao {
 		String column = "";
 		String values = "";
 		String columnName = "";
-		if( Utility.notIsEnptyNull(score.getScoreId()) ) {
+		if( Utility.notIsEmptyNull(score.getScoreId()) ) {
 			columnName = COLUMN_NAME_SCORE_ID;
 			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
 			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
 		}
-		if( Utility.notIsEnptyNull(score.getGameInfoId()) ) {
+		if( Utility.notIsEmptyNull(score.getGameInfoId()) ) {
 			columnName = COLUMN_NAME_GAME_INFO_ID;
 			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
 			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
 		}
-		if( Utility.notIsEnptyNull(score.getSetNo()) ) {
+		if( Utility.notIsEmptyNull(score.getSetNo()) ) {
 			columnName = COLUMN_NAME_SET_NO;
 			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
 			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
 		}
-		if( Utility.notIsEnptyNull(score.getTeamAScore()) ) {
+		if( Utility.notIsEmptyNull(score.getTeamAScore()) ) {
 			columnName = COLUMN_NAME_TEAM_A_SCORE;
 			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
 			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
 		}
-		if( Utility.notIsEnptyNull(score.getTeamBScore()) ) {
+		if( Utility.notIsEmptyNull(score.getTeamBScore()) ) {
 			columnName = COLUMN_NAME_TEAM_B_SCORE;
 			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
 			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;

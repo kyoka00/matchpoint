@@ -1,7 +1,7 @@
 package com.example.util;
 
 public class Utility{
-	public static boolean notIsEnptyNull(String str) {
+	public static boolean notIsEmptyNull(String str) {
 		if(str == null) {
 			return false;
 		}else if(str.isEmpty()) {
@@ -10,7 +10,7 @@ public class Utility{
 			return true;
 		}
 	}
-	public static boolean notIsEnptyNull(Integer i) {
+	public static boolean notIsEmptyNull(Integer i) {
 		if(i == null) {
 			return false;
 		}else {

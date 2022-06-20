@@ -13,14 +13,9 @@ import com.example.controller.form.CompForm;
 import com.example.controller.form.GamePlayerForm;
 import com.example.controller.form.LoginForm;
 import com.example.controller.form.PlayerForm;
-import com.example.dao.CompDao;
-import com.example.dao.ManegeDao;
-<<<<<<< HEAD
+import com.example.dao.ManageDao;
 import com.example.dao.ScoreDao;
-=======
-import com.example.entity.Comp;
->>>>>>> 9d4d90f0f53cdf97b6a2fd0e80e9d32859a7580c
-import com.example.entity.Manege;
+import com.example.entity.Manage;
 import com.example.entity.Score;
 
 @Controller
@@ -29,14 +24,10 @@ public class TopController{
 	HttpSession session;
 	
 	@Autowired
-	ManegeDao manegeDao;
+	ManageDao manageDao;
 	
 	@Autowired
-<<<<<<< HEAD
 	ScoreDao scoreDao;
-=======
-	CompDao compDao;
->>>>>>> 9d4d90f0f53cdf97b6a2fd0e80e9d32859a7580c
 	
 	//ログアウト
 	@RequestMapping(value="logout")
@@ -48,14 +39,14 @@ public class TopController{
 	//トップページ
 	@RequestMapping(value={"/","top"})
 	public String top() {
-		System.out.println("Manegeテーブル");
-		Manege manege = new Manege();
-		manege.setLoginId("aaa");
-		manege.setPassword("pass");
-		manegeDao.selectAll(manege);
-		manegeDao.insertManege(manege);
-		manegeDao.deleteManege(manege);
-		manegeDao.updateManege(manege);
+		System.out.println("Manageテーブル");
+		Manage manage = new Manage();
+		manage.setLoginId("aaa");
+		manage.setPassword("pass");
+		manageDao.selectAll(manage);
+		manageDao.insertManage(manage);
+		manageDao.deleteManage(manage);
+		manageDao.updateManage(manage);
 		System.out.println("Scoreテーブル");
 		Score score = new Score();
 		score.setScoreId(1);
@@ -196,9 +187,6 @@ public class TopController{
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
-		
-		Comp comp = new Comp();
-		
 		//初期値を入力
 		form.setCompName("第1回");
 		form.setCompDate("6/6");
@@ -206,11 +194,6 @@ public class TopController{
 		form.setTournamentNum(2);
 		form.setGameTypeStr("シングルス");
 		form.setMemo("aaa");
-		
-		compDao.selectAll(comp);
-		compDao.insertComp(comp);
-		compDao.deleteComp(comp);
-		compDao.updateComp(comp);
 		return "comp_detail";
 	}
 	

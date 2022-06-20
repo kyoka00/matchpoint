@@ -3,7 +3,6 @@ package com.example.dao.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -82,14 +81,24 @@ public class PgScoreDao implements ScoreDao {
 	@Override
 	public void deleteScore(Score score) {
 		String sql = DELETE;
-		MapSqlParameterSource param = new MapSqlParameterSource();
-		param.addValue(ID , score.getScoreId());
-		jdbcTemplate.update(sql, param);
+		System.out.println(sql);
+//		MapSqlParameterSource param = new MapSqlParameterSource();
+//		param.addValue(ID , score.getScoreId());
+//		jdbcTemplate.update(sql, param);
 	}
 
 	@Override
 	public void updateScore(Score score) {
-
+		String sql = UPDATE + updateSql(score);
+		System.out.println(sql);
+//		MapSqlParameterSource param = new MapSqlParameterSource();
+//		if(Utility.notIsEmptyNull(manage.getLoginId())) {
+//			param.addValue("login_id", manage.getLoginId());
+//		}
+//		if(Utility.notIsEmptyNull(manage.getPassword())) {
+//			param.addValue("password", manage.getPassword());
+//		}
+//		jdbcTemplate.update(sql, param);
 	}
 
 	public static String selectSql(Score score) {
@@ -150,5 +159,31 @@ public class PgScoreDao implements ScoreDao {
 		column = !column.isEmpty() ? column + ")" : column;
 		values = !values.isEmpty() ? values + ")" : column;
 		return column + values;
+	}
+	
+	public static String updateSql(Score score) {
+		String set = "";
+		String columnName = "";
+		if(Utility.notIsEmptyNull(score.getScoreId())) {
+			columnName = COLUMN_NAME_SCORE_ID + " = :" + COLUMN_NAME_SCORE_ID;
+			set = !set.isEmpty() ? set + "," + columnName : columnName;
+		}
+		if(Utility.notIsEmptyNull(score.getGameInfoId())) {
+			columnName = COLUMN_NAME_GAME_INFO_ID + " = :" + COLUMN_NAME_GAME_INFO_ID;
+			set = !set.isEmpty() ? set + ", " + columnName : columnName;
+		}
+		if(Utility.notIsEmptyNull(score.getSetNo())) {
+			columnName = COLUMN_NAME_SET_NO + " = :" + COLUMN_NAME_SET_NO;
+			set = !set.isEmpty() ? set + "," + columnName : columnName;
+		}
+		if(Utility.notIsEmptyNull(score.getTeamAScore())) {
+			columnName = COLUMN_NAME_TEAM_A_SCORE + " = :" + COLUMN_NAME_TEAM_A_SCORE;
+			set = !set.isEmpty() ? set + ", " + columnName : columnName;
+		}
+		if(Utility.notIsEmptyNull(score.getTeamBScore())) {
+			columnName = COLUMN_NAME_TEAM_B_SCORE + " = :" + COLUMN_NAME_TEAM_B_SCORE;
+			set = !set.isEmpty() ? set + "," + columnName : columnName;
+		}
+		return !set.isEmpty() ? set + " WHERE " + ID + " = :" + ID: "";
 	}
 }

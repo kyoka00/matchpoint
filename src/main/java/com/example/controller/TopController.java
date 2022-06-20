@@ -55,6 +55,9 @@ public class TopController{
 		score.setTeamAScore(4);
 		score.setTeamBScore(5);
 		scoreDao.selectAll(score);
+		scoreDao.insertScore(score);
+		scoreDao.deleteScore(score);
+		scoreDao.updateScore(score);
 		return "top";
 	}
 	

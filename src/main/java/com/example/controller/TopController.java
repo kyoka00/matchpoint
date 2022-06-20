@@ -62,6 +62,13 @@ public class TopController{
 		return "comp_login";
 	}
 	
+	//プレイヤーでログインをトーナメント
+	@RequestMapping(value="tournament_player")
+	public String tournamentPlayer(@RequestParam("compLoginId") String compLoginID) {
+		session.setAttribute("loginId", compLoginID);
+		return "tournament";
+	}
+	
 	//運営ログイン画面から大会一覧へ
 	@RequestMapping(value="comp_list")
 	public String login(@ModelAttribute("login") LoginForm form) {
@@ -80,8 +87,6 @@ public class TopController{
 			return "comp_list";
 		}
 	}
-	
-	
 	
 	//大会一覧から大会作成画面へ
 	@RequestMapping(value="comp_info")
@@ -277,11 +282,36 @@ public class TopController{
 		return "score_setting";
 	}
 	
+	//ゲームセット結果
 	@RequestMapping(value="game_set_result")
 	public String gameSetResult(@ModelAttribute("score_setting") GamePlayerForm form) {
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
 		return "game_set_result";
+	}
+	
+	@RequestMapping(value="game_result", params="next")
+	public String nextGame() {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
+		}
+		
+		return "score_setting";
+	}
+	
+	@RequestMapping(value="game_result", params="finish")
+	public String gameResult() {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
+		}
+		
+		return "game_result";
+	}
+	
+	@RequestMapping(value="box")
+	public String box() {
+		
+		return "game_result_all";
 	}
 }

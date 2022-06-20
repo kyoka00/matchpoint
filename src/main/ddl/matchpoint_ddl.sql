@@ -217,13 +217,13 @@ insert into match (comp_id, game_no, team_id_a, team_id_b) values
 insert into game_info (match_id, coat_no, judge_name, record_status, record_date, max_point, game_count) values
 (1,1,'佐藤裕子', 2,'2022/06/18 13:00:57',11,1),
 (1,1,'佐藤太郎', 1,'2022/06/18 13:20:57',11,3),
-(1,2,'鈴木', 0,'2022/06/18 13:00:57',21,3),
-(1,3,'佐藤裕子',0 ,'2022/06/18 13:11:57',21,3),
-(1,4,'新垣', 0,'2022/06/18 13:22:57',21,3);
+(2,2,'鈴木', 0,'2022/06/18 13:00:57',21,3),
+(3,3,'佐藤裕子',0 ,'2022/06/18 13:11:57',21,3),
+(4,4,'新垣', 0,'2022/06/18 13:22:57',21,3);
 
 insert into score (game_info_id, set_no, team_a_score, team_b_score) values
 (1,1,11,8),
-(2,1,12,21),
+(2,1,1,11),
 (2,2,21,15),
 (2,3,18,21),
 (3,1,21,18),
@@ -242,3 +242,17 @@ select * from team;
 select * from match;
 select * from game_info;
 select * from score;
+
+create view received_result as
+SELECT m.match_id, m.comp_id,  g.game_info_id,m.game_no, g.coat_no, g.judge_name,
+ g.record_status, g.record_date, g.max_point, g.game_count, t.tournament_no,
+ m.team_id_a, t.player_a_name as team_a_player_1, t.player_b_name as team_a_player_2, 
+ m.team_id_b, te.player_a_name as team_b_player_1,  te.player_b_name as team_b_player_2
+from match m
+join game_info g on g.match_id = m.match_id
+join team t on t.team_id = m.team_id_a
+join team te on te.team_id = m.team_id_b;
+
+select * from received_result where record_status = 2;
+
+

@@ -10,4 +10,11 @@ public class Utility{
 			return true;
 		}
 	}
+	public static boolean notIsEnptyNull(Integer i) {
+		if(i == null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
 }

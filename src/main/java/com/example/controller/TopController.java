@@ -13,8 +13,13 @@ import com.example.controller.form.CompForm;
 import com.example.controller.form.GamePlayerForm;
 import com.example.controller.form.LoginForm;
 import com.example.controller.form.PlayerForm;
+import com.example.dao.CompDao;
 import com.example.dao.ManegeDao;
+<<<<<<< HEAD
 import com.example.dao.ScoreDao;
+=======
+import com.example.entity.Comp;
+>>>>>>> 9d4d90f0f53cdf97b6a2fd0e80e9d32859a7580c
 import com.example.entity.Manege;
 import com.example.entity.Score;
 
@@ -27,7 +32,11 @@ public class TopController{
 	ManegeDao manegeDao;
 	
 	@Autowired
+<<<<<<< HEAD
 	ScoreDao scoreDao;
+=======
+	CompDao compDao;
+>>>>>>> 9d4d90f0f53cdf97b6a2fd0e80e9d32859a7580c
 	
 	//ログアウト
 	@RequestMapping(value="logout")
@@ -187,6 +196,9 @@ public class TopController{
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
+		
+		Comp comp = new Comp();
+		
 		//初期値を入力
 		form.setCompName("第1回");
 		form.setCompDate("6/6");
@@ -194,6 +206,11 @@ public class TopController{
 		form.setTournamentNum(2);
 		form.setGameTypeStr("シングルス");
 		form.setMemo("aaa");
+		
+		compDao.selectAll(comp);
+		compDao.insertComp(comp);
+		compDao.deleteComp(comp);
+		compDao.updateComp(comp);
 		return "comp_detail";
 	}
 	

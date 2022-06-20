@@ -17,10 +17,10 @@
 		</tr>
 		
 		<!-- データベースの値参照 -->
-		<tr>
-			<td>1</td>
-			<td>第1回大会</td>
-			<td>13月12日</td>
+		<tr th:each="comp : ${compList}">
+			<td>[[ ${comp.compId} ]]</td>
+			<td>[[ ${comp.compName} ]]</td>
+			<td>[[ ${comp.compDate} ]]</td>
 			<td><a href="">GO!</a></td>
 		</tr>
 	</table>

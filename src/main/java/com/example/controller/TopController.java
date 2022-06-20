@@ -14,7 +14,9 @@ import com.example.controller.form.GamePlayerForm;
 import com.example.controller.form.LoginForm;
 import com.example.controller.form.PlayerForm;
 import com.example.dao.ManegeDao;
+import com.example.dao.ScoreDao;
 import com.example.entity.Manege;
+import com.example.entity.Score;
 
 @Controller
 public class TopController{
@@ -23,6 +25,9 @@ public class TopController{
 	
 	@Autowired
 	ManegeDao manegeDao;
+	
+	@Autowired
+	ScoreDao scoreDao;
 	
 	//ログアウト
 	@RequestMapping(value="logout")
@@ -34,6 +39,7 @@ public class TopController{
 	//トップページ
 	@RequestMapping(value={"/","top"})
 	public String top() {
+		System.out.println("Manegeテーブル");
 		Manege manege = new Manege();
 		manege.setLoginId("aaa");
 		manege.setPassword("pass");
@@ -41,6 +47,14 @@ public class TopController{
 		manegeDao.insertManege(manege);
 		manegeDao.deleteManege(manege);
 		manegeDao.updateManege(manege);
+		System.out.println("Scoreテーブル");
+		Score score = new Score();
+		score.setScoreId(1);
+		score.setSetNo(2);
+		score.setGameInfoId(3);
+		score.setTeamAScore(4);
+		score.setTeamBScore(5);
+		scoreDao.selectAll(score);
 		return "top";
 	}
 	

@@ -3,6 +3,8 @@ package com.example.dao.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -30,60 +32,49 @@ public class PgManegeDao implements ManegeDao{
 	@Override
 	public List<Manege> selectAll(Manege manege) {
 		String sql = SELECT + PgManegeDao.selectSql(manege);
-		System.out.println(sql);
-//		MapSqlParameterSource param = new MapSqlParameterSource();
-//		if(Utility.notIsEnptyNull(manege.getLoginId())) {
-//			param.addValue("login_id", manege.getLoginId());
-//		}
-//		if(Utility.notIsEnptyNull(manege.getPassword())) {
-//			param.addValue("password", manege.getPassword());
-//		}
-//		List<Manege> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Manege>(Manege.class));
-//		return resultList.isEmpty() ? null : resultList;
-		return null;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		if(Utility.notIsEnptyNull(manege.getLoginId())) {
+			param.addValue("login_id", manege.getLoginId());
+		}
+		if(Utility.notIsEnptyNull(manege.getPassword())) {
+			param.addValue("password", manege.getPassword());
+		}
+		List<Manege> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Manege>(Manege.class));
+		return resultList.isEmpty() ? null : resultList;
 	}
 	
 	@Override
 	public void insertManege(Manege manege) {
 		String sql = INSERT + PgManegeDao.insertSql(manege);
-		System.out.println(sql);
-//		MapSqlParameterSource param = new MapSqlParameterSource();
-//		if(Utility.notIsEnptyNull(manege.getLoginId())) {
-//			param.addValue("loginId", manege.getLoginId());
-//		}
-//		if(Utility.notIsEnptyNull(manege.getPassword())) {
-//			param.addValue("password", manege.getPassword());
-//		}
-//		jdbcTemplate.update(sql, param);
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		if(Utility.notIsEnptyNull(manege.getLoginId())) {
+			param.addValue("login_id", manege.getLoginId());
+		}
+		if(Utility.notIsEnptyNull(manege.getPassword())) {
+			param.addValue("password", manege.getPassword());
+		}
+		jdbcTemplate.update(sql, param);
 	}
 	
 	@Override
 	public void deleteManege(Manege manege) {
-//		String sql = DELETE + PgManegeDao.deleteSql(manege);
 		String sql = DELETE;
-		System.out.println(sql);
-//		MapSqlParameterSource param = new MapSqlParameterSource();
-//		if(Utility.notIsEnptyNull(manege.getLoginId())) {
-//			param.addValue("loginId", manege.getLoginId());
-//		}
-//		if(Utility.notIsEnptyNull(manege.getPassword())) {
-//			param.addValue("password", manege.getPassword());
-//		}
-//		jdbcTemplate.update(sql, param);
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue(ID , manege.getLoginId());
+		jdbcTemplate.update(sql, param);
 	}
 	
 	@Override
 	public void updateManege(Manege manege) {
 		String sql = UPDATE + updateSql(manege);
-		System.out.println(sql);
-//		MapSqlParameterSource param = new MapSqlParameterSource();
-//		if(Utility.notIsEnptyNull(manege.getLoginId())) {
-//			param.addValue("loginId", manege.getLoginId());
-//		}
-//		if(Utility.notIsEnptyNull(manege.getPassword())) {
-//			param.addValue("password", manege.getPassword());
-//		}
-//		jdbcTemplate.update(sql, param);
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		if(Utility.notIsEnptyNull(manege.getLoginId())) {
+			param.addValue("login_id", manege.getLoginId());
+		}
+		if(Utility.notIsEnptyNull(manege.getPassword())) {
+			param.addValue("password", manege.getPassword());
+		}
+		jdbcTemplate.update(sql, param);
 	}
 
 	public static String selectSql(Manege manege) {

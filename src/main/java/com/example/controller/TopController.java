@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.controller.form.CompForm;
+import com.example.controller.form.GamePlayerForm;
 import com.example.controller.form.LoginForm;
 import com.example.controller.form.PlayerForm;
 import com.example.dao.ManegeDao;
@@ -35,7 +37,10 @@ public class TopController{
 		Manege manege = new Manege();
 		manege.setLoginId("aaa");
 		manege.setPassword("pass");
+		manegeDao.selectAll(manege);
+		manegeDao.insertManege(manege);
 		manegeDao.deleteManege(manege);
+		manegeDao.updateManege(manege);
 		return "top";
 	}
 	
@@ -44,6 +49,12 @@ public class TopController{
 	public String loginPage(@ModelAttribute("login") LoginForm form) {
 		form.setLoginId("admin");
 		return "login";
+	}
+	
+	//プレイヤーにログイン
+	@RequestMapping(value="comp_login")
+	public String playerLoginPage() {
+		return "comp_login";
 	}
 	
 	//運営ログイン画面から大会一覧へ
@@ -64,6 +75,8 @@ public class TopController{
 			return "comp_list";
 		}
 	}
+	
+	
 	
 	//大会一覧から大会作成画面へ
 	@RequestMapping(value="comp_info")
@@ -216,5 +229,46 @@ public class TopController{
 			return "top";
 		}
 		return "game_result_final";
+	}
+	
+	//トーナメント表編集
+	@RequestMapping(value="edit_tournament")
+	public String editTournament() {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
+		}
+		return "edit_tournament";
+	}
+	
+	//試合設定画面
+	@RequestMapping(value="match")
+	public String gameSetting() {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
+		}
+		return "game_setting";
+	}
+	
+	//サーブ権設定
+	@RequestMapping(value="server_setting", params="server_setting")
+	public String serverSetting(@RequestParam("game_num") String gameNum, @ModelAttribute("score_setting") GamePlayerForm form) {
+		return "server_setting";
+	}
+	
+	//スコア登録画面
+	@RequestMapping(value="score_setting")
+	public String scoreSetting(@ModelAttribute("score_setting") GamePlayerForm form) {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
+		}
+		return "score_setting";
+	}
+	
+	@RequestMapping(value="game_set_result")
+	public String gameSetResult(@ModelAttribute("score_setting") GamePlayerForm form) {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
+		}
+		return "game_set_result";
 	}
 }

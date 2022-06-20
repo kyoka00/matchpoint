@@ -8,4 +8,5 @@ public interface ManegeDao{
 	public List<Manege> selectAll(Manege manege);
 	public void insertManege(Manege manege);
 	public void deleteManege(Manege manege);
+	public void updateManege(Manege manege);
 }

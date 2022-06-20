@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ゲーム結果</title>
+</head>
+<body>
+	<form action="game_result" th:object="${score_setting}" method="POST">
+		<input type="text" th:field="*{playerA}">
+		<input type="text" th:field="*{playerB}">
+		<input type="text" th:field="*{playerC}">
+		<input type="text" th:field="*{playerD}">
+		<button type="submit" name="next">次のゲームへ</button>
+		<button type="submit" name="finish">試合終了</button>
+	</form>
+</body>
+</html>

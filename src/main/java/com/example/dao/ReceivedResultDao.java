@@ -9,5 +9,4 @@ public interface ReceivedResultDao {
 	public int insertMatch (ReceivedResult receivedResult);
 	public int insertGameInfo (ReceivedResult receivedResult);
 	public int update (ReceivedResult receivedResult);
-	public ReceivedResult findByGameInfoId(ReceivedResult receivedResult);
 }

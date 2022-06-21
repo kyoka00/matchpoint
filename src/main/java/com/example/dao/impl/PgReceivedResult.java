@@ -128,22 +128,7 @@ public class PgReceivedResult implements ReceivedResultDao {
 		
 		return jdbcTemplate.update(sql, param);
 	}
-
-	@Override
-	public ReceivedResult findByGameInfoId(ReceivedResult result) {
-		String sql = SELECT + selectSql(result, "");
-		MapSqlParameterSource param = new MapSqlParameterSource();
-		if (Utility.notIsEmptyNull(result.getGameInfoId())) {
-			param.addValue(ID, result.getGameInfoId());
-		}
-		if (Utility.notIsEmptyNull(result.getRecordStatus())) {
-			param.addValue(COLUMN_NAME_RECORDSTATUS, result.getRecordStatus());
-		}
 		
-
-		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
-		return resultList.isEmpty() ? null : resultList.get(0);
-	}
 
 	public static String selectSql(ReceivedResult result, String keyword) {
 		String where = "";

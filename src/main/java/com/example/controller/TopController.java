@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.Dao.CompDao;
 import com.example.Dao.ManegeDao;
@@ -40,6 +41,19 @@ public class TopController {
 	public String top() {
 		return "top";
 	}
+	
+	// プレイヤーにログイン
+	@RequestMapping(value = "comp_login")
+	public String playerLoginPage() {
+		return "comp_login";
+	}
+
+	//プレイヤーでログインをトーナメント
+	@RequestMapping(value = "tournament_player")
+	public String tournamentPlayer(@RequestParam("compLoginId") String compLoginID) {
+		session.setAttribute("loginId", compLoginID);
+		return "tournament";
+	}
 
 	// トップページから運営ログイン画面へ
 	@RequestMapping(value = "login")
@@ -51,9 +65,11 @@ public class TopController {
 	@RequestMapping(value = "comp_list")
 	public String login(@Validated @ModelAttribute("login") LoginForm form, BindingResult bindingResult, Model model) {
 		
+	
 		if(bindingResult.hasErrors()) {
 			return "/login";
 		}
+		
 		
 		var manege = manegeDao.login(form.getLoginId(), form.getPassword());
 		if (manege == null) {
@@ -124,6 +140,8 @@ public class TopController {
 			model.addAttribute("compList", compDao.find());
 			return "comp_list";
 		}
+		
+	
 		
 		private void FormToComp(CompForm form, Comp comp) {
 			comp.setCompLoginId(form.getCompLoginId());

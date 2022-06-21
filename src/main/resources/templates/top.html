@@ -2,10 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>ログイン</title>
+<title>トップ</title>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}" rel="stylesheet" >
 </head>
 <body>
-	<a href="/login">運営モード</a>
-	<a href="/player">プレイヤーモード</a>
+	
+	<div class="d-flex align-items-center justify-content-center"  style="height: 700px;">
+	<a href="/login" class="btn btn-danger">運営モード</a>
+	<a href="/comp_login" class="btn btn-success">プレイヤーモード</a>
+	</div>
+
+<script th:src="@{/webjars/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
 </body>
 </html>

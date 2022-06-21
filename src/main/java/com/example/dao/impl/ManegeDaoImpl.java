@@ -12,8 +12,11 @@ import com.example.Enitity.Manege;
 @Repository
 public class ManegeDaoImpl implements ManegeDao{
 	
+	
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
+	
+
 	
 	public Manege login(String loginId, String password) {
 		String sql = """
@@ -28,5 +31,4 @@ public class ManegeDaoImpl implements ManegeDao{
         var list = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Manege>(Manege.class));
         return list.isEmpty() ? null : list.get(0);
 	}
-
 }

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ログイン</title>
+</head>
+<body>
+	<form action=tournament_player method="POST">
+		<button type="button" onclick="location.href='/'" name="create">戻る</button>
+		<div>
+			<label>大会ログインID:</label>
+			<input type="text" th:name="compLoginId">
+		</div>
+		<input type="submit" value="ログイン">
+	</form>
+</body>
+</html>

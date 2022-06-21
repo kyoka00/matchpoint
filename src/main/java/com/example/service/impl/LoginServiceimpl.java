@@ -18,5 +18,5 @@ public class LoginServiceimpl implements LoginService{
 		 return manegeDao.login(loginId,password);
 	 
 		}
-
+	 
 }

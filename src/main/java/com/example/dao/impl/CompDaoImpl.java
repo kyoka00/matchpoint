@@ -1,6 +1,5 @@
-package com.example.Dao.impl;
+package com.example.dao.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,81 +8,249 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.example.Dao.CompDao;
-import com.example.Enitity.Comp;
-import com.example.Enitity.Manege;
+import com.example.dao.CompDao;
+import com.example.entity.Comp;
+import com.example.util.Utility;
 
 @Repository
-public class CompDaoImpl implements CompDao{
-	
-	private String tableName = "manege";
-	
-	private final String SELECT ="SELECT * FROM " + tableName;
-	
+public class PgCompDao implements CompDao {
+	private String tableName = "comp";
+
+	private final static String ID = "comp_id";
+
+	private static final String COLUMN_NAME_COMP_ID = "comp_id";
+	private static final String COLUMN_NAME_COMP_IOGIN_ID = "comp_login_id";
+	private static final String COLUMN_NAME_COMP_NAME = "comp_name";
+	private static final String COLUMN_NAME_COMP_DATE = "comp_date";
+	private static final String COLUMN_NAME_COMP_PLACE = "comp_place";
+	private static final String COLUMN_NAME_GAME_TYPE = "game_type";
+	private static final String COLUMN_NAME_TORNAMET_COUNT = "tournament_count";
+	private static final String COLUMN_NAME_MEMO = "mamo";
+
+	private final String SELECT = "SELECT * FROM " + tableName;
+	private final String INSERT = "INSERT INTO " + tableName;
+	private final String DELETE = "DELETE FROM " + tableName + " WHERE " + ID + " = :" + ID;
+	private final String UPDATE = "UPDATE " + tableName + " set ";
+
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
-	
-	public List<Comp> find() {
-		
-		String sql = SELECT + PgManegeDao.selectSql(manege);
+
+	@Override
+	public List<Comp> selectAll(Comp comp) {
+		String sql = SELECT + PgCompDao.selectSql(comp);
 		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
-		if(Utility.notIsEnptyNull(manege.getLoginId())) {
-			param.addValue("loginId", manege.getLoginId());
+		if (Utility.notIsEmptyNull(comp.getCompId())) {
+			param.addValue("comp_id", comp.getCompId());
 		}
-		if(Utility.notIsEnptyNull(manege.getPassword())) {
-			param.addValue("password", manege.getPassword());
+		if (Utility.notIsEmptyNull(comp.getCompLoginId())) {
+			param.addValue("comp_login_id", comp.getCompLoginId());
 		}
-		List<Manege> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Manege>(Manege.class));
+		if (Utility.notIsEmptyNull(comp.getCompName())) {
+			param.addValue("comp_name", comp.getCompName());
+		}
+		if (Utility.notIsEmptyNull(comp.getCompDate())) {
+			param.addValue("comp_date", comp.getCompDate());
+		}
+		if (Utility.notIsEmptyNull(comp.getCompPlace())) {
+			param.addValue("comp_place", comp.getCompPlace());
+		}
+		if (Utility.notIsEmptyNull(comp.getGameType())) {
+			param.addValue("game_type", comp.getGameType());
+		}
+		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
+			param.addValue("tournament_count", comp.getTournamentCount());
+		}
+		if (Utility.notIsEmptyNull(comp.getMemo())) {
+			param.addValue("mamo", comp.getMemo());
+		}
+		List<Comp> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Comp>(Comp.class));
 		return resultList.isEmpty() ? null : resultList;
-		
-//		String sql = """
-//				select comp_id
-//				, comp_name
-//				, comp_date 
-//				from comp order by comp_id
-//				""";
-//		
-//		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Comp>(Comp.class));
-	}
-	
-	public Comp compLoginId(String CompLoginId, int id) {
-		String sql = "select * from comp where comp_login_id = :comp_login_id";
-		if (id > 0) {
-			sql += "and id <> :id";
-		}
-		MapSqlParameterSource param = new MapSqlParameterSource();
-		param.addValue("comp_login_id", CompLoginId);
-		param.addValue("id", id);
-		var list = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Comp>(Comp.class));
-        return list.isEmpty() ? null : list.get(0);
-	}
-	
-	public int insert(Comp c) {
-		String sql = """
-				
-				insert into comp (comp_login_id,comp_name,comp_date,comp_place,game_type,tournament_count,memo)
-				values (:comp_login_id,:comp_name,:comp_date,:comp_place,:game_type,:tournament_count,:memo);
-				
-				""";
-		MapSqlParameterSource param = new MapSqlParameterSource();
-		
-		// 変換対象の日付文字列
-		String dateStr = c.getCompDate();
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		
-		
-		
-        param.addValue("comp_login_id", c.getCompLoginId());
-        param.addValue("comp_name", c.getCompName());
-        param.addValue("comp_date", c.getCompDate());
-        param.addValue("comp_place", c.getCompPlace());
-        param.addValue("game_type", c.getGameType());
-        param.addValue("tournament_count", c.getTournamentNum());
-        param.addValue("memo", c.getMemo());
-        
-        return jdbcTemplate.update(sql, param);
 	}
 
-}
+	@Override
+	public void insertComp(Comp comp) {
+		String sql = INSERT + PgCompDao.insertSql(comp);
+		System.out.println(sql);
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		if (Utility.notIsEmptyNull(comp.getCompLoginId())) {
+			param.addValue("comp_login_id", comp.getCompLoginId());
+		}
+		if (Utility.notIsEmptyNull(comp.getCompName())) {
+			param.addValue("comp_name", comp.getCompName());
+		}
+		if (Utility.notIsEmptyNull(comp.getCompDate())) {
+			param.addValue("comp_date", comp.getCompDate());
+		}
+		if (Utility.notIsEmptyNull(comp.getCompPlace())) {
+			param.addValue("comp_place", comp.getCompPlace());
+		}
+		if (Utility.notIsEmptyNull(comp.getGameType())) {
+			param.addValue("game_type", comp.getGameType());
+		}
+		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
+			param.addValue("tournament_count", comp.getTournamentCount());
+		}
+		if (Utility.notIsEmptyNull(comp.getMemo())) {
+			param.addValue("mamo", comp.getMemo());
+		}
+		jdbcTemplate.update(sql, param);
+	}
+
+	@Override
+	public void deleteComp(Comp comp) {
+		String sql = DELETE;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue(ID, comp.getCompId());
+		jdbcTemplate.update(sql, param);
+	}
+
+	@Override
+	public void updateComp(Comp comp) {
+		String sql = UPDATE + updateSql(comp);
+		System.out.println(sql);
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue(ID , comp.getCompId());
+		if (Utility.notIsEmptyNull(comp.getCompLoginId())) {
+			param.addValue("comp_login_id", comp.getCompLoginId());
+		}
+		if (Utility.notIsEmptyNull(comp.getCompName())) {
+			param.addValue("comp_name", comp.getCompName());
+		}
+		if (Utility.notIsEmptyNull(comp.getCompDate())) {
+			param.addValue("comp_date", comp.getCompDate());
+		}
+		if (Utility.notIsEmptyNull(comp.getCompPlace())) {
+			param.addValue("comp_place", comp.getCompPlace());
+		}
+		if (Utility.notIsEmptyNull(comp.getGameType())) {
+			param.addValue("game_type", comp.getGameType());
+		}
+		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
+			param.addValue("tournament_count", comp.getTournamentCount());
+		}
+		if (Utility.notIsEmptyNull(comp.getMemo())) {
+			param.addValue("mamo", comp.getMemo());
+		}
+		jdbcTemplate.update(sql, param);
+	}
+
+	public static String selectSql(Comp comp) {
+		String where = "";
+		String columnName = "";
+		if (Utility.notIsEmptyNull(comp.getCompId())) {
+			columnName = COLUMN_NAME_COMP_ID + " = :" + COLUMN_NAME_COMP_ID;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getCompLoginId())) {
+			columnName = COLUMN_NAME_COMP_IOGIN_ID + " = :" + COLUMN_NAME_COMP_IOGIN_ID;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getCompName())) {
+			columnName = COLUMN_NAME_COMP_NAME + " = :" + COLUMN_NAME_COMP_NAME;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getCompPlace())) {
+			columnName = COLUMN_NAME_COMP_PLACE + " = :" + COLUMN_NAME_COMP_PLACE;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getCompDate())) {
+			columnName = COLUMN_NAME_COMP_DATE + " = :" + COLUMN_NAME_COMP_DATE;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getGameType())) {
+			columnName = COLUMN_NAME_GAME_TYPE + " = :" + COLUMN_NAME_GAME_TYPE;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
+			columnName = COLUMN_NAME_TORNAMET_COUNT + " = :" + COLUMN_NAME_TORNAMET_COUNT;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getMemo())) {
+			columnName = COLUMN_NAME_MEMO + " = :" + COLUMN_NAME_MEMO;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		return !where.isEmpty() ? " WHERE " + where : "";
+	}
+
+	public static String insertSql(Comp comp) {
+		String column = "";
+		String values = "";
+		String columnName = "";
+		if (Utility.notIsEmptyNull(comp.getCompLoginId())) {
+			columnName = COLUMN_NAME_COMP_IOGIN_ID;
+			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
+			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getCompName())) {
+			columnName = COLUMN_NAME_COMP_NAME;
+			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
+			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getCompDate())) {
+			columnName = COLUMN_NAME_COMP_DATE;
+			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
+			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getCompPlace())) {
+			columnName = COLUMN_NAME_COMP_PLACE;
+			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
+			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getGameType())) {
+			columnName = COLUMN_NAME_GAME_TYPE;
+			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
+			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
+			columnName = COLUMN_NAME_TORNAMET_COUNT;
+			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
+			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getMemo())) {
+			columnName = COLUMN_NAME_MEMO;
+			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
+			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
+		}
+		column = !column.isEmpty() ? column + ")" : column;
+		values = !values.isEmpty() ? values + ")" : column;
+		return column + values;
+	}
+
+	public static String updateSql(Comp comp) {
+		String set = "";
+		String columnName = "";
+		if (Utility.notIsEmptyNull(comp.getCompId())) {
+			columnName = COLUMN_NAME_COMP_ID + " = :" + COLUMN_NAME_COMP_ID;
+			set = !set.isEmpty() ? set + " , " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getCompLoginId())) {
+			columnName = COLUMN_NAME_COMP_IOGIN_ID + " = :" + COLUMN_NAME_COMP_IOGIN_ID;
+			set = !set.isEmpty() ? set + " , " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getCompName())) {
+			columnName = COLUMN_NAME_COMP_NAME + " = :" + COLUMN_NAME_COMP_NAME;
+			set = !set.isEmpty() ? set + " , " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getCompPlace())) {
+			columnName = COLUMN_NAME_COMP_PLACE + " = :" + COLUMN_NAME_COMP_PLACE;
+			set = !set.isEmpty() ? set + " , " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getCompDate())) {
+			columnName = COLUMN_NAME_COMP_DATE + " = :" + COLUMN_NAME_COMP_DATE;
+			set = !set.isEmpty() ? set + " , " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getGameType())) {
+			columnName = COLUMN_NAME_GAME_TYPE + " = :" + COLUMN_NAME_GAME_TYPE;
+			set = !set.isEmpty() ? set + " , " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
+			columnName = COLUMN_NAME_TORNAMET_COUNT + " = :" + COLUMN_NAME_TORNAMET_COUNT;
+			set = !set.isEmpty() ? set + " , " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getMemo())) {
+			columnName = COLUMN_NAME_MEMO + " = :" + COLUMN_NAME_MEMO;
+			set = !set.isEmpty() ? set + " , " + columnName : columnName;
+		}
+		return !set.isEmpty() ? set + " WHERE " + ID + " = :" + ID : "";
+	

@@ -18,10 +18,10 @@
 		
 		<!-- データベースの値参照 -->
 
-		<tr>
-			<td>1</td>
-			<td>第1回大会</td>
-			<td>13月12日</td>
+		<tr th:each="complist : ${resultList}">
+			<td>[[ ${complist.compId} ]]</td>
+			<td>[[ ${complist.compName} ]]</td>
+			<td>[[ ${complist.compDate} ]]</td>
 			<td><button type="button" onclick="location.href='tournament'">GO!</button></td>
 		</tr>
 	</table>

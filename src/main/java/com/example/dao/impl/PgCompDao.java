@@ -25,7 +25,7 @@ public class PgCompDao implements CompDao {
 	private static final String COLUMN_NAME_COMP_PLACE = "comp_place";
 	private static final String COLUMN_NAME_GAME_TYPE = "game_type";
 	private static final String COLUMN_NAME_TORNAMET_COUNT = "tournament_count";
-	private static final String COLUMN_NAME_MEMO = "mamo";
+	private static final String COLUMN_NAME_MEMO = "memo";
 
 	private final String SELECT = "SELECT * FROM " + tableName;
 	private final String INSERT = "INSERT INTO " + tableName;
@@ -62,7 +62,7 @@ public class PgCompDao implements CompDao {
 			param.addValue("tournament_count", comp.getTournamentCount());
 		}
 		if (Utility.notIsEmptyNull(comp.getMemo())) {
-			param.addValue("mamo", comp.getMemo());
+			param.addValue("memo", comp.getMemo());
 		}
 		List<Comp> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Comp>(Comp.class));
 		return resultList.isEmpty() ? null : resultList;
@@ -92,7 +92,7 @@ public class PgCompDao implements CompDao {
 			param.addValue("tournament_count", comp.getTournamentCount());
 		}
 		if (Utility.notIsEmptyNull(comp.getMemo())) {
-			param.addValue("mamo", comp.getMemo());
+			param.addValue("memo", comp.getMemo());
 		}
 		jdbcTemplate.update(sql, param);
 	}
@@ -130,7 +130,7 @@ public class PgCompDao implements CompDao {
 			param.addValue("tournament_count", comp.getTournamentCount());
 		}
 		if (Utility.notIsEmptyNull(comp.getMemo())) {
-			param.addValue("mamo", comp.getMemo());
+			param.addValue("memo", comp.getMemo());
 		}
 		jdbcTemplate.update(sql, param);
 	}

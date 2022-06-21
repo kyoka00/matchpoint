@@ -6,15 +6,17 @@
 </head>
 <body>
 
+	<p class="error" th:text="${errorMsg}"></p>
+
 	<form action="comp_list" th:object="${login}" method="POST">
 		<button type="button" onclick="location.href='/'" name="create">戻る</button>
 		<div>
-			<label>ログインID:</label>
-			<input type="text" th:field="*{loginId}">
+			<label>ログインID:</label> <input type="text" th:field="*{loginId}">
+			<div th:each="error: ${#fields.errors('loginId')}">[[ ${error} ]]</div>
 		</div>
 		<div>
-			<label>パスワード:</label>
-			<input type="password" th:field="*{password}">
+			<label>パスワード:</label> <input type="password" th:field="*{password}">
+			<div th:each="error: ${#fields.errors('password')}">[[ ${error} ]]</div>
 		</div>
 		<input type="submit" value="ログイン">
 	</form>

@@ -1,15 +1,14 @@
-package com.example.Dao;
+
+package com.example.dao;
 
 import java.util.List;
 
-import com.example.Enitity.Comp;
+import com.example.entity.Comp;
 
-public interface CompDao {
-	
-	public List<Comp> find();
-	
-	public Comp compLoginId(String CompLoginId, int id);
-	
-	public int insert(Comp c);
-
+public interface CompDao{
+	public List<Comp> selectAll(Comp comp);
+	public void insertComp(Comp comp);
+	public void deleteComp(Comp comp);
+	public void updateComp(Comp comp);
 }
+

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>ログイン</title>
+<title>大会一覧</title>
 </head>
 <body>
 	<div th:insert="header"></div>
@@ -17,11 +17,12 @@
 		</tr>
 		
 		<!-- データベースの値参照 -->
-		<tr th:each="comp : ${compList}">
-			<td>[[ ${comp.compId} ]]</td>
-			<td>[[ ${comp.compName} ]]</td>
-			<td>[[ ${comp.compDate} ]]</td>
-			<td><a href="">GO!</a></td>
+
+		<tr>
+			<td>1</td>
+			<td>第1回大会</td>
+			<td>13月12日</td>
+			<td><button type="button" onclick="location.href='tournament'">GO!</button></td>
 		</tr>
 	</table>
 </body>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>大会詳細</title>
+</head>
+<body>
+	<div th:insert="header"></div>
+	<form action="comp_detail_edit" th:object="${comp_detail}" method="POST">
+		<button type="button" onclick="location.href='tournament'">戻る</button>
+		<div>
+			<label>大会名:</label> <input type="text" th:field="*{compName}" readonly>
+		</div>
+
+		<div>
+			<label>開催日:</label> <input type="text" th:field="*{compDate}" readonly>
+		</div>
+
+		<div>
+			<label>場所:</label> <input type="text" th:field="*{compPlace}" readonly>
+		</div>
+
+		<div>
+			<label>大会ログインID:</label> <input type="text" th:field="*{compLoginId}" readonly>
+		</div>
+
+		<div>
+			<label>トーナメント数:</label> <input type="number" th:field="*{tournamentNum}" readonly>
+		</div>
+
+		<div>
+			<label>試合形式:</label> <input type="text" th:field="*{gameTypeStr}" readonly>
+		</div>
+
+		<div>
+			<label>大会概要:</label> <input type="text" th:field="*{memo}" readonly>
+		</div>
+		<button type="button" onclick="location.href='comp_delete'">削除</button>
+		<button type="submit">編集</button>
+	</form>
+</body>
+</html>

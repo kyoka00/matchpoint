@@ -185,6 +185,7 @@ public class TopController{
 		form.setCompName("第1回");
 		form.setCompDate("6/6");
 		form.setCompPlace("okinawa");
+		form.setCompLoginId("1234");
 		form.setTournamentNum(2);
 		form.setGameTypeStr("シングルス");
 		form.setMemo("aaa");

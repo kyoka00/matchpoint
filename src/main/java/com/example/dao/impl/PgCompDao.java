@@ -3,6 +3,8 @@ package com.example.dao.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -22,8 +24,9 @@ public class PgCompDao implements CompDao{
 	private static final String COLUMN_NAME_COMP_DATE = "comp_date";
 	private static final String COLUMN_NAME_COMP_PLACE = "comp_place";
 	private static final String COLUMN_NAME_GAME_TYPE = "game_type";
+	private static final String COLUMN_NAME_GAME_TYPE_STR = "gameTypeStr";
 	private static final String COLUMN_NAME_TORNAMET_COUNT = "tornament_count";
-	private static final String COLUMN_NAME_MEMO = "mamo";
+	private static final String COLUMN_NAME_MEMO = "memo";
 	
 	private final String SELECT = "SELECT * FROM " + tableName;
 	private final String INSERT = "INSERT INTO " + tableName;
@@ -38,29 +41,60 @@ public class PgCompDao implements CompDao{
 		String sql = SELECT + PgCompDao.selectSql(comp);
 		System.out.println(sql);
 //		MapSqlParameterSource param = new MapSqlParameterSource();
-//		if(Utility.notIsEnptyNull(manege.getLoginId())) {
-//			param.addValue("login_id", manege.getLoginId());
-//		}
-//		if(Utility.notIsEnptyNull(manege.getPassword())) {
-//			param.addValue("password", manege.getPassword());
-//		}
-//		List<Manege> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Manege>(Manege.class));
-//		return resultList.isEmpty() ? null : resultList;
-		return null;
+//		
+//		 if(Utility.notIsEnptyNull(comp.getCompId())) {
+//			 param.addValue("compId",comp.getCompId()); 
+//		 } 
+//		 if(Utility.notIsEnptyNull(comp.getCompLoginId())) {
+//			 param.addValue("compLoginId", comp.getCompLoginId());
+//		 }
+//		 if(Utility.notIsEnptyNull(comp.getCompName())) {
+//			 param.addValue("compName",comp.getCompName());
+//		 }
+//		 if(Utility.notIsEnptyNull(comp.getCompDate())) {
+//			 param.addValue("compDate", comp.getCompDate()); 
+//		 }
+//		 if(Utility.notIsEnptyNull(comp.getCompPlace())) {
+//			 param.addValue("compPlace", comp.getCompPlace()); 
+//		 }
+//		 if(Utility.notIsEnptyNull(comp.getGameType())) {
+//			 param.addValue("GameType", comp.getGameType());
+//		 }
+//		 if(Utility.notIsEnptyNull(comp.getTournamentNum())) {
+//			 param.addValue("tournamentNum", comp.getTournamentNum()); 
+//		 }
+//		 if(Utility.notIsEnptyNull(comp.getMemo())) {
+//			 param.addValue("memo", comp.getMemo()); 
+//		 }
+//		 List<Comp>resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Comp>(Comp.class)); 
+//		 return resultList.isEmpty() ? null : resultList;
+		 return null;
 	}
 	
 	@Override
 	public void insertComp(Comp comp) {
 		String sql = INSERT + PgCompDao.insertSql(comp);
 		System.out.println(sql);
-//		MapSqlParameterSource param = new MapSqlParameterSource();
-//		if(Utility.notIsEnptyNull(manege.getLoginId())) {
-//			param.addValue("loginId", manege.getLoginId());
-//		}
-//		if(Utility.notIsEnptyNull(manege.getPassword())) {
-//			param.addValue("password", manege.getPassword());
-//		}
-//		jdbcTemplate.update(sql, param);
+		
+		/*
+		 * MapSqlParameterSource param = new MapSqlParameterSource();
+		 * if(Utility.notIsEnptyNull(comp.getCompId())) { param.addValue("compId",
+		 * comp.getCompId()); } if(Utility.notIsEnptyNull(comp.getCompLoginId())) {
+		 * param.addValue("compLoginId", comp.getCompLoginId());
+		 * jdbcTemplate.update(sql, param); }
+		 * if(Utility.notIsEnptyNull(comp.getCompName())) { param.addValue("compName",
+		 * comp.getCompName()); jdbcTemplate.update(sql, param); }
+		 * if(Utility.notIsEnptyNull(comp.getCompDate())) { param.addValue("compDate",
+		 * comp.getCompDate()); jdbcTemplate.update(sql, param); }
+		 * if(Utility.notIsEnptyNull(comp.getCompPlace())) { param.addValue("compPlace",
+		 * comp.getCompPlace()); jdbcTemplate.update(sql, param); }
+		 * if(Utility.notIsEnptyNull(comp.getGameType())) {
+		 * param.addValue("compGameType", comp.getGameType()); jdbcTemplate.update(sql,
+		 * param); } if(Utility.notIsEnptyNull(comp.getTournamentNum())) {
+		 * param.addValue("compTournamentNum", comp.getTournamentNum());
+		 * jdbcTemplate.update(sql, param); } if(Utility.notIsEnptyNull(comp.getMemo()))
+		 * { param.addValue("memo", comp.getMemo()); jdbcTemplate.update(sql, param); }
+		 */
 	}
 	
 	@Override
@@ -200,6 +234,10 @@ public class PgCompDao implements CompDao{
 		}
 		if(comp.getGameType() == null) {
 			columnName = COLUMN_NAME_GAME_TYPE + " = :" + COLUMN_NAME_GAME_TYPE;
+			set = !set.isEmpty() ? set + " AND " + columnName : columnName;
+		}
+		if(Utility.notIsEnptyNull(comp.getGameTypeStr())) {
+			columnName = COLUMN_NAME_GAME_TYPE_STR + " = " + COLUMN_NAME_GAME_TYPE_STR;
 			set = !set.isEmpty() ? set + " AND " + columnName : columnName;
 		}
 		if(comp.getTournamentNum() == null) {

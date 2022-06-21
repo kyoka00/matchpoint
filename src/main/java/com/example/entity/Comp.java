@@ -1,16 +1,17 @@
 package com.example.entity;
 
+import java.util.Date;
+
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 public class Comp{
 	private Integer compId;
 	private String compName;
-	private String compDate;
+	private Date compDate;
 	private String compPlace;
 	private String compLoginId;
-	private Integer tournamentNum;
+	private Integer tournamentCount;
 	private Integer gameType;
 	private String gameTypeStr;
 	private String memo;

@@ -13,10 +13,10 @@ import com.example.controller.form.CompForm;
 import com.example.controller.form.GamePlayerForm;
 import com.example.controller.form.LoginForm;
 import com.example.controller.form.PlayerForm;
+import com.example.dao.CompDao;
 import com.example.dao.ManageDao;
 import com.example.dao.ScoreDao;
-import com.example.entity.Manage;
-import com.example.entity.Score;
+import com.example.dao.TeamDao;
 
 @Controller
 public class TopController{
@@ -29,6 +29,12 @@ public class TopController{
 	@Autowired
 	ScoreDao scoreDao;
 	
+	@Autowired
+	CompDao compDao;
+	
+	@Autowired
+	TeamDao teamDao;
+	
 	//ログアウト
 	@RequestMapping(value="logout")
 	public String logout() {
@@ -39,25 +45,15 @@ public class TopController{
 	//トップページ
 	@RequestMapping(value={"/","top"})
 	public String top() {
-		System.out.println("Manageテーブル");
-		Manage manage = new Manage();
-		manage.setLoginId("aaa");
-		manage.setPassword("pass");
-		manageDao.selectAll(manage);
-		manageDao.insertManage(manage);
-		manageDao.deleteManage(manage);
-		manageDao.updateManage(manage);
-		System.out.println("Scoreテーブル");
-		Score score = new Score();
-		score.setScoreId(1);
-		score.setSetNo(2);
-		score.setGameInfoId(3);
-		score.setTeamAScore(4);
-		score.setTeamBScore(5);
-		scoreDao.selectAll(score);
-		scoreDao.insertScore(score);
-		scoreDao.deleteScore(score);
-		scoreDao.updateScore(score);
+		System.out.println("てすと");
+		
+//		if(list != null) {
+//			for(Comp m : list) {
+//				System.out.println();
+//			}
+//		}else {
+//			System.out.println("不一致");
+//		}
 		return "top";
 	}
 	

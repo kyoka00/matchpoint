@@ -37,16 +37,16 @@ public class PgScoreDao implements ScoreDao {
 		String sql = SELECT + PgScoreDao.selectSql(score);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if(Utility.notIsEmptyNull(score.getScoreId())) {
-			param.addValue("score_id", score.getScoreId());
+			param.addValue(COLUMN_NAME_SCORE_ID, score.getScoreId());
 		}
 		if(Utility.notIsEmptyNull(score.getGameInfoId())) {
-			param.addValue("game_info_id", score.getGameInfoId());
+			param.addValue(COLUMN_NAME_GAME_INFO_ID, score.getGameInfoId());
 		}
 		if(Utility.notIsEmptyNull(score.getSetNo())) {
-			param.addValue("set_no", score.getSetNo());
+			param.addValue(COLUMN_NAME_SET_NO, score.getSetNo());
 		}
 		if(Utility.notIsEmptyNull(score.getTeamAScore())) {
-			param.addValue("team_a_score", score.getTeamAScore());
+			param.addValue(COLUMN_NAME_TEAM_A_SCORE, score.getTeamAScore());
 		}
 		if(Utility.notIsEmptyNull(score.getTeamBScore())) {
 			param.addValue("team_b_score", score.getTeamBScore());
@@ -60,16 +60,16 @@ public class PgScoreDao implements ScoreDao {
 		String sql = INSERT + PgScoreDao.insertSql(score);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if(Utility.notIsEmptyNull(score.getGameInfoId())) {
-			param.addValue("game_info_id", score.getGameInfoId());
+			param.addValue(COLUMN_NAME_GAME_INFO_ID, score.getGameInfoId());
 		}
 		if(Utility.notIsEmptyNull(score.getSetNo())) {
-			param.addValue("set_no", score.getSetNo());
+			param.addValue(COLUMN_NAME_SET_NO, score.getSetNo());
 		}
 		if(Utility.notIsEmptyNull(score.getTeamAScore())) {
-			param.addValue("team_a_score", score.getTeamAScore());
+			param.addValue(COLUMN_NAME_TEAM_A_SCORE, score.getTeamAScore());
 		}
 		if(Utility.notIsEmptyNull(score.getTeamBScore())) {
-			param.addValue("team_b_score", score.getTeamBScore());
+			param.addValue(COLUMN_NAME_TEAM_B_SCORE, score.getTeamBScore());
 		}
 		jdbcTemplate.update(sql, param);
 	}
@@ -86,18 +86,18 @@ public class PgScoreDao implements ScoreDao {
 	public void updateScore(Score score) {
 		String sql = UPDATE + updateSql(score);
 		MapSqlParameterSource param = new MapSqlParameterSource();
-		param.addValue("score_id", score.getScoreId());
+		param.addValue(COLUMN_NAME_SCORE_ID, score.getScoreId());
 		if(Utility.notIsEmptyNull(score.getGameInfoId())) {
-			param.addValue("game_info_id", score.getGameInfoId());
+			param.addValue(COLUMN_NAME_GAME_INFO_ID, score.getGameInfoId());
 		}
 		if(Utility.notIsEmptyNull(score.getSetNo())) {
-			param.addValue("set_no", score.getSetNo());
+			param.addValue(COLUMN_NAME_SET_NO, score.getSetNo());
 		}
 		if(Utility.notIsEmptyNull(score.getTeamAScore())) {
-			param.addValue("team_a_score", score.getTeamAScore());
+			param.addValue(COLUMN_NAME_TEAM_A_SCORE, score.getTeamAScore());
 		}
 		if(Utility.notIsEmptyNull(score.getTeamBScore())) {
-			param.addValue("team_b_score", score.getTeamBScore());
+			param.addValue(COLUMN_NAME_TEAM_B_SCORE, score.getTeamBScore());
 		}
 		jdbcTemplate.update(sql, param);
 	}

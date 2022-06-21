@@ -14,9 +14,9 @@ import com.example.controller.form.GamePlayerForm;
 import com.example.controller.form.LoginForm;
 import com.example.controller.form.PlayerForm;
 import com.example.dao.CompDao;
-import com.example.dao.ManegeDao;
-import com.example.entity.Comp;
-import com.example.entity.Manege;
+import com.example.dao.ManageDao;
+import com.example.dao.ScoreDao;
+import com.example.dao.TeamDao;
 
 @Controller
 public class TopController{
@@ -24,10 +24,16 @@ public class TopController{
 	HttpSession session;
 	
 	@Autowired
-	ManegeDao manegeDao;
+	ManageDao manageDao;
+	
+	@Autowired
+	ScoreDao scoreDao;
 	
 	@Autowired
 	CompDao compDao;
+	
+	@Autowired
+	TeamDao teamDao;
 	
 	//ログアウト
 	@RequestMapping(value="logout")
@@ -39,13 +45,15 @@ public class TopController{
 	//トップページ
 	@RequestMapping(value={"/","top"})
 	public String top() {
-		Manege manege = new Manege();
-		manege.setLoginId("aaa");
-		manege.setPassword("pass");
-		manegeDao.selectAll(manege);
-		manegeDao.insertManege(manege);
-		manegeDao.deleteManege(manege);
-		manegeDao.updateManege(manege);
+		System.out.println("てすと");
+		
+//		if(list != null) {
+//			for(Comp m : list) {
+//				System.out.println();
+//			}
+//		}else {
+//			System.out.println("不一致");
+//		}
 		return "top";
 	}
 	
@@ -178,9 +186,6 @@ public class TopController{
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
-		
-		Comp comp = new Comp();
-		
 		//初期値を入力
 		form.setCompName("第1回");
 		form.setCompDate("6/6");
@@ -189,11 +194,6 @@ public class TopController{
 		form.setTournamentNum(2);
 		form.setGameTypeStr("シングルス");
 		form.setMemo("aaa");
-		
-		compDao.selectAll(comp);
-		compDao.insertComp(comp);
-		compDao.deleteComp(comp);
-		compDao.updateComp(comp);
 		return "comp_detail";
 	}
 	

@@ -3,6 +3,8 @@ package com.example.dao.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -34,52 +36,78 @@ public class PgTeamDao implements TeamDao{
 	public List<Team> selectAll(Team team) {
 		String sql = SELECT + PgTeamDao.selectSql(team);
 		System.out.println(sql);
-//		MapSqlParameterSource param = new MapSqlParameterSource();
-//		if(Utility.notIsEmptyNull(team.getTeamId())) {
-//			param.addValue("score_id", team.getTeamId());
-//		}
-//		if(Utility.notIsEmptyNull(team.getCompId())) {
-//			param.addValue("game_info_id", team.getCompId());
-//		}
-//		if(Utility.notIsEmptyNull(team.getPlayerAName())) {
-//			param.addValue("set_no", team.getPlayerAName());
-//		}
-//		if(Utility.notIsEmptyNull(team.getPlayerBName())) {
-//			param.addValue("team_a_score", team.getPlayerBName());
-//		}
-//		if(Utility.notIsEmptyNull(team.getTournamentNo())) {
-//			param.addValue("team_b_score", team.getTournamentNo());
-//		}
-//		List<Team> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Team>(Team.class));
-//		return resultList.isEmpty() ? null : resultList;
-		return null;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		if(Utility.notIsEmptyNull(team.getTeamId())) {
+			param.addValue(COLUMN_NAME_TEAM_ID, team.getTeamId());
+		}
+		if(Utility.notIsEmptyNull(team.getCompId())) {
+			param.addValue(COLUMN_NAME_COMP_ID, team.getCompId());
+		}
+		if(Utility.notIsEmptyNull(team.getPlayerAName())) {
+			param.addValue(COLUMN_NAME_PLAYER_A_NAME, team.getPlayerAName());
+		}
+		if(Utility.notIsEmptyNull(team.getPlayerBName())) {
+			param.addValue(COLUMN_NAME_PLAYER_B_NAME, team.getPlayerBName());
+		}
+		if(Utility.notIsEmptyNull(team.getTournamentNo())) {
+			param.addValue(COLUMN_NAME_TOURNAMENT_NO, team.getTournamentNo());
+		}
+		List<Team> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Team>(Team.class));
+		return resultList.isEmpty() ? null : resultList;
 	}
 
 	@Override
-	public void insertScore(Team team) {
-		// TODO 自動生成されたメソッド・スタブ
-		
+	public void insertTeam(Team team) {
+		String sql = INSERT + PgTeamDao.insertSql(team);
+		System.out.println(sql);
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		if (Utility.notIsEmptyNull(team.getCompId())) {
+			param.addValue(COLUMN_NAME_COMP_ID, team.getCompId());
+		}
+		if (Utility.notIsEmptyNull(team.getPlayerAName())) {
+			param.addValue(COLUMN_NAME_PLAYER_A_NAME, team.getPlayerAName());
+		}
+		if (Utility.notIsEmptyNull(team.getPlayerBName())) {
+			param.addValue(COLUMN_NAME_PLAYER_B_NAME, team.getPlayerBName());
+		}
+		if (Utility.notIsEmptyNull(team.getTournamentNo())) {
+			param.addValue(COLUMN_NAME_TOURNAMENT_NO, team.getTournamentNo());
+		}
+		jdbcTemplate.update(sql, param);
 	}
 
 	@Override
-	public void deleteScore(Team team) {
-		// TODO 自動生成されたメソッド・スタブ
-		
+	public void deleteTeam(Team team) {
+		String sql = DELETE;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue(ID, team.getTeamId());
+		jdbcTemplate.update(sql, param);
 	}
 
 	@Override
-	public void updateScore(Team team) {
-		// TODO 自動生成されたメソッド・スタブ
-		
+	public void updateTeam(Team team) {
+		String sql = UPDATE + updateSql(team);
+		System.out.println(sql);
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue(ID , team.getTeamId());
+		if (Utility.notIsEmptyNull(team.getCompId())) {
+			param.addValue(COLUMN_NAME_COMP_ID, team.getCompId());
+		}
+		if (Utility.notIsEmptyNull(team.getPlayerAName())) {
+			param.addValue(COLUMN_NAME_PLAYER_A_NAME, team.getPlayerAName());
+		}
+		if (Utility.notIsEmptyNull(team.getPlayerBName())) {
+			param.addValue(COLUMN_NAME_PLAYER_B_NAME, team.getPlayerBName());
+		}
+		if (Utility.notIsEmptyNull(team.getTournamentNo())) {
+			param.addValue(COLUMN_NAME_TOURNAMENT_NO, team.getTournamentNo());
+		}
+		jdbcTemplate.update(sql, param);
 	}
 	
 	public static String selectSql(Team team) {
 		String where = "";
 		String columnName = "";
-		if (Utility.notIsEmptyNull(team.getTeamId())) {
-			columnName = COLUMN_NAME_TEAM_ID + " = :" + COLUMN_NAME_TEAM_ID;
-			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
-		}
 		if (Utility.notIsEmptyNull(team.getCompId())) {
 			columnName = COLUMN_NAME_COMP_ID + " = :" + COLUMN_NAME_COMP_ID;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
@@ -97,5 +125,56 @@ public class PgTeamDao implements TeamDao{
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
 		return !where.isEmpty() ? " WHERE " + where : "";
+	}
+	
+	public static String insertSql(Team team) {
+		String column = "";
+		String values = "";
+		String columnName = "";
+		if (Utility.notIsEmptyNull(team.getCompId())) {
+			columnName = COLUMN_NAME_COMP_ID;
+			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
+			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
+		}
+		if (Utility.notIsEmptyNull(team.getPlayerAName())) {
+			columnName = COLUMN_NAME_PLAYER_A_NAME;
+			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
+			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
+		}
+		if (Utility.notIsEmptyNull(team.getPlayerBName())) {
+			columnName = COLUMN_NAME_PLAYER_B_NAME;
+			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
+			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
+		}
+		if (Utility.notIsEmptyNull(team.getTournamentNo())) {
+			columnName = COLUMN_NAME_TOURNAMENT_NO;
+			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
+			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
+		}
+		column = !column.isEmpty() ? column + ")" : column;
+		values = !values.isEmpty() ? values + ")" : column;
+		return column + values;
+	}
+	
+	public static String updateSql(Team team) {
+		String set = "";
+		String columnName = "";
+		if (Utility.notIsEmptyNull(team.getCompId())) {
+			columnName = COLUMN_NAME_COMP_ID + " = :" + COLUMN_NAME_COMP_ID;
+			set = !set.isEmpty() ? set + " , " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(team.getPlayerAName())) {
+			columnName = COLUMN_NAME_PLAYER_A_NAME + " = :" + COLUMN_NAME_PLAYER_A_NAME;
+			set = !set.isEmpty() ? set + " , " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(team.getPlayerBName())) {
+			columnName = COLUMN_NAME_PLAYER_B_NAME + " = :" + COLUMN_NAME_PLAYER_B_NAME;
+			set = !set.isEmpty() ? set + " , " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(team.getTournamentNo())) {
+			columnName = COLUMN_NAME_TOURNAMENT_NO + " = :" + COLUMN_NAME_TOURNAMENT_NO;
+			set = !set.isEmpty() ? set + " , " + columnName : columnName;
+		}
+		return !set.isEmpty() ? set + " WHERE " + ID + " = :" + ID : "";
 	}
 }

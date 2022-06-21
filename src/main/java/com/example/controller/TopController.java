@@ -45,15 +45,6 @@ public class TopController{
 	//トップページ
 	@RequestMapping(value={"/","top"})
 	public String top() {
-		System.out.println("てすと");
-		
-//		if(list != null) {
-//			for(Comp m : list) {
-//				System.out.println();
-//			}
-//		}else {
-//			System.out.println("不一致");
-//		}
 		return "top";
 	}
 	

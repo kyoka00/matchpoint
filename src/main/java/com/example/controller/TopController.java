@@ -13,9 +13,11 @@ import com.example.controller.form.CompForm;
 import com.example.controller.form.GamePlayerForm;
 import com.example.controller.form.LoginForm;
 import com.example.controller.form.PlayerForm;
+import com.example.dao.CompDao;
 import com.example.dao.ManageDao;
-import com.example.dao.ReceivedResultDao;
 import com.example.dao.ScoreDao;
+import com.example.dao.TeamDao;
+import com.example.dao.ReceivedResultDao;
 
 @Controller
 public class TopController{
@@ -27,8 +29,14 @@ public class TopController{
 	
 	@Autowired
 	ScoreDao scoreDao;
+
+	@Autowired
+	CompDao compDao;
 	
-	@Autowired 
+	@Autowired
+	TeamDao teamDao;
+
+	@Autowired
 	ReceivedResultDao receivedResultDao;
 	
 	//ログアウト

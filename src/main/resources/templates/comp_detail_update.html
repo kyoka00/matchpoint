@@ -22,6 +22,8 @@
 
 		<div>
 			<label>大会ログインID:</label> <input type="text" th:field="*{compLoginId}">
+			<div th:each="error: ${#fields.errors('compLoginId')}">[[ ${error} ]]</div>
+			<div class="error" th:text="${errorMsg}"></div>
 		</div>
 
 		<div>

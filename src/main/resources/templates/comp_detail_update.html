@@ -25,14 +25,14 @@
 		</div>
 
 		<div>
-			<label>トーナメント数:</label> <input type="number" th:field="*{tournamentNum}">
+			<label>トーナメント数:</label> <input type="number" th:field="*{tournamentCount}">
 		</div>
 
 		<div>
 			<label>試合形式:</label>
-			<select th:field="*{gameTypeStr}">
-				<option th:value="シングルス" th:text="シングルス"></option>
-				<option th:value="ダブルス" th:text="ダブルス"></option>
+			<select th:field="*{gameType}">
+				<option th:value="1" th:text="シングルス"></option>
+				<option th:value="2" th:text="ダブルス"></option>
 			</select>
 		</div>
 

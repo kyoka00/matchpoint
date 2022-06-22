@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -32,35 +33,28 @@ public class CompDetailController{
 		Comp comp = new Comp();
 		
 		//初期値を入力
-		comp.setCompId(2);
-//		form.setCompId(1);
-//		form.setCompName("第1回");
-//		form.setCompDate("6/6");
-//		form.setCompPlace("okinawa");
-//		form.setCompLoginId("1234");
-//		form.setTournamentNum(2);
-//		form.setGameTypeStr("シングルス");
-//		form.setMemo("aaa");
+		comp.setCompId(1);
 		
 		List<Comp> compDetail = compDao.selectAll(comp);
 		
-		System.out.println(compDetail);
-		
-		model.addAttribute("comp_detail", compDetail);
+		model.addAttribute("comp_detail", compDetail.get(0));
 		
 		return "comp_detail";
 	}
 	
 	//大会削除
 		@RequestMapping(value="comp_delete")
-		public String compDelete() {
+		public String compDelete(@ModelAttribute("comp_detail") CompForm form, Model model) {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
 			
 			Comp comp = new Comp();
-			
+			comp.setCompId(1);
 			compDao.deleteComp(comp);
+			
+			model.addAttribute("resultList", compDao.selectAll(comp));
+			
 			return "comp_list";
 		}
 		
@@ -69,6 +63,16 @@ public class CompDetailController{
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
+			
+			Comp comp = new Comp();
+			
+			//初期値を入力
+			comp.setCompId(1);
+			
+			List<Comp> compDetail = compDao.selectAll(comp);
+			
+			model.addAttribute("comp_detail", compDetail.get(0));
+			
 			return "comp_detail_update";
 		}
 		
@@ -79,9 +83,42 @@ public class CompDetailController{
 				return "top";
 			}
 			
-//			Comp comp = new Comp();
-//			
-//			compDao.updateComp(comp);
+			Comp comp = new Comp();
+			
+			Date date= Date.valueOf(form.getCompDate());
+			comp.setCompId(1);
+			comp.setCompName(form.getCompName());
+			comp.setCompDate(date);
+			comp.setCompPlace(form.getCompPlace());
+			comp.setCompLoginId(form.getCompLoginId());
+			comp.setTournamentCount(form.getTournamentNum());
+			comp.setGameType(form.getGameType());
+			comp.setMemo(form.getMemo());
+//			comp.setCompId(3);
+			
+			compDao.updateComp(comp);
+			
+			System.out.println(comp);
+			
+			List<Comp> compDetail = compDao.selectAll(comp);
+			
+			model.addAttribute("comp_detail", compDetail.get(0));
+			return "comp_detail";
+		}
+		
+		//大会編集画面から戻る
+		@RequestMapping(value="comp_detail_update", params="back")
+		public String compDetailBack(@ModelAttribute("comp_detail") CompForm form, Model model) {
+			if(session.getAttribute("loginId") == null) {
+				return "top";
+			}
+			Comp comp = new Comp();
+			
+			comp.setCompId(1);
+			
+			List<Comp> compDetail = compDao.selectAll(comp);
+			
+			model.addAttribute("comp_detail", compDetail.get(0));
 			return "comp_detail";
 		}
 }

@@ -218,14 +218,14 @@ public class TopController{
 //		return "comp_detail";
 //	}
 	
-	//大会編集画面から戻る
-	@RequestMapping(value="comp_detail_update", params="back")
-	public String compDetailBack(@ModelAttribute("comp_detail") CompForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "comp_detail";
-	}
+//	//大会編集画面から戻る
+//	@RequestMapping(value="comp_detail_update", params="back")
+//	public String compDetailBack(@ModelAttribute("comp_detail") CompForm form, Model model) {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "comp_detail";
+//	}
 	
 	//試合結果受信box
 	@RequestMapping(value="game_result_all")

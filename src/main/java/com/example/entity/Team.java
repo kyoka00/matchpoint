@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Team{
+
 	private Integer teamId;
 	private Integer compId;
 	private String playerAName;

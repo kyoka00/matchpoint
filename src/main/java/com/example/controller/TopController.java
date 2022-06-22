@@ -120,14 +120,14 @@ public class TopController{
 		return "tournament";
 	}
 	
-	//選手一覧へ
-	@RequestMapping(value="all_player")
-	public String playerList() {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "all_player";
-	}
+//	//選手一覧へ
+//	@RequestMapping(value="all_player")
+//	public String playerList() {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "all_player";
+//	}
 	
 	//選手編集へ
 	@RequestMapping(value="edit_player")
@@ -156,20 +156,20 @@ public class TopController{
 		return "all_player";
 	}
 	
-	//選手登録へ
-	@RequestMapping(value="insert_player")
-	public String playerInsertPage(@ModelAttribute("insert_player") PlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "insert_player";
-	}
+//	//選手登録へ
+//	@RequestMapping(value="insert_player")
+//	public String playerInsertPage(@ModelAttribute("insert_player") PlayerForm form, Model model) {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "insert_player";
+//	}
 	
-	//選手登録 登録ボタン
-	@RequestMapping(value="insert_player", params="insert")
-	public String playerInsert(@ModelAttribute("insert_player") PlayerForm form, Model model) {
-		return "all_player";
-	}
+//	//選手登録 登録ボタン
+//	@RequestMapping(value="insert_player", params="insert")
+//	public String playerInsert(@ModelAttribute("insert_player") PlayerForm form, Model model) {
+//		return "all_player";
+//	}
 	
 	//大会詳細画面へ
 	@RequestMapping(value="comp_detail")
@@ -196,6 +196,8 @@ public class TopController{
 		return "comp_list";
 	}
 	
+	
+	//大会詳細画面
 	@RequestMapping(value="comp_detail_edit")
 	public String compDetailUpdate(@ModelAttribute("comp_detail") CompForm form, Model model) {
 		if(session.getAttribute("loginId") == null) {

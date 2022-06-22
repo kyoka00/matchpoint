@@ -5,10 +5,19 @@
 <title>	選手登録</title>
 </head>
 <body>
+
+	<table>
+		<tr th:if="${validationError}" th:each="error : ${validationError}"></tr>
+		</table>
+
 	<div th:insert="header"></div>
 	<button type="button" onclick="location.href='all_player'">戻る</button>
-	<form action="insert_player" th:object="${insert_player}">
-		<div>
+	
+	
+	
+	
+	<form action="insert_player"th:object="${insert_player}" th:method="post">
+		<div class="form-group">
 			<label>プレイヤー1:</label>
 			<input type="text" th:field="*{player1}" placeholder="入力してください(最大●文字)">
 		</div>
@@ -23,6 +32,9 @@
 			<input type="text" th:field="*{tournamentNum}" placeholder="数値を入力(MAX●)">
 		</div>
 		<input type="submit" name="insert" value="登録">
+		
 	</form>
+	
+	
 </body>
 </html>

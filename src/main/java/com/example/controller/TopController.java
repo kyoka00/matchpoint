@@ -180,48 +180,48 @@ public class TopController{
 		return "all_player";
 	}
 	
-	//大会詳細画面へ
-	@RequestMapping(value="comp_detail")
-	public String compDetail(@ModelAttribute("comp_detail") CompForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		//初期値を入力
-		form.setCompName("第1回");
-		form.setCompDate("6/6");
-		form.setCompPlace("okinawa");
-		form.setCompLoginId("1234");
-		form.setTournamentNum(2);
-		form.setGameTypeStr("シングルス");
-		form.setMemo("aaa");
-		return "comp_detail";
-	}
-	
-	//大会削除
-	@RequestMapping(value="comp_delete")
-	public String compDelete() {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "comp_list";
-	}
-	
-	@RequestMapping(value="comp_detail_edit")
-	public String compDetailUpdate(@ModelAttribute("comp_detail") CompForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "comp_detail_update";
-	}
-	
-	//大会編集画面
-	@RequestMapping(value="comp_detail_update", params="completion")
-	public String compUpdatePage(@ModelAttribute("comp_detail") CompForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "comp_detail";
-	}
+//	//大会詳細画面へ
+//	@RequestMapping(value="comp_detail")
+//	public String compDetail(@ModelAttribute("comp_detail") CompForm form, Model model) {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		//初期値を入力
+//		form.setCompName("第1回");
+//		form.setCompDate("6/6");
+//		form.setCompPlace("okinawa");
+//		form.setCompLoginId("1234");
+//		form.setTournamentNum(2);
+//		form.setGameTypeStr("シングルス");
+//		form.setMemo("aaa");
+//		return "comp_detail";
+//	}
+//	
+//	//大会削除
+//	@RequestMapping(value="comp_delete")
+//	public String compDelete() {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "comp_list";
+//	}
+//	
+//	@RequestMapping(value="comp_detail_edit")
+//	public String compDetailUpdate(@ModelAttribute("comp_detail") CompForm form, Model model) {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "comp_detail_update";
+//	}
+//	
+//	//大会編集画面
+//	@RequestMapping(value="comp_detail_update", params="completion")
+//	public String compUpdatePage(@ModelAttribute("comp_detail") CompForm form, Model model) {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "comp_detail";
+//	}
 	
 	//大会編集画面から戻る
 	@RequestMapping(value="comp_detail_update", params="back")

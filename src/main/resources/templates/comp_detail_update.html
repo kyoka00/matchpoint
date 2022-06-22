@@ -30,9 +30,9 @@
 
 		<div>
 			<label>試合形式:</label>
-			<select th:field="*{gameType}">
-				<option th:value="1" th:text="シングルス"></option>
-				<option th:value="2" th:text="ダブルス"></option>
+			<select th:field="*{gameTypeStr}">
+				<option th:value="シングルス" th:text="シングルス"></option>
+				<option th:value="ダブルス" th:text="ダブルス"></option>
 			</select>
 		</div>
 

@@ -24,16 +24,10 @@ public class PgCompDao implements CompDao {
 	private static final String COLUMN_NAME_COMP_DATE = "comp_date";
 	private static final String COLUMN_NAME_COMP_PLACE = "comp_place";
 	private static final String COLUMN_NAME_GAME_TYPE = "game_type";
-<<<<<<< HEAD
-	private static final String COLUMN_NAME_GAME_TYPE_STR = "gameTypeStr";
 	private static final String COLUMN_NAME_TORNAMET_COUNT = "tornament_count";
 	private static final String COLUMN_NAME_MEMO = "memo";
 	
-=======
-	private static final String COLUMN_NAME_TORNAMET_COUNT = "tournament_count";
-	private static final String COLUMN_NAME_MEMO = "mamo";
-
->>>>>>> refs/heads/master
+	
 	private final String SELECT = "SELECT * FROM " + tableName;
 	private final String INSERT = "INSERT INTO " + tableName;
 	private final String DELETE = "DELETE FROM " + tableName + " WHERE " + ID + " = :" + ID;
@@ -252,7 +246,7 @@ public class PgCompDao implements CompDao {
 			columnName = COLUMN_NAME_GAME_TYPE + " = :" + COLUMN_NAME_GAME_TYPE;
 			set = !set.isEmpty() ? set + " , " + columnName : columnName;
 		}
-
+		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
 			columnName = COLUMN_NAME_TORNAMET_COUNT + " = :" + COLUMN_NAME_TORNAMET_COUNT;
 			set = !set.isEmpty() ? set + " , " + columnName : columnName;
 		}

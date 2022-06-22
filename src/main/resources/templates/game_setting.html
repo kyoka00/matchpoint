@@ -6,7 +6,29 @@
 </head>
 <body>
 	<form action="server_setting">
-		<input type="number" th:name="game_num" >
+		<div>
+			試合番号
+			<input type="number" th:name="game_num" ><br>
+		</div>
+		
+		<div>
+			チーム1
+			<span>A・B</span>
+		</div>
+		
+		<div>
+			チーム2
+			<span>C・D</span>
+		</div>
+		
+		<div>試合形式</div>
+		
+		<button type="button" onClick="openPoint()">点数</button>
+		
+		<div id="point_toggle">
+		
+		</div>
+		
 		<button type="submit" name="skip">試合スキップ</button>
 		<button type="submit" name="server_setting">サーブ権設定</button>
 	</form>

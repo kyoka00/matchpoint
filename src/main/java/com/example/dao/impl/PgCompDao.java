@@ -43,28 +43,28 @@ public class PgCompDao implements CompDao {
 
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(comp.getCompId())) {
-			param.addValue("comp_id", comp.getCompId());
+			param.addValue(COLUMN_NAME_COMP_ID, comp.getCompId());
 		}
 		if (Utility.notIsEmptyNull(comp.getCompLoginId())) {
-			param.addValue("comp_login_id", comp.getCompLoginId());
+			param.addValue(COLUMN_NAME_COMP_IOGIN_ID, comp.getCompLoginId());
 		}
 		if (Utility.notIsEmptyNull(comp.getCompName())) {
-			param.addValue("comp_name", comp.getCompName());
+			param.addValue(COLUMN_NAME_COMP_NAME, comp.getCompName());
 		}
 		if (Utility.notIsEmptyNull(comp.getCompDate())) {
-			param.addValue("comp_date", comp.getCompDate());
+			param.addValue(COLUMN_NAME_COMP_DATE, comp.getCompDate());
 		}
 		if (Utility.notIsEmptyNull(comp.getCompPlace())) {
-			param.addValue("comp_place", comp.getCompPlace());
+			param.addValue(COLUMN_NAME_COMP_PLACE, comp.getCompPlace());
 		}
 		if (Utility.notIsEmptyNull(comp.getGameType())) {
-			param.addValue("game_type", comp.getGameType());
+			param.addValue(COLUMN_NAME_GAME_TYPE, comp.getGameType());
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
-			param.addValue("tournament_count", comp.getTournamentCount());
+			param.addValue(COLUMN_NAME_TORNAMET_COUNT, comp.getTournamentCount());
 		}
 		if (Utility.notIsEmptyNull(comp.getMemo())) {
-			param.addValue("mamo", comp.getMemo());
+			param.addValue(COLUMN_NAME_MEMO, comp.getMemo());
 		}
 		List<Comp> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Comp>(Comp.class));
 		return resultList.isEmpty() ? null : resultList;
@@ -76,25 +76,25 @@ public class PgCompDao implements CompDao {
 		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(comp.getCompLoginId())) {
-			param.addValue("comp_login_id", comp.getCompLoginId());
+			param.addValue(COLUMN_NAME_COMP_IOGIN_ID, comp.getCompLoginId());
 		}
 		if (Utility.notIsEmptyNull(comp.getCompName())) {
-			param.addValue("comp_name", comp.getCompName());
+			param.addValue(COLUMN_NAME_COMP_NAME, comp.getCompName());
 		}
 		if (Utility.notIsEmptyNull(comp.getCompDate())) {
-			param.addValue("comp_date", comp.getCompDate());
+			param.addValue(COLUMN_NAME_COMP_DATE, comp.getCompDate());
 		}
 		if (Utility.notIsEmptyNull(comp.getCompPlace())) {
-			param.addValue("comp_place", comp.getCompPlace());
+			param.addValue(COLUMN_NAME_COMP_PLACE, comp.getCompPlace());
 		}
 		if (Utility.notIsEmptyNull(comp.getGameType())) {
-			param.addValue("game_type", comp.getGameType());
+			param.addValue(COLUMN_NAME_GAME_TYPE, comp.getGameType());
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
-			param.addValue("tournament_count", comp.getTournamentCount());
+			param.addValue(COLUMN_NAME_TORNAMET_COUNT, comp.getTournamentCount());
 		}
 		if (Utility.notIsEmptyNull(comp.getMemo())) {
-			param.addValue("mamo", comp.getMemo());
+			param.addValue(COLUMN_NAME_MEMO, comp.getMemo());
 		}
 		jdbcTemplate.update(sql, param);
 	}
@@ -114,25 +114,25 @@ public class PgCompDao implements CompDao {
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue(ID , comp.getCompId());
 		if (Utility.notIsEmptyNull(comp.getCompLoginId())) {
-			param.addValue("comp_login_id", comp.getCompLoginId());
+			param.addValue(COLUMN_NAME_COMP_IOGIN_ID, comp.getCompLoginId());
 		}
 		if (Utility.notIsEmptyNull(comp.getCompName())) {
-			param.addValue("comp_name", comp.getCompName());
+			param.addValue(COLUMN_NAME_COMP_NAME, comp.getCompName());
 		}
 		if (Utility.notIsEmptyNull(comp.getCompDate())) {
-			param.addValue("comp_date", comp.getCompDate());
+			param.addValue(COLUMN_NAME_COMP_DATE, comp.getCompDate());
 		}
 		if (Utility.notIsEmptyNull(comp.getCompPlace())) {
-			param.addValue("comp_place", comp.getCompPlace());
+			param.addValue(COLUMN_NAME_COMP_PLACE, comp.getCompPlace());
 		}
 		if (Utility.notIsEmptyNull(comp.getGameType())) {
-			param.addValue("game_type", comp.getGameType());
+			param.addValue(COLUMN_NAME_GAME_TYPE, comp.getGameType());
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
-			param.addValue("tournament_count", comp.getTournamentCount());
+			param.addValue(COLUMN_NAME_TORNAMET_COUNT, comp.getTournamentCount());
 		}
 		if (Utility.notIsEmptyNull(comp.getMemo())) {
-			param.addValue("mamo", comp.getMemo());
+			param.addValue(COLUMN_NAME_MEMO, comp.getMemo());
 		}
 		jdbcTemplate.update(sql, param);
 	}

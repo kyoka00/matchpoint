@@ -17,6 +17,7 @@ import com.example.dao.CompDao;
 import com.example.dao.ManageDao;
 import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
+import com.example.dao.ReceivedResultDao;
 
 @Controller
 public class TopController{
@@ -28,12 +29,15 @@ public class TopController{
 	
 	@Autowired
 	ScoreDao scoreDao;
-	
+
 	@Autowired
 	CompDao compDao;
 	
 	@Autowired
 	TeamDao teamDao;
+
+	@Autowired
+	ReceivedResultDao receivedResultDao;
 	
 	//ログアウト
 	@RequestMapping(value="logout")
@@ -45,15 +49,6 @@ public class TopController{
 	//トップページ
 	@RequestMapping(value={"/","top"})
 	public String top() {
-		System.out.println("てすと");
-		
-//		if(list != null) {
-//			for(Comp m : list) {
-//				System.out.println();
-//			}
-//		}else {
-//			System.out.println("不一致");
-//		}
 		return "top";
 	}
 	

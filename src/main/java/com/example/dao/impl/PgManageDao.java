@@ -29,10 +29,10 @@ public class PgManageDao implements ManageDao{
 		String sql = SELECT + PgManageDao.selectSql(manage);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if(Utility.notIsEmptyNull(manage.getLoginId())) {
-			param.addValue("login_id", manage.getLoginId());
+			param.addValue(COLUMN_NAME_LOGIN_ID, manage.getLoginId());
 		}
 		if(Utility.notIsEmptyNull(manage.getPassword())) {
-			param.addValue("password", manage.getPassword());
+			param.addValue(COLUMN_NAME_PASSWORD, manage.getPassword());
 		}
 		List<Manage> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Manage>(Manage.class));
 		return resultList.isEmpty() ? null : resultList;

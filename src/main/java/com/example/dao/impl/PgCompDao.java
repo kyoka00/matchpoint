@@ -24,9 +24,10 @@ public class PgCompDao implements CompDao {
 	private static final String COLUMN_NAME_COMP_DATE = "comp_date";
 	private static final String COLUMN_NAME_COMP_PLACE = "comp_place";
 	private static final String COLUMN_NAME_GAME_TYPE = "game_type";
-	private static final String COLUMN_NAME_TORNAMET_COUNT = "tournament_count";
-	private static final String COLUMN_NAME_MEMO = "mamo";
-
+	private static final String COLUMN_NAME_TORNAMET_COUNT = "tornament_count";
+	private static final String COLUMN_NAME_MEMO = "memo";
+	
+	
 	private final String SELECT = "SELECT * FROM " + tableName;
 	private final String INSERT = "INSERT INTO " + tableName;
 	private final String DELETE = "DELETE FROM " + tableName + " WHERE " + ID + " = :" + ID;
@@ -39,6 +40,7 @@ public class PgCompDao implements CompDao {
 	public List<Comp> selectAll(Comp comp) {
 		String sql = SELECT + PgCompDao.selectSql(comp);
 		System.out.println(sql);
+
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(comp.getCompId())) {
 			param.addValue(COLUMN_NAME_COMP_ID, comp.getCompId());

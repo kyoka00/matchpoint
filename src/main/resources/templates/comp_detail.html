@@ -25,17 +25,21 @@
 		</div>
 
 		<div>
-			<label>トーナメント数:</label> <input type="number" th:field="*{tournamentNum}" readonly>
+			<label>トーナメント数:</label> <input type="number" th:field="*{tournamentCount}" readonly>
 		</div>
 
 		<div>
-			<label>試合形式:</label> <input type="text" th:field="*{gameTypeStr}" readonly>
+			<label>試合形式:</label>
+			<span th:switch="*{gameType}">
+			 <input th:case="1" th:value = "シングル" readonly>
+			 <input th:case="2" th:value = "ダブルス" readonly>
+			</span>
 		</div>
 
 		<div>
 			<label>大会概要:</label> <input type="text" th:field="*{memo}" readonly>
 		</div>
-		<button type="button" onclick="location.href='comp_delete'">削除</button>
+		<button type="button" onclick="location.href='comp_delete">削除</button>
 		<button type="submit">編集</button>
 	</form>
 </body>

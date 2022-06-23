@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controller.form;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.controller.form.CompForm;
-import com.example.controller.form.GamePlayerForm;
-import com.example.controller.form.LoginForm;
-import com.example.controller.form.PlayerForm;
 import com.example.dao.CompDao;
 import com.example.dao.ManageDao;
 import com.example.dao.ScoreDao;

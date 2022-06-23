@@ -3,11 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>	選手編集</title>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
+	rel="stylesheet">
 </head>
-<body>
+<body class="bg-info text-white" style="background-size: cover;">
 	<div th:insert="header"></div>
-	<button type="button" onclick="location.href='all_player'">戻る</button>
+	
+	<div class="text-right">
+	<button type="button" onclick="location.href='all_player'" class="btn btn-primary">戻る</button>
+	</div>
+	
 	<form action="edit_player" th:object="${edit_player}">
+	
+		<div class="text-center">
 		<div>
 			<label>プレイヤー1:</label>
 			<input type="text" th:field="*{player1}">
@@ -22,8 +30,11 @@
 			<label>トーナメント番号:</label>
 			<input type="text" th:field="*{tournamentNum}">
 		</div>
-		<input type="submit" name="edit" value="更新">
-		<button type="button" onclick="location.href='delete_player'">削除</button>
+		<input type="submit" name="edit" value="更新" class="btn btn-primary">
+		<button type="button" onclick="location.href='delete_player'" class="btn btn-primary">削除</button>
+		
+		</div>
+		
 	</form>
 </body>
 </html>

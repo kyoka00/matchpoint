@@ -3,11 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>	選手登録</title>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
+	rel="stylesheet">
 </head>
-<body>
+<body class="bg-info text-white" style="background-size: cover;">
 	<div th:insert="header"></div>
-	<button type="button" onclick="location.href='all_player'">戻る</button>
+	
+	<div class="text-right">
+	<button type="button" onclick="location.href='all_player'" class="btn btn-primary">戻る</button>
+	</div>
+	
 	<form action="insert_player" th:object="${insert_player}">
+	
+		<div class="text-center">
 		<div>
 			<label>プレイヤー1:</label>
 			<input type="text" th:field="*{player1}" placeholder="入力してください(最大●文字)">
@@ -22,7 +30,11 @@
 			<label>トーナメント番号:</label>
 			<input type="text" th:field="*{tournamentNum}" placeholder="数値を入力(MAX●)">
 		</div>
+		</div>
+		
+		<div class="text-center">
 		<input type="submit" name="insert" value="登録">
+		</div>
 	</form>
 </body>
 </html>

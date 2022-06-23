@@ -3,27 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <title>大会一覧</title>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
+	rel="stylesheet">
 </head>
-<body>
+<body class="bg-info text-white" style="background-size: cover;">
 	<div th:insert="header"></div>
-	<a href="/comp_info">大会作成</a>
-	<h1>大会一覧</h1>
-	<table border="1">
-		<tr>
-			<th>番号</th>
-			<th>大会</th>
-			<th>開催日</th>
-			<th>トーナメント表へ</th>
-		</tr>
-		
-		<!-- データベースの値参照 -->
+	<a href="/comp_info"class="btn btn-primary">大会作成</a>
 
-		<tr th:each="complist : ${resultList}">
-			<td>[[ ${complist.compId} ]]</td>
-			<td>[[ ${complist.compName} ]]</td>
-			<td>[[ ${complist.compDate} ]]</td>
-			<td><button type="button" onclick="location.href='tournament'">GO!</button></td>
-		</tr>
-	</table>
+	<div class="text-center">
+		<h1>大会一覧</h1>
+		<table border="1" class="mx-auto">
+			<tr>
+				<th>番号</th>
+				<th>大会</th>
+				<th>開催日</th>
+				<th>トーナメント表へ</th>
+			</tr>
+			<!-- データベースの値参照 -->
+			<tr th:each="complist : ${resultList}">
+				<td>[[ ${complist.compId} ]]</td>
+				<td>[[ ${complist.compName} ]]</td>
+				<td>[[ ${complist.compDate} ]]</td>
+				<td><button type="button" onclick="location.href='tournament'">GO!</button></td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>

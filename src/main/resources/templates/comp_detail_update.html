@@ -3,11 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <title>大会編集</title>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
+	rel="stylesheet">
 </head>
-<body>
+
+<body class="bg-info text-white" style="background-size: cover;">
 	<div th:insert="header"></div>
+	
 	<form action="comp_detail_update" th:object="${comp_detail}" method="POST">
-		<button type="submit" name="back">戻る</button>
+	
+		<div class="text-right">
+		<button type="submit" name="back" class="btn btn-primary">戻る</button>
+		</div>
+		
+		<div class="text-center">
 		<div>
 			<label>大会名:</label> <input type="text" th:field="*{compName}">
 		</div>
@@ -39,7 +48,8 @@
 		<div>
 			<label>大会概要:</label> <input type="text" th:field="*{memo}">
 		</div>
-		<button type="submit" name="completion">完了</button>
+		<button type="submit" name="completion" class="btn btn-primary">完了</button>
+		</div>
 	</form>
 </body>
 </html>

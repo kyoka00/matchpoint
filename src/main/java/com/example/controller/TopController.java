@@ -26,6 +26,7 @@ import com.example.dao.CompDao;
 import com.example.dao.ManageDao;
 import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
+import com.example.dao.ReceivedResultDao;
 
 @Controller
 
@@ -38,12 +39,15 @@ public class TopController{
 	
 	@Autowired
 	ScoreDao scoreDao;
-	
+
 	@Autowired
 	CompDao compDao;
 	
 	@Autowired
 	TeamDao teamDao;
+
+	@Autowired
+	ReceivedResultDao receivedResultDao;
 	
 	//ログアウト
 	@RequestMapping(value="logout")

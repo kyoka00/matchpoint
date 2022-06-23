@@ -18,12 +18,11 @@
 		</tr>
 		
 		<tr th:each="player : ${allPlayer}">
-			<td><button type="button" onclick="location.href='edit_player'">[[ ${#strings.escapeXml(player.teamId)} ]]</button></td>
+			<td><a th:href="'/edit_player?id ='+ player.teamId">[[ ${#strings.escapeXml(player.teamId)} ]]</a></td>
 			<td>[[ ${#strings.escapeXml(player.playerAName)} ]]</td>
 			<td>[[ ${#strings.escapeXml(player.playerBName)} ]]</td>
 			<td>[[ ${#strings.escapeXml(player.tournamentNo)} ]]</td>
 		</tr>
-	
 	</table>
 </body>
 </html>

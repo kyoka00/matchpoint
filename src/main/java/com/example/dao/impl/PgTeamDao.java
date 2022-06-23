@@ -35,7 +35,6 @@ public class PgTeamDao implements TeamDao{
 	@Override
 	public List<Team> selectAll(Team team) {
 		String sql = SELECT + PgTeamDao.selectSql(team);
-		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if(Utility.notIsEmptyNull(team.getTeamId())) {
 			param.addValue(COLUMN_NAME_TEAM_ID, team.getTeamId());
@@ -52,6 +51,16 @@ public class PgTeamDao implements TeamDao{
 		if(Utility.notIsEmptyNull(team.getTournamentNo())) {
 			param.addValue(COLUMN_NAME_TOURNAMENT_NO, team.getTournamentNo());
 		}
+		List<Team> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Team>(Team.class));
+		return resultList.isEmpty() ? null : resultList;
+	}
+	
+	@Override
+	public List<Team> gameTeam(Integer team1, Integer team2){
+		String sql = SELECT + " WHERE team_id = :team_id1 OR team_id = :team_id2";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("team_id1", team1);
+		param.addValue("team_id2", team2);
 		List<Team> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Team>(Team.class));
 		return resultList.isEmpty() ? null : resultList;
 	}

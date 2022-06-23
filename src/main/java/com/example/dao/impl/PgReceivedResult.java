@@ -64,6 +64,7 @@ public class PgReceivedResult implements ReceivedResultDao {
 		return resultList.isEmpty() ? null : resultList;
 //		return null;
 	}
+	
 	@Override
 	public List<ReceivedResult> searchMatch(ReceivedResult receivedResult){
 		String sql = "SELECT * FROM " + matchTbl + searchSqlMatch(receivedResult);

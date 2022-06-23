@@ -6,7 +6,14 @@
 </head>
 <body>
 	<div th:insert="header"></div>
-	
+		<select id="selbox" onchange="change();">
+    		<option value="1">削除済みを表示</option>
+    		<option value="2">削除済みを非表示</option>
+  		</select>
+  	<form method="post" action="game_result_search" class="search_container">
+		<input type="text" size="25" name="keyword" placeholder="キーワード検索">
+    	<input type="submit" value="&#xf002">
+    </form>
 	<button type="button" onclick="location.href='tournament'">戻る</button>
 	<table border="1">
 		<tr>
@@ -16,12 +23,12 @@
 			<th>審判名</th>
 			<th>トーナメント番号</th>
 		</tr>
-		<tr>
-			<td>2022/06/17</td>
-			<td><button type="button" onClick="location.href='game_result_final'">第3試合</button></td>
-			<td>1番コート</td>
-			<td>審判A</td>
-			<td>1</td>
+		<tr th:each="GameResultAll : ${resultList}">
+			<td>[[${GameResultAll.recordDate}]]</td>
+			<td><button type="button" onClick="location.href='game_result_final'">第[[${GameResultAll.gameNo}]]試合</button></td>
+			<td>[[${GameResultAll.coatNo}]]</td>
+			<td>[[${GameResultAll.judgeName}]]</td>
+			<td>[[${GameResultAll.tournamentNo}]]</td>
 		</tr>
 	</table>
 </body>

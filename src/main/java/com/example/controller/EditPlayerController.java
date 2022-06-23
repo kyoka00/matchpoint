@@ -6,8 +6,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.controller.form.PlayerForm;
@@ -54,14 +56,21 @@ public class EditPlayerController {
 //		return "all_player";
 //	}
 	
-	//選手情報更新 update
-	@RequestMapping(value="edit_player", params= "edit")
-	public String playerUpdate(@ModelAttribute("all_player") PlayerForm form, Model model) {
+	
+	/**
+	   * 選手情報更新 update
+	   * @param userRequest リクエストデータ
+	   * @param model Model
+	   * @return ユーザー情報詳細画面
+	   */
+	@RequestMapping(value="/edit_player", params= "edit", method = RequestMethod.POST)
+	public String playerUpdate(@Validated @ModelAttribute("all_player") PlayerForm form, Model model) {
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
 			Team team = new Team();
-//			Integer compId = 2; //結合時に、comp_idをsession.getAttribute();で持たせる予定
+			Integer compId = 2; //結合時に、comp_idをsession.getAttribute();で持たせる予定
+			team.setCompId(compId);
 			team.setPlayerAName(form.getPlayer1());
 			team.setPlayerBName(form.getPlayer2());
 			team.setTournamentNo(form.getTournamentNum());

@@ -53,14 +53,29 @@ public class PgReceivedResult implements ReceivedResultDao {
 		if (Utility.notIsEmptyNull(result.getRecordStatus())) {
 			param.addValue(COLUMN_NAME_RECORDSTATUS, result.getRecordStatus());
 		}
+		if(Utility.notIsEmptyNull(result.getRecordDate())) {
+			param.addValue(COLUMN_NAME_RECORDDATE, result.getRecordDate());
+		}
 		if (Utility.notIsEmptyNull(keyword)) {
 			param.addValue("keyword", '%'+ keyword +'%');
 		}
-		
 
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
 		return resultList.isEmpty() ? null : resultList;
 //		return null;
+	}
+	@Override
+	public List<ReceivedResult> searchMatch(ReceivedResult receivedResult){
+		String sql = "SELECT * FROM " + matchTbl + searchSqlMatch(receivedResult);
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		if (Utility.notIsEmptyNull(receivedResult.getCompId())) {
+			param.addValue(COLUMN_NAME_COMPID, receivedResult.getCompId());
+		}
+		if (Utility.notIsEmptyNull(receivedResult.getGameNo())) {
+			param.addValue(COLUMN_NAME_GAMENO, receivedResult.getGameNo());
+		}
+		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
+		return resultList.isEmpty() ? null : resultList;
 	}
 	
 	//insertはmatchとgame_infoのみinsertかけられる感じで書いてます。
@@ -87,7 +102,7 @@ public class PgReceivedResult implements ReceivedResultDao {
 		return jdbcTemplate.update(sql, param);
 	}
 	
-	
+	@Override
 	public int insertGameInfo(ReceivedResult result) {
 		String sql = INSERTGAMEINFO + insertSqlGameInfo(result);
 		MapSqlParameterSource param = new MapSqlParameterSource();
@@ -110,9 +125,13 @@ public class PgReceivedResult implements ReceivedResultDao {
 		//record statusはinsertするとき基本0
 		param.addValue(COLUMN_NAME_RECORDSTATUS, 0);
 		//dateはinsertかけたら自動的に入力される
-		param.addValue(COLUMN_NAME_RECORDDATE, new Timestamp(System.currentTimeMillis()));
-
-		return jdbcTemplate.update(sql, param);
+		Timestamp date = new Timestamp(System.currentTimeMillis());
+		param.addValue(COLUMN_NAME_RECORDDATE, date);
+		jdbcTemplate.update(sql, param);
+		ReceivedResult receivedResult = new ReceivedResult();
+		receivedResult.setRecordDate(date);
+		List<ReceivedResult> list = this.search(receivedResult, "");
+		return list.get(0).getGameInfoId();
 	}
 
 
@@ -141,12 +160,30 @@ public class PgReceivedResult implements ReceivedResultDao {
 			columnName = COLUMN_NAME_RECORDSTATUS + " = :" + COLUMN_NAME_RECORDSTATUS;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
+		if (Utility.notIsEmptyNull(result.getRecordDate())) {
+			columnName = COLUMN_NAME_RECORDDATE + " = :" + COLUMN_NAME_RECORDDATE;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
 		if (Utility.notIsEmptyNull(keyword)) {
-			columnName = COLUMN_NAME_JUDGENAME + "||" + COLUMN_NAME_MATCHID + "||" + COLUMN_NAME_COATNO + "||"
-					+ COLUMN_NAME_TOURNAMENTNO + " = :" + "keyword";
+			columnName = COLUMN_NAME_JUDGENAME + " || " + COLUMN_NAME_MATCHID + "||" + COLUMN_NAME_COATNO + "||"
+					+ COLUMN_NAME_TOURNAMENTNO + " LIKE :" + "keyword";
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName + "ORDER BY record_date";
 		}
 
+		return !where.isEmpty() ? " WHERE " + where : "";
+	}
+	
+	public static String searchSqlMatch(ReceivedResult result) {
+		String where = "";
+		String columnName = "";
+		if (Utility.notIsEmptyNull(result.getCompId())) {
+			columnName = COLUMN_NAME_COMPID + " = :" + COLUMN_NAME_COMPID;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(result.getGameNo())) {
+			columnName = COLUMN_NAME_GAMENO + " = :" + COLUMN_NAME_GAMENO;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
 		return !where.isEmpty() ? " WHERE " + where : "";
 	}
 

@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.dao.CompDao;
 import com.example.dao.ManageDao;
+import com.example.dao.ReceivedResultDao;
 import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
-import com.example.dao.ReceivedResultDao;
 
 @Controller
 public class TopController{
@@ -129,32 +129,32 @@ public class TopController{
 //		return "all_player";
 //	}
 	
-	//選手編集へ
-	@RequestMapping(value="edit_player")
-	public String playerEditPage(@ModelAttribute("edit_player") PlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "edit_player";
-	}
+//	//選手編集へ
+//	@RequestMapping(value="edit_player")
+//	public String playerEditPage(@ModelAttribute("edit_player") PlayerForm form, Model model) {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "edit_player";
+//	}
 	
-	//選手情報更新 選手一覧へ
-	@RequestMapping(value="edit_player", params= "edit")
-	public String playerEdit(@ModelAttribute("edit_player") PlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "all_player";
-	}
+//	//選手情報更新 選手一覧へ
+//	@RequestMapping(value="edit_player", params= "edit")
+//	public String playerEdit(@ModelAttribute("edit_player") PlayerForm form, Model model) {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "all_player";
+//	}
 	
-	//選手情報更新画面 delete
-	@RequestMapping(value="delete_player")
-	public String playerDelete() {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "all_player";
-	}
+//	//選手情報更新画面 delete
+//	@RequestMapping(value="delete_player")
+//	public String playerDelete() {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "all_player";
+//	}
 	
 //	//選手登録へ
 //	@RequestMapping(value="insert_player")

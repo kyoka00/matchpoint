@@ -38,7 +38,7 @@ public class PgTeamDao implements TeamDao{
 		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if(Utility.notIsEmptyNull(team.getTeamId())) {
-			param.addValue(COLUMN_NAME_TEAM_ID, team.getTeamId());
+			param.addValue(ID, team.getTeamId());
 		}
 		if(Utility.notIsEmptyNull(team.getCompId())) {
 			param.addValue(COLUMN_NAME_COMP_ID, team.getCompId());
@@ -108,6 +108,10 @@ public class PgTeamDao implements TeamDao{
 	public static String selectSql(Team team) {
 		String where = "";
 		String columnName = "";
+		if (Utility.notIsEmptyNull(team.getTeamId())) {
+			columnName = ID + " = :" + ID;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
 		if (Utility.notIsEmptyNull(team.getCompId())) {
 			columnName = COLUMN_NAME_COMP_ID + " = :" + COLUMN_NAME_COMP_ID;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;

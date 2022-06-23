@@ -7,8 +7,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.controller.form.PlayerForm;
 import com.example.dao.TeamDao;
 import com.example.entity.Team;
 
@@ -16,13 +18,14 @@ import com.example.entity.Team;
 public class AllPlayerController {	
 	@Autowired
 	HttpSession session;
-	
-//	@Autowired
-//	HttpRequest request;
-	
+
+	//	@Autowired
+	//	HttpRequest request;
+
 	@Autowired
 	TeamDao teamDao;
-	
+
+
 	//選手一覧へ（全件取得）
 	@RequestMapping(value="all_player")
 	public String playerList(Model model) {
@@ -30,12 +33,33 @@ public class AllPlayerController {
 			return "top";
 		}
 		
-		//teamテーブルのcomp_idを参照して、選手一覧画面を表示
 		Team team = new Team();
-		Integer compId = 2; //doubles
+		Integer compId = 2; //結合時に、comp_idをsession.getAttribute();で持たせる予定
 		team.setCompId(compId);
 		List<Team> resultList = teamDao.selectAll(team);
 		model.addAttribute("allPlayer", resultList);
-	return "all_player";
-}
+		return "all_player";
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+
+	//選手編集へ(serialNumber押下時)
+	@RequestMapping(value="edit_player")
+	public String playerEditPage(@ModelAttribute("edit_player") PlayerForm form, Model model) {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
+		}
+
+		//チーム情報を保持したまま、編集画面に遷移
+		
+		Team team = new Team();
+		
+		Integer compId = 2;
+		team.setTeamId(form.getTeamId());
+		team.setCompId(compId);
+		List<Team> teamList = teamDao.selectAll(team);
+//		System.out.println(team);
+		model.addAttribute("edit_player", teamList.get(0));
+//		System.out.println(2);
+		return "edit_player";
+	}
 }

@@ -55,7 +55,7 @@ public class RegisterPlayerController {
 
 		//選手の新規登録処理
 		Team team = new Team();
-		Integer compId = 2; ///////////////////////////////////////compId(大会ID)の受け取りをどのようにするか
+		Integer compId = 2; //結合時に、comp_idをsession.getAttribute();で持たせる予定
 		team.setCompId(compId);
 		team.setPlayerAName(form.getPlayer1());
 		team.setPlayerBName(form.getPlayer2());
@@ -64,8 +64,8 @@ public class RegisterPlayerController {
 		
 		//大会一覧への表示処理
 		team = new Team();
-		List<Team> resultList = teamDao.selectAll(team);//
-		model.addAttribute("allPlayer", resultList);
+		List<Team> registList = teamDao.selectAll(team);//
+		model.addAttribute("all_Player", registList);
 		return "all_player";
 	}
 }

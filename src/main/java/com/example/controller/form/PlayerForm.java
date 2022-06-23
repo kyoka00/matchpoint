@@ -10,6 +10,12 @@ import lombok.Data;
 @Data
 public class PlayerForm{
 	
+	//チームID
+	private Integer teamId;
+	
+	//大会ID
+	private Integer compId;
+	
 	//プレイヤー１	
 	@NotBlank
 	@NotEmpty(message = "名前を入力してください")
@@ -25,5 +31,7 @@ public class PlayerForm{
 	//トーナメント番号
 	@NotNull(message = "トーナメント番号を入力してください")
 	private Integer tournamentNum;
+
+
 	
 }

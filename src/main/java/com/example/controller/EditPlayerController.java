@@ -55,7 +55,7 @@ public class EditPlayerController {
 //	}
 	
 	//選手情報更新 update
-	@RequestMapping(value="edit_player", params= "edit")
+	@RequestMapping(value="edit_player", params= "edit") 
 	public String playerUpdate(@ModelAttribute("all_player") PlayerForm form, Model model) {
 		if(session.getAttribute("loginId") == null) {
 			return "top";
@@ -66,9 +66,18 @@ public class EditPlayerController {
 			team.setPlayerBName(form.getPlayer2());
 			team.setTournamentNo(form.getTournamentNum());
 			teamDao.updateTeam(team);///////////////////////////////////ここまでが個人の処理
+			//たぶん、teamIdもteamにセットしないと、SQLでWHEREが指定されないはず。
+			//そうなると、たぶん全部の値が変わるはずよ
+
+			//このコードのままだと、更新できたかどうか判定する方法がなさそう。
+			//TeamDaoのupdate, delete, insertの戻り値をintにして、メソッドの戻り値をjdbcTemplate.update(sql, param);に変えた方がよさそう
+			//そしたらSQLが行われた件数が取得できるから、1だったら正常に更新できてるし、0なら更新できてないってこと。
+			//更新できてない場合に、エラーメッセージとか表示させた方がよきかも。
 			
 			//大会一覧への表示処理
-			List<Team> updateList = teamDao.selectAll(team);//
+			List<Team> updateList = teamDao.selectAll(team, ""); 
+			
+			
 			model.addAttribute("allPlayer", updateList);
 			System.out.println("ABC");
 			return "all_player";
@@ -76,7 +85,7 @@ public class EditPlayerController {
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		//選手情報更新画面 delete
-		@RequestMapping(value="delete_player", params = "delete")
+		@RequestMapping(value="delete_player", params = "delete") //paramsいらないよ
 		public String playerDelete(@RequestParam("id") PlayerForm form, Model model) {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
@@ -90,7 +99,8 @@ public class EditPlayerController {
 			teamDao.deleteTeam(team);
 			
 			//大会一覧への表示処理
-			List<Team> deleteList = teamDao.selectAll(team);
+			List<Team> deleteList = teamDao.selectAll(team,"");
+			//deleteも同じく、TeamId必要。それ以外のカラムの値は要らないよー。
 			model.addAttribute("all_player", deleteList);
 			System.out.println("DEF");
 			return "all_player";

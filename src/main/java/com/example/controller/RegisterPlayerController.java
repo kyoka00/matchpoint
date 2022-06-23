@@ -64,7 +64,7 @@ public class RegisterPlayerController {
 		
 		//大会一覧への表示処理
 		team = new Team();
-		List<Team> registList = teamDao.selectAll(team);//
+		List<Team> registList = teamDao.selectAll(team,"");//
 		model.addAttribute("all_Player", registList);
 		return "all_player";
 	}

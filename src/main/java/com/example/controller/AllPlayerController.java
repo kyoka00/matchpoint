@@ -25,7 +25,11 @@ public class AllPlayerController {
 	@Autowired
 	TeamDao teamDao;
 
-
+	//検索機能作れるようにDao編集しといたから、
+	//all_player.htmlで検索用のform, input, buttonを作って、
+	//新しいRequestMapping作ってー。
+	//また詳しいことは聞いてください。
+	
 	//選手一覧へ（全件取得）
 	@RequestMapping(value="all_player")
 	public String playerList(Model model) {
@@ -36,7 +40,7 @@ public class AllPlayerController {
 		Team team = new Team();
 		Integer compId = 2; //結合時に、comp_idをsession.getAttribute();で持たせる予定
 		team.setCompId(compId);
-		List<Team> resultList = teamDao.selectAll(team);
+		List<Team> resultList = teamDao.selectAll(team, "");
 		model.addAttribute("allPlayer", resultList);
 		return "all_player";
 	}
@@ -56,7 +60,7 @@ public class AllPlayerController {
 		Integer compId = 2;
 		team.setTeamId(form.getTeamId());
 		team.setCompId(compId);
-		List<Team> teamList = teamDao.selectAll(team);
+		List<Team> teamList = teamDao.selectAll(team, "");
 //		System.out.println(team);
 		model.addAttribute("edit_player", teamList.get(0));
 //		System.out.println(2);

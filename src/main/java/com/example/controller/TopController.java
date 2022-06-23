@@ -15,9 +15,9 @@ import com.example.controller.form.LoginForm;
 import com.example.controller.form.PlayerForm;
 import com.example.dao.CompDao;
 import com.example.dao.ManageDao;
+import com.example.dao.ReceivedResultDao;
 import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
-import com.example.dao.ReceivedResultDao;
 
 @Controller
 public class TopController{
@@ -115,14 +115,7 @@ public class TopController{
 		return "comp_list";
 	}
 	
-	//トーナメントへ
-	@RequestMapping(value="tournament")
-	public String tournament() {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "tournament";
-	}
+	
 	
 	//選手一覧へ
 	@RequestMapping(value="all_player")

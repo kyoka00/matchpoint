@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,6 +24,9 @@ public class EditPlayerController {
 	
 	@Autowired
 	TeamDao teamDao;
+	
+	@Autowired
+    private NamedParameterJdbcTemplate jdbcTemplate;
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	@RequestMapping(value = "/update", params = "update", method = RequestMethod.POST)
@@ -63,19 +67,29 @@ public class EditPlayerController {
 	   * @param model Model
 	   * @return ユーザー情報詳細画面
 	   */
-	@RequestMapping(value="/edit_player", params= "edit", method = RequestMethod.POST)
-	public String playerUpdate(@Validated @ModelAttribute("all_player") PlayerForm form, Model model) {
+	@RequestMapping(value="edit_player", params= "edit", method = RequestMethod.POST)
+	public String playerEdit(@Validated @ModelAttribute("edit_player") PlayerForm form, Model model) {
 
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
+		
+	        
+		
 			Team team = new Team();
+			Integer teamId = form.getTeamId();
 			Integer compId = 2; //結合時に、comp_idをsession.getAttribute();で持たせる予定
+			team.setTeamId(teamId);
 			team.setCompId(compId);
 			team.setPlayerAName(form.getPlayer1());
 			team.setPlayerBName(form.getPlayer2());
 			team.setTournamentNo(form.getTournamentNum());
-			teamDao.updateTeam(team);///////////////////////////////////ここまでが個人の処理
+			int result = teamDao.updateTeam(team);
+			System.out.println(result);
+		
+			///////////////////////////////////ここまでが個人の処理
+			
+		
 			//たぶん、teamIdもteamにセットしないと、SQLでWHEREが指定されないはず。
 			//そうなると、たぶん全部の値が変わるはずよ
 
@@ -85,9 +99,7 @@ public class EditPlayerController {
 			//更新できてない場合に、エラーメッセージとか表示させた方がよきかも。
 			
 			//大会一覧への表示処理
-			List<Team> updateList = teamDao.selectAll(team, ""); 
-			
-			
+			List<Team> updateList = teamDao.selectAll(team, "" ); 
 			model.addAttribute("allPlayer", updateList);
 			System.out.println("ABC");
 			return "all_player";

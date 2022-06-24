@@ -30,6 +30,10 @@ public class AllPlayerController {
 	//新しいRequestMapping作ってー。
 	//また詳しいことは聞いてください。
 	
+	//検索機能
+	
+	
+////////////////////////////////////////////////////////////////////////////////////////	
 	//選手一覧へ（全件取得）
 	@RequestMapping(value="all_player")
 	public String playerList(Model model) {
@@ -56,7 +60,6 @@ public class AllPlayerController {
 		//チーム情報を保持したまま、編集画面に遷移
 		
 		Team team = new Team();
-		
 		Integer compId = 2;
 		team.setTeamId(form.getTeamId());
 		team.setCompId(compId);

@@ -6,7 +6,7 @@ import com.example.entity.Team;
 
 public interface TeamDao{
 	public List<Team> selectAll(Team team, String keyword);
-	public void insertTeam(Team team);
-	public void deleteTeam(Team team);
-	public void updateTeam(Team team);
+	public int insertTeam(Team team);
+	public int deleteTeam(Team team);
+	public int updateTeam(Team team);
 }

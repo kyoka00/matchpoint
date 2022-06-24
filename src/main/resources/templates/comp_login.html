@@ -5,6 +5,8 @@
 <title>ログイン</title>
 </head>
 <body>
+
+	<p class="error" th:text="${errorMsg}"></p>
 	<form action=tournament_player method="POST">
 		<button type="button" onclick="location.href='/'" name="create">戻る</button>
 		<div>

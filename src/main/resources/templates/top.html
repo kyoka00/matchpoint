@@ -2,10 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
+	rel="stylesheet">
 <title>トップ</title>
 </head>
-<body>
-	<a href="/login">運営モード</a>
-	<a href="/comp_login">プレイヤーモード</a>
+<body class="jumbotron"style="background: url(images/back.png); background-size: cover; text-align: center;">
+
+	<a href="/login" class="btn btn-primary btn-lg">運営モード</a>
+	<a href="/comp_login" class="btn btn-primary btn-lg">プレイヤーモード</a>
+
 </body>
 </html>

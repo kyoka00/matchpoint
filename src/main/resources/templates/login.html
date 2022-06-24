@@ -3,19 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <title>ログイン</title>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
+	rel="stylesheet">
 </head>
-<body>
+<body class="bg-info text-white" style="background-size: cover;">
+
+	<p class="error" th:text="${errorMsg}"></p>
+
 	<form action="comp_list" th:object="${login}" method="POST">
-		<button type="button" onclick="location.href='/'" name="create">戻る</button>
-		<div>
-			<label>ログインID:</label>
-			<input type="text" th:field="*{loginId}">
+
+		<div class="text-right">
+			<button type="button" onclick="location.href='/'" name="create"
+				class="btn btn-primary">戻る</button>
 		</div>
-		<div>
-			<label>パスワード:</label>
-			<input type="password" th:field="*{password}">
+
+		<div class="text-center">
+			<div>
+				<label>ログインID:</label> <input type="text" th:field="*{loginId}">
+				<div th:each="error: ${#fields.errors('loginId')}">[[ ${error}
+					]]</div>
+			</div>
+			<div>
+				<label>パスワード:</label> <input type="password" th:field="*{password}">
+				<div th:each="error: ${#fields.errors('password')}">[[
+					${error} ]]</div>
+			</div>
+			<input type="submit" value="ログイン" class="btn btn-primary">
 		</div>
-		<input type="submit" value="ログイン">
 	</form>
+
 </body>
 </html>

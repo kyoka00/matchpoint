@@ -1,3 +1,4 @@
+
 package com.example.entity;
 
 import java.util.Date;
@@ -5,6 +6,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
+
 public class Comp{
 	private Integer compId;
 	private String compName;
@@ -16,3 +18,4 @@ public class Comp{
 	private String gameTypeStr;
 	private String memo;
 }
+

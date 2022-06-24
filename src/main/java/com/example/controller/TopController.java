@@ -5,12 +5,21 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+<<<<<<< HEAD
+import com.example.Dao.CompDao;
+import com.example.Dao.ManegeDao;
+import com.example.Enitity.Comp;
+import com.example.controller.form.CompForm;
+=======
 import com.example.controller.form.CompForm;
 import com.example.controller.form.GamePlayerForm;
+>>>>>>> fe58be5e56c7d4eb708d1d2723d93b3c57353ebc
 import com.example.controller.form.LoginForm;
 import com.example.controller.form.PlayerForm;
 import com.example.dao.CompDao;
@@ -20,6 +29,7 @@ import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
 
 @Controller
+
 public class TopController{
 	@Autowired
 	HttpSession session;
@@ -41,10 +51,12 @@ public class TopController{
 	
 	//ログアウト
 	@RequestMapping(value="logout")
+
 	public String logout() {
 		session.invalidate();
 		return "top";
 	}
+
 	
 	//トップページ
 	@RequestMapping(value={"/","top"})
@@ -58,6 +70,11 @@ public class TopController{
 		form.setLoginId("admin");
 		return "login";
 	}
+
+	// 運営ログイン画面から大会一覧へ
+	@RequestMapping(value = "comp_list")
+	public String login(@Validated @ModelAttribute("login") LoginForm form, BindingResult bindingResult, Model model) {
+		
 	
 	//プレイヤーにログイン
 	@RequestMapping(value="comp_login")
@@ -87,10 +104,56 @@ public class TopController{
 			}
 		}else {
 			session.setAttribute("loginId", form.getLoginId());
+
 			return "comp_list";
 		}
 	}
-	
+
+	// 大会一覧から大会作成画面へ
+		@RequestMapping(value="comp_info")
+		public String createCompPage(@ModelAttribute("compInfo") CompForm form, Model model) {
+			if(session.getAttribute("loginId") == null) {
+				return "top";
+			}
+			return "comp_info";
+		}
+		
+		//大会作成画面から作成ボタンで大会一覧へ移動
+		@RequestMapping(value="comp_list", params="create")
+		public String createComp(@Validated@ModelAttribute("compInfo") CompForm form, BindingResult bindingResult ,Model model) {
+			
+			if(bindingResult.hasErrors()) {
+				return "comp_info";
+			}
+			
+			// 存在チェック
+			var comp = compDao.compLoginId(form.getCompLoginId(), -1);
+			if(comp != null) {
+				model.addAttribute("errorMsg", "商品IDは既に使用されています。");
+				return "/insert";
+			}
+			
+			comp = new Comp();
+			this.FormToComp(form,comp);
+			var count = compDao.insert(comp);
+			this.setMsg(model, "登録", count);
+			
+			model.addAttribute("compList", compDao.find());
+			
+			return "comp_list";
+		}
+		
+		//大会一覧へ戻る
+		@RequestMapping(value="comp_list_back")
+		public String compListBack(@ModelAttribute("compInfo") CompForm form, Model model) {
+			if(session.getAttribute("loginId") == null) {
+				return "top";
+			}
+			model.addAttribute("compList", compDao.find());
+			return "comp_list";
+		}
+		
+
 	//大会一覧から大会作成画面へ
 	@RequestMapping(value="comp_info")
 	public String createCompPage(@ModelAttribute("compInfo") CompForm form, Model model) {

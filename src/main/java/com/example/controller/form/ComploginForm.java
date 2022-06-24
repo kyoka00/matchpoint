@@ -5,11 +5,8 @@ import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class LoginForm{
-	
+public class ComploginForm {
 	@NotBlank
-	private String loginId;
-	
-	@NotBlank
-	private String password;
+	private String compLoginId;
+
 }

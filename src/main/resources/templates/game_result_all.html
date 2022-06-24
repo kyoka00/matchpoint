@@ -3,12 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>試合結果受信box</title>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
+	rel="stylesheet">
 </head>
-<body>
+
+<body class="bg-info text-white" style="background-size: cover;">
 	<div th:insert="header"></div>
 	
-	<button type="button" onclick="location.href='tournament'">戻る</button>
-	<table border="1">
+	<div class="text-right">
+	<button type="button" onclick="location.href='tournament'" class="btn btn-primary">戻る</button>
+	</div>
+	
+	<div class="text-center">
+	<table border="1" class="mx-auto">
 		<tr>
 			<th>日時</th>
 			<th>試合番号</th>
@@ -24,5 +31,6 @@
 			<td>1</td>
 		</tr>
 	</table>
+	</div>
 </body>
 </html>

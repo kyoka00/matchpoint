@@ -3,44 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <title>大会作成</title>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
+	rel="stylesheet">
 </head>
-<body>
+<body class="bg-info text-white" style="background-size: cover;">
 	<div th:insert="header"></div>
+	<p class="error" th:text="${errorMsg}"></p>
+
 	<form action="comp_list" th:object="${compInfo}" method="POST">
+		<div class="text-right">
 		<button type="button" onclick="location.href='comp_list_back'">戻る</button>
-		<div>
-			<label>大会名:</label> <input type="text" th:field="*{compName}">
 		</div>
 
-		<div>
-			<label>開催日:</label> <input type="text" th:field="*{compDate}">
-		</div>
+		<div class="text-center">
+			<div>
+				<label>大会名:</label> <input type="text" th:field="*{compName}">
+				<div th:each="error: ${#fields.errors('compName')}">[[
+					${error} ]]</div>
+			</div>
 
-		<div>
-			<label>場所:</label> <input type="text" th:field="*{compPlace}">
-		</div>
+			<div>
+				<label>開催日:</label> <input type="text" th:field="*{compDate}">
+				<div th:each="error: ${#fields.errors('compDate')}">[[
+					${error} ]]</div>
+			</div>
 
-		<div>
-			<label>大会ログインID:</label> <input type="text" th:field="*{compLoginId}">
-		</div>
+			<div>
+				<label>場所:</label> <input type="text" th:field="*{compPlace}">
+				<div th:each="error: ${#fields.errors('compPlace')}">[[
+					${error} ]]</div>
+			</div>
 
-		<div>
-			<label>トーナメント数:</label> <input type="number" th:field="*{tournamentNum}">
-		</div>
+			<div>
+				<label>大会ログインID:</label> <input type="text"
+					th:field="*{compLoginId}">
+				<div th:each="error: ${#fields.errors('compLoginId')}">[[
+					${error} ]]</div>
+			</div>
 
-		<div>
-			<label>試合形式:</label>
-				<select th:field="*{gameType}">
+			<div>
+				<label>トーナメント数:</label> <input type="number"
+					th:field="*{tournamentNum}">
+				<div th:each="error: ${#fields.errors('tournamentNum')}">[[
+					${error} ]]</div>
+			</div>
+
+			<div>
+				<label>試合形式:</label> <select th:field="*{gameType}">
 					<option th:value="1" th:text="シングルス"></option>
 					<option th:value="2" th:text="ダブルス"></option>
 				</select>
-		</div>
+			</div>
 
-		<div>
-			<label>大会概要:</label> <input type="text" th:field="*{memo}">
+			<div>
+				<label>大会概要:</label> <input type="text" th:field="*{memo}">
+			</div>
+
 		</div>
-		
-		<button type="submit" name="create">作成</button>
+		<div class="text-center">
+		<button type="submit" name="create" class="btn btn-primary">作成</button>
+		</div>
 	</form>
 </body>
 </html>

@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+import com.example.controller.form.CompForm;
+import com.example.controller.form.LoginForm;
+import com.example.controller.form.PlayerForm;
 import com.example.dao.CompDao;
 import com.example.dao.ManageDao;
 import com.example.dao.ReceivedResultDao;
@@ -301,55 +305,56 @@ public class TopController{
 	}
 	
 	//試合設定画面
-	@RequestMapping(value="match")
-	public String gameSetting() {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "game_setting";
-	}
+//	@RequestMapping(value="match")
+//	public String gameSetting() {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "game_setting";
+//	}
 	
 	//サーブ権設定
-	@RequestMapping(value="server_setting", params="server_setting")
-	public String serverSetting(@RequestParam("game_num") String gameNum, @ModelAttribute("score_setting") GamePlayerForm form) {
-		return "server_setting";
-	}
+//	@RequestMapping(value="server_setting", params="server_setting")
+//	public String serverSetting(@RequestParam("game_num") String gameNum, @ModelAttribute("score_setting") GamePlayerForm form) {
+//		form.setServer("playerB");
+//		return "server_setting";
+//	}
 	
 	//スコア登録画面
-	@RequestMapping(value="score_setting")
-	public String scoreSetting(@ModelAttribute("score_setting") GamePlayerForm form) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "score_setting";
-	}
+//	@RequestMapping(value="score_setting")
+//	public String scoreSetting(@ModelAttribute("score_setting") GamePlayerForm form) {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "score_setting";
+//	}
 	
 	//ゲームセット結果
-	@RequestMapping(value="game_set_result")
-	public String gameSetResult(@ModelAttribute("score_setting") GamePlayerForm form) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "game_set_result";
-	}
+//	@RequestMapping(value="game_set_result")
+//	public String gameSetResult(@ModelAttribute("score_setting") GamePlayerForm form) {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "game_set_result";
+//	}
 	
-	@RequestMapping(value="game_result", params="next")
-	public String nextGame() {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		
-		return "score_setting";
-	}
+//	@RequestMapping(value="game_result", params="next")
+//	public String nextGame() {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		
+//		return "score_setting";
+//	}
 	
-	@RequestMapping(value="game_result", params="finish")
-	public String gameResult() {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		
-		return "game_result";
-	}
+//	@RequestMapping(value="game_result", params="finish")
+//	public String gameResult() {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		
+//		return "game_result";
+//	}
 	
 	@RequestMapping(value="box")
 	public String box() {

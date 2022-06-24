@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controller.form;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,17 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-<<<<<<< HEAD
-import com.example.Dao.CompDao;
-import com.example.Dao.ManegeDao;
-import com.example.Enitity.Comp;
-import com.example.controller.form.CompForm;
-=======
-import com.example.controller.form.CompForm;
-import com.example.controller.form.GamePlayerForm;
->>>>>>> fe58be5e56c7d4eb708d1d2723d93b3c57353ebc
-import com.example.controller.form.LoginForm;
-import com.example.controller.form.PlayerForm;
 import com.example.dao.CompDao;
 import com.example.dao.ManageDao;
 import com.example.dao.ReceivedResultDao;
@@ -180,56 +169,56 @@ public class TopController{
 	
 	
 	
-	//選手一覧へ
-	@RequestMapping(value="all_player")
-	public String playerList() {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "all_player";
-	}
+//	//選手一覧へ
+//	@RequestMapping(value="all_player")
+//	public String playerList() {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "all_player";
+//	}
 	
-	//選手編集へ
-	@RequestMapping(value="edit_player")
-	public String playerEditPage(@ModelAttribute("edit_player") PlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "edit_player";
-	}
+//	//選手編集へ
+//	@RequestMapping(value="edit_player")
+//	public String playerEditPage(@ModelAttribute("edit_player") PlayerForm form, Model model) {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "edit_player";
+//	}
 	
-	//選手情報更新 選手一覧へ
-	@RequestMapping(value="edit_player", params= "edit")
-	public String playerEdit(@ModelAttribute("edit_player") PlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "all_player";
-	}
+//	//選手情報更新 選手一覧へ
+//	@RequestMapping(value="edit_player", params= "edit")
+//	public String playerEdit(@ModelAttribute("edit_player") PlayerForm form, Model model) {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "all_player";
+//	}
 	
-	//選手情報更新画面 delete
-	@RequestMapping(value="delete_player")
-	public String playerDelete() {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "all_player";
-	}
+//	//選手情報更新画面 delete
+//	@RequestMapping(value="delete_player")
+//	public String playerDelete() {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "all_player";
+//	}
 	
-	//選手登録へ
-	@RequestMapping(value="insert_player")
-	public String playerInsertPage(@ModelAttribute("insert_player") PlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "insert_player";
-	}
+//	//選手登録へ
+//	@RequestMapping(value="insert_player")
+//	public String playerInsertPage(@ModelAttribute("insert_player") PlayerForm form, Model model) {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "insert_player";
+//	}
 	
-	//選手登録 登録ボタン
-	@RequestMapping(value="insert_player", params="insert")
-	public String playerInsert(@ModelAttribute("insert_player") PlayerForm form, Model model) {
-		return "all_player";
-	}
+//	//選手登録 登録ボタン
+//	@RequestMapping(value="insert_player", params="insert")
+//	public String playerInsert(@ModelAttribute("insert_player") PlayerForm form, Model model) {
+//		return "all_player";
+//	}
 	
 	//大会詳細画面へ
 	@RequestMapping(value="comp_detail")
@@ -256,6 +245,8 @@ public class TopController{
 		return "comp_list";
 	}
 	
+	
+	//大会詳細画面
 	@RequestMapping(value="comp_detail_edit")
 	public String compDetailUpdate(@ModelAttribute("comp_detail") CompForm form, Model model) {
 		if(session.getAttribute("loginId") == null) {

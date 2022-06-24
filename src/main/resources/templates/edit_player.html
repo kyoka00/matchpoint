@@ -18,23 +18,22 @@
 		<div class="text-center">
 		<div>
 			<label>プレイヤー1:</label>
-			<input type="text" th:field="*{player1}">
+			<input type="text" th:field="*{playerAName}">
 		</div>
 		
 		<div>
 			<label>プレイヤー2:</label>
-			<input type="text" th:field="*{player2}">
+			<input type="text" th:field="*{playerBName}">
 		</div>
 		
 		<div>
 			<label>トーナメント番号:</label>
-			<input type="text" th:field="*{tournamentNum}">
+			<input type="text" th:field="*{tournamentNo}">
 		</div>
-		<input type="submit" name="edit" value="更新" class="btn btn-primary">
-		<button type="button" onclick="location.href='delete_player'" class="btn btn-primary">削除</button>
-		
-		</div>
-		
+</div>
+		<button type="button" onclick="location.href='edit_player'">更新</button>
+		<button type="button" onclick="location.href='edit_player'">削除</button>
+
 	</form>
 </body>
 </html>

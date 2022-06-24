@@ -6,33 +6,34 @@
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
 	rel="stylesheet">
 </head>
-<body class="bg-info text-white" style="background-size: cover;">
+
+<body>
+
+	<!-- 選手登録画面へ -->>
 	<div th:insert="header"></div>
-	
-	<div class="d-flex my-box-light">
-	<button type="button" onclick="location.href='edit_tournament'" class="my-box btn btn-primary mr-auto">トーナメント表作成</button>
-	<button type="button" onclick="location.href='tournament'" class="my-box btn btn-primary">戻る</button>
-	</div>
-	
-	<div class="text-right">
-	<button type="button" onclick="location.href='insert_player'" class="btn btn-primary">選手登録</button>
-	</div>
-	
-	<div class="text-center">
-	<table border="1" class="mx-auto">
+	<button type="button" onclick="location.href='edit_tournament'">トーナメント表作成</button>
+	<button type="button" onclick="location.href='tournament'">戻る</button>
+	<button type="button" onclick="location.href='insert_player'">選手登録</button>
+	<form action="all_player" th:object="${all_player}">
+	<table border="1">
+
 		<tr>
 			<th>番号</th>
 			<th>プレイヤー1</th>
 			<th>プレイヤー2</th>
 			<th>トーナメント番号</th>
 		</tr>
-		<tr>
-			<td><button type="button" onclick="location.href='edit_player'">1</button></td>
-			<td>playerA</td>
-			<td>playerB</td>
-			<td>2</td>
+		
+		<!-- 選手編集画面へ -->
+		<tr th:each="player : ${allPlayer}">
+			<td><a th:href="'/edit_player?teamId=' + ${player.teamId}">[[ ${#strings.escapeXml(player.teamId)} ]]</a></td>
+			<td>[[ ${#strings.escapeXml(player.playerAName)} ]]</td>
+			<td>[[ ${#strings.escapeXml(player.playerBName)} ]]</td>
+			<td>[[ ${#strings.escapeXml(player.tournamentNo)} ]]</td>
 		</tr>
 	</table>
-	</div>
+
+	</form>
+
 </body>
 </html>

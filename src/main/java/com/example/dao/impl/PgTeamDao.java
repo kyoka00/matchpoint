@@ -33,12 +33,12 @@ public class PgTeamDao implements TeamDao{
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
 	@Override
-	public List<Team> selectAll(Team team) {
+	public List<Team> selectAll(Team team, String keyword) {
 		String sql = SELECT + PgTeamDao.selectSql(team);
 		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if(Utility.notIsEmptyNull(team.getTeamId())) {
-			param.addValue(COLUMN_NAME_TEAM_ID, team.getTeamId());
+			param.addValue(ID, team.getTeamId());
 		}
 		if(Utility.notIsEmptyNull(team.getCompId())) {
 			param.addValue(COLUMN_NAME_COMP_ID, team.getCompId());
@@ -51,6 +51,9 @@ public class PgTeamDao implements TeamDao{
 		}
 		if(Utility.notIsEmptyNull(team.getTournamentNo())) {
 			param.addValue(COLUMN_NAME_TOURNAMENT_NO, team.getTournamentNo());
+		}
+		if(Utility.notIsEmptyNull(keyword)) {
+			param.addValue("keyword", '%'+ keyword +'%');
 		}
 		List<Team> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Team>(Team.class));
 		return resultList.isEmpty() ? null : resultList;
@@ -108,6 +111,10 @@ public class PgTeamDao implements TeamDao{
 	public static String selectSql(Team team) {
 		String where = "";
 		String columnName = "";
+		if (Utility.notIsEmptyNull(team.getTeamId())) {
+			columnName = ID + " = :" + ID;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
 		if (Utility.notIsEmptyNull(team.getCompId())) {
 			columnName = COLUMN_NAME_COMP_ID + " = :" + COLUMN_NAME_COMP_ID;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
@@ -122,6 +129,10 @@ public class PgTeamDao implements TeamDao{
 		}
 		if (Utility.notIsEmptyNull(team.getTournamentNo())) {
 			columnName = COLUMN_NAME_TOURNAMENT_NO + " = :" + COLUMN_NAME_TOURNAMENT_NO;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(team.getTournamentNo())) {
+			columnName = COLUMN_NAME_PLAYER_A_NAME + "||" + COLUMN_NAME_PLAYER_B_NAME + "LIKE :keyword";
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
 		return !where.isEmpty() ? " WHERE " + where : "";

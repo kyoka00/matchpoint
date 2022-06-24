@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -87,6 +88,7 @@ public class GameModeController{
 		receivedResult.setMaxPoint(form.getMaxPoint());
 		Integer i = receivedResultDao.insertGameInfo(receivedResult);
 		session.setAttribute("game_info_id", i);
+		session.setAttribute("game_count", form.getGameCount());
 		session.setAttribute("max_point", form.getMaxPoint());
 		return "redirect:/server_setting";
 	}
@@ -101,45 +103,118 @@ public class GameModeController{
 		List<Score> list = scoreDao.selectAll(score);
 		int winCountA = 0;
 		int winCountB = 0;
+		List<String> scoreList = new ArrayList<String>();
 		if(list != null) {
 			for(Score s : list) {
 				if(s.getTeamAScore() > s.getTeamBScore()) {
 					winCountA ++;
-				}else {
+				}else if(s.getTeamAScore() > s.getTeamBScore()){
 					winCountB ++;
 				}
+				scoreList.add(s.getTeamAScore() + "対" + s.getTeamBScore());
 			}
 		}
 		form.setMaxPoint((Integer)session.getAttribute("max_point"));
+		model.addAttribute("score_list", scoreList);
 		model.addAttribute("setNumA", winCountA);
 		model.addAttribute("setNumB", winCountB);
 		return "score_setting";
 	}
 	
 	@RequestMapping(value="game_set_result")
-	public String gameSetResult(@ModelAttribute("score_setting") GamePlayerForm form) {
+	public String gameSetResult(@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
-		
+		Score score = new Score();
+		score.setGameInfoId((Integer)session.getAttribute("game_info_id"));
+		List<Score> list = scoreDao.selectAll(score);
+		score.setTeamAScore(form.getTeam1Point());
+		score.setTeamBScore(form.getTeam2Point());
+		if(list == null) {
+			score.setSetNo(0);
+			list = new ArrayList<Score>();
+			list.add(score);
+		}else {
+			score.setSetNo(list.size() + 1);
+			list.add(score);
+		}
+		scoreDao.insertScore(score);
+		int winCountA = 0;
+		int winCountB = 0;
+		List<String> scoreList = new ArrayList<String>();
+		if(list != null) {
+			for(Score s : list) {
+				if(s.getTeamAScore() > s.getTeamBScore()) {
+					winCountA ++;
+				}else if(s.getTeamAScore() < s.getTeamBScore()){
+					winCountB ++;
+				}
+				scoreList.add(s.getTeamAScore() + "対" + s.getTeamBScore());
+			}
+		}
+		String btnStr = "";
+		int winNum = (Integer)session.getAttribute("game_count") / 2 + 1;
+		if(winNum == winCountA) {
+			btnStr = "試合終了";
+			session.setAttribute("winner", "teamA");
+		}else if(winNum == winCountB) {
+			btnStr = "試合終了";
+			session.setAttribute("winner", "teamB");
+		}
+		else {
+			btnStr = "次のゲームへ";
+		}
+		model.addAttribute("btn", btnStr);
+		model.addAttribute("set", (winCountA + winCountB) + "/" + session.getAttribute("game_count"));
+		model.addAttribute("playerA", form.getPlayerA());
+		model.addAttribute("playerB", form.getPlayerB());
+		model.addAttribute("playerC", form.getPlayerC());
+		model.addAttribute("playerD", form.getPlayerD());
+		model.addAttribute("score_list", scoreList);
+		model.addAttribute("setNumA", winCountA);
+		model.addAttribute("setNumB", winCountB);
 		return "game_set_result";
 	}
 	
 	@RequestMapping(value="game_result", params="next")
-	public String nextGame(@ModelAttribute("score_setting") GamePlayerForm form) {
+	public String nextGame(@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
-		
-		return "score_setting";
+		if(session.getAttribute("winner") == null) {
+			return "redirect:/server_setting";
+		}else {
+			Score score = new Score();
+			score.setGameInfoId((Integer)session.getAttribute("game_info_id"));
+			List<Score> list = scoreDao.selectAll(score);
+			int winCountA = 0;
+			int winCountB = 0;
+			if(list != null) {
+				for(Score s : list) {
+					if(s.getTeamAScore() > s.getTeamBScore()) {
+						winCountA ++;
+					}else if(s.getTeamAScore() < s.getTeamBScore()){
+						winCountB ++;
+					}
+				}
+			}
+			ReceivedResult receivedResult = new ReceivedResult();
+			receivedResult.setGameInfoId((Integer)session.getAttribute("game_info_id"));
+			List<ReceivedResult> resultList = receivedResultDao.search(receivedResult, "");
+			model.addAttribute("game_no", resultList.get(0).getGameNo());
+			model.addAttribute("final_score", winCountA + "-" + winCountB);
+			model.addAttribute("playerA", form.getPlayerA());
+			model.addAttribute("playerB", form.getPlayerB());
+			model.addAttribute("playerC", form.getPlayerC());
+			model.addAttribute("playerD", form.getPlayerD());
+			return "game_result";
+		}
 	}
 	
-	@RequestMapping(value="game_result", params="finish")
-	public String gameResult(@ModelAttribute("score_setting") GamePlayerForm form) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
+	@RequestMapping(value="update_game_info")
+	public String updateGameInfo() {
 		
-		return "game_result";
+		return "game_result_all";
 	}
 }

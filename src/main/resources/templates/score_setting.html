@@ -30,7 +30,13 @@
 			<div id="team1_point_text"></div>
 			<div>
 				<div th:text="${setNumA} + 'セット'">取得セット数</div>
-				<div>何対何</div>
+				<div>
+					<table border="1">
+						<tr th:each="score : ${score_list}">
+							<td th:text="${score}"></td>
+						</tr>
+					</table>
+				</div>
 				<div th:text="${setNumB} + 'セット'">取得セット数</div>
 			</div>
 			<div id="team2_point_text"></div>

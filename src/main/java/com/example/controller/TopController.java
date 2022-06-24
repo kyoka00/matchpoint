@@ -305,9 +305,9 @@ public class TopController{
 //		return "game_result";
 //	}
 	
-	@RequestMapping(value="box")
-	public String box() {
-		
-		return "game_result_all";
-	}
+//	@RequestMapping(value="box")
+//	public String box() {
+//		
+//		return "game_result_all";
+//	}
 }

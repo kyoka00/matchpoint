@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.controller.form.GameInfoForm;
 import com.example.controller.form.GamePlayerForm;
 import com.example.dao.ReceivedResultDao;
+import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
 import com.example.entity.ReceivedResult;
+import com.example.entity.Score;
 import com.example.entity.Team;
 
 @Controller
@@ -28,6 +31,9 @@ public class GameModeController{
 	
 	@Autowired
 	TeamDao teamDao;
+	
+	@Autowired
+	ScoreDao scoreDao;
 	
 	//試合設定画面
 	@RequestMapping(value="match")
@@ -81,15 +87,32 @@ public class GameModeController{
 		receivedResult.setMaxPoint(form.getMaxPoint());
 		Integer i = receivedResultDao.insertGameInfo(receivedResult);
 		session.setAttribute("game_info_id", i);
-		System.out.println(i);
+		session.setAttribute("max_point", form.getMaxPoint());
 		return "redirect:/server_setting";
 	}
 	
 	@RequestMapping(value="score_setting")
-	public String scoreSetting(@ModelAttribute("score_setting") GamePlayerForm form) {
+	public String scoreSetting(@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
+		Score score = new Score();
+		score.setGameInfoId((Integer)session.getAttribute("game_info_id"));
+		List<Score> list = scoreDao.selectAll(score);
+		int winCountA = 0;
+		int winCountB = 0;
+		if(list != null) {
+			for(Score s : list) {
+				if(s.getTeamAScore() > s.getTeamBScore()) {
+					winCountA ++;
+				}else {
+					winCountB ++;
+				}
+			}
+		}
+		form.setMaxPoint((Integer)session.getAttribute("max_point"));
+		model.addAttribute("setNumA", winCountA);
+		model.addAttribute("setNumB", winCountB);
 		return "score_setting";
 	}
 	
@@ -98,6 +121,7 @@ public class GameModeController{
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
+		
 		return "game_set_result";
 	}
 	

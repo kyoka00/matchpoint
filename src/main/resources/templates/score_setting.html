@@ -6,43 +6,48 @@
 </head>
 <body>
 	<form action="game_set_result" th:object="${score_setting}" method="POST">
-		<input type="text" th:field="*{playerA}">
-		<input type="text" th:field="*{playerB}">
-		<input type="text" th:field="*{playerC}">
-		<input type="text" th:field="*{playerD}">
-		
+		<input type="hidden" id="playerA" th:field="*{playerA}">
+		<input type="hidden" id="playerB" th:field="*{playerB}">
+		<input type="hidden" id="playerC" th:field="*{playerC}">
+		<input type="hidden" id="playerD" th:field="*{playerD}">
+		<input type="hidden" id="server" th:field="*{server}">
+		<input type="hidden" id="team1_point" th:field="*{team1Point}">
+		<input type="hidden" id="team2_point" th:field="*{team2Point}">
+		<input type="hidden" id="max_point" th:field="*{maxPoint}">
 		<div>
 			<div>
-				<p>A</p>
-				<p>B</p>
+				<p id="playerAtext">A</p>
+				<p id="playerBtext">B</p>
 			</div>
 			
 			<div>
-				<p>C</p>
-				<p>D</p>
+				<p id="playerCtext">C</p>
+				<p id="playerDtext">D</p>
 			</div>
 		</div>
 		
 		<div>
-			<div>点数表示</div>
+			<div id="team1_point_text"></div>
 			<div>
-				<div>取得ゲーム数</div>
+				<div th:text="${setNumA} + 'セット'">取得セット数</div>
 				<div>何対何</div>
-				<div>取得ゲーム数</div>
+				<div th:text="${setNumB} + 'セット'">取得セット数</div>
 			</div>
-			<div>点数表示</div>
+			<div id="team2_point_text"></div>
 		</div>
 		<div>
 			<div>
-				<button type="button">+</button>
-				<button type="button">-</button>
+				<button type="button" id="team1tasu" onClick="serverSet(1,'tasu')">+</button>
+				<button type="button" onClick="serverSet(1,'hiku')">-</button>
 			</div>
 			<div>
-				<button type="button">+</button>
-				<button type="button">-</button>
+				<button type="button" id="team2tasu" onClick="serverSet(2,'tasu')">+</button>
+				<button type="button" onClick="serverSet(2,'hiku')">-</button>
 			</div>
 		</div>
+		
 		<button type="submit">ゲーム終了</button>
 	</form>
+	<script src="/js/score_setting.js"></script>
 </body>
 </html>

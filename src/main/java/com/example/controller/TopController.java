@@ -147,6 +147,7 @@ public class TopController{
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
+		System.out.println("aaa");
 		return "all_player";
 	}
 	

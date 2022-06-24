@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
+<link href="/css/commons.css" rel="stylesheet">
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>選手一覧</title>
+
 </head>
 <body>
 
 	<!-- 選手登録画面へ -->
 	<div th:insert="header"></div>
-	<button type="button" onclick="location.href='edit_tournament'">トーナメント表作成</button>
-	<button type="button" onclick="location.href='tournament'">戻る</button>
-	<button type="button" onclick="location.href='insert_player'">選手登録</button>
+	<button class="text-white bg-danger" type="button" onclick="location.href='edit_tournament'">トーナメント表作成</button>
+	<button class="text-white bg-primary"type="button" onclick="location.href='tournament'">戻る</button>
+	<button class="text-white bg-success"type="button" onclick="location.href='insert_player'">選手登録</button>
 	<form action="search" th:object="${edit_player}">
 		<input type="text" name="keyword" placeholder="キーワード検索">
 		<input type="submit" value="検索">
@@ -25,7 +29,7 @@
 		</tr>
 		
 		<!-- 選手編集画面へ -->
-		<tr th:each="player : ${allPlayer}">
+		<tr class="" th:each="player : ${allPlayer}">
 			<td><a th:href="'/edit_player?teamId=' + ${player.teamId}">[[ ${#strings.escapeXml(player.teamId)} ]]</a></td>
 			<td>[[ ${#strings.escapeXml(player.playerAName)} ]]</td>
 			<td>[[ ${#strings.escapeXml(player.playerBName)} ]]</td>

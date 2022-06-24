@@ -30,7 +30,21 @@ public class AllPlayerController {
 	//新しいRequestMapping作ってー。
 	//また詳しいことは聞いてください。
 	
-	//検索機能
+	//検索button押下
+	@RequestMapping(value="search")
+	public String search(@ModelAttribute("edit_player") PlayerForm form, Model model) {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
+		}
+		
+		Team team = new Team();
+		Integer compId = 2;
+		team.setCompId(compId);
+		String keyword = form.getKeyword();
+		List<Team> search = teamDao.selectAll(team, keyword);
+		model.addAttribute("allPlayer", search);
+		return "all_player";
+	}
 	
 	
 ////////////////////////////////////////////////////////////////////////////////////////	
@@ -64,7 +78,6 @@ public class AllPlayerController {
 		team.setTeamId(form.getTeamId());
 		team.setCompId(compId);
 		List<Team> teamList = teamDao.selectAll(team, "");
-//		System.out.println(team);
 		model.addAttribute("edit_player", teamList.get(0));
 //		System.out.println(2);
 		return "edit_player";

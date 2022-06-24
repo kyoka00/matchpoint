@@ -6,11 +6,15 @@
 </head>
 <body>
 
-	<!-- 選手登録画面へ -->>
+	<!-- 選手登録画面へ -->
 	<div th:insert="header"></div>
 	<button type="button" onclick="location.href='edit_tournament'">トーナメント表作成</button>
 	<button type="button" onclick="location.href='tournament'">戻る</button>
 	<button type="button" onclick="location.href='insert_player'">選手登録</button>
+	<form action="search" th:object="${edit_player}">
+		<input type="text" name="keyword" placeholder="キーワード検索">
+		<input type="submit" value="検索">
+	</form>
 	<form action="all_player" th:object="${all_player}">
 	<table border="1">
 		<tr>

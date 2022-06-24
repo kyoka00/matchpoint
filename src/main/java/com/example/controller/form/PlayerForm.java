@@ -19,19 +19,19 @@ public class PlayerForm{
 	//プレイヤー１	
 	@NotBlank
 	@NotEmpty(message = "名前を入力してください")
-	@Size(max = 50, message = "名前は50桁以内で入力してください")
-	private String player1;
+	@Size(max = 50, message = "名前は25文字以内で入力してください")
+	private String playerAName;
 	
 	//プレイヤー２
-	@NotBlank
-	@NotEmpty(message = "名前を入力してください")
-	@Size(max = 50, message = "名前は50桁以内で入力してください")
-	private String player2;
+	@Size(max = 50, message = "名前は25文字以内で入力してください")
+	private String playerBName;
 	
 	//トーナメント番号
 	@NotNull(message = "トーナメント番号を入力してください")
-	private Integer tournamentNum;
-
+	private Integer tournamentNo;
+	
+	//キーワード検索
+	private String keyword;
 
 	
 }

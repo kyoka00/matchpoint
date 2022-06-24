@@ -15,17 +15,17 @@
 	<form action="insert_player"th:object="${insert_player}" th:method="post">
 		<div class="form-group">
 			<label>プレイヤー1:</label>
-			<input type="text" th:field="*{player1}" placeholder="入力してください(最大●文字)">
+			<input type="text" th:field="*{playerAName}" placeholder="入力してください(最大●文字)">
 			<br><td th:text="${errorMsg1}"></td>
 		</div>
 		<div>
 			<label>プレイヤー2:</label>
-			<input type="text" th:field="*{player2}" placeholder="入力してください(最大●文字)">
+			<input type="text" th:field="*{playerBName}" placeholder="入力してください(最大●文字)">
 			<td th:text="${error}"></td>
 		</div>
 		<div>
 			<label>トーナメント番号:</label>
-			<input type="text" th:field="*{tournamentNum}" placeholder="数値を入力(MAX●)">
+			<input type="text" th:field="*{tournamentNo}" placeholder="数値を入力(MAX●)">
 			<br><td th:text="${errorMsg2}"></td>
 		</div>
 		<input type="submit" name="insert" value="登録">

@@ -26,7 +26,6 @@ public class PgCompDao implements CompDao {
 	private static final String COLUMN_NAME_GAME_TYPE = "game_type";
 	private static final String COLUMN_NAME_TOURNAMET_COUNT = "tournament_count";
 	private static final String COLUMN_NAME_MEMO = "memo";
-	private static final String COLUMN_NAME_TORNAMET_COUNT = "tournament_count";
 	private static final String COLUMN_NAME_TORNAMET_EDIT_STATUS = "tournament_edit_status";
 
 	private final String SELECT = "SELECT * FROM " + tableName;

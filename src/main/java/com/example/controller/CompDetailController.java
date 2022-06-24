@@ -1,6 +1,7 @@
 package com.example.controller;
 
-import java.sql.Date;
+
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.controller.form.CompForm;
 import com.example.dao.CompDao;
 import com.example.entity.Comp;
-import com.example.util.Utility;
 
 @Controller
 public class CompDetailController{
@@ -34,7 +34,7 @@ public class CompDetailController{
 		Comp comp = new Comp();
 		
 		//初期値を入力
-		comp.setCompId(2);
+		comp.setCompId((Integer)session.getAttribute("compId"));
 		
 		List<Comp> compDetail = compDao.selectAll(comp);
 		
@@ -51,7 +51,7 @@ public class CompDetailController{
 		}
 			
 		Comp comp = new Comp();
-		comp.setCompId(2);
+		comp.setCompId((Integer)session.getAttribute("compId"));
 		compDao.deleteComp(comp);
 			
 		model.addAttribute("resultList", compDao.selectAll(comp));
@@ -68,7 +68,7 @@ public class CompDetailController{
 			Comp comp = new Comp();
 			
 			//初期値を入力
-			comp.setCompId(2);
+			comp.setCompId((Integer)session.getAttribute("compId"));
 			
 			List<Comp> compDetail = compDao.selectAll(comp);
 			
@@ -87,7 +87,7 @@ public class CompDetailController{
 			Comp comp = new Comp();
 			
 			//Date date= Date.valueOf(form.getCompDate());
-			comp.setCompId(3);
+			comp.setCompId((Integer)session.getAttribute("compId"));
 			comp.setCompName("2022年6月21日");
 			//comp.setCompDate(date);
 			comp.setCompPlace("hukuoka");
@@ -117,7 +117,7 @@ public class CompDetailController{
 			}
 			Comp comp = new Comp();
 			
-			comp.setCompId(1);
+			comp.setCompId((Integer)session.getAttribute("compId"));
 			
 			List<Comp> compDetail = compDao.selectAll(comp);
 			

@@ -55,7 +55,7 @@ public class RegisterPlayerController {
 
 		//選手の新規登録処理
 		Team team = new Team();
-		Integer compId = 2; //結合時に、comp_idをsession.getAttribute();で持たせる予定
+		Integer compId = (Integer)session.getAttribute("compId"); //結合時に、comp_idをsession.getAttribute();で持たせる予定
 		team.setCompId(compId);
 		team.setPlayerAName(form.getPlayer1());
 		team.setPlayerBName(form.getPlayer2());

@@ -102,7 +102,6 @@ public class EditPlayerController {
 			List<Team> deleteList = teamDao.selectAll(team,"");
 			//deleteも同じく、TeamId必要。それ以外のカラムの値は要らないよー。
 			model.addAttribute("all_player", deleteList);
-			System.out.println("DEF");
 			return "all_player";
 		}
 }

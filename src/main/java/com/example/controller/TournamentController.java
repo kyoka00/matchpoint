@@ -7,9 +7,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.controller.form.CompForm;
 import com.example.dao.CompDao;
 import com.example.dao.ManageDao;
 import com.example.dao.ReceivedResultDao;
@@ -43,15 +44,16 @@ public class TournamentController {
 	
 	//トーナメントへ
 		@RequestMapping(value="tournament")
-		public String tournament(Model model) {
+		public String tournament(@ModelAttribute("compInfo") CompForm form, Model model) {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
 			
-			Integer compId = 1;
+			Integer compId = form.getCompId();
+			session.setAttribute("compId", compId);
 			Team team = new Team();
 			team.setCompId(compId);
-			List<Team> teamList = teamDao.selectAll(team);
+			List<Team> teamList = teamDao.selectAll(team, "");
 			model.addAttribute("teamList", teamList);
 			
 			return "tournament";
@@ -66,12 +68,7 @@ public class TournamentController {
 			return "edit_tournament";
 		}
 		
-		//プレイヤーでログインをトーナメント
-		@RequestMapping(value="tournament_player")
-		public String tournamentPlayer(@RequestParam("compLoginId") String compLoginID) {
-			session.setAttribute("loginId", compLoginID);
-			return "tournament";
-		}
+		
 		
 		//トーナメント表のセーブ
 		@RequestMapping(value="submit_edition")

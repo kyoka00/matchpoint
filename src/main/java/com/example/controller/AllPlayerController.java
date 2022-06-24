@@ -38,7 +38,7 @@ public class AllPlayerController {
 		}
 		
 		Team team = new Team();
-		Integer compId = 2; //結合時に、comp_idをsession.getAttribute();で持たせる予定
+		Integer compId = (Integer)session.getAttribute("compId"); //結合時に、comp_idをsession.getAttribute();で持たせる予定
 		team.setCompId(compId);
 		List<Team> resultList = teamDao.selectAll(team, "");
 		model.addAttribute("allPlayer", resultList);
@@ -57,7 +57,7 @@ public class AllPlayerController {
 		
 		Team team = new Team();
 		
-		Integer compId = 2;
+		Integer compId = (Integer)session.getAttribute("compId");
 		team.setTeamId(form.getTeamId());
 		team.setCompId(compId);
 		List<Team> teamList = teamDao.selectAll(team, "");

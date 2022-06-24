@@ -2,8 +2,6 @@ package com.example.controller.form;
 
 
 import javax.validation.constraints.NotBlank;
-=======
->>>>>>> origin/yagi
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;

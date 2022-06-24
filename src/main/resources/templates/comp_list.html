@@ -24,7 +24,7 @@
 				<td>[[ ${complist.compId} ]]</td>
 				<td>[[ ${complist.compName} ]]</td>
 				<td>[[ ${complist.compDate} ]]</td>
-				<td><button type="button" onclick="location.href='tournament'">GO!</button></td>
+				<td><a th:href="'/tournament?compId=' + ${complist.compId}">GO!</a></td>
 			</tr>
 		</table>
 	</div>

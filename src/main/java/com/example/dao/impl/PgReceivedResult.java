@@ -42,6 +42,7 @@ public class PgReceivedResult implements ReceivedResultDao {
 	private final String INSERTMATCH = "INSERT INTO " + matchTbl;
 	private final String INSERTGAMEINFO = "INSERT INTO " + gameInfoTbl;
 	private final String UPDATE = "UPDATE " + gameInfoTbl + " set ";
+	private final String UPDATEMATCH = "UPDATE " + matchTbl + " set ";
 
 	@Override
 	public List<ReceivedResult> search(ReceivedResult result, String keyword) {
@@ -55,6 +56,9 @@ public class PgReceivedResult implements ReceivedResultDao {
 		}
 		if(Utility.notIsEmptyNull(result.getRecordDate())) {
 			param.addValue(COLUMN_NAME_RECORDDATE, result.getRecordDate());
+		}
+		if(Utility.notIsEmptyNull(result.getMatchId())) {
+			param.addValue(COLUMN_NAME_MATCHID, result.getMatchId());
 		}
 		if (Utility.notIsEmptyNull(keyword)) {
 			param.addValue("keyword", '%'+ keyword +'%');
@@ -150,7 +154,28 @@ public class PgReceivedResult implements ReceivedResultDao {
 		
 		return jdbcTemplate.update(sql, param);
 	}
-		
+	
+	@Override
+	public int updateMatch(ReceivedResult result) {
+		String sql = UPDATEMATCH + updateMatchSql(result);
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		if (Utility.notIsEmptyNull(result.getCompId())) {
+			param.addValue(COLUMN_NAME_COMPID, result.getCompId());
+		}
+		if (Utility.notIsEmptyNull(result.getGameNo())) {
+			param.addValue(COLUMN_NAME_GAMENO, result.getGameNo());
+		}
+		if (Utility.notIsEmptyNull(result.getTeamIdA())) {
+			param.addValue(COLUMN_NAME_TEAMIDA, result.getTeamIdA());
+		}
+		if (Utility.notIsEmptyNull(result.getTeamIdB())) {
+			param.addValue(COLUMN_NAME_TEAMIDB, result.getTeamIdB());
+		}
+			param.addValue(COLUMN_NAME_MATCHID, result.getGameInfoId());
+			
+			return jdbcTemplate.update(sql, param);
+	}
+	
 
 	public static String selectSql(ReceivedResult result, String keyword) {
 		String where = "";
@@ -165,6 +190,10 @@ public class PgReceivedResult implements ReceivedResultDao {
 		}
 		if (Utility.notIsEmptyNull(result.getRecordDate())) {
 			columnName = COLUMN_NAME_RECORDDATE + " = :" + COLUMN_NAME_RECORDDATE;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(result.getMatchId())) {
+			columnName = COLUMN_NAME_MATCHID + " = :" + COLUMN_NAME_MATCHID;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
 		if (Utility.notIsEmptyNull(keyword)) {
@@ -273,6 +302,28 @@ public class PgReceivedResult implements ReceivedResultDao {
 		}
 
 		return !set.isEmpty() ? set + " WHERE " + ID + " = :" + ID : "";
+	}
+	public static String updateMatchSql(ReceivedResult result) {
+		String set = "";
+		String columnName = "";
+		if (Utility.notIsEmptyNull(result.getCompId())) {
+			columnName = COLUMN_NAME_COMPID+ " = :" + COLUMN_NAME_COMPID;
+			set = !set.isEmpty() ? set + "," + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(result.getGameNo())) {
+			columnName = COLUMN_NAME_GAMENO+ " = :" + COLUMN_NAME_GAMENO;
+			set = !set.isEmpty() ? set + "," + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(result.getTeamIdA())) {
+			columnName = COLUMN_NAME_TEAMIDA+ " = :" + COLUMN_NAME_TEAMIDA;
+			set = !set.isEmpty() ? set + "," + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(result.getTeamIdB())) {
+			columnName = COLUMN_NAME_TEAMIDB+ " = :" + COLUMN_NAME_TEAMIDB;
+			set = !set.isEmpty() ? set + "," + columnName : columnName;
+		}
+
+		return !set.isEmpty() ? set + " WHERE " + COLUMN_NAME_MATCHID + " = :" + COLUMN_NAME_MATCHID : "";
 	}
 
 }

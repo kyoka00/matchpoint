@@ -65,12 +65,7 @@ public class TopController{
 		return "comp_login";
 	}
 	
-	//プレイヤーでログインをトーナメント
-	@RequestMapping(value="tournament_player")
-	public String tournamentPlayer(@RequestParam("compLoginId") String compLoginID) {
-		session.setAttribute("loginId", compLoginID);
-		return "tournament";
-	}
+	
 	
 	//運営ログイン画面から大会一覧へ
 	@RequestMapping(value="comp_list")
@@ -237,14 +232,7 @@ public class TopController{
 		return "game_result_final";
 	}
 	
-	//トーナメント表編集
-	@RequestMapping(value="edit_tournament")
-	public String editTournament() {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "edit_tournament";
-	}
+	
 	
 	//試合設定画面
 	@RequestMapping(value="match")

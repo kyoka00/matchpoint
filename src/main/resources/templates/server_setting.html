@@ -10,6 +10,26 @@
 		<input type="text" th:field="*{playerB}">
 		<input type="text" th:field="*{playerC}">
 		<input type="text" th:field="*{playerD}">
+		<p>立ち位置</p>
+		
+		<div>
+			<div>
+				<p>A</p>
+				<p>B</p>
+			</div>
+			
+			<div>
+				<p>C</p>
+				<p>D</p>
+			</div>
+		</div>
+		
+		<div>
+			<input type="radio" value="team1" th:field="*{server}">
+			サーブ権を選択
+			<input type="radio" value="team2" th:field="*{server}">
+		</div>
+		
 		<button type="submit">試合開始</button>
 	</form>
 </body>

@@ -42,8 +42,8 @@ public class RegisterPlayerController {
 		//存在チェック
 		if(bindingResult.hasErrors()) {
 			
-			String player1 = form.getPlayer1();
-			Integer tournamentNum = form.getTournamentNum();
+			String player1 = form.getPlayerAName();
+			Integer tournamentNum = form.getTournamentNo();
 			if(player1.isEmpty()) {
 				model.addAttribute("errorMsg1", "※プレイヤー名が記入されていません。");
 			}
@@ -57,15 +57,16 @@ public class RegisterPlayerController {
 		Team team = new Team();
 		Integer compId = (Integer)session.getAttribute("compId"); //結合時に、comp_idをsession.getAttribute();で持たせる予定
 		team.setCompId(compId);
-		team.setPlayerAName(form.getPlayer1());
-		team.setPlayerBName(form.getPlayer2());
-		team.setTournamentNo(form.getTournamentNum());
+		team.setPlayerAName(form.getPlayerAName());
+		team.setPlayerBName(form.getPlayerBName());
+		team.setTournamentNo(form.getTournamentNo());
 		teamDao.insertTeam(team);///////////////////////////////////ここまでが個人の処理
 		
 		//大会一覧への表示処理
 		team = new Team();
+		team.setCompId(compId);
 		List<Team> registList = teamDao.selectAll(team,"");//
-		model.addAttribute("all_Player", registList);
+		model.addAttribute("allPlayer", registList);
 		return "all_player";
 	}
 }

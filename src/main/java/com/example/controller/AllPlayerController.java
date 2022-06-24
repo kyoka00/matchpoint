@@ -30,6 +30,24 @@ public class AllPlayerController {
 	//新しいRequestMapping作ってー。
 	//また詳しいことは聞いてください。
 	
+	//検索button押下
+	@RequestMapping(value="search")
+	public String search(@ModelAttribute("edit_player") PlayerForm form, Model model) {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
+		}
+		
+		Team team = new Team();
+		Integer compId = 2;
+		team.setCompId(compId);
+		String keyword = form.getKeyword();
+		List<Team> search = teamDao.selectAll(team, keyword);
+		model.addAttribute("allPlayer", search);
+		return "all_player";
+	}
+	
+	
+////////////////////////////////////////////////////////////////////////////////////////	
 	//選手一覧へ（全件取得）
 	@RequestMapping(value="all_player")
 	public String playerList(Model model) {
@@ -56,12 +74,15 @@ public class AllPlayerController {
 		//チーム情報を保持したまま、編集画面に遷移
 		
 		Team team = new Team();
+<<<<<<< HEAD
 		
 		Integer compId = (Integer)session.getAttribute("compId");
+=======
+		Integer compId = 2;
+>>>>>>> 83c24d2977421235b9f05d8bde0f290581a76ee9
 		team.setTeamId(form.getTeamId());
 		team.setCompId(compId);
 		List<Team> teamList = teamDao.selectAll(team, "");
-//		System.out.println(team);
 		model.addAttribute("edit_player", teamList.get(0));
 //		System.out.println(2);
 		return "edit_player";

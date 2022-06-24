@@ -34,7 +34,12 @@ public class PgTeamDao implements TeamDao{
 	
 	@Override
 	public List<Team> selectAll(Team team, String keyword) {
+<<<<<<< HEAD
 		String sql = SELECT + PgTeamDao.selectSql(team);
+=======
+		String sql = SELECT + PgTeamDao.selectSql(team, keyword);
+		System.out.println(sql);
+>>>>>>> 83c24d2977421235b9f05d8bde0f290581a76ee9
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if(Utility.notIsEmptyNull(team.getTeamId())) {
 			param.addValue(ID, team.getTeamId());
@@ -69,10 +74,10 @@ public class PgTeamDao implements TeamDao{
 	}
 
 	@Override
-	public void insertTeam(Team team) {
+	public int insertTeam(Team team) {
 		String sql = INSERT + PgTeamDao.insertSql(team);
-		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
+		System.out.println(sql);
 		if (Utility.notIsEmptyNull(team.getCompId())) {
 			param.addValue(COLUMN_NAME_COMP_ID, team.getCompId());
 		}
@@ -85,21 +90,20 @@ public class PgTeamDao implements TeamDao{
 		if (Utility.notIsEmptyNull(team.getTournamentNo())) {
 			param.addValue(COLUMN_NAME_TOURNAMENT_NO, team.getTournamentNo());
 		}
-		jdbcTemplate.update(sql, param);
+		return jdbcTemplate.update(sql, param);
 	}
 
 	@Override
-	public void deleteTeam(Team team) {
+	public int deleteTeam(Team team) {
 		String sql = DELETE;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue(ID, team.getTeamId());
-		jdbcTemplate.update(sql, param);
+		return jdbcTemplate.update(sql, param);
 	}
 
 	@Override
-	public void updateTeam(Team team) {
+	public int updateTeam(Team team) {
 		String sql = UPDATE + updateSql(team);
-		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue(ID , team.getTeamId());
 		if (Utility.notIsEmptyNull(team.getCompId())) {
@@ -114,10 +118,10 @@ public class PgTeamDao implements TeamDao{
 		if (Utility.notIsEmptyNull(team.getTournamentNo())) {
 			param.addValue(COLUMN_NAME_TOURNAMENT_NO, team.getTournamentNo());
 		}
-		jdbcTemplate.update(sql, param);
+		return jdbcTemplate.update(sql, param);
 	}
 	
-	public static String selectSql(Team team) {
+	public static String selectSql(Team team, String keyword) {
 		String where = "";
 		String columnName = "";
 		if (Utility.notIsEmptyNull(team.getTeamId())) {
@@ -140,11 +144,11 @@ public class PgTeamDao implements TeamDao{
 			columnName = COLUMN_NAME_TOURNAMENT_NO + " = :" + COLUMN_NAME_TOURNAMENT_NO;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
-		if (Utility.notIsEmptyNull(team.getTournamentNo())) {
-			columnName = COLUMN_NAME_PLAYER_A_NAME + "||" + COLUMN_NAME_PLAYER_B_NAME + "LIKE :keyword";
+		if (Utility.notIsEmptyNull(keyword)){
+			columnName = COLUMN_NAME_PLAYER_A_NAME + "||" + COLUMN_NAME_PLAYER_B_NAME + " LIKE :keyword";
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
-		return !where.isEmpty() ? " WHERE " + where : "";
+		return !where.isEmpty() ? " WHERE " + where : "" + " ORDER BY team_id ASC";
 	}
 	
 	public static String insertSql(Team team) {

@@ -5,9 +5,10 @@
 <title>試合結果受信box</title>
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
 	rel="stylesheet">
+	<link href="/css/commons.css" rel="stylesheet">
 </head>
 
-<body class="bg-info text-white" style="background-size: cover;">
+<body>
 	<div th:insert="header"></div>
 	
 	<div class="text-right">
@@ -15,7 +16,7 @@
 	</div>
 	
 	<div class="text-center">
-	<table border="1" class="mx-auto">
+	<table  class="mx-auto table-striped table-hover table-bordered">
 		<tr>
 			<th>日時</th>
 			<th>試合番号</th>

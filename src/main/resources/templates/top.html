@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+
 <meta charset="UTF-8">
+<link href="/css/commons.css" rel="stylesheet">
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
 	rel="stylesheet">
+
 <title>トップ</title>
 </head>
-<body class="jumbotron"style="background: url(images/back.png); background-size: cover; text-align: center;">
 
-	<a href="/login" class="btn btn-primary btn-lg">運営モード</a>
-	<a href="/comp_login" class="btn btn-primary btn-lg">プレイヤーモード</a>
+
+<body class="bg-img">
+
+	<div class="login_form">
+
+		<h1 class="display-1">Match Point</h1>
+
+
+
+		<a href="/login" class="btn btn-primary btn-lg mt-50">運営モード</a> 
+		<a href="/comp_login" class="btn btn-success btn-lg">プレイヤーモード</a>
+
+
+	</div>
 
 </body>
 </html>

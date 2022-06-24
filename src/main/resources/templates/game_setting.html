@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>試合設定</title>
+<link href="/css/game_mode.css" rel="stylesheet">
 </head>
 <body>
 	<form action="server_setting">
@@ -23,14 +24,27 @@
 		
 		<div>試合形式</div>
 		
-		<button type="button" onClick="openPoint()">点数</button>
+		<div>点数</div>
 		
-		<div id="point_toggle">
-		
+		<div>
+			<label><input type="radio" name="point">11点</label>
+			<label><input type="radio" name="point">21点</label>
+			<label><input type="radio" name="point">31点</label>
 		</div>
 		
-		<button type="submit" name="skip">試合スキップ</button>
-		<button type="submit" name="server_setting">サーブ権設定</button>
+		<div>ゲーム数</div>
+		
+		<div>
+			<label><input type="radio" name="point">1ゲーム</label>
+			<label><input type="radio" name="point">2ゲーム</label>
+			<label><input type="radio" name="point">3ゲーム</label>
+		</div>
+		
+		<div>
+			<button type="submit" name="skip">試合スキップ</button>
+			<button type="submit" name="server_setting">サーブ権設定</button>
+		</div>
 	</form>
 </body>
+<script src="/js/game_mode.js"></script>
 </html>

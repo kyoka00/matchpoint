@@ -1,0 +1,53 @@
+body {
+	background-color: #DDDDDD;
+	color: black;
+}
+
+th {
+	width: 10%
+}
+
+/**真ん中に寄せる**/
+.middle {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100mm;
+	line-height: 1.5em;
+}
+
+/**TOP背景画像**/
+.bg-img {
+	background-image: url("/images/back.png");
+	background-size: cover;
+	text-align: center;
+}
+
+/** ログイン画面 **/
+.login_form {
+	width: 400px;
+	height: 350px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	border-radius: 10px;
+	background-color: white;
+}
+
+.middlelogin {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 70mm;
+	line-height: 1.5em;
+}
+
+.base_input {
+	width: 250px;
+	height: 35px;
+	padding: 8px 10px;
+	border-radius: 10px;
+}
+

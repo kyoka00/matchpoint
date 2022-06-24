@@ -5,9 +5,10 @@
 <title>大会詳細</title>
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
 	rel="stylesheet">
+<link href="/css/commons.css" rel="stylesheet">
 </head>
 
-<body class="bg-info text-white" style="background-size: cover;">
+<body>
 	<div th:insert="header"></div>
 	
 	<form action="comp_detail_edit" th:object="${comp_detail}" method="POST">
@@ -17,32 +18,32 @@
 		</div>
 		
 		<div class="text-center">
-		<div>
-			<label>大会名:</label> <input type="text" th:field="*{compName}" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">大会名:</label> <input type="text" th:field="*{compName}" readonly>
 		</div>
 
-		<div>
-			<label>開催日:</label> <input type="text" th:field="*{compDate}" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">開催日:</label> <input type="text" th:field="*{compDate}" readonly>
 		</div>
 
-		<div>
-			<label>場所:</label> <input type="text" th:field="*{compPlace}" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">場所:</label> <input type="text" th:field="*{compPlace}" readonly>
 		</div>
 
-		<div>
-			<label>大会ログインID:</label> <input type="text" th:field="*{compLoginId}" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">大会ログインID:</label> <input type="text" th:field="*{compLoginId}" readonly>
 		</div>
 
-		<div>
-			<label>トーナメント数:</label> <input type="number" th:field="*{tournamentNum}" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">トーナメント数:</label> <input type="number" th:field="*{tournamentNum}" readonly>
 		</div>
 
-		<div>
-			<label>試合形式:</label> <input type="text" th:field="*{gameTypeStr}" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">試合形式:</label> <input type="text" th:field="*{gameTypeStr}" readonly>
 		</div>
 
-		<div>
-			<label>大会概要:</label> <input type="text" th:field="*{memo}" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">大会概要:</label> <input type="text" th:field="*{memo}" readonly>
 		</div>
 		<button type="button" onclick="location.href='comp_delete'" class="btn btn-primary">削除</button>
 		<button type="submit" class="btn btn-primary">編集</button>

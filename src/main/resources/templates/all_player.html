@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>選手一覧</title>
-<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
-	rel="stylesheet">
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
+<link href="/css/commons.css" rel="stylesheet">
 </head>
-<body class="bg-info text-white" style="background-size: cover;">
+
+<body>
 	<div th:insert="header"></div>
 	
 	<div class="d-flex my-box-light">
@@ -18,8 +19,9 @@
 	<button type="button" onclick="location.href='insert_player'" class="btn btn-primary">選手登録</button>
 	</div>
 	
+	<div class="table-responsive">
 	<div class="text-center">
-	<table border="1" class="mx-auto">
+	<table class="mx-auto table-striped table-hover table-bordered">
 		<tr>
 			<th>番号</th>
 			<th>プレイヤー1</th>
@@ -33,6 +35,7 @@
 			<td>2</td>
 		</tr>
 	</table>
+	</div>
 	</div>
 </body>
 </html>

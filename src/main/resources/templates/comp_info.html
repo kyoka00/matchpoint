@@ -5,63 +5,94 @@
 <title>大会作成</title>
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
 	rel="stylesheet">
-</head>
-<body class="bg-info text-white" style="background-size: cover;">
-	<div th:insert="header"></div>
-	<p class="error" th:text="${errorMsg}"></p>
+<link href="/css/commons.css" rel="stylesheet">
 
-	<form action="comp_list" th:object="${compInfo}" method="POST">
+</head>
+<body>
+	  <nav class="navbar navbar-expand-sm navbar-dark bg-dark mt-3 mb-3">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav4" aria-controls="navbarNav4" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <p class="navbar-brand"><img src="./images/ゆうやロゴ1.png" class="login_logo">Match Point</p>
+        <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+            
+            	<li class="nav-item">
+                    <a href="/match" class="nav-link">試合モード</a>
+                </li>
+               
+                <li class="nav-item active">
+                    <a class="nav-link" href="/logout">ログアウト</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+	<div class="text-center">
+		<p th:text="${errorMsg}"></p>
+	</div>
+
+	<form action="comp_list" th:object="${compInfo}" method="POST"
+		class="form-horizontal">
 		<div class="text-right">
-		<button type="button" onclick="location.href='comp_list_back'">戻る</button>
+			<button type="button" onclick="location.href='comp_list_back'">戻る</button>
 		</div>
 
 		<div class="text-center">
-			<div>
-				<label>大会名:</label> <input type="text" th:field="*{compName}">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">大会名:</label> <input
+					type="text" th:field="*{compName}">
 				<div th:each="error: ${#fields.errors('compName')}">[[
 					${error} ]]</div>
 			</div>
 
-			<div>
-				<label>開催日:</label> <input type="text" th:field="*{compDate}">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">開催日:</label> <input
+					type="text" th:field="*{compDate}">
 				<div th:each="error: ${#fields.errors('compDate')}">[[
 					${error} ]]</div>
 			</div>
 
-			<div>
-				<label>場所:</label> <input type="text" th:field="*{compPlace}">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">場所:</label> <input type="text"
+					th:field="*{compPlace}">
 				<div th:each="error: ${#fields.errors('compPlace')}">[[
 					${error} ]]</div>
 			</div>
 
-			<div>
-				<label>大会ログインID:</label> <input type="text"
-					th:field="*{compLoginId}">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">大会ログインID:</label> <input
+					type="text" th:field="*{compLoginId}">
 				<div th:each="error: ${#fields.errors('compLoginId')}">[[
 					${error} ]]</div>
 			</div>
 
-			<div>
-				<label>トーナメント数:</label> <input type="number"
-					th:field="*{tournamentNum}">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">トーナメント数:</label> <input
+					type="number" th:field="*{tournamentNum}">
 				<div th:each="error: ${#fields.errors('tournamentNum')}">[[
 					${error} ]]</div>
 			</div>
 
-			<div>
-				<label>試合形式:</label> <select th:field="*{gameType}">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">試合形式:</label> <select
+					th:field="*{gameType}">
 					<option th:value="1" th:text="シングルス"></option>
 					<option th:value="2" th:text="ダブルス"></option>
 				</select>
+
 			</div>
 
-			<div>
-				<label>大会概要:</label> <input type="text" th:field="*{memo}">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">大会概要:</label> <input
+					type="text" th:field="*{memo}">
 			</div>
 
 		</div>
+
 		<div class="text-center">
-		<button type="submit" name="create" class="btn btn-primary">作成</button>
+			<button type="submit" name="create" class="btn btn-primary">作成</button>
 		</div>
 	</form>
 </body>

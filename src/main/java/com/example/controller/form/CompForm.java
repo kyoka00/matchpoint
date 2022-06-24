@@ -1,23 +1,29 @@
 package com.example.controller.form;
 
+
 import javax.validation.constraints.NotBlank;
+=======
+>>>>>>> origin/yagi
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
 @Data
 public class CompForm{
-	@NotBlank
+
+	private Integer compId;
+	@NotNull
 	private String compName;
-	@NotBlank
+	@NotNull
 	private String compDate;
-	@NotBlank
+	@NotNull
 	private String compPlace;
 	@NotBlank
 	private String compLoginId;
 	@NotNull
 	private Integer tournamentNum;
-	
+
+	@NotNull
 	private Integer gameType;
 	
 	private String gameTypeStr;

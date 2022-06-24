@@ -6,10 +6,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>選手一覧</title>
-
 </head>
 <body>
-
 	<!-- 選手登録画面へ -->
 	<div th:insert="header"></div>
 	<button class="text-white bg-danger" type="button" onclick="location.href='edit_tournament'">トーナメント表作成</button>
@@ -20,17 +18,16 @@
 		<input type="submit" value="検索">
 	</form>
 	<form action="all_player" th:object="${all_player}">
-	<table border="1">
+	<table class="table table-bordered table-striped" border="1">
 		<tr>
 			<th>番号</th>
 			<th>プレイヤー1</th>
 			<th>プレイヤー2</th>
 			<th>トーナメント番号</th>
 		</tr>
-		
 		<!-- 選手編集画面へ -->
-		<tr class="" th:each="player : ${allPlayer}">
-			<td><a th:href="'/edit_player?teamId=' + ${player.teamId}">[[ ${#strings.escapeXml(player.teamId)} ]]</a></td>
+		<tr class="align-middle" th:each="player : ${allPlayer}">
+			<td><a class="btn btn-info btn-block m-1" th:href="'/edit_player?teamId=' + ${player.teamId}" role="button">[[ ${#strings.escapeXml(player.teamId)} ]]</a></td>
 			<td>[[ ${#strings.escapeXml(player.playerAName)} ]]</td>
 			<td>[[ ${#strings.escapeXml(player.playerBName)} ]]</td>
 			<td>[[ ${#strings.escapeXml(player.tournamentNo)} ]]</td>

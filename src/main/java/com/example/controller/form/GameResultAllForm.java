@@ -9,4 +9,5 @@ public class GameResultAllForm{
 	private Integer coatNo;
 	private String judgeName;
 	private Integer tournamentNo;
+	private String keyword;
 }

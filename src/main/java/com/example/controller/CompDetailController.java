@@ -32,7 +32,7 @@ public class CompDetailController{
 		Comp comp = new Comp();
 		
 		//初期値を入力
-		comp.setCompId(2);
+		comp.setCompId(form.getCompId());
 		
 		List<Comp> compDetail = compDao.selectAll(comp);
 		
@@ -49,7 +49,7 @@ public class CompDetailController{
 		}
 			
 		Comp comp = new Comp();
-		comp.setCompId(2);
+		comp.setCompId(form.getCompId());
 		compDao.deleteComp(comp);
 			
 		model.addAttribute("resultList", compDao.selectAll(comp));
@@ -66,7 +66,7 @@ public class CompDetailController{
 			Comp comp = new Comp();
 			
 			//初期値を入力
-			comp.setCompId(2);
+			comp.setCompId(form.getCompId());
 			
 			List<Comp> compDetail = compDao.selectAll(comp);
 			
@@ -85,14 +85,14 @@ public class CompDetailController{
 			Comp comp = new Comp();
 			
 			//Date date= Date.valueOf(form.getCompDate());
-			comp.setCompId(3);
-			comp.setCompName("2022年6月21日");
+			comp.setCompId(form.getCompId());
+			comp.setCompName(form.getCompName());
 			//comp.setCompDate(date);
-			comp.setCompPlace("hukuoka");
-			comp.setCompLoginId("comp3");
-			comp.setTournamentCount(4);
-			comp.setGameType(1);
-			comp.setMemo("aaa");
+			comp.setCompPlace(form.getCompPlace());
+			comp.setCompLoginId(form.getCompLoginId());
+			comp.setTournamentCount(form.getTournamentCount());
+			comp.setGameType(form.getGameType());
+			comp.setMemo(form.getMemo());
 			
 			compDao.updateComp(comp);
 			
@@ -115,7 +115,7 @@ public class CompDetailController{
 			}
 			Comp comp = new Comp();
 			
-			comp.setCompId(1);
+			comp.setCompId(form.getCompId());
 			
 			List<Comp> compDetail = compDao.selectAll(comp);
 			

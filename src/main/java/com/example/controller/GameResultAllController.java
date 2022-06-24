@@ -40,18 +40,24 @@ public class GameResultAllController{
 		
 		gameResultAll.setGameNo(form.getGameNo());
 		
-		List<GameResultAll> resultList = gameResultAllDao.selectAll(gameResultAll);
-		
-		System.out.println(resultList);
+		List<GameResultAll> resultList = gameResultAllDao.selectAll(gameResultAll, "");
 		
 		model.addAttribute("resultList", resultList);
 		
 		return "game_result_all";
 	}
 	
-	@RequestMapping(value = "/game_result_search")
-	public String search(@RequestParam("keyword") String keyword, ReceivedResult receivedResult ,Model model) {
-		model.addAttribute("resultList", receivedResultDao.search(receivedResult , keyword));
+	@RequestMapping(value = "game_result_search")
+	public String search(@ModelAttribute("comp_detail") GameResultAllForm form, Model model) {
+		
+		GameResultAll gameResultAll = new GameResultAll();
+		
+		gameResultAll.setGameNo(form.getGameNo());
+		
+		String keyword = form.getKeyword();
+		System.out.println(keyword);
+		List<GameResultAll> search = gameResultAllDao.selectAll(gameResultAll, keyword);
+		model.addAttribute("resultList", search);
 		return "game_result_all";
 	}
 	

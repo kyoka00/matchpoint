@@ -9,7 +9,7 @@ public class CompForm{
 	private String compDate;
 	private String compPlace;
 	private String compLoginId;
-	private Integer tournamentNum;
+	private Integer tournamentCount;
 	private Integer gameType;
 	private String gameTypeStr;
 	private String memo;

@@ -9,6 +9,9 @@
 	<form action="comp_detail_update" th:object="${comp_detail}" method="POST">
 		<button type="submit" name="back">戻る</button>
 		<div>
+			<input type="hidden" th:field="*{compId}">
+		</div>
+		<div>
 			<label>大会名:</label> <input type="text" th:field="*{compName}">
 		</div>
 

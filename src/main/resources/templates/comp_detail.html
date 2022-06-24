@@ -9,6 +9,9 @@
 	<form action="comp_detail_edit" th:object="${comp_detail}" method="POST">
 		<button type="button" onclick="location.href='tournament'">戻る</button>
 		<div>
+			<input type="hidden" th:field="*{compId}">
+		</div>
+		<div>
 			<label>大会名:</label> <input type="text" th:field="*{compName}" readonly>
 		</div>
 

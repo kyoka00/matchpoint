@@ -6,10 +6,15 @@
 </head>
 <body>
 	<div th:insert="header"></div>
-		<select id="selbox" onchange="change();">
-    		<option value="1">削除済みを表示</option>
-    		<option value="2">削除済みを非表示</option>
-  		</select>
+		<form action="sort">
+			<select class="base-text" name="orderBy" onchange="submit(this.form)">
+				<option value="normal">並び替え</option>
+				<option value="record_date">登録日時</option>
+				<option value="game_no">試合番号</option>
+				<option value="coat_no">コート番号</option>
+				<option value="tournament_no">トーナメント番号</option>
+			</select>
+		</form>
   	<form action="game_result_search" th:object="${comp_detail}">
 		<input type="text" name="keyword" placeholder="キーワード検索">
 		<input type="submit" value="検索">

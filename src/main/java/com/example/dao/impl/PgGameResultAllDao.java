@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.dao.GameResultAllDao;
 import com.example.entity.GameResultAll;
+import com.example.util.Utility;
 
 
 @Repository
@@ -20,7 +21,7 @@ public class PgGameResultAllDao implements GameResultAllDao{
 	
 	@Override
 	public List<GameResultAll> selectAll(GameResultAll gameResultAll, String keyword){
-		if(keyword != null) {
+		if(Utility.notIsEmptyNull(keyword)) {
 			String sql = "select g.record_date, m.game_no, g.coat_no, g.judge_name, t.tournament_no from match m join game_info g on m.match_id = g.match_id join team t on t.team_id = m.team_id_a where g.judge_name like :keyword ";
 			System.out.print(sql);
 			MapSqlParameterSource param = new MapSqlParameterSource();

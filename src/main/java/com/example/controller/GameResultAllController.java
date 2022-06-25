@@ -61,6 +61,25 @@ public class GameResultAllController{
 		return "game_result_all";
 	}
 	
+	@RequestMapping(value = "sort")
+	public String sort(@RequestParam("orderBy")  String orderBy, Model model) {
+		System.out.println("コントロール" + orderBy);
+		GameResultAll gameResultAll = new GameResultAll();
+
+		List<GameResultAll> gameResultList = gameResultAllDao.selectAll(gameResultAll, "");
+		if ("record_date".equals(orderBy)) {
+			gameResultList.sort((p1, p2) -> p1.getRecordDate().compareTo(p2.getRecordDate()));
+		}else if ("game_no".equals(orderBy)) {
+			gameResultList.sort((p1, p2) -> p1.getGameNo() >= p2.getGameNo() ? 1 : -1);
+		} else if ("coat_no".equals(orderBy)) {
+			gameResultList.sort((p1, p2) -> p1.getCoatNo() >= p2.getCoatNo() ? 1 : -1);	
+		} else if ("tournament_no".equals(orderBy)) {
+			gameResultList.sort((p1, p2) -> p1.getTournamentNo() >= p2.getTournamentNo() ? 1 : -1);
+		}
+		model.addAttribute("resultList", gameResultList);
+		return "game_result_all";
+	}
+	
 	//試合結果登録へ
 	@RequestMapping(value="game_result_final")
 	public String resultFinal(@ModelAttribute("comp_detail") GameResultAllForm form, Model model) {

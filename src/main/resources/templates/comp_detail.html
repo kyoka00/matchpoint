@@ -5,11 +5,13 @@
 <title>大会詳細</title>
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
 	rel="stylesheet">
+<link href="/css/commons.css" rel="stylesheet">
 </head>
 
-<body class="bg-info text-white" style="background-size: cover;">
+<body>
 	<div th:insert="header"></div>
 	
+	<div class="compinfo">
 	<form action="comp_detail_edit" th:object="${comp_detail}" method="POST">
 	
 		<div class="text-right">
@@ -20,22 +22,24 @@
 		<div>
 			<input type="hidden" th:field="*{compId}">
 		</div>
-		<div>
-			<label>大会名:</label> <input type="text" th:field="*{compName}" readonly>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">大会名:</label> <input type="text" th:field="*{compName}" readonly>
 		</div>
 
-		<div>
-			<label>開催日:</label> <input type="text" th:field="*{compDate}" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">開催日:</label> <input type="text" th:field="*{compDate}" readonly>
 		</div>
 
-		<div>
-			<label>場所:</label> <input type="text" th:field="*{compPlace}" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">場所:</label> <input type="text" th:field="*{compPlace}" readonly>
 		</div>
 
-		<div>
-			<label>大会ログインID:</label> <input type="text" th:field="*{compLoginId}" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">大会ログインID:</label> <input type="text" th:field="*{compLoginId}" readonly>
 		</div>
 
+<<<<<<< HEAD
 		<div>
 			<label>トーナメント数:</label> <input type="number" th:field="*{tournamentCount}" readonly>
 		</div>
@@ -46,10 +50,18 @@
 			 <input th:case="1" th:value = "シングル" readonly>
 			 <input th:case="2" th:value = "ダブルス" readonly>
 			</span>
+=======
+		<div class="form-group">
+			<label class="col-sm-2 control-label">トーナメント数:</label> <input type="number" th:field="*{tournamentNum}" readonly>
 		</div>
 
-		<div>
-			<label>大会概要:</label> <input type="text" th:field="*{memo}" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">試合形式:</label> <input type="text" th:field="*{gameTypeStr}" readonly>
+>>>>>>> 0d593859a9da504e80d60615c4a29d40a4026491
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">大会概要:</label> <input type="text" th:field="*{memo}" readonly>
 		</div>
 
 		</div>
@@ -66,6 +78,10 @@
           	</div>
         </div>
 	</form>
+<<<<<<< HEAD
 	 <script src="./js/commons.js"></script>
+=======
+	</div>
+>>>>>>> 0d593859a9da504e80d60615c4a29d40a4026491
 </body>
 </html>

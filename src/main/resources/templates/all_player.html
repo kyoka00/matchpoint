@@ -6,31 +6,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>選手一覧</title>
-<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
-	rel="stylesheet">
-
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
+<link href="/css/commons.css" rel="stylesheet">
 </head>
 
 <body>
-
-	<!-- 選手登録画面へ -->
 	<div th:insert="header"></div>
-	<button class="text-white bg-danger" type="button" onclick="location.href='edit_tournament'">トーナメント表作成</button>
-	<button class="text-white bg-primary"type="button" onclick="location.href='tournament'">戻る</button>
-	<button class="text-white bg-success"type="button" onclick="location.href='insert_player'">選手登録</button>
-	<form action="search" th:object="${edit_player}">
-		<input type="text" name="keyword" placeholder="キーワード検索">
-		<input type="submit" value="検索">
-	</form>
-	<form action="all_player" th:object="${all_player}">
-	<table border="1">
-
+	
+	<div class="d-flex my-box-light">
+	<button type="button" onclick="location.href='edit_tournament'" class="my-box btn btn-orange-moon mr-auto">トーナメント表作成</button>
+	<button type="button" onclick="location.href='tournament'" class="my-box btn btn-primary">戻る</button>
+	</div>
+	
+	<div class="text-right">
+	<button type="button" onclick="location.href='insert_player'" class="btn btn-primary">選手登録</button>
+	</div>
+	
+	<div class="table-responsive">
+	<div class="text-center">
+	<table class="mx-auto table-striped table-hover table-bordered table-light">
 		<tr>
-			<th>番号</th>
-			<th>プレイヤー1</th>
-			<th>プレイヤー2</th>
-			<th>トーナメント番号</th>
+			<th class="table-success">番号</th>
+			<th class="table-success">プレイヤー1</th>
+			<th class="table-success">プレイヤー2</th>
+			<th class="table-success">トーナメント番号</th>
 		</tr>
+<<<<<<< HEAD
 		
 		<!-- 選手編集画面へ -->
 		<tr class="" th:each="player : ${allPlayer}">
@@ -43,5 +44,16 @@
 
 	</form>
 
+=======
+		<tr>
+			<td><button type="button" onclick="location.href='edit_player'" class="btn-light-moon　btn-lg btn-block">1</button></td>
+			<td>playerA</td>
+			<td>playerB</td>
+			<td>2</td>
+		</tr>
+	</table>
+	</div>
+	</div>
+>>>>>>> 0d593859a9da504e80d60615c4a29d40a4026491
 </body>
 </html>

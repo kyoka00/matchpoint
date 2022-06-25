@@ -18,6 +18,9 @@
 		
 		<div class="text-center">
 		<div>
+			<input type="hidden" th:field="*{compId}">
+		</div>
+		<div>
 			<label>大会名:</label> <input type="text" th:field="*{compName}" readonly>
 		</div>
 
@@ -63,5 +66,6 @@
           	</div>
         </div>
 	</form>
+	 <script src="./js/commons.js"></script>
 </body>
 </html>

@@ -212,23 +212,23 @@ public class TopController{
 		return "comp_detail";
 	}
 	
-	//試合結果受信box
-	@RequestMapping(value="game_result_all")
-	public String gameResultAll() {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "game_result_all";
-	}
-	
-	//試合結果登録へ
-	@RequestMapping(value="game_result_final")
-	public String resultFinal() {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "game_result_final";
-	}
+//	//試合結果受信box
+//	@RequestMapping(value="game_result_all")
+//	public String gameResultAll() {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "game_result_all";
+//	}
+//	
+//	//試合結果登録へ
+//	@RequestMapping(value="game_result_final")
+//	public String resultFinal() {
+//		if(session.getAttribute("loginId") == null) {
+//			return "top";
+//		}
+//		return "game_result_final";
+//	}
 	
 	
 	

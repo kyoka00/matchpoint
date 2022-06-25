@@ -1,7 +1,5 @@
 package com.example.controller;
 
-
-
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -88,13 +86,13 @@ public class CompDetailController{
 			
 			//Date date= Date.valueOf(form.getCompDate());
 			comp.setCompId((Integer)session.getAttribute("compId"));
-			comp.setCompName("2022年6月21日");
+			comp.setCompName(form.getCompName());
 			//comp.setCompDate(date);
-			comp.setCompPlace("hukuoka");
-			comp.setCompLoginId("comp3");
-			comp.setTournamentCount(4);
-			comp.setGameType(1);
-			comp.setMemo("aaa");
+			comp.setCompPlace(form.getCompPlace());
+			comp.setCompLoginId(form.getCompLoginId());
+			comp.setTournamentCount(form.getTournamentCount());
+			comp.setGameType(form.getGameType());
+			comp.setMemo(form.getMemo());s
 			
 			compDao.updateComp(comp);
 			

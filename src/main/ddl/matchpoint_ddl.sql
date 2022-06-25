@@ -255,6 +255,10 @@ join game_info g on g.match_id = m.match_id
 join team t on t.team_id = m.team_id_a
 join team te on te.team_id = m.team_id_b;
 
+select * from received_result where judge_name like '%2%' or  TO_CHAR(match_id)|| coat_no||tournament_no = 2;
+select * from team where player_a_name || player_b_name || tournam like '%山田%' and comp_id = ;
+
+
 select * from received_result;
 
 

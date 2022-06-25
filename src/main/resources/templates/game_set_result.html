@@ -11,31 +11,34 @@
 		<input type="text" th:field="*{playerC}">
 		<input type="text" th:field="*{playerD}">
 		
-		<div>現在のゲーム数/総ゲーム数</div>
+		<div th:text="${set}">現在のゲーム数/総ゲーム数</div>
 		
 		<div>
 			<div>
-				<p>A</p>
-				<p>B</p>
+				<p th:text="${playerA}">A</p>
+				<p th:text="${playerB}">B</p>
 			</div>
 			
 			<div>
-				<p>C</p>
-				<p>D</p>
+				<p th:text="${playerC}">C</p>
+				<p th:text="${playerD}">D</p>
 			</div>
 		</div>
 		
 		<div>
-			<div>点数表示</div>
 			<div>
-				<div>取得ゲーム数</div>
-				<div>何対何</div>
-				<div>取得ゲーム数</div>
+				<div th:text="${setNumA}">取得ゲーム数</div>
+				<div>
+					<table border="1">
+						<tr th:each="score : ${score_list}">
+							<td th:text="${score}"></td>
+						</tr>
+					</table>
+				</div>
+				<div th:text="${setNumB}">取得ゲーム数</div>
 			</div>
-			<div>点数表示</div>
 		</div>
-		<button type="submit" name="next">次のゲームへ</button>
-		<button type="submit" name="finish">試合終了</button>
+		<button type="submit" th:text="${btn}" name="next">次のゲームへ</button>
 	</form>
 </body>
 </html>

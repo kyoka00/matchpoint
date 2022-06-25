@@ -16,8 +16,6 @@ function changeLeft(){
 }
 
 function changeRight(){
-	let playerA = document.getElementById('playerA')
-	let playerB = document.getElementById('playerB')
 	let playerC = document.getElementById('playerC')
 	let playerD = document.getElementById('playerD')
 	let tmp = playerC.value

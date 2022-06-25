@@ -12,9 +12,9 @@
 	<button type="button" onclick="location.href='tournament'">編集完了</button>
 	<button type="button" onclick="location.href='all_player'">戻る</button>
 	<div id="app">
-	  <details v-for="tournament in tournaments">
-            <summary>トーナメント: {{ tournament.tournament_no }}</summary>
-        <bracket :rounds="tournament.rounds">
+        <details v-for="tournament in tournaments">
+                <summary>トーナメント: {{ tournament.tournamentNo }}</summary>
+            <bracket :rounds="tournament.rounds">
                 <template #player="{ player }">
                     <div
                     @drop="dropList($event, player.id)"
@@ -30,11 +30,11 @@
                     </div>
                 </template>
                 <template  #player-extension-bottom = " {match} ">
-                    <input type="hidden" :value="match.match_id" readonly>
-                    <b style="background-color: gray;">試合番号：{{ match.match_id }}</b>
+                    <input type="hidden" :value="match.matchId" readonly>
+                    <b style="background-color: gray;">試合番号：{{ match.matchId }}</b>
                 </template>
-        </bracket>
-    </details>
+            </bracket>
+        </details>
 	</div>
     <script th:src="@{js/edit_tournament.js}"></script>
 

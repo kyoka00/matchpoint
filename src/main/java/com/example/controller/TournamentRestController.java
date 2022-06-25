@@ -13,7 +13,6 @@ import com.example.dao.ManageDao;
 import com.example.dao.ReceivedResultDao;
 import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
-import com.example.entity.Comp;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Team;
 
@@ -37,66 +36,67 @@ public class TournamentRestController {
 	@Autowired
 	ReceivedResultDao receivedResultDao;
 	
-	@RequestMapping("")
-	public List<Team> getTeamLIst(Integer compId){
+	@RequestMapping("getTeamList")
+	public List<Team> getTeamLIst(){
+		Integer compId = 1;
 		Team team = new Team();
 		team.setCompId(compId);
 		return teamDao.selectAll(team);
 	}
 	
-	@RequestMapping("")
+	@RequestMapping("getMatchList")
 	public List<ReceivedResult> getMatchList(){
-		Integer compId = (Integer)session.getAttribute("compId");
+		Integer compId = 1;
 		ReceivedResult result= new ReceivedResult();
 		result.setCompId(compId);
 		return receivedResultDao.searchMatch(result);
 	}
 	
-	@RequestMapping("")
-	public List<ReceivedResult> getGameInfo(){
-		Integer compId = (Integer)session.getAttribute("compId");
-		ReceivedResult result = new ReceivedResult();
-		result.setCompId(compId);
-		return receivedResultDao.search(result, null);
-	}
-	
-	@RequestMapping("")
-	public int insertMatch(Integer gameNo, Integer teamIdA, Integer teamIdB) {
-		Integer compId = (Integer)session.getAttribute("compId");
-		ReceivedResult result= new ReceivedResult();
-		result.setCompId(compId);
-		result.setGameNo(gameNo);
-		result.setTeamIdA(teamIdA);
-		result.setTeamIdB(teamIdB);
-		return receivedResultDao.insertMatch(result);
-	}
-	
-	@RequestMapping("")
-	public int updateMatch(Integer gameNo, Integer teamIdA, Integer teamIdB) {
-		ReceivedResult result= new ReceivedResult();
-		result.setGameNo(gameNo);
-		result.setTeamIdA(teamIdA);
-		result.setTeamIdB(teamIdB);
-		return receivedResultDao.updateMatch(result);
-	}
-	
-	@RequestMapping("")
-	public Comp getComp(Integer tournamentEditStatus) {
-		Integer compId = (Integer)session.getAttribute("compId");
-		Comp comp = new Comp();
-		comp.setCompId(compId);
-		comp.setTournamentEditStatus(tournamentEditStatus);
-		List<Comp> compList = compDao.selectAll(comp);
-		return compList.isEmpty()? null: compList.get(0);
-	}
-	
-	@RequestMapping("")
-	public void updateComp(Integer tournamentEditStatus) {
-		Integer compId = (Integer)session.getAttribute("compId");
-		Comp comp = new Comp();
-		comp.setCompId(compId);
-		comp.setTournamentEditStatus(tournamentEditStatus);
-		compDao.updateComp(comp);
-		//return compDao.updateComp(comp);
-	}
+//	@RequestMapping("")
+//	public List<ReceivedResult> getGameInfo(){
+//		Integer compId = (Integer)session.getAttribute("compId");
+//		ReceivedResult result = new ReceivedResult();
+//		result.setCompId(compId);
+//		return receivedResultDao.search(result, null);
+//	}
+//	
+//	@RequestMapping("")
+//	public int insertMatch(Integer gameNo, Integer teamIdA, Integer teamIdB) {
+//		Integer compId = (Integer)session.getAttribute("compId");
+//		ReceivedResult result= new ReceivedResult();
+//		result.setCompId(compId);
+//		result.setGameNo(gameNo);
+//		result.setTeamIdA(teamIdA);
+//		result.setTeamIdB(teamIdB);
+//		return receivedResultDao.insertMatch(result);
+//	}
+//	
+//	@RequestMapping("")
+//	public int updateMatch(Integer gameNo, Integer teamIdA, Integer teamIdB) {
+//		ReceivedResult result= new ReceivedResult();
+//		result.setGameNo(gameNo);
+//		result.setTeamIdA(teamIdA);
+//		result.setTeamIdB(teamIdB);
+//		return receivedResultDao.updateMatch(result);
+//	}
+//	
+//	@RequestMapping("")
+//	public Comp getComp(Integer tournamentEditStatus) {
+//		Integer compId = (Integer)session.getAttribute("compId");
+//		Comp comp = new Comp();
+//		comp.setCompId(compId);
+//		comp.setTournamentEditStatus(tournamentEditStatus);
+//		List<Comp> compList = compDao.selectAll(comp);
+//		return compList.isEmpty()? null: compList.get(0);
+//	}
+//	
+//	@RequestMapping("")
+//	public void updateComp(Integer tournamentEditStatus) {
+//		Integer compId = (Integer)session.getAttribute("compId");
+//		Comp comp = new Comp();
+//		comp.setCompId(compId);
+//		comp.setTournamentEditStatus(tournamentEditStatus);
+//		compDao.updateComp(comp);
+//		//return compDao.updateComp(comp);
+//	}
 }

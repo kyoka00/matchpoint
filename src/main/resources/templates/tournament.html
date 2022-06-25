@@ -13,25 +13,25 @@
 	<button type="button" onclick="location.href='comp_detail'">大会詳細</button>
 	<button type="button" onclick="location.href='game_result_all'">大会結果受信ボックス</button>
 	<div id="app">
-	  <details v-for="tournament in tournaments">
-            <summary>トーナメント: {{ tournament.tournament_no }}</summary>
-        <bracket :rounds="tournament.rounds">
-                <template #player="{ player }">
-                    <div>
+        <details v-for="tournament in tournaments">
+            <summary>トーナメント: {{ tournament.tournamentNo }}</summary>
+            <bracket :rounds="tournament.rounds">
+                    <template #player="{ player }">
                         <div>
-                            <b>
-                                {{ player.name }}
-                            </b>
+                            <div>
+                                <b>
+                                    {{ player.name }}
+                                </b>
+                            </div>
                         </div>
-                    </div>
-                </template>
-                <template  #player-extension-bottom = " {match} ">
-                    <button type="button" :value="match.match_id">
-                        試合番号：{{ match.match_id }}
-                    </button>
-                </template>
-        </bracket>
-    </details>
+                    </template>
+                    <template  #player-extension-bottom = " {match} ">
+                        <button type="button" :value="match.matchId">
+                            試合番号：{{ match.matchId }}
+                        </button>
+                    </template>
+            </bracket>
+        </details>
 	</div>
     <script th:src="@{js/tournament.js}"></script>
 </body>

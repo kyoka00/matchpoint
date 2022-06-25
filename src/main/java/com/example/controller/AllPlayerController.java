@@ -38,7 +38,7 @@ public class AllPlayerController {
 		}
 		
 		Team team = new Team();
-		Integer compId = 2;
+		Integer compId = (Integer)session.getAttribute("compId");
 		team.setCompId(compId);
 		String keyword = form.getKeyword();
 		List<Team> search = teamDao.selectAll(team, keyword);
@@ -74,17 +74,13 @@ public class AllPlayerController {
 		//チーム情報を保持したまま、編集画面に遷移
 		
 		Team team = new Team();
-<<<<<<< HEAD
 		
 		Integer compId = (Integer)session.getAttribute("compId");
-=======
-		Integer compId = 2;
->>>>>>> 83c24d2977421235b9f05d8bde0f290581a76ee9
+
 		team.setTeamId(form.getTeamId());
 		team.setCompId(compId);
 		List<Team> teamList = teamDao.selectAll(team, "");
 		model.addAttribute("edit_player", teamList.get(0));
-//		System.out.println(2);
 		return "edit_player";
 	}
 }

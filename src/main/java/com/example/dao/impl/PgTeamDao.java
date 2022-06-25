@@ -18,7 +18,6 @@ public class PgTeamDao implements TeamDao{
 
 	private final static String ID = "team_id";
 
-	private static final String COLUMN_NAME_TEAM_ID = "team_id";
 	private static final String COLUMN_NAME_COMP_ID = "comp_id";
 	private static final String COLUMN_NAME_PLAYER_A_NAME = "player_a_name";
 	private static final String COLUMN_NAME_PLAYER_B_NAME = "player_b_name";
@@ -34,12 +33,7 @@ public class PgTeamDao implements TeamDao{
 	
 	@Override
 	public List<Team> selectAll(Team team, String keyword) {
-<<<<<<< HEAD
-		String sql = SELECT + PgTeamDao.selectSql(team);
-=======
 		String sql = SELECT + PgTeamDao.selectSql(team, keyword);
-		System.out.println(sql);
->>>>>>> 83c24d2977421235b9f05d8bde0f290581a76ee9
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if(Utility.notIsEmptyNull(team.getTeamId())) {
 			param.addValue(ID, team.getTeamId());

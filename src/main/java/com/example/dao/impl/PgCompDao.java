@@ -39,7 +39,6 @@ public class PgCompDao implements CompDao {
 	@Override
 	public List<Comp> selectAll(Comp comp) {
 		String sql = SELECT + PgCompDao.selectSql(comp);
-		System.out.println(sql);
 
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(comp.getCompId())) {
@@ -78,7 +77,6 @@ public class PgCompDao implements CompDao {
 	@Override
 	public void insertComp(Comp comp) {
 		String sql = INSERT + PgCompDao.insertSql(comp);
-		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(comp.getCompLoginId())) {
 			param.addValue(COLUMN_NAME_COMP_IOGIN_ID, comp.getCompLoginId());
@@ -117,7 +115,6 @@ public class PgCompDao implements CompDao {
 	@Override
 	public void updateComp(Comp comp) {
 		String sql = UPDATE + updateSql(comp);
-		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue(ID , comp.getCompId());
 		if (Utility.notIsEmptyNull(comp.getCompLoginId())) {

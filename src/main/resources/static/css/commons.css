@@ -1,6 +1,11 @@
 body {
 	background-color: #DDDDDD;
 	color: black;
+	font-family: ヒラギノ角ゴシック;
+	width: 70%;
+    margin: 0 auto !important;
+	color: black;
+	background-image: url(../image/haikei.png);
 }
 
 th {
@@ -115,4 +120,38 @@ th {
     background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #000;
     border: 3px solid #eee;
+}
+input {
+	width: 70%;
+	margin: 0;
+}
+
+table {
+   text-center;
+   border-radius;
+   color: #66CC66;
+   background-color: #FFFFFF;
+}
+
+div{
+	font-weight: bold;
+	font-family: Inpact;
+	background-color: #ffffff;
+}
+
+div.a{
+	margin: 
+	position: fixed top: 0 right:0;
+	
+}
+
+h1{
+	font-family: Impact;
+	font-size: 30px;
+}
+
+#logout{
+	font-family: Impact;
+	font-size: 30px;
+	padding-right: 5 10 10 5;
 }

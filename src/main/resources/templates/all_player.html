@@ -10,9 +10,9 @@
 <body>
 	<!-- 選手登録画面へ -->
 	<div th:insert="header"></div>
-	<button class="text-white bg-danger" type="button" onclick="location.href='edit_tournament'">トーナメント表作成</button>
-	<button class="text-white bg-primary"type="button" onclick="location.href='tournament'">戻る</button>
-	<button class="text-white bg-success"type="button" onclick="location.href='insert_player'">選手登録</button>
+	<button class="text-white bg-danger btn btn-outline-light" type="button" onclick="location.href='edit_tournament'">トーナメント表作成</button>
+	<button class="text-white bg-primary btn btn-outline-light rounded-pill"type="button" onclick="location.href='tournament'">戻る</button>
+	<button class="text-white bg-success btn btn-outline-light"type="button" onclick="location.href='insert_player'">選手登録</button>
 	<form action="search" th:object="${edit_player}">
 		<input type="text" name="keyword" placeholder="キーワード検索">
 		<input type="submit" value="検索">

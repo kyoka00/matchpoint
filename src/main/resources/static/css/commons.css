@@ -1,8 +1,10 @@
 body {
-	background-color: #fffac2;
+	font-family: ヒラギノ角ゴシック;
+	background-color: ;
 	width: 70%;
     margin: 0 auto !important;
 	color: black;
+	background-image: url(../image/haikei.png);
 }
 
 input {
@@ -10,6 +12,32 @@ input {
 	margin: 0 
 }
 
-.table {
-   
+table {
+   text-center;
+   border-radius;
+   color: #66CC66;
+   background-color: #FFFFFF;
+}
+
+div{
+	font-weight: bold;
+	font-family: Inpact;
+	background-color: #ffffff;
+}
+
+div.a{
+	margin: 
+	position: fixed top: 0 right:0;
+	
+}
+
+h1{
+	font-family: Impact;
+	font-size: 30px;
+}
+
+#logout{
+	font-family: Impact;
+	font-size: 30px;
+	padding-right: 5 10 10 5;
 }

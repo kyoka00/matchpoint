@@ -8,15 +8,30 @@
 <link href="/css/commons.css" rel="stylesheet">
 </head>
 <body>
+
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav4" aria-controls="navbarNav4" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a href="/" class="navbar-brand"><img src="./images/ゆうやロゴ1.png" class="login_logo">Match Point</a>
+        <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+            
+               <li class="nav-item">
+                    <button type="button" onclick="location.href='/'" name="create"
+			class="btn btn-primary">戻る</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+<div class="complogin_form">
 	<div class="text-center">
-	<p th:text="${errorMsg}"></p>
+	<p class="error" th:text="${errorMsg}"></p>
 	</div>
-	
-	<div class="text-right">
-		<button type="button" onclick="location.href='/'" name="create" class="btn btn-primary">戻る</button>
-		</div>
 		
-	<div class="middlelogin">
+	<div class="middlecomplogin">
 	<form action=tournament_player method="POST">
 		
 		<div class="text-center">
@@ -29,6 +44,7 @@
 		</div>
 	
 	</form>
+	</div>
 	</div>
 </body>
 </html>

@@ -9,7 +9,7 @@
 
 <body>
 	<div th:insert="header"></div>
-	
+<div class="compinfo">	
 	<form action="comp_detail_update" th:object="${comp_detail}" method="POST">
 	
 		<div class="text-right">
@@ -51,5 +51,7 @@
 		<button type="submit" name="completion" class="btn btn-primary">完了</button>
 		</div>
 	</form>
+	
+	</div>
 </body>
 </html>

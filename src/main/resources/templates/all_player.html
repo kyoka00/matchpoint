@@ -11,7 +11,7 @@
 	<div th:insert="header"></div>
 	
 	<div class="d-flex my-box-light">
-	<button type="button" onclick="location.href='edit_tournament'" class="my-box btn btn-primary mr-auto">トーナメント表作成</button>
+	<button type="button" onclick="location.href='edit_tournament'" class="my-box btn btn-orange-moon mr-auto">トーナメント表作成</button>
 	<button type="button" onclick="location.href='tournament'" class="my-box btn btn-primary">戻る</button>
 	</div>
 	
@@ -21,15 +21,15 @@
 	
 	<div class="table-responsive">
 	<div class="text-center">
-	<table class="mx-auto table-striped table-hover table-bordered">
+	<table class="mx-auto table-striped table-hover table-bordered table-light">
 		<tr>
-			<th>番号</th>
-			<th>プレイヤー1</th>
-			<th>プレイヤー2</th>
-			<th>トーナメント番号</th>
+			<th class="table-success">番号</th>
+			<th class="table-success">プレイヤー1</th>
+			<th class="table-success">プレイヤー2</th>
+			<th class="table-success">トーナメント番号</th>
 		</tr>
 		<tr>
-			<td><button type="button" onclick="location.href='edit_player'">1</button></td>
+			<td><button type="button" onclick="location.href='edit_player'" class="btn-light-moon　btn-lg btn-block">1</button></td>
 			<td>playerA</td>
 			<td>playerB</td>
 			<td>2</td>

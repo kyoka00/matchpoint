@@ -7,6 +7,11 @@ th {
 	width: 10%
 }
 
+.error {
+  color: red;
+  font-size: 12px;
+}
+
 /**真ん中に寄せる**/
 .middle {
 	display: flex;
@@ -36,6 +41,18 @@ th {
 	background-color: white;
 }
 
+.complogin_form {
+	width: 400px;
+	height: 200px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	border-radius: 10px;
+	background-color: white;
+}
+
 .middlelogin {
 	display: flex;
 	justify-content: center;
@@ -51,3 +68,51 @@ th {
 	border-radius: 10px;
 }
 
+.middlecomplogin {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 50mm;
+	line-height: 1.5em;
+}
+
+/**後ろに白背景**/
+.compinfo {
+	width: 950px;
+	height: 550px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	border-radius: 10px;
+	background-color: white;
+}
+.insertplayer{
+	width: 750px;
+	height: 350px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	border-radius: 10px;
+	background-color: white;
+}
+
+/**ボタン色**/
+.btn-orange-moon {
+    background: #fc4a1a;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f7b733, #fc4a1a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+    border: 3px solid #eee;
+}
+
+.btn-light-moon {
+    background: #FFEFBA;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #000;
+    border: 3px solid #eee;
+}

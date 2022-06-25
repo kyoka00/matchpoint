@@ -15,9 +15,9 @@ import com.example.controller.form.LoginForm;
 import com.example.controller.form.PlayerForm;
 import com.example.dao.CompDao;
 import com.example.dao.ManageDao;
+import com.example.dao.ReceivedResultDao;
 import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
-import com.example.dao.ReceivedResultDao;
 
 @Controller
 public class TopController{
@@ -65,12 +65,7 @@ public class TopController{
 		return "comp_login";
 	}
 	
-	//プレイヤーでログインをトーナメント
-	@RequestMapping(value="tournament_player")
-	public String tournamentPlayer(@RequestParam("compLoginId") String compLoginID) {
-		session.setAttribute("loginId", compLoginID);
-		return "tournament";
-	}
+	
 	
 	//運営ログイン画面から大会一覧へ
 	@RequestMapping(value="comp_list")
@@ -115,14 +110,7 @@ public class TopController{
 		return "comp_list";
 	}
 	
-	//トーナメントへ
-	@RequestMapping(value="tournament")
-	public String tournament() {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "tournament";
-	}
+	
 	
 	//選手一覧へ
 	@RequestMapping(value="all_player")
@@ -244,14 +232,7 @@ public class TopController{
 		return "game_result_final";
 	}
 	
-	//トーナメント表編集
-	@RequestMapping(value="edit_tournament")
-	public String editTournament() {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
-		return "edit_tournament";
-	}
+	
 	
 	//試合設定画面
 	@RequestMapping(value="match")

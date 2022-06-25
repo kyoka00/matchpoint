@@ -25,6 +25,7 @@ public class PgCompDao implements CompDao {
 	private static final String COLUMN_NAME_COMP_PLACE = "comp_place";
 	private static final String COLUMN_NAME_GAME_TYPE = "game_type";
 	private static final String COLUMN_NAME_TORNAMET_COUNT = "tournament_count";
+	private static final String COLUMN_NAME_TORNAMET_EDIT_STATUS = "tournament_edit_status";
 	private static final String COLUMN_NAME_MEMO = "mamo";
 
 	private final String SELECT = "SELECT * FROM " + tableName;
@@ -60,6 +61,9 @@ public class PgCompDao implements CompDao {
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
 			param.addValue(COLUMN_NAME_TORNAMET_COUNT, comp.getTournamentCount());
+		}
+		if (Utility.notIsEmptyNull(comp.getTournamentEditStatus())) {
+			param.addValue(COLUMN_NAME_TORNAMET_EDIT_STATUS, comp.getTournamentEditStatus());
 		}
 		if (Utility.notIsEmptyNull(comp.getMemo())) {
 			param.addValue(COLUMN_NAME_MEMO, comp.getMemo());
@@ -129,6 +133,9 @@ public class PgCompDao implements CompDao {
 		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
 			param.addValue(COLUMN_NAME_TORNAMET_COUNT, comp.getTournamentCount());
 		}
+		if (Utility.notIsEmptyNull(comp.getTournamentEditStatus())) {
+			param.addValue(COLUMN_NAME_TORNAMET_EDIT_STATUS, comp.getTournamentEditStatus());
+		}
 		if (Utility.notIsEmptyNull(comp.getMemo())) {
 			param.addValue(COLUMN_NAME_MEMO, comp.getMemo());
 		}
@@ -164,6 +171,10 @@ public class PgCompDao implements CompDao {
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
 			columnName = COLUMN_NAME_TORNAMET_COUNT + " = :" + COLUMN_NAME_TORNAMET_COUNT;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getTournamentEditStatus())) {
+			columnName = COLUMN_NAME_TORNAMET_EDIT_STATUS + " = :" + COLUMN_NAME_TORNAMET_EDIT_STATUS;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
 		if (Utility.notIsEmptyNull(comp.getMemo())) {
@@ -246,6 +257,10 @@ public class PgCompDao implements CompDao {
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
 			columnName = COLUMN_NAME_TORNAMET_COUNT + " = :" + COLUMN_NAME_TORNAMET_COUNT;
+			set = !set.isEmpty() ? set + " , " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(comp.getTournamentEditStatus())) {
+			columnName = COLUMN_NAME_TORNAMET_EDIT_STATUS + " = :" + COLUMN_NAME_TORNAMET_EDIT_STATUS;
 			set = !set.isEmpty() ? set + " , " + columnName : columnName;
 		}
 		if (Utility.notIsEmptyNull(comp.getMemo())) {

@@ -14,5 +14,6 @@ public class Comp{
 	private Integer tournamentCount;
 	private Integer gameType;
 	private String gameTypeStr;
+	private Integer tournamentEditStatus;
 	private String memo;
 }

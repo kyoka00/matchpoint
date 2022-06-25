@@ -271,4 +271,6 @@ join team te on te.team_id = m.team_id_b;
 
 select * from match_team where comp_id =1;
 
+drop view received_result;
+drop view match_team;
 

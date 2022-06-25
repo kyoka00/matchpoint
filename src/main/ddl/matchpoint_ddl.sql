@@ -47,12 +47,13 @@ create table team (
 -- 大会
 create table comp (
   comp_id serial not null
-  , comp_login_id character varying(10) not null unique
+  , comp_login_id character varying(10) not null
   , comp_name character varying(100) not null
   , comp_date date not null
   , comp_place varchar(100)
   , game_type integer not null
   , tournament_count integer not null
+  , tournament_edit_status integer default 0 not null
   , memo character varying(255)
   , constraint comp_PKC primary key (comp_id)
 ) ;
@@ -103,6 +104,7 @@ comment on column comp.comp_date is '開催日';
 comment on column comp.comp_place is '場所';
 comment on column comp.game_type is '試合形式';
 comment on column comp.tournament_count is 'トーナメント数';
+comment on column comp.tournament_edit_status is 'トーナメント編集ステータス';
 comment on column comp.memo is '備考';
 
 comment on table management is '運営管理';
@@ -167,22 +169,22 @@ insert into team (comp_id,player_a_name, player_b_name, tournament_no) values
 (2,'中西 貴映','',  2),
 (2,'松本麻佑', '',2),
 
-(1,'山田太郎', '山田花子', 1),
-(1,'桃田賢斗', '常山幹太', 1),
-(1,'西本拳太', '渡邉航貴', 1),
-(1,'奈良岡功大', '保木卓朗', 1),
-(1,'山口茜', '奥原希望', 1),
-(1,'髙橋沙也加', '髙橋明日香', 1),
-(1,'大堀彩', '福島由紀', 1),
-(1,'廣田彩花', '永原和可那', 1),
-(1,'山下恭平', '金子祐樹', 2),
-(1,'渡辺勇大', '松居圭一郎', 2),
-(1,'齋藤太一', '竹内義憲', 2),
-(1,'小林優吾', '古賀輝', 2),
-(1,'篠谷菜留', '松友美佐紀', 2),
-(1,'東野有紗', '岩永鈴', 2),
-(1,'中西 貴映', '松山奈未', 2),
-(1,'松本麻佑', '志田千陽', 2);
+(3,'山田太郎', '山田花子', 1),
+(3,'桃田賢斗', '常山幹太', 1),
+(3,'西本拳太', '渡邉航貴', 1),
+(3,'奈良岡功大', '保木卓朗', 1),
+(3,'山口茜', '奥原希望', 1),
+(3,'髙橋沙也加', '髙橋明日香', 1),
+(3,'大堀彩', '福島由紀', 1),
+(3,'廣田彩花', '永原和可那', 1),
+(3,'山下恭平', '金子祐樹', 2),
+(3,'渡辺勇大', '松居圭一郎', 2),
+(3,'齋藤太一', '竹内義憲', 2),
+(3,'小林優吾', '古賀輝', 2),
+(3,'篠谷菜留', '松友美佐紀', 2),
+(3,'東野有紗', '岩永鈴', 2),
+(3,'中西 貴映', '松山奈未', 2),
+(3,'松本麻佑', '志田千陽', 2);
 
 insert into match (comp_id, game_no, team_id_a, team_id_b) values 
 (1,1,1,2),
@@ -257,5 +259,6 @@ select * from received_result where judge_name like '%2%' or  TO_CHAR(match_id)|
 select * from team where player_a_name || player_b_name || tournam like '%山田%' and comp_id = ;
 
 
+select * from received_result;
 
 

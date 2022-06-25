@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -33,7 +32,7 @@ public class CompDetailController{
 		Comp comp = new Comp();
 		
 		//初期値を入力
-		comp.setCompId(1);
+		comp.setCompId(form.getCompId());
 		
 		List<Comp> compDetail = compDao.selectAll(comp);
 		
@@ -43,20 +42,20 @@ public class CompDetailController{
 	}
 	
 	//大会削除
-		@RequestMapping(value="comp_delete")
-		public String compDelete(@ModelAttribute("comp_detail") CompForm form, Model model) {
-			if(session.getAttribute("loginId") == null) {
-				return "top";
-			}
-			
-			Comp comp = new Comp();
-			comp.setCompId(1);
-			compDao.deleteComp(comp);
-			
-			model.addAttribute("resultList", compDao.selectAll(comp));
-			
-			return "comp_list";
+	@RequestMapping(value="comp_delete")
+	public String compDelete(@ModelAttribute("comp_detail") CompForm form, Model model) {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
 		}
+			
+		Comp comp = new Comp();
+		comp.setCompId(form.getCompId());
+		compDao.deleteComp(comp);
+			
+		model.addAttribute("resultList", compDao.selectAll(comp));
+			
+		return "comp_list";
+	}
 		
 		@RequestMapping(value="comp_detail_edit")
 		public String compDetailUpdate(@ModelAttribute("comp_detail") CompForm form, Model model) {
@@ -67,7 +66,7 @@ public class CompDetailController{
 			Comp comp = new Comp();
 			
 			//初期値を入力
-			comp.setCompId(1);
+			comp.setCompId(form.getCompId());
 			
 			List<Comp> compDetail = compDao.selectAll(comp);
 			
@@ -85,20 +84,22 @@ public class CompDetailController{
 			
 			Comp comp = new Comp();
 			
-			Date date= Date.valueOf(form.getCompDate());
-			comp.setCompId(1);
+			//Date date= Date.valueOf(form.getCompDate());
+			comp.setCompId(form.getCompId());
 			comp.setCompName(form.getCompName());
-			comp.setCompDate(date);
+			//comp.setCompDate(date);
 			comp.setCompPlace(form.getCompPlace());
 			comp.setCompLoginId(form.getCompLoginId());
-			comp.setTournamentCount(form.getTournamentNum());
+			comp.setTournamentCount(form.getTournamentCount());
 			comp.setGameType(form.getGameType());
 			comp.setMemo(form.getMemo());
-//			comp.setCompId(3);
 			
 			compDao.updateComp(comp);
 			
-			System.out.println(comp);
+//			if(comp.getCompLoginId() != null) {
+//				model.addAttribute("errorMsg", "大会ログインIDが重複しています。");
+//				return "comp_detail_update";
+//			}
 			
 			List<Comp> compDetail = compDao.selectAll(comp);
 			
@@ -114,7 +115,7 @@ public class CompDetailController{
 			}
 			Comp comp = new Comp();
 			
-			comp.setCompId(1);
+			comp.setCompId(form.getCompId());
 			
 			List<Comp> compDetail = compDao.selectAll(comp);
 			

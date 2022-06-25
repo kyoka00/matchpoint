@@ -9,6 +9,9 @@
 	<form action="comp_detail_edit" th:object="${comp_detail}" method="POST">
 		<button type="button" onclick="location.href='tournament'">戻る</button>
 		<div>
+			<input type="hidden" th:field="*{compId}">
+		</div>
+		<div>
 			<label>大会名:</label> <input type="text" th:field="*{compName}" readonly>
 		</div>
 
@@ -39,8 +42,18 @@
 		<div>
 			<label>大会概要:</label> <input type="text" th:field="*{memo}" readonly>
 		</div>
-		<button type="button" onclick="location.href='comp_delete">削除</button>
-		<button type="submit">編集</button>
+		<div>
+			<button type="button" onclick="openModal()">削除</button>
+			<button type="submit">編集</button>
+			<div id="modal">
+            	<p class="modal_message">削除しますか？</p>
+            	<div class="Modal">
+              		<button type="button" onclick="location.href='comp_delete'" class="basic_btn">削除</button>
+              		<button type="button" onclick="closeModal()" class="cancel_btn">キャンセル</button>
+            	</div>
+          	</div>
+        </div>
 	</form>
+	 <script src="./js/commons.js"></script>
 </body>
 </html>

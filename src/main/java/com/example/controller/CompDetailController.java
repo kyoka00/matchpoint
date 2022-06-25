@@ -122,5 +122,6 @@ public class CompDetailController{
 			
 			model.addAttribute("comp_detail", compDetail.get(0));
 			return "comp_detail";
+			
 		}
 }

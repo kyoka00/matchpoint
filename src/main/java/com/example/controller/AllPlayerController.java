@@ -47,7 +47,7 @@ public class AllPlayerController {
 	}
 	
 	
-////////////////////////////////////////////////////////////////////////////////////////	
+
 	//選手一覧へ（全件取得）
 	@RequestMapping(value="all_player")
 	public String playerList(Model model) {
@@ -62,7 +62,7 @@ public class AllPlayerController {
 		model.addAttribute("allPlayer", resultList);
 		return "all_player";
 	}
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+	
 
 	//選手編集へ(serialNumber押下時)
 	@RequestMapping(value="edit_player")

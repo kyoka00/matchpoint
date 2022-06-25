@@ -49,9 +49,13 @@ public class TournamentController {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
+			Integer compId =form.getCompId();
+			if((Integer)session.getAttribute("compId") == null && compId != null) {
+				session.setAttribute("compId", compId);
+			}else if(compId != null) {
+				session.setAttribute("compId", compId);
+			}
 			
-			Integer compId = form.getCompId();
-			session.setAttribute("compId", compId);
 			Team team = new Team();
 			team.setCompId(compId);
 			List<Team> teamList = teamDao.selectAll(team, "");

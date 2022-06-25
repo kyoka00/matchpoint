@@ -28,7 +28,6 @@ public class CompDetailController{
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
-		System.out.println((Integer)session.getAttribute("compId"));
 		Comp comp = new Comp();
 		
 		//初期値を入力
@@ -46,8 +45,7 @@ public class CompDetailController{
 	public String compDelete(@ModelAttribute("comp_detail") CompForm form, Model model) {
 		if(session.getAttribute("loginId") == null) {
 			return "top";
-		}
-		System.out.println((Integer)session.getAttribute("compId"));	
+		}	
 		Comp comp = new Comp();
 		comp.setCompId((Integer)session.getAttribute("compId"));
 		compDao.deleteComp(comp);
@@ -62,7 +60,6 @@ public class CompDetailController{
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
-			System.out.println((Integer)session.getAttribute("compId"));
 			Comp comp = new Comp();
 			
 			//初期値を入力
@@ -83,7 +80,6 @@ public class CompDetailController{
 			}
 			
 			Comp comp = new Comp();
-			System.out.println((Integer)session.getAttribute("compId"));
 			//Date date= Date.valueOf(form.getCompDate());
 			comp.setCompId((Integer)session.getAttribute("compId"));
 			comp.setCompName(form.getCompName());
@@ -116,7 +112,6 @@ public class CompDetailController{
 			Comp comp = new Comp();
 			
 			comp.setCompId((Integer)session.getAttribute("compId"));
-			System.out.println((Integer)session.getAttribute("compId"));
 			
 			List<Comp> compDetail = compDao.selectAll(comp);
 			

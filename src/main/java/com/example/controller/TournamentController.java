@@ -60,7 +60,6 @@ public class TournamentController {
 			team.setCompId(compId);
 			List<Team> teamList = teamDao.selectAll(team, "");
 			model.addAttribute("teamList", teamList);
-			System.out.println((Integer)session.getAttribute("compId"));
 			return "tournament";
 			
 		}
@@ -98,7 +97,6 @@ public class TournamentController {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
-			System.out.println((Integer)session.getAttribute("compId"));
 			Integer matchId = 1;
 			ReceivedResult result = new ReceivedResult();
 			result.setMatchId(matchId);
@@ -122,7 +120,7 @@ public class TournamentController {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
-			System.out.println((Integer)session.getAttribute("compId"));
+
 			return "tournament";
 		}
 		//大会一覧へ戻る
@@ -131,7 +129,7 @@ public class TournamentController {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
-			System.out.println((Integer)session.getAttribute("compId"));
+
 			Comp comp = new Comp();
 			model.addAttribute("resultList", compDao.selectAll(comp));
 			return "comp_list";

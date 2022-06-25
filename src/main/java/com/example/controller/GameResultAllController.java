@@ -9,14 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.controller.form.CompForm;
 import com.example.controller.form.GameResultAllForm;
 import com.example.dao.GameResultAllDao;
 import com.example.dao.ReceivedResultDao;
 import com.example.entity.GameResultAll;
-import com.example.entity.ReceivedResult;
 
 @Controller
 public class GameResultAllController{
@@ -55,7 +52,7 @@ public class GameResultAllController{
 		gameResultAll.setGameNo(form.getGameNo());
 		
 		String keyword = form.getKeyword();
-		System.out.println(keyword);
+
 		List<GameResultAll> search = gameResultAllDao.selectAll(gameResultAll, keyword);
 		model.addAttribute("resultList", search);
 		return "game_result_all";

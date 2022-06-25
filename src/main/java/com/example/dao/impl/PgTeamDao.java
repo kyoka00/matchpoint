@@ -71,7 +71,6 @@ public class PgTeamDao implements TeamDao{
 	public int insertTeam(Team team) {
 		String sql = INSERT + PgTeamDao.insertSql(team);
 		MapSqlParameterSource param = new MapSqlParameterSource();
-		System.out.println(sql);
 		if (Utility.notIsEmptyNull(team.getCompId())) {
 			param.addValue(COLUMN_NAME_COMP_ID, team.getCompId());
 		}

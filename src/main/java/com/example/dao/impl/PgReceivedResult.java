@@ -96,8 +96,11 @@ public class PgReceivedResult implements ReceivedResultDao {
 		if (Utility.notIsEmptyNull(receivedResult.getGameNo())) {
 			param.addValue(COLUMN_NAME_GAMENO, receivedResult.getGameNo());
 		}
+		System.out.println(sql);
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
+		System.out.println(resultList);
 		return resultList.isEmpty() ? null : resultList;
+	
 	}
 	
 	//insertはmatchとgame_infoのみinsertかけられる感じで書いてます。

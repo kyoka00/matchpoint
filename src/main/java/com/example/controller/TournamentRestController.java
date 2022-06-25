@@ -49,7 +49,9 @@ public class TournamentRestController {
 		Integer compId = 1;
 		ReceivedResult result= new ReceivedResult();
 		result.setCompId(compId);
-		return receivedResultDao.searchMatchTeam(result);
+		List<ReceivedResult> resultList = receivedResultDao.searchMatchTeam(result);
+		System.out.println(resultList);
+		return resultList;
 	}
 	
 //	@RequestMapping("")

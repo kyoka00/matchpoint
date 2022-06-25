@@ -96,6 +96,9 @@ public class PgCompDao implements CompDao {
 		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
 			param.addValue(COLUMN_NAME_TOURNAMET_COUNT, comp.getTournamentCount());
 		}
+		if (Utility.notIsEmptyNull(comp.getTournamentEditStatus())) {
+			param.addValue(COLUMN_NAME_TORNAMET_EDIT_STATUS, comp.getTournamentEditStatus());
+		}
 		if (Utility.notIsEmptyNull(comp.getMemo())) {
 
 			param.addValue(COLUMN_NAME_MEMO, comp.getMemo());

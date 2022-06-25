@@ -57,6 +57,7 @@ public class RegisterPlayerController {
 		Team team = new Team();
 		Integer compId = (Integer)session.getAttribute("compId"); //結合時に、comp_idをsession.getAttribute();で持たせる予定
 		team.setCompId(compId);
+		System.out.println((Integer)session.getAttribute("compId"));
 		team.setPlayerAName(form.getPlayerAName());
 		team.setPlayerBName(form.getPlayerBName());
 		team.setTournamentNo(form.getTournamentNo());
@@ -68,5 +69,7 @@ public class RegisterPlayerController {
 		List<Team> registList = teamDao.selectAll(team,"");//
 		model.addAttribute("allPlayer", registList);
 		return "all_player";
+
+		
 	}
 }

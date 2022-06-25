@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>トーナメント表編集</title>
+	<meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-tournament-bracket@2.1.2/dist/vue-tournament-bracket.umd.min.js"></script>
+	<title>トーナメント表編集</title>
 </head>
 <body>
 	<div th:insert="header"></div>
 	<button type="button" onclick="location.href='tournament'">編集完了</button>
 	<button type="button" onclick="location.href='all_player'">戻る</button>
+	<div id="app">
+	  <details v-for="tournament in tournaments">
+            <summary>トーナメント: {{ tournament.tournament_no }}</summary>
+        <bracket :rounds="tournament.rounds">
+                <template #player="{ player }">
+                    <div
+                    @drop="dropList($event, player.id)"
+                    @dragover.prevent
+                    @dragenter.prevent>
+                        <div
+                        draggable
+                        @dragstart="dragList($event, player.id)">
+                            <b>
+                                {{ player.name }}
+                            </b>
+                        </div>
+                    </div>
+                </template>
+                <template  #player-extension-bottom = " {match} ">
+                    <input type="hidden" :value="match.match_id" readonly>
+                    <b style="background-color: gray;">試合番号：{{ match.match_id }}</b>
+                </template>
+        </bracket>
+    </details>
+	</div>
+    <script th:src="@{js/edit_tournament.js}"></script>
 </body>
 </html>

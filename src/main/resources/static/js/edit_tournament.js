@@ -327,7 +327,7 @@ const vue = new Vue({
                 }
             })
         },
-        // 編集途中なら前回までの組み合わせを参照
+        // 前回までの組み合わせを参照して、きれいにぶち込む
         allotTeam() {
             this.tournaments.forEach(tournament => {
                 this.$set(
@@ -486,7 +486,7 @@ const vue = new Vue({
         }
     },
     computed: {
-        teamlists1() {
+        teamLists1() {
             let lists = this.teamLists.filter(team => team.tournamentNo === 1);
             if(lists.length % 2 === 1) {
                 lists.push(
@@ -500,7 +500,7 @@ const vue = new Vue({
             }
             return lists;
         },
-        teamlists2() {
+        teamLists2() {
             let lists = this.teamLists.filter(team => team.tournamentNo === 2);
             if(lists.length % 2 === 1) {
                 lists.push(

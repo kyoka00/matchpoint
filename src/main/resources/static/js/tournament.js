@@ -10,116 +10,7 @@ const vue = new Vue({
     data: {
         tournaments: [],
         teamLists: [],
-        existingMatchLists: [
-            // {
-            //     matchId: 1,
-            //     teamIdA: 1,
-            //     teamAPlayer1: "A",
-            //     teamAPlayer2: "B",
-            //     teamIdB: 2,
-            //     teamBPlayer1: "C",
-            //     teamBPlayer2: "D",
-            // },
-            // {
-            //     matchId: 2,
-            //     teamIdA: 3,
-            //     teamAPlayer1: "E",
-            //     teamAPlayer2: "F",
-            //     teamIdB: 4,
-            //     teamBPlayer1: "G",
-            //     teamBPlayer2: "H",
-            // },
-            // {
-            //     matchId: 3,
-            //     teamIdA: 5,
-            //     teamAPlayer1: "I",
-            //     teamAPlayer2: "J",
-            //     teamIdB: 6,
-            //     teamBPlayer1: "K",
-            //     teamBPlayer2: "L",
-            // },
-            // {
-            //     matchId: 4,
-            //     teamIdA: 7,
-            //     teamAPlayer1: "M",
-            //     teamAPlayer2: "N",
-            //     teamIdB: 8,
-            //     teamBPlayer1: "O",
-            //     teamBPlayer2: "P",
-            // },
-            // {
-            //     matchId: 5,
-            //     teamIdA: 9,
-            //     teamAPlayer1: "Q",
-            //     teamAPlayer2: "R",
-            //     teamIdB: 10,
-            //     teamBPlayer1: "S",
-            //     teamBPlayer2: "T",
-            // },
-            // {
-            //     matchId: 6,
-            //     teamIdA: 11,
-            //     teamAPlayer1: "U",
-            //     teamAPlayer2: "V",
-            //     teamIdB: 12,
-            //     teamBPlayer1: "W",
-            //     teamBPlayer2: "X",
-            // },
-            // {
-            //     matchId: 7,
-            //     teamIdA: 13,
-            //     teamAPlayer1: "Y",
-            //     teamAPlayer2: "Z",
-            //     teamIdB: 14,
-            //     teamBPlayer1: "AA",
-            //     teamBPlayer2: "AB",
-            // },
-            // {
-            //     matchId: 8,
-            //     teamIdA: 15,
-            //     teamAPlayer1: "AC",
-            //     teamAPlayer2: "AD",
-            //     teamIdB: 16,
-            //     teamBPlayer1: "AE",
-            //     teamBPlayer2: "AF",
-            // },
-            // {
-            //     matchId: 9,
-            //     teamIdA: 17,
-            //     teamAPlayer1: "AG",
-            //     teamAPlayer2: "AH",
-            //     teamIdB: 18,
-            //     teamBPlayer1: "AI",
-            //     teamBPlayer2: "AJ",
-            // },
-            // {
-            //     matchId: 10,
-            //     teamIdA: 19,
-            //     teamAPlayer1: "AK",
-            //     teamAPlayer2: "AL",
-            //     teamIdB: -1,
-            //     teamBPlayer1: "empty",
-            //     teamBPlayer2: "",
-            // },
-            // {
-            //     matchId: 22,
-            //     teamIdA: 21,
-            //     teamAPlayer1: "BA",
-            //     teamAPlayer2: "BB",
-            //     teamIdB: 22,
-            //     teamBPlayer1: "BC",
-            //     teamBPlayer2: "BD",
-            // },
-            // {
-            //     matchId: 23,
-            //     teamIdA: 23,
-            //     teamAPlayer1: "BE",
-            //     teamAPlayer2: "BF",
-            //     teamIdB: 24,
-            //     teamBPlayer1: "BG",
-            //     teamBPlayer2: "BH",
-            // },
-        ],
+        existingMatchLists: [],
         matchNum: 0,
     },
     methods:{
@@ -181,7 +72,9 @@ const vue = new Vue({
         },
         // 試合番号ボタン押下時、画面遷移
         viewResultOrStartGame(matchId) {
-            // 条件式：　試合番号で受信ボックスTBLに検索を掛けても、登録済みのレコードが無い && 選手が一人しかいない試合（シード）ではない
+            // 試合番号でReceivedResultに検索
+            fetch('')
+            // 条件式：　試合番号でReceivedResultに検索を掛けても、登録済みのレコードが無い && 選手が一人しかいない試合（シード）ではない
             if(matchId) {
                 // 試合設定画面に遷移
             } else {
@@ -206,9 +99,9 @@ const vue = new Vue({
                 console.log(this.existingMatchLists);
                 this.allotTeam();
             }))
-            .catch(error => console.log("対戦組み合わせ: " + error));
+            .catch(error => console.log("対戦組み合わせ一覧取得エラー: " + error));
 		}))
-		.catch(error => console.log("チーム:" + error));
+		.catch(error => console.log("チーム一覧取得エラー:" + error));
 		
     },
     computed: {

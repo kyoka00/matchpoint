@@ -19,7 +19,6 @@ import com.example.dao.TeamDao;
 import com.example.entity.Comp;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Score;
-import com.example.entity.Team;
 
 @Controller
 public class TournamentController {
@@ -57,17 +56,12 @@ public class TournamentController {
 			}else {
 				compId = (Integer)session.getAttribute("compInfo");
 			}
-			
-			Team team = new Team();
-			team.setCompId(compId);
-			List<Team> teamList = teamDao.selectAll(team, "");
-			model.addAttribute("teamList", teamList);
 			return "tournament";
 			
 		}
 		//トーナメント表編集
 		@RequestMapping(value="edit_tournament")
-		public String editTournament() {
+		public String editTournament(Model model) {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
@@ -76,21 +70,20 @@ public class TournamentController {
 			comp.setCompId(compId);
 			Comp compList = compDao.selectAll(comp).get(0);
 			int status = compList.getTournamentEditStatus();
+			
 			switch(status) {
 			case 0:
-				
-				break;
+				comp.setTournamentEditStatus(1);
+				compDao.updateComp(comp);
 				
 			case 1: 
-				
-				break;
+				return "edit_tournament";
 				
 			case 2: 
-				
-				break;
+				model.addAttribute("msg","編集は完了しています。");
+				return "tournament";
 			}
-			
-			return "edit_tournament";
+			return "all_player";
 		}
 		
 		

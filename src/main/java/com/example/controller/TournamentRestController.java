@@ -38,6 +38,7 @@ public class TournamentRestController {
 	
 	@RequestMapping("getTeamList")
 	public List<Team> getTeamLIst(){
+		
 		Integer compId = (Integer)session.getAttribute("compId");
 		Team team = new Team();
 		team.setCompId(compId);

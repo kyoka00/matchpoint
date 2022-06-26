@@ -216,6 +216,7 @@ insert into match (comp_id, game_no, team_id_a, team_id_b) values
 (1,27,30,32),
 (1,28,28,32);
 
+
 insert into game_info (match_id, coat_no, judge_name, record_status, record_date, max_point, game_count) values
 (1,1,'佐藤裕子', 2,'2022/06/18 13:00:57',11,1),
 (1,1,'佐藤太郎', 1,'2022/06/18 13:20:57',11,3),
@@ -245,6 +246,7 @@ select * from match;
 select * from game_info;
 select * from score;
 
+/*ビュー作成*/
 create view received_result as
 SELECT m.match_id, m.comp_id,  g.game_info_id,m.game_no, g.coat_no, g.judge_name,
  g.record_status, g.record_date, g.max_point, g.game_count, t.tournament_no,
@@ -255,12 +257,6 @@ join game_info g on g.match_id = m.match_id
 join team t on t.team_id = m.team_id_a
 join team te on te.team_id = m.team_id_b;
 
-select * from received_result where judge_name like '%2%' or  TO_CHAR(match_id)|| coat_no||tournament_no = 2;
-select * from team where player_a_name || player_b_name || tournam like '%山田%' and comp_id = ;
-
-
-select * from received_result;
-
 create view match_team as
 SELECT m.match_id, m.comp_id,m.game_no, t.tournament_no,
  m.team_id_a, t.player_a_name as team_a_player1, t.player_b_name as team_a_player2, 
@@ -269,8 +265,32 @@ from match m
 join team t on t.team_id = m.team_id_a
 join team te on te.team_id = m.team_id_b;
 
-select * from match_team where comp_id =1;
 
+/*ビュー削除*/
 drop view received_result;
 drop view match_team;
 
+/*追加カラム*/
+insert into match (comp_id, game_no, team_id_a, team_id_b) values 
+(2,1,30,31),
+(2,2,32,33),
+(2,3,34,35),
+(2,4,36,37),
+(2,8,38,39),
+(2,9,40,41),
+(2,10,42,43),
+(2,1,44,45),
+(3,1,46,47),
+(3,2,48,49),
+(3,3,50,51),
+(3,4,52,53),
+(3,8,54,55),
+(3,9,56,57),
+(3,10,58,59),
+(3,11,60,61),
+(3,5,46,48),
+(3,6,50,52),
+(3,7,48,50),
+(3,12,54,56),
+(3,13,58,60),
+(3,14,56,58);

@@ -54,6 +54,8 @@ public class TournamentController {
 				session.setAttribute("compId", compId);
 			}else if(compId != null) {
 				session.setAttribute("compId", compId);
+			}else {
+				compId = (Integer)session.getAttribute("compInfo");
 			}
 			
 			Team team = new Team();
@@ -69,6 +71,25 @@ public class TournamentController {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
+			Integer compId = (Integer)session.getAttribute("compId");
+			Comp comp = new Comp();
+			comp.setCompId(compId);
+			Comp compList = compDao.selectAll(comp).get(0);
+			int status = compList.getTournamentEditStatus();
+			switch(status) {
+			case 0:
+				
+				break;
+				
+			case 1: 
+				
+				break;
+				
+			case 2: 
+				
+				break;
+			}
+			
 			return "edit_tournament";
 		}
 		

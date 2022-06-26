@@ -8,4 +8,6 @@ public class GamePlayerForm{
 	private String playerB;
 	private String playerC;
 	private String playerD;
+	private Integer team1Point;
+	private Integer team2Point;
 }

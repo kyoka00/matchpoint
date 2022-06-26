@@ -1,57 +1,59 @@
-//package com.example.controller;
-//
-//import java.util.List;
-//
-//import javax.servlet.http.HttpSession;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import com.example.dao.CompDao;
-//import com.example.dao.ManageDao;
-//import com.example.dao.ReceivedResultDao;
-//import com.example.dao.ScoreDao;
-//import com.example.dao.TeamDao;
-//import com.example.entity.Comp;
-//import com.example.entity.ReceivedResult;
-//import com.example.entity.Team;
-//
-//@RestController
-//public class TournamentRestController {
-//	@Autowired
-//	HttpSession session;
-//	
-//	@Autowired
-//	ManageDao manageDao;
-//	
-//	@Autowired
-//	ScoreDao scoreDao;
-//
-//	@Autowired
-//	CompDao compDao;
-//	
-//	@Autowired
-//	TeamDao teamDao;
-//
-//	@Autowired
-//	ReceivedResultDao receivedResultDao;
-//	
-//	@RequestMapping("")
-//	public List<Team> getTeamLIst(Integer compId){
-//		Team team = new Team();
-//		team.setCompId(compId);
-//		return teamDao.selectAll(team, "");
-//	}
-//	
-//	@RequestMapping("")
-//	public List<ReceivedResult> getMatchList(){
-//		Integer compId = (Integer)session.getAttribute("compId");
-//		ReceivedResult result= new ReceivedResult();
-//		result.setCompId(compId);
-//		return receivedResultDao.searchMatch(result);
-//	}
-//	
+package com.example.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.dao.CompDao;
+import com.example.dao.ManageDao;
+import com.example.dao.ReceivedResultDao;
+import com.example.dao.ScoreDao;
+import com.example.dao.TeamDao;
+import com.example.entity.ReceivedResult;
+import com.example.entity.Team;
+
+@RestController
+public class TournamentRestController {
+	@Autowired
+	HttpSession session;
+	
+	@Autowired
+	ManageDao manageDao;
+	
+	@Autowired
+	ScoreDao scoreDao;
+
+	@Autowired
+	CompDao compDao;
+	
+	@Autowired
+	TeamDao teamDao;
+
+	@Autowired
+	ReceivedResultDao receivedResultDao;
+	
+	@RequestMapping("getTeamList")
+	public List<Team> getTeamLIst(){
+		Integer compId = 1;
+		Team team = new Team();
+		team.setCompId(compId);
+		return teamDao.selectAll(team);
+	}
+	
+	@RequestMapping("getMatchList")
+	public List<ReceivedResult> getMatchList(){
+		Integer compId = 1;
+		ReceivedResult result= new ReceivedResult();
+		result.setCompId(compId);
+		List<ReceivedResult> resultList = receivedResultDao.searchMatchTeam(result);
+		System.out.println(resultList);
+		return resultList;
+	}
+	
 //	@RequestMapping("")
 //	public List<ReceivedResult> getGameInfo(){
 //		Integer compId = (Integer)session.getAttribute("compId");
@@ -99,4 +101,8 @@
 //		compDao.updateComp(comp);
 //		//return compDao.updateComp(comp);
 //	}
+<<<<<<< HEAD
 //}
+=======
+}
+>>>>>>> takahiro

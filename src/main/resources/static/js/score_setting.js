@@ -11,6 +11,7 @@ window.addEventListener("load",function(){
 		server.value = document.getElementById('playerC').value
 		document.getElementById('playerCtext').setAttribute('style', 'color: red;')
 	}
+	console.log(window.sessionStorage.getItem(['coat']))
 	document.getElementById('team1_point_text').innerHTML = 0
 	document.getElementById('team2_point_text').innerHTML = 0
 	document.getElementById('team1_point').value = document.getElementById('team1_point_text').innerHTML
@@ -53,8 +54,13 @@ function serverSet(team, btn){
 			}else if(server.value == playerD){
 				server.value = playerA
 			}
-			pointText1.innerHTML = Number(pointText1.innerHTML) + 1
-			point1.value = pointText1.innerHTML
+			if(window.sessionStorage.getItem(['coat']) == null || window.sessionStorage.getItem(['coat']) == 0){
+				pointText1.innerHTML = Number(pointText1.innerHTML) + 1
+				point1.value = pointText1.innerHTML
+			}else if(window.sessionStorage.getItem(['coat']) == 1){
+				pointText1.innerHTML = Number(pointText1.innerHTML) + 1
+				point2.value = pointText1.innerHTML
+			}
 		}else if(team == 2){
 			if(server.value == playerC || server.value == playerD){
 				tmp = textC.innerHTML
@@ -65,8 +71,13 @@ function serverSet(team, btn){
 			}else if(server.value == playerB){
 				server.value = playerD
 			}
-			pointText2.innerHTML = Number(pointText2.innerHTML) + 1
-			point2.value = pointText2.innerHTML
+			if(window.sessionStorage.getItem(['coat']) == null || window.sessionStorage.getItem(['coat']) == 0){
+				pointText2.innerHTML = Number(pointText2.innerHTML) + 1
+				point2.value = pointText2.innerHTML
+			}else if(window.sessionStorage.getItem(['coat']) == 1){
+				pointText2.innerHTML = Number(pointText2.innerHTML) + 1
+				point1.value = pointText2.innerHTML
+			}
 		}
 		textA.setAttribute('style', '')
 		textB.setAttribute('style', '')
@@ -83,11 +94,29 @@ function serverSet(team, btn){
 		}
 	}else if (btn == 'hiku'){
 		if(team == 1){
-			pointText1.innerHTML = Number(pointText1.innerHTML) - 1
-			point1.value = pointText1.innerHTML
+			if(window.sessionStorage.getItem(['coat']) == null || window.sessionStorage.getItem(['coat']) == 0){
+				if(Number(pointText1.innerHTML) > 0){
+					pointText1.innerHTML = Number(pointText1.innerHTML) - 1
+					point1.value = pointText1.innerHTML
+				}
+			}else if(window.sessionStorage.getItem(['coat']) == 1){
+				if(Number(pointText1.innerHTML) > 0){
+					pointText1.innerHTML = Number(pointText1.innerHTML) - 1
+					point2.value = pointText1.innerHTML
+				}
+			}
 		}else if(team == 2){
-			pointText2.innerHTML = Number(pointText2.innerHTML) - 1
-			point2.value = pointText2.innerHTML
+			if(window.sessionStorage.getItem(['coat']) == null || window.sessionStorage.getItem(['coat']) == 0){
+				if(Number(pointText2.innerHTML) > 0){
+					pointText2.innerHTML = Number(pointText2.innerHTML) - 1
+					point2.value = pointText2.innerHTML
+				}
+			}else if(window.sessionStorage.getItem(['coat']) == 1){
+				if(Number(pointText2.innerHTML) > 0){
+					pointText2.innerHTML = Number(pointText2.innerHTML) - 1
+					point1.value = pointText2.innerHTML
+				}
+			}
 		}
 	}
 	

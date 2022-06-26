@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dao.CompDao;
@@ -55,14 +56,16 @@ public class TournamentRestController {
 		return resultList;
 	}
 	
-//	@RequestMapping("")
-//	public List<ReceivedResult> getGameInfo(){
-//		Integer compId = (Integer)session.getAttribute("compId");
-//		ReceivedResult result = new ReceivedResult();
-//		result.setCompId(compId);
-//		return receivedResultDao.search(result, null);
-//	}
-//	
+	@RequestMapping("searchMatchByMatchId")
+	public List<ReceivedResult> getGameInfo(@RequestParam("matchId") Integer matchId){
+		Integer compId = (Integer)session.getAttribute("compId");
+		ReceivedResult result = new ReceivedResult();
+		result.setCompId(compId);
+		result.setMatchId(matchId);
+		result.setRecordStatus(1);
+		return receivedResultDao.search(result, null);
+	}
+	
 //	@RequestMapping("")
 //	public int insertMatch(Integer gameNo, Integer teamIdA, Integer teamIdB) {
 //		Integer compId = (Integer)session.getAttribute("compId");

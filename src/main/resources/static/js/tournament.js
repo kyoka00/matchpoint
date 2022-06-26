@@ -10,9 +10,7 @@ const vue = new Vue({
     data: {
         tournaments: [],
         teamLists: [],
-        existingMatchLists: [
-           
-        ],
+        existingMatchLists: [],
         matchNum: 0,
     },
     methods:{
@@ -73,36 +71,56 @@ const vue = new Vue({
             });
         },
         // 試合番号ボタン押下時、画面遷移
-        viewResultOrStartGame(matchId) {
-            // 条件式：　試合番号で受信ボックスTBLに検索を掛けても、登録済みのレコードが無い && 選手が一人しかいない試合（シード）ではない
-            if(matchId) {
-                // 試合設定画面に遷移
-            } else {
-                // 試合結果画面に遷移
-            }
+        viewResultOrStartGame(event) {
+            const matchId = event.target.value;
+            // 試合番号でReceivedResultに検索
+            fetch(`searchMatchByMatchId?matchId=${event}`).then(res => res.json().then(data => {
+                // 条件式：　試合番号でReceivedResultに検索を掛けても、登録済みのレコードが無い && 選手が一人しかいない試合（シード）ではない
+                if(data.length === 0 && isNotEmptyMatch(matchId)) {
+                    // 試合設定画面に遷移
+                    
+                } else {
+                    // 試合結果画面に遷移
+                    
+                }
+            }))
         },
+        isNotEmptyMatch(matchId) {
+            const match = this.tournaments.forEach(tournament => tournament.rounds.forEach(round => round.games.filter(game => game.matchId === matchId)));
+            return match.player2.teamId < 0 ? false : true;
+        }
     },
     created: function() {
-        // チーム一覧取得
-		fetch('getTeamList')
-		.then(res => res.json().then(data => {
-            console.log(data);
-			this.teamLists = data;
-			console.log(this.teamLists);
-            this.createTournament(1, this.teamLists1);
-            this.createTournament(2, this.teamLists2);
-	        // 対戦組み合わせ一覧取得
-            fetch('getMatchList')
+        // トーナメント表作成済みか否か確認
+        if(false) {
+            
+        } else {
+            // チーム一覧取得
+            fetch('getTeamList')
             .then(res => res.json().then(data => {
                 console.log(data);
-                this.existingMatchLists = data;
-                console.log(this.existingMatchLists);
-                this.allotTeam();
+                this.teamLists = data;
+                this.createTournament(1, this.teamLists1);
+                this.createTournament(2, this.teamLists2);
+                this.createTournament(3, this.teamLists3);
+                this.createTournament(4, this.teamLists4);
+                this.createTournament(5, this.teamLists5);
+                this.createTournament(6, this.teamLists6);
+                this.createTournament(7, this.teamLists7);
+                this.createTournament(8, this.teamLists8);
+                this.createTournament(9, this.teamLists9);
+                this.createTournament(10, this.teamLists10);
+                // 対戦組み合わせ一覧取得
+                fetch('getMatchList')
+                .then(res => res.json().then(data => {
+                    console.log(data);
+                    this.existingMatchLists = data;
+                    this.allotTeam();
+                }))
+                .catch(error => console.log("対戦組み合わせ一覧取得エラー: " + error));
             }))
-            .catch(error => console.log("対戦組み合わせ: " + error));
-		}))
-		.catch(error => console.log("チーム:" + error));
-		
+            .catch(error => console.log("チーム一覧取得エラー: " + error));
+        }
     },
     computed: {
         teamLists1() {
@@ -128,6 +146,118 @@ const vue = new Vue({
                         playerAName: 'empty',
                         playerBName: '',
                         tournamentNo: 2
+                    }
+                );
+            }
+            return lists;
+        },
+        teamLists3() {
+            let lists = this.teamLists.filter(team => team.tournamentNo === 3);
+            if(lists.length % 2 === 1) {
+                lists.push(
+                    {
+                        teamId: -3,
+                        playerAName: 'empty',
+                        playerBName: '',
+                        tournamentNo: 3
+                    }
+                );
+            }
+            return lists;
+        },
+        teamLists4() {
+            let lists = this.teamLists.filter(team => team.tournamentNo === 4);
+            if(lists.length % 2 === 1) {
+                lists.push(
+                    {
+                        teamId: -4,
+                        playerAName: 'empty',
+                        playerBName: '',
+                        tournamentNo: 4
+                    }
+                );
+            }
+            return lists;
+        },
+        teamLists5() {
+            let lists = this.teamLists.filter(team => team.tournamentNo === 5);
+            if(lists.length % 2 === 1) {
+                lists.push(
+                    {
+                        teamId: -5,
+                        playerAName: 'empty',
+                        playerBName: '',
+                        tournamentNo: 5
+                    }
+                );
+            }
+            return lists;
+        },
+        teamLists6() {
+            let lists = this.teamLists.filter(team => team.tournamentNo === 6);
+            if(lists.length % 2 === 1) {
+                lists.push(
+                    {
+                        teamId: -6,
+                        playerAName: 'empty',
+                        playerBName: '',
+                        tournamentNo: 6
+                    }
+                );
+            }
+            return lists;
+        },
+        teamLists7() {
+            let lists = this.teamLists.filter(team => team.tournamentNo === 7);
+            if(lists.length % 2 === 1) {
+                lists.push(
+                    {
+                        teamId: -7,
+                        playerAName: 'empty',
+                        playerBName: '',
+                        tournamentNo: 7
+                    }
+                );
+            }
+            return lists;
+        },
+        teamLists8() {
+            let lists = this.teamLists.filter(team => team.tournamentNo === 8);
+            if(lists.length % 2 === 1) {
+                lists.push(
+                    {
+                        teamId: -8,
+                        playerAName: 'empty',
+                        playerBName: '',
+                        tournamentNo: 8
+                    }
+                );
+            }
+            return lists;
+        },
+        teamLists9() {
+            let lists = this.teamLists.filter(team => team.tournamentNo === 9);
+            if(lists.length % 2 === 1) {
+                lists.push(
+                    {
+                        teamId: -9,
+                        playerAName: 'empty',
+                        playerBName: '',
+                        tournamentNo: 9
+                    }
+                );
+            }
+            return lists;
+        },
+        teamLists10() {
+            let lists = this.teamLists.filter(team => team.tournamentNo === 10);
+            if(lists.length % 2 === 1) {
+                lists.push(
+                    {
+                        teamId: -10,
+                        playerAName: 'empty',
+                        playerBName: '',
+                        tournamentNo: 10
                     }
                 );
             }

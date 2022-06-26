@@ -143,8 +143,17 @@ public class PgReceivedResult implements ReceivedResultDao {
 		if (Utility.notIsEmptyNull(result.getRecordStatus())) {
 			param.addValue(COLUMN_NAME_RECORDSTATUS, result.getRecordStatus());
 		}
-			param.addValue(ID, result.getGameInfoId());
+		if (Utility.notIsEmptyNull(result.getCoatNo())) {
+			param.addValue(COLUMN_NAME_COATNO, result.getCoatNo());
+		}
+		if (Utility.notIsEmptyNull(result.getJudgeName())) {
+			param.addValue(COLUMN_NAME_JUDGENAME, result.getJudgeName());
+		}
+		param.addValue(ID, result.getGameInfoId());
 		
+		System.out.println(result.getGameInfoId());
+		System.out.println(result.getCoatNo());
+		System.out.println(result.getJudgeName());
 		
 		return jdbcTemplate.update(sql, param);
 	}
@@ -269,7 +278,14 @@ public class PgReceivedResult implements ReceivedResultDao {
 			columnName = COLUMN_NAME_RECORDSTATUS + " = :" + COLUMN_NAME_RECORDSTATUS;
 			set = !set.isEmpty() ? set + "," + columnName : columnName;
 		}
-
+		if (Utility.notIsEmptyNull(result.getCoatNo())) {
+			columnName = COLUMN_NAME_COATNO + " = :" + COLUMN_NAME_COATNO;
+			set = !set.isEmpty() ? set + "," + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(result.getJudgeName())) {
+			columnName = COLUMN_NAME_JUDGENAME + " = :" + COLUMN_NAME_JUDGENAME;
+			set = !set.isEmpty() ? set + "," + columnName : columnName;
+		}
 		return !set.isEmpty() ? set + " WHERE " + ID + " = :" + ID : "";
 	}
 

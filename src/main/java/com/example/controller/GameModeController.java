@@ -42,7 +42,7 @@ public class GameModeController{
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
-		form.setGameNo(10);
+		form.setGameNo(1);
 		form.setMaxPoint(21);
 		form.setGameCount(3);
 		return "game_setting";
@@ -178,7 +178,8 @@ public class GameModeController{
 	}
 	
 	@RequestMapping(value="game_result", params="next")
-	public String nextGame(@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
+	public String nextGame(@ModelAttribute("score_setting") GamePlayerForm form,
+			@ModelAttribute("update_game_info") GameInfoForm gameInfoForm, Model model) {
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
@@ -202,6 +203,7 @@ public class GameModeController{
 			ReceivedResult receivedResult = new ReceivedResult();
 			receivedResult.setGameInfoId((Integer)session.getAttribute("game_info_id"));
 			List<ReceivedResult> resultList = receivedResultDao.search(receivedResult, "");
+			session.setAttribute("winner", null);
 			model.addAttribute("game_no", resultList.get(0).getGameNo());
 			model.addAttribute("final_score", winCountA + "-" + winCountB);
 			model.addAttribute("playerA", form.getPlayerA());
@@ -213,8 +215,15 @@ public class GameModeController{
 	}
 	
 	@RequestMapping(value="update_game_info")
-	public String updateGameInfo() {
-		
-		return "game_result_all";
+	public String updateGameInfo(@ModelAttribute("update_game_info") GameInfoForm form) {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
+		}
+		ReceivedResult receivedResult = new ReceivedResult();
+		receivedResult.setGameInfoId((Integer)session.getAttribute("game_info_id"));
+		receivedResult.setCoatNo(form.getCoatNo());
+		receivedResult.setJudgeName(form.getJudgeName());
+		receivedResultDao.update(receivedResult);
+		return "tournament";
 	}
 }

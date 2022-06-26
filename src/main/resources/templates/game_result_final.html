@@ -6,7 +6,37 @@
 </head>
 <body>
 	<div th:insert="header"></div>
+	<form action="game_result_final" th:object="${comp_detail}" method="POST">
 	<button type="button" onclick="location.href='game_result_all'">戻る</button>
-	<button type="button" onclick="location.href='tournament'">登録</button>
+	<div>
+		<label>3/3</label> <!-- <input type="text" th:field="*{compName}" readonly> -->
+	</div>
+	<div>
+		<label>playerA</label> <!-- <input type="text" th:field="*{compName}" readonly> -->
+	</div>
+	<div>
+		<label>playerB</label> <!-- <input type="text" th:field="*{compName}" readonly> -->
+	</div>
+	<div>
+		<label>playerC</label> <!-- <input type="text" th:field="*{compName}" readonly> -->
+	</div>
+	<div>
+		<label>playerD</label> <!-- <input type="text" th:field="*{compName}" readonly> -->
+	</div>
+	<div>
+		<label>2</label><!--  <input type="text" th:field="*{compDate}" readonly> -->
+	</div>
+
+	<div>
+		<label>21 - 18</label> <!-- <input type="text" th:field="*{compPlace}" readonly> -->
+		<label>13 - 21</label>
+		<label>21 - 14</label>
+	</div>
+
+	<div>
+		<label>1</label> <!-- <input type="text" th:field="*{compLoginId}" readonly> -->
+	</div>
+		<button type="submit">登録</button>
+	</form>
 </body>
 </html>

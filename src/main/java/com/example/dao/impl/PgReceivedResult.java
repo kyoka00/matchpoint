@@ -37,7 +37,7 @@ public class PgReceivedResult implements ReceivedResultDao {
 	private static final String COLUMN_NAME_TOURNAMENTNO = "tournament_no";
 	private static final String COLUMN_NAME_TEAMIDA = "team_id_a";
 	private static final String COLUMN_NAME_TEAMIDB = "team_id_b";
-	
+
 	private final String SELECT = "SELECT * FROM " + tableName;
 	private final String INSERTMATCH = "INSERT INTO " + matchTbl;
 	private final String INSERTGAMEINFO = "INSERT INTO " + gameInfoTbl;

@@ -1,3 +1,4 @@
+
 package com.example.dao;
 
 import java.util.List;
@@ -10,3 +11,4 @@ public interface CompDao{
 	public void deleteComp(Comp comp);
 	public void updateComp(Comp comp);
 }
+

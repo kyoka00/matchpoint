@@ -59,11 +59,11 @@ const vue = new Vue({
                                 matchId: matchFromDb.matchId,
                                 player1: {
                                     id: matchFromDb.teamIdA,
-                                    name: "・" + matchFromDb.teamAPlayer1 + matchFromDb.teamAPlayer2,
+                                    name:  matchFromDb.teamAPlayer1 + "・" + matchFromDb.teamAPlayer2,
                                 },
                                 player2: {
                                     id: matchFromDb.teamIdB,
-                                    name: "・" + matchFromDb.teamBPlayer1 + matchFromDb.teamBPlayer2,
+                                    name:  matchFromDb.teamBPlayer1 + "・" + matchFromDb.teamBPlayer2,
                                 },
                             };
                     })
@@ -73,7 +73,10 @@ const vue = new Vue({
         // 試合番号ボタン押下時、画面遷移
         viewResultOrStartGame(matchId) {
             // 試合番号でReceivedResultに検索
-            fetch('')
+            
+            fetch('searchMatchByMatchId').then(res => res.json().then(data => {
+
+            }))
             // 条件式：　試合番号でReceivedResultに検索を掛けても、登録済みのレコードが無い && 選手が一人しかいない試合（シード）ではない
             if(matchId) {
                 // 試合設定画面に遷移

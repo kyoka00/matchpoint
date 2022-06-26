@@ -1,29 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
+<link href="/css/commons.css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>	選手編集</title>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
+	rel="stylesheet">
+	<link href="/css/commons.css" rel="stylesheet">
 </head>
+
 <body>
-	<div th:insert="header"></div>
+<div th:insert="header"></div>
+<div class="insertplayer">
+	<div class="text-right">
 	<button type="button" onclick="location.href='all_player'">戻る</button>
+	
 	<form action="edit_player" th:object="${edit_player}">
-		<div>
-			<label>プレイヤー1:</label>
-			<input type="text" th:field="*{player1}">
+	
+		<div class="text-center">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">プレイヤー1:</label>
+			<input type="text" th:field="*{playerAName}">
 		</div>
 		
-		<div>
-			<label>プレイヤー2:</label>
-			<input type="text" th:field="*{player2}">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">プレイヤー2:</label>
+			<input type="text" th:field="*{playerBName}">
 		</div>
 		
-		<div>
-			<label>トーナメント番号:</label>
-			<input type="text" th:field="*{tournamentNum}">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">トーナメント番号:</label>
+			<input type="text" th:field="*{tournamentNo}">
 		</div>
-		<input type="submit" name="edit" value="更新">
-		<button type="button" onclick="location.href='delete_player'">削除</button>
+
+
+		<input type="hidden"  th:field="*{teamId}">
+		<button type="submit" name="edit" value="edit">更新</button>
+		<button type="submit" name ="delete" value="delete">削除</button>
+		</div>
 	</form>
+	</div>
+	</div>
 </body>
 </html>

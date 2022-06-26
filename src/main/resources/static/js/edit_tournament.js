@@ -339,22 +339,22 @@ const vue = new Vue({
                                 matchId: matchFromDb.matchId,
                                 player1: {
                                     id: matchFromDb.teamIdA,
-                                    name: "・" + matchFromDb.teamAPlayer1name + matchFromDb.teamAPlayer2,
+                                    name: matchFromDb.teamAPlayer1name + "・" + matchFromDb.teamAPlayer2,
                                 },
                                 player2: {
                                     id: matchFromDb.teamIdB,
-                                    name: "・" + matchFromDb.teamBPlayer1 + matchFromDb.teamBPlayer2,
+                                    name: matchFromDb.teamBPlayer1 + "・" + matchFromDb.teamBPlayer2,
                                 },
                             });
                             return {
                                 matchId: matchFromDb.matchId,
                                 player1: {
                                     id: matchFromDb.teamIdA,
-                                    name: "・" + matchFromDb.teamAPlayer1 + matchFromDb.teamAPlayer2,
+                                    name: matchFromDb.teamAPlayer1 + "・" + matchFromDb.teamAPlayer2,
                                 },
                                 player2: {
                                     id: matchFromDb.teamIdB,
-                                    name: "・" + matchFromDb.teamBPlayer1 + matchFromDb.teamBPlayer2,
+                                    name: matchFromDb.teamBPlayer1 + "・" + matchFromDb.teamBPlayer2,
                                 },
                             };
                     })

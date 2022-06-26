@@ -39,15 +39,15 @@ public class TournamentRestController {
 	
 	@RequestMapping("getTeamList")
 	public List<Team> getTeamLIst(){
-		Integer compId = 1;
+		Integer compId = (Integer)session.getAttribute("compId");
 		Team team = new Team();
 		team.setCompId(compId);
-		return teamDao.selectAll(team);
+		return teamDao.selectAll(team, null);
 	}
 	
 	@RequestMapping("getMatchList")
-	public List<ReceivedResult> getMatchList(){
-		Integer compId = 1;
+	public List<ReceivedResult> getMatchLIst(){
+		Integer compId =  (Integer)session.getAttribute("compId");
 		ReceivedResult result= new ReceivedResult();
 		result.setCompId(compId);
 		List<ReceivedResult> resultList = receivedResultDao.searchMatchTeam(result);
@@ -55,11 +55,12 @@ public class TournamentRestController {
 		return resultList;
 	}
 	
-	@RequestMapping("")
-	public List<ReceivedResult> getGameInfo(@RequestParam("gameNo") Integer gameNo){
+	@RequestMapping("searchMatchByMatchId")
+	public List<ReceivedResult> getGameInfo(@RequestParam("matchId") Integer matchId){
 		Integer compId = (Integer)session.getAttribute("compId");
 		ReceivedResult result = new ReceivedResult();
 		result.setCompId(compId);
+		result.setMatchId(matchId);
 		result.setRecordStatus(1);
 		return receivedResultDao.search(result, null);
 	}
@@ -103,4 +104,6 @@ public class TournamentRestController {
 //		compDao.updateComp(comp);
 //		//return compDao.updateComp(comp);
 //	}
+
 }
+

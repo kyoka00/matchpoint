@@ -24,9 +24,9 @@ public class PgCompDao implements CompDao {
 	private static final String COLUMN_NAME_COMP_DATE = "comp_date";
 	private static final String COLUMN_NAME_COMP_PLACE = "comp_place";
 	private static final String COLUMN_NAME_GAME_TYPE = "game_type";
-	private static final String COLUMN_NAME_TORNAMET_COUNT = "tournament_count";
+	private static final String COLUMN_NAME_TOURNAMET_COUNT = "tournament_count";
+	private static final String COLUMN_NAME_MEMO = "memo";
 	private static final String COLUMN_NAME_TORNAMET_EDIT_STATUS = "tournament_edit_status";
-	private static final String COLUMN_NAME_MEMO = "mamo";
 
 	private final String SELECT = "SELECT * FROM " + tableName;
 	private final String INSERT = "INSERT INTO " + tableName;
@@ -39,7 +39,7 @@ public class PgCompDao implements CompDao {
 	@Override
 	public List<Comp> selectAll(Comp comp) {
 		String sql = SELECT + PgCompDao.selectSql(comp);
-		System.out.println(sql);
+
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(comp.getCompId())) {
 			param.addValue(COLUMN_NAME_COMP_ID, comp.getCompId());
@@ -60,13 +60,15 @@ public class PgCompDao implements CompDao {
 			param.addValue(COLUMN_NAME_GAME_TYPE, comp.getGameType());
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
-			param.addValue(COLUMN_NAME_TORNAMET_COUNT, comp.getTournamentCount());
+			param.addValue(COLUMN_NAME_TOURNAMET_COUNT, comp.getTournamentCount());
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentEditStatus())) {
 			param.addValue(COLUMN_NAME_TORNAMET_EDIT_STATUS, comp.getTournamentEditStatus());
 		}
 		if (Utility.notIsEmptyNull(comp.getMemo())) {
+
 			param.addValue(COLUMN_NAME_MEMO, comp.getMemo());
+
 		}
 		List<Comp> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Comp>(Comp.class));
 		return resultList.isEmpty() ? null : resultList;
@@ -75,7 +77,6 @@ public class PgCompDao implements CompDao {
 	@Override
 	public void insertComp(Comp comp) {
 		String sql = INSERT + PgCompDao.insertSql(comp);
-		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(comp.getCompLoginId())) {
 			param.addValue(COLUMN_NAME_COMP_IOGIN_ID, comp.getCompLoginId());
@@ -93,10 +94,15 @@ public class PgCompDao implements CompDao {
 			param.addValue(COLUMN_NAME_GAME_TYPE, comp.getGameType());
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
-			param.addValue(COLUMN_NAME_TORNAMET_COUNT, comp.getTournamentCount());
+			param.addValue(COLUMN_NAME_TOURNAMET_COUNT, comp.getTournamentCount());
+		}
+		if (Utility.notIsEmptyNull(comp.getTournamentEditStatus())) {
+			param.addValue(COLUMN_NAME_TORNAMET_EDIT_STATUS, comp.getTournamentEditStatus());
 		}
 		if (Utility.notIsEmptyNull(comp.getMemo())) {
+
 			param.addValue(COLUMN_NAME_MEMO, comp.getMemo());
+
 		}
 		jdbcTemplate.update(sql, param);
 	}
@@ -112,7 +118,6 @@ public class PgCompDao implements CompDao {
 	@Override
 	public void updateComp(Comp comp) {
 		String sql = UPDATE + updateSql(comp);
-		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue(ID , comp.getCompId());
 		if (Utility.notIsEmptyNull(comp.getCompLoginId())) {
@@ -131,13 +136,15 @@ public class PgCompDao implements CompDao {
 			param.addValue(COLUMN_NAME_GAME_TYPE, comp.getGameType());
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
-			param.addValue(COLUMN_NAME_TORNAMET_COUNT, comp.getTournamentCount());
+			param.addValue(COLUMN_NAME_TOURNAMET_COUNT, comp.getTournamentCount());
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentEditStatus())) {
 			param.addValue(COLUMN_NAME_TORNAMET_EDIT_STATUS, comp.getTournamentEditStatus());
 		}
 		if (Utility.notIsEmptyNull(comp.getMemo())) {
+
 			param.addValue(COLUMN_NAME_MEMO, comp.getMemo());
+
 		}
 		jdbcTemplate.update(sql, param);
 	}
@@ -170,7 +177,7 @@ public class PgCompDao implements CompDao {
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
-			columnName = COLUMN_NAME_TORNAMET_COUNT + " = :" + COLUMN_NAME_TORNAMET_COUNT;
+			columnName = COLUMN_NAME_TOURNAMET_COUNT + " = :" + COLUMN_NAME_TOURNAMET_COUNT;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentEditStatus())) {
@@ -214,7 +221,7 @@ public class PgCompDao implements CompDao {
 			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
-			columnName = COLUMN_NAME_TORNAMET_COUNT;
+			columnName = COLUMN_NAME_TOURNAMET_COUNT;
 			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
 			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
 		}
@@ -256,7 +263,7 @@ public class PgCompDao implements CompDao {
 			set = !set.isEmpty() ? set + " , " + columnName : columnName;
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentCount())) {
-			columnName = COLUMN_NAME_TORNAMET_COUNT + " = :" + COLUMN_NAME_TORNAMET_COUNT;
+			columnName = COLUMN_NAME_TOURNAMET_COUNT + " = :" + COLUMN_NAME_TOURNAMET_COUNT;
 			set = !set.isEmpty() ? set + " , " + columnName : columnName;
 		}
 		if (Utility.notIsEmptyNull(comp.getTournamentEditStatus())) {

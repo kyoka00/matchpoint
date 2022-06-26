@@ -6,45 +6,50 @@
 <link href="/css/game_mode.css" rel="stylesheet">
 </head>
 <body>
-	<form action="server_setting">
-		<div>
-			試合番号
-			<input type="number" th:name="game_num" ><br>
-		</div>
-		
-		<div>
-			チーム1
-			<span>A・B</span>
-		</div>
-		
-		<div>
-			チーム2
-			<span>C・D</span>
-		</div>
-		
-		<div>試合形式</div>
-		
-		<div>点数</div>
-		
-		<div>
-			<label><input type="radio" name="point">11点</label>
-			<label><input type="radio" name="point">21点</label>
-			<label><input type="radio" name="point">31点</label>
-		</div>
-		
-		<div>ゲーム数</div>
-		
-		<div>
-			<label><input type="radio" name="point">1ゲーム</label>
-			<label><input type="radio" name="point">2ゲーム</label>
-			<label><input type="radio" name="point">3ゲーム</label>
-		</div>
-		
-		<div>
-			<button type="submit" name="skip">試合スキップ</button>
-			<button type="submit" name="server_setting">サーブ権設定</button>
-		</div>
-	</form>
-</body>
+	<div id="app">
+		<form action="server_setting" th:object="${game_info}" method="POST">
+			<div>
+				試合番号
+				<input type="number" id="gameNo" v-model="gameNo" th:field="*{gameNo}" @change="teamSet()"><br>
+			</div>
+			
+			<div>
+				チーム1
+				<span id="team1">{{ team1 }}</span>
+			</div>
+			
+			<div>
+				チーム2
+				<span id="team2">{{ team2 }}</span>
+			</div>
+			
+			<div>試合形式</div>
+			
+			<div>点数</div>
+			
+			<div>
+				<label><input type="radio" value="11" th:field="*{maxPoint}">11点</label>
+				<label><input type="radio" value="21" th:field="*{maxPoint}">21点</label>
+				<label><input type="radio" value="31" th:field="*{maxPoint}">31点</label>
+			</div>
+			
+			<div>ゲーム数</div>
+			
+			<div>
+				<label><input type="radio" value="1" th:field="*{gameCount}">1ゲーム</label>
+				<label><input type="radio" value="3" th:field="*{gameCount}">3ゲーム</label>
+				<label><input type="radio" value="5" th:field="*{gameCount}">5ゲーム</label>
+			</div>
+			
+			<div>
+				<button type="submit" name="skip">試合スキップ</button>
+				<button type="submit" name="server_setting">サーブ権設定</button>
+			</div>
+		</form>
+	</div>
+	
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 <script src="/js/game_mode.js"></script>
+</body>
 </html>
+

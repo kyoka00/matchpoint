@@ -7,14 +7,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.controller.form.CompForm;
 import com.example.dao.CompDao;
 import com.example.dao.ManageDao;
 import com.example.dao.ReceivedResultDao;
 import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
+import com.example.entity.Comp;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Score;
 import com.example.entity.Team;
@@ -43,17 +45,21 @@ public class TournamentController {
 	
 	//トーナメントへ
 		@RequestMapping(value="tournament")
-		public String tournament(Model model) {
+		public String tournament(@ModelAttribute("compInfo") CompForm form, Model model) {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
+			Integer compId =form.getCompId();
+			if((Integer)session.getAttribute("compId") == null && compId != null) {
+				session.setAttribute("compId", compId);
+			}else if(compId != null) {
+				session.setAttribute("compId", compId);
+			}
 			
-			Integer compId = 1;
 			Team team = new Team();
 			team.setCompId(compId);
-			List<Team> teamList = teamDao.selectAll(team);
+			List<Team> teamList = teamDao.selectAll(team, "");
 			model.addAttribute("teamList", teamList);
-			
 			return "tournament";
 			
 		}
@@ -66,12 +72,7 @@ public class TournamentController {
 			return "edit_tournament";
 		}
 		
-		//プレイヤーでログインをトーナメント
-		@RequestMapping(value="tournament_player")
-		public String tournamentPlayer(@RequestParam("compLoginId") String compLoginID) {
-			session.setAttribute("loginId", compLoginID);
-			return "tournament";
-		}
+		
 		
 		//トーナメント表のセーブ
 		@RequestMapping(value="submit_edition")
@@ -119,6 +120,18 @@ public class TournamentController {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
+
 			return "tournament";
+		}
+		//大会一覧へ戻る
+		@RequestMapping(value="comp_list_back")
+		public String compListBack(@ModelAttribute("compInfo") CompForm form, Model model) {
+			if(session.getAttribute("loginId") == null) {
+				return "top";
+			}
+
+			Comp comp = new Comp();
+			model.addAttribute("resultList", compDao.selectAll(comp));
+			return "comp_list";
 		}
 }

@@ -3,34 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <title>サーブ権設定</title>
+<link href="css/game_mode.css" rel="stylesheet">
 </head>
 <body>
 	<form action="score_setting" th:object="${score_setting}" method="POST">
-		<input type="text" th:field="*{playerA}">
-		<input type="text" th:field="*{playerB}">
-		<input type="text" th:field="*{playerC}">
-		<input type="text" th:field="*{playerD}">
+		<input type="hidden" id="playerA" th:field="*{playerA}">
+		<input type="hidden" id="playerB" th:field="*{playerB}">
+		<input type="hidden" id="playerC" th:field="*{playerC}">
+		<input type="hidden" id="playerD" th:field="*{playerD}">
 		<p>立ち位置</p>
 		
 		<div>
 			<div>
-				<p>A</p>
-				<p>B</p>
+				<p id="playerAtext">A</p>
+				<button type="button" onclick="changeLeft()">チェンジA</button>
+				<p id="playerBtext" style="color: red;">B</p>
 			</div>
 			
 			<div>
-				<p>C</p>
-				<p>D</p>
+				<p id="playerCtext">C</p>
+				<button type="button" onclick="changeRight()">チェンジB</button>
+				<p id="playerDtext">D</p>
 			</div>
+			<button type="button" onclick="changeCoat()">コートチェンジ</button>
 		</div>
 		
 		<div>
-			<input type="radio" value="team1" th:field="*{server}">
+			<input type="radio" value="playerB" th:field="*{server}" onClick="serverSet(1)">
 			サーブ権を選択
-			<input type="radio" value="team2" th:field="*{server}">
+			<input type="radio" value="playerC" th:field="*{server}" onClick="serverSet(2)">
 		</div>
 		
 		<button type="submit">試合開始</button>
 	</form>
-</body>
+	<script src="/js/server_setting.js"></script>
+</body >
 </html>

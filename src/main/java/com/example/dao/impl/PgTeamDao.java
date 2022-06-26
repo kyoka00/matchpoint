@@ -18,7 +18,6 @@ public class PgTeamDao implements TeamDao{
 
 	private final static String ID = "team_id";
 
-	private static final String COLUMN_NAME_TEAM_ID = "team_id";
 	private static final String COLUMN_NAME_COMP_ID = "comp_id";
 	private static final String COLUMN_NAME_PLAYER_A_NAME = "player_a_name";
 	private static final String COLUMN_NAME_PLAYER_B_NAME = "player_b_name";
@@ -33,12 +32,11 @@ public class PgTeamDao implements TeamDao{
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
 	@Override
-	public List<Team> selectAll(Team team) {
-		String sql = SELECT + PgTeamDao.selectSql(team);
-		System.out.println(sql);
+	public List<Team> selectAll(Team team, String keyword) {
+		String sql = SELECT + PgTeamDao.selectSql(team, keyword);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if(Utility.notIsEmptyNull(team.getTeamId())) {
-			param.addValue(COLUMN_NAME_TEAM_ID, team.getTeamId());
+			param.addValue(ID, team.getTeamId());
 		}
 		if(Utility.notIsEmptyNull(team.getCompId())) {
 			param.addValue(COLUMN_NAME_COMP_ID, team.getCompId());
@@ -52,14 +50,26 @@ public class PgTeamDao implements TeamDao{
 		if(Utility.notIsEmptyNull(team.getTournamentNo())) {
 			param.addValue(COLUMN_NAME_TOURNAMENT_NO, team.getTournamentNo());
 		}
+		if(Utility.notIsEmptyNull(keyword)) {
+			param.addValue("keyword", '%'+ keyword +'%');
+		}
+		List<Team> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Team>(Team.class));
+		return resultList.isEmpty() ? null : resultList;
+	}
+	
+	@Override
+	public List<Team> gameTeam(Integer team1, Integer team2){
+		String sql = SELECT + " WHERE team_id = :team_id1 OR team_id = :team_id2";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("team_id1", team1);
+		param.addValue("team_id2", team2);
 		List<Team> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Team>(Team.class));
 		return resultList.isEmpty() ? null : resultList;
 	}
 
 	@Override
-	public void insertTeam(Team team) {
+	public int insertTeam(Team team) {
 		String sql = INSERT + PgTeamDao.insertSql(team);
-		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(team.getCompId())) {
 			param.addValue(COLUMN_NAME_COMP_ID, team.getCompId());
@@ -73,21 +83,20 @@ public class PgTeamDao implements TeamDao{
 		if (Utility.notIsEmptyNull(team.getTournamentNo())) {
 			param.addValue(COLUMN_NAME_TOURNAMENT_NO, team.getTournamentNo());
 		}
-		jdbcTemplate.update(sql, param);
+		return jdbcTemplate.update(sql, param);
 	}
 
 	@Override
-	public void deleteTeam(Team team) {
+	public int deleteTeam(Team team) {
 		String sql = DELETE;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue(ID, team.getTeamId());
-		jdbcTemplate.update(sql, param);
+		return jdbcTemplate.update(sql, param);
 	}
 
 	@Override
-	public void updateTeam(Team team) {
+	public int updateTeam(Team team) {
 		String sql = UPDATE + updateSql(team);
-		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue(ID , team.getTeamId());
 		if (Utility.notIsEmptyNull(team.getCompId())) {
@@ -102,12 +111,16 @@ public class PgTeamDao implements TeamDao{
 		if (Utility.notIsEmptyNull(team.getTournamentNo())) {
 			param.addValue(COLUMN_NAME_TOURNAMENT_NO, team.getTournamentNo());
 		}
-		jdbcTemplate.update(sql, param);
+		return jdbcTemplate.update(sql, param);
 	}
 	
-	public static String selectSql(Team team) {
+	public static String selectSql(Team team, String keyword) {
 		String where = "";
 		String columnName = "";
+		if (Utility.notIsEmptyNull(team.getTeamId())) {
+			columnName = ID + " = :" + ID;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
 		if (Utility.notIsEmptyNull(team.getCompId())) {
 			columnName = COLUMN_NAME_COMP_ID + " = :" + COLUMN_NAME_COMP_ID;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
@@ -124,7 +137,11 @@ public class PgTeamDao implements TeamDao{
 			columnName = COLUMN_NAME_TOURNAMENT_NO + " = :" + COLUMN_NAME_TOURNAMENT_NO;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
-		return !where.isEmpty() ? " WHERE " + where : "";
+		if (Utility.notIsEmptyNull(keyword)){
+			columnName = COLUMN_NAME_PLAYER_A_NAME + "||" + COLUMN_NAME_PLAYER_B_NAME + " LIKE :keyword";
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		return !where.isEmpty() ? " WHERE " + where : "" + " ORDER BY team_id ASC";
 	}
 	
 	public static String insertSql(Team team) {

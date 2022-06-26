@@ -20,13 +20,13 @@
 		</div>
 		<div>
 			コート番号:
-			<input type="text" name="coatNo">
+			<input type="text" th:field="*{coatNo}">
 		</div>
 		<div>
 			審判名:
-			<input type="text" name="judgeName">
+			<input type="text" th:field="*{judgeName}">
 		</div>
-		<button type="button" onclick="location.href='game_result_all'">ゲーム終了</button>
+		<button type="submit">ゲーム終了</button>
 	</form>
 </body>
 </html>

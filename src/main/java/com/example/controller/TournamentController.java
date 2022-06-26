@@ -62,6 +62,10 @@ public class TournamentController {
 			team.setCompId(compId);
 			List<Team> teamList = teamDao.selectAll(team, "");
 			model.addAttribute("teamList", teamList);
+			
+			if(session.getAttribute("loginId").equals("admin")) {
+				model.addAttribute("flag", true);
+				}
 			return "tournament";
 			
 		}

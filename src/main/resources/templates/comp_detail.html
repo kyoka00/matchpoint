@@ -5,7 +5,7 @@
 <title>大会詳細</title>
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
 	rel="stylesheet">
-<link href="/css/commons.css" rel="stylesheet">
+<link href="/css/shoma.css" rel="stylesheet">
 </head>
 
 <body>
@@ -68,19 +68,21 @@
 
 			</div>
 
-			<div>
-				<button type="button" onclick="openModal()">削除</button>
-				<button type="submit">編集</button>
+			<div th:if="${flag}">
+				<button type="button" onclick="openModal()" class="btn-primary">削除</button>
+				<button type="submit" class="btn-primary">編集</button>
 				<div id="modal">
 					<p class="modal_message">削除しますか？</p>
 					<div class="Modal">
-						<button type="button" onclick="location.href='comp_delete'" class="basic_btn">削除</button>
-						<button type="button" onclick="closeModal()" class="cancel_btn">キャンセル</button>
+						<button type="button" onclick="location.href='comp_delete'" class="basic_btn btn-primary">削除</button>
+						<button type="button" onclick="closeModal()" class="cancel_btn btn-primary">キャンセル</button>
 					</div>
 				</div>
 			</div>
 		</form>
-		<script src="./js/commons.js"></script>
+		
 	</div>
+	 <div id="fadeLayer"></div>
 </body>
 </html>
+<script src="./comonns.js"></script>

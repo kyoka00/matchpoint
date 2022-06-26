@@ -37,6 +37,10 @@ public class CompDetailController{
 		
 		model.addAttribute("comp_detail", compDetail.get(0));
 		
+		if(session.getAttribute("loginId").equals("admin")) {
+		model.addAttribute("flag", true);
+		}
+		
 		return "comp_detail";
 	}
 	

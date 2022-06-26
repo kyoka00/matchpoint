@@ -5,6 +5,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-tournament-bracket@2.1.2/dist/vue-tournament-bracket.umd.min.js"></script>
 	<link href="/css/tournament.css" rel="stylesheet">
+	<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}" rel="stylesheet">
 	<title>トーナメント表</title>
 </head>
 <body>
@@ -12,7 +13,7 @@
 	<button type="button" onclick="location.href='comp_list_back'">戻る</button>
 	<button type="button" onclick="location.href='all_player'">選手一覧</button>
 	<button type="button" onclick="location.href='comp_detail'">大会詳細</button>
-	<button type="button" onclick="location.href='game_result_all'">大会結果受信ボックス</button>
+	<button type="button" onclick="location.href='game_result_all'" th:if="${flag}">大会結果受信ボックス</button>
 	<div id="app">
         <details v-for="tournament in tournaments">
             <summary>トーナメント: {{ tournament.tournamentNo }}</summary>

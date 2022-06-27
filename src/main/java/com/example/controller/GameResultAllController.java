@@ -39,7 +39,7 @@ public class GameResultAllController{
 	//試合結果受信box
 	@RequestMapping(value="game_result_all")
 	public String gameResultAll(@ModelAttribute("comp_detail") GameResultAllForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		
@@ -58,7 +58,9 @@ public class GameResultAllController{
 	
 	@RequestMapping(value = "game_result_search")
 	public String search(@ModelAttribute("comp_detail") GameResultAllForm form, Model model) {
-		
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
+			return "top";
+		}
 		GameResultAll gameResultAll = new GameResultAll();
 		
 		gameResultAll.setGameNo(form.getGameNo());
@@ -72,6 +74,9 @@ public class GameResultAllController{
 	
 	@RequestMapping(value = "sort")
 	public String sort(@RequestParam("orderBy")  String orderBy, Model model) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
+			return "top";
+		}
 		GameResultAll gameResultAll = new GameResultAll();
 
 		List<GameResultAll> gameResultList = gameResultAllDao.selectAll(gameResultAll, "");
@@ -91,7 +96,7 @@ public class GameResultAllController{
 	//試合結果登録へ
 	@RequestMapping(value="game_result_final")
 	public String resultFinal(@ModelAttribute("comp_detail") GamePlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		
@@ -129,7 +134,7 @@ public class GameResultAllController{
 	
 	@RequestMapping(value="tournament_register")
 	public String tournamentRegister(@ModelAttribute("comp_detail") GamePlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		

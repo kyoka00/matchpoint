@@ -15,7 +15,10 @@
 	<button type="button" onclick="location.href='comp_list_back'">戻る</button>
 	<button type="button" onclick="location.href='all_player'">選手一覧</button>
 	<button type="button" onclick="location.href='comp_detail'">大会詳細</button>
-	<button type="button" onclick="location.href='game_result_all'" th:if="${flag}">大会結果受信ボックス</button>
+	
+	<div th:if ="${session.loginId}">
+	<button type="button" onclick="location.href='game_result_all'">大会結果受信ボックス</button>
+	</div>
 	<div id="app">
         <details v-for="tournament in tournaments">
             <summary>トーナメント: {{ tournament.tournamentNo }}</summary>

@@ -82,7 +82,8 @@ public class ShomaController{
 			model.addAttribute("errorMsg", "大会ログインIDは必須です。");
 			return "comp_login";
 		}
-		session.setAttribute("loginId", compLoginID);
+		session.setAttribute("compId", list.get(0).getCompId());
+		session.setAttribute("compLoginId", compLoginID);
 		return "tournament";
 	}
 	
@@ -126,7 +127,7 @@ public class ShomaController{
 	//大会一覧から大会作成画面へ
 	@RequestMapping(value="comp_info")
 	public String createCompPage(@ModelAttribute("compInfo") CompForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		return "comp_info";
@@ -135,7 +136,9 @@ public class ShomaController{
 	//大会作成画面から作成ボタンで大会一覧へ移動
 	@RequestMapping(value="comp_list", params="create")
 	public String createComp(@Validated@ModelAttribute("compInfo") CompForm form, BindingResult bindingResult, Model model) {
-		
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
+			return "top";
+		}
 		if(bindingResult.hasErrors()) {
 			return "comp_info";
 		}

@@ -33,10 +33,7 @@ public class EditPlayerController {
 	   */
 	@RequestMapping(value="edit_player", params= "edit")
 	public String playerEdit(@Validated @ModelAttribute("edit_player") PlayerForm form, BindingResult bindingResult,Model model) {
-		if (bindingResult.hasErrors()) {
-            return "edit_player";
-        }
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 			Team team = new Team();
@@ -64,7 +61,7 @@ public class EditPlayerController {
 		//選手情報更新画面 delete
 		@RequestMapping(value="edit_player", params= "delete")
 		public String playerDelete(@Validated @ModelAttribute("edit_player") PlayerForm form, BindingResult bindingResult,Model model){
-			if(session.getAttribute("loginId") == null) {
+			if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 				return "top";
 			}
 			Team team = new Team();

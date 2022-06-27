@@ -75,8 +75,6 @@ public class PgReceivedResult implements ReceivedResultDao {
 //		return null;
 	}
 	
-	
-	
 	@Override
 	public List<ReceivedResult> searchMatch(ReceivedResult receivedResult){
 		String sql = "SELECT * FROM " + matchTbl + searchSqlMatch(receivedResult);
@@ -90,7 +88,6 @@ public class PgReceivedResult implements ReceivedResultDao {
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
 		return resultList.isEmpty() ? null : resultList;
 	}
-	
 
 	@Override
 	public List<ReceivedResult> searchMatchTeam(ReceivedResult receivedResult){
@@ -104,7 +101,6 @@ public class PgReceivedResult implements ReceivedResultDao {
 		}
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
 		return resultList.isEmpty() ? null : resultList;
-	
 	}
 	
 	//insertはmatchとgame_infoのみinsertかけられる感じで書いてます。
@@ -178,8 +174,6 @@ public class PgReceivedResult implements ReceivedResultDao {
 			param.addValue(COLUMN_NAME_JUDGENAME, result.getJudgeName());
 		}
 		param.addValue(ID, result.getGameInfoId());
-		
-		
 		return jdbcTemplate.update(sql, param);
 	}
 	

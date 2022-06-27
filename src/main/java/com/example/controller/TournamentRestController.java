@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -17,9 +16,7 @@ import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
 import com.example.entity.Comp;
 import com.example.entity.ReceivedResult;
-import com.example.entity.Score;
 import com.example.entity.Team;
-import com.example.entity.Winner;
 
 @RestController
 public class TournamentRestController {
@@ -108,38 +105,38 @@ public class TournamentRestController {
 //		//return compDao.updateComp(comp);
 //	}
 	
-	@RequestMapping("")
-	public List<Winner> getWinner(){
-		Integer compId = (Integer)session.getAttribute("compId");
-		ReceivedResult result = new ReceivedResult();
-		result.setCompId(compId);
-		result.setRecordStatus(1);
-		List<ReceivedResult> resultList = receivedResultDao.search(result,null);
-		List<Winner> winnerTeam = new ArrayList<Winner>();
-
-		for(ReceivedResult r: resultList) {
-			Score score = new Score();
-			score.setGameInfoId(r.getGameInfoId());
-			List<Score> scoreList = scoreDao.selectAll(score);
-			
-			int winCountA = 0;
-			int winCountB = 0;
-			if(scoreList != null) {
-				for(Score s : scoreList) {
-					if(s.getTeamAScore() > s.getTeamBScore()) {
-						winCountA ++;
-					}else if(s.getTeamAScore() < s.getTeamBScore()){
-						winCountB ++;
-					}
-				}
-			}
-			if(winCountA > winCountB) {
-				winnerTeam.add(new Winner(r.getGameNo(), r.getTeamIdA()));
-			}else {
-				winnerTeam.add(new Winner(r.getGameNo(), r.getTeamIdB()));
-			}
-		}
-		return winnerTeam;
-	}
+//	@RequestMapping("")
+//	public List<Winner> getWinner(){
+//		Integer compId = (Integer)session.getAttribute("compId");
+//		ReceivedResult result = new ReceivedResult();
+//		result.setCompId(compId);
+//		result.setRecordStatus(1);
+//		List<ReceivedResult> resultList = receivedResultDao.search(result,null);
+//		List<Winner> winnerTeam = new ArrayList<Winner>();
+//
+//		for(ReceivedResult r: resultList) {
+//			Score score = new Score();
+//			score.setGameInfoId(r.getGameInfoId());
+//			List<Score> scoreList = scoreDao.selectAll(score);
+//			
+//			int winCountA = 0;
+//			int winCountB = 0;
+//			if(scoreList != null) {
+//				for(Score s : scoreList) {
+//					if(s.getTeamAScore() > s.getTeamBScore()) {
+//						winCountA ++;
+//					}else if(s.getTeamAScore() < s.getTeamBScore()){
+//						winCountB ++;
+//					}
+//				}
+//			}
+//			if(winCountA > winCountB) {
+//				winnerTeam.add(new Winner(r.getGameNo(), r.getTeamIdA()));
+//			}else {
+//				winnerTeam.add(new Winner(r.getGameNo(), r.getTeamIdB()));
+//			}
+//		}
+//		return winnerTeam;
+//	}
 }
 

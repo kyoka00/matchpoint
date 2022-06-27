@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.controller.form.GameInfoForm;
 import com.example.controller.form.GamePlayerForm;
@@ -48,6 +49,21 @@ public class GameModeController{
 		return "game_setting";
 	}
 	
+	@RequestMapping(value="match_from_tournament")
+	public String gameSet(@ModelAttribute("game_info") GameInfoForm form, @RequestParam("game_no") Integer gameNo) {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
+		}
+		if(gameNo != null) {
+			form.setGameNo(gameNo);
+		}else {
+			form.setGameNo(1);
+		}
+		form.setMaxPoint(21);
+		form.setGameCount(3);
+		return "game_setting";
+	}
+	
 	@RequestMapping(value="server_setting")
 	public String redirectServerSetting(@ModelAttribute("score_setting") GamePlayerForm playerForm) {
 		if(session.getAttribute("loginId") == null) {
@@ -70,15 +86,12 @@ public class GameModeController{
 	public String serverSetting(@Validated @ModelAttribute("game_info") GameInfoForm form,
 			BindingResult bindingResult, @ModelAttribute("score_setting") GamePlayerForm playerForm) {
 		if (bindingResult.hasErrors()) {
-			form.setMaxPoint(form.getMaxPoint());
-			form.setGameCount(form.getGameCount());
+			form.setGameNo(1);
             return "game_setting";
         }
 		ReceivedResult receivedResult = new ReceivedResult();
 		receivedResult.setGameNo(form.getGameNo());
-		//あとから変えるやつ
-		//compIDはセッションに保存されているやつを使う
-		receivedResult.setCompId(1);
+		receivedResult.setCompId((Integer)session.getAttribute("compId"));
 		List<ReceivedResult> list = receivedResultDao.searchMatch(receivedResult);
 		if(list == null) {
 			return "game_setting";

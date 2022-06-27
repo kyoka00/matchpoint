@@ -29,7 +29,7 @@
 		
 		<div>
 			<div>
-				<div th:text="${setNumA}">取得ゲーム数</div>
+				<div th:text="${setNumA} + 'セット'">取得ゲーム数</div>
 				<div>
 					<table border="1">
 						<tr th:each="score : ${score_list}">
@@ -37,7 +37,7 @@
 						</tr>
 					</table>
 				</div>
-				<div th:text="${setNumB}">取得ゲーム数</div>
+				<div th:text="${setNumB} + 'セット'">取得ゲーム数</div>
 			</div>
 		</div>
 		<button type="submit" name="next">トーナメントへ登録</button>

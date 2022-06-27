@@ -19,9 +19,13 @@
 		<input type="text" name="keyword" placeholder="キーワード検索">
 		<input type="submit" value="検索">
 	</form>
+	<form action="game_result_all" th:object="${comp_detail}">
+		<input type="submit" value="未登録の試合を表示">
+	</form>
+	<form action="game_result_registered" th:object="${comp_detail}">
+		<input type="submit" value="登録済みの試合を表示">
+	</form>
 	<button type="button" onclick="location.href='tournament'">戻る</button>
-	
-	<div th:if="${recordStatus == 0}">
 	<table border="1">
 		<tr>
 			<th>日時</th>
@@ -30,33 +34,14 @@
 			<th>審判名</th>
 			<th>トーナメント番号</th>
 		</tr>
-		<tr th:each="GameResultAll : ${resultList}">
-			<td >[[${GameResultAll.recordDate}]]</td>
+		<tr th:each="GameResultAll : ${resultList}" >
+			<td>[[${GameResultAll.recordDate}]]</td>
 			<td><button type="button" onClick="location.href='game_result_final'">第[[${GameResultAll.gameNo}]]試合</button></td>
 			<td>[[${GameResultAll.coatNo}]]</td>
 			<td>[[${GameResultAll.judgeName}]]</td>
 			<td>[[${GameResultAll.tournamentNo}]]</td>
 		</tr>
 	</table>
-	</div>
-	
-	<div>
-	<table border="1">
-		<tr>
-			<th>日時</th>
-			<th>試合番号</th>
-			<th>コート番号</th>
-			<th>審判名</th>
-			<th>トーナメント番号</th>
-		</tr>
-		<tr th:each="GameResultAll : ${resultList}">
-			<td >[[${GameResultAll.recordDate}]]</td>
-			<td><button type="button" onClick="location.href='game_result_final'">第[[${GameResultAll.gameNo}]]試合</button></td>
-			<td>[[${GameResultAll.coatNo}]]</td>
-			<td>[[${GameResultAll.judgeName}]]</td>
-			<td>[[${GameResultAll.tournamentNo}]]</td>
-		</tr>
-	</table>
-	</div>
 </body>
+
 </html>

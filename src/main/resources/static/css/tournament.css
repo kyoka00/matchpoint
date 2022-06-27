@@ -1,5 +1,15 @@
 @charset "UTF-8";
-
+.tournament{
+	margin : 20%;
+}
+.buttons{
+	display: inline-block;
+  	margin: 0 10px;
+}
+.buttons button{
+	padding: 5px;
+	margin: 10px;
+}
  .vtb-item{
     margin:auto;
 

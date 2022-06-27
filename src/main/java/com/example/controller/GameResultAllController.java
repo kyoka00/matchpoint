@@ -64,56 +64,32 @@ public class GameResultAllController{
 
 	@RequestMapping(value = "game_result_search")
 	public String search(@ModelAttribute("comp_detail") GameResultAllForm form, Model model) {
-<<<<<<< HEAD
 		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
-		GameResultAll gameResultAll = new GameResultAll();
-		gameResultAll.setGameNo(form.getGameNo());
-		String keyword = form.getKeyword();
-		List<GameResultAll> search = gameResultAllDao.search(keyword, 0);
-		model.addAttribute("resultList", search);
-=======
+	
 		int recordStatus = form.getRecordStatus();
 		String keyword = form.getKeyword();
-		System.out.println(keyword);
+
 		
-		if(recordStatus == 0) {
+		if(recordStatus == 0){
 			List<GameResultAll> search = gameResultAllDao.search(keyword, 0);
 			model.addAttribute("resultList", search);
 			return "game_result_all";
 		}
 		
-		if(recordStatus == 1) {
+		if(recordStatus == 1){
 			List<GameResultAll> search = gameResultAllDao.search(keyword, 1);
 			model.addAttribute("resultList", search);
 		}
-		
->>>>>>> origin/yagi
+
 		return "game_result_all";
 	}
 
 	@RequestMapping(value = "sort")
-<<<<<<< HEAD
-	public String sort(@RequestParam("orderBy") String orderBy, Model model) {
-		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
-			return "top";
-		}
-		GameResultAll gameResultAll = new GameResultAll();
 
-		List<GameResultAll> gameResultList = gameResultAllDao.select(0);
-		if ("record_date".equals(orderBy)) {
-			gameResultList.sort((p1, p2) -> p1.getRecordDate().compareTo(p2.getRecordDate()));
-		} else if ("game_no".equals(orderBy)) {
-			gameResultList.sort((p1, p2) -> p1.getGameNo() >= p2.getGameNo() ? 1 : -1);
-		} else if ("coat_no".equals(orderBy)) {
-			gameResultList.sort((p1, p2) -> p1.getCoatNo() >= p2.getCoatNo() ? 1 : -1);
-		} else if ("tournament_no".equals(orderBy)) {
-			gameResultList.sort((p1, p2) -> p1.getTournamentNo() >= p2.getTournamentNo() ? 1 : -1);
-=======
 	public String sort(@RequestParam("orderBy")  String orderBy,
 			@ModelAttribute("comp_detail") GameResultAllForm form,Model model) {
-		System.out.println("コントロール" + orderBy);
 		
 		int recordStatus = form.getRecordStatus();
 
@@ -144,7 +120,6 @@ public class GameResultAllController{
 				gameResultList.sort((p1, p2) -> p1.getTournamentNo() >= p2.getTournamentNo() ? 1 : -1);
 			}
 			model.addAttribute("resultList", gameResultList);
->>>>>>> origin/yagi
 		}
 		return "game_result_all";
 	}
@@ -167,6 +142,7 @@ public class GameResultAllController{
 		score.setTeamAScore(form.getTeam1Point());
 		score.setTeamBScore(form.getTeam2Point());
 		scoreDao.insertScore(score);
+		//insert??
 		int winCountA = score.getTeamAScore();
 		int winCountB = score.getTeamBScore();
 		List<String> scoreList = new ArrayList<String>();
@@ -194,7 +170,7 @@ public class GameResultAllController{
 		}
 		
 		ReceivedResult receivedResult = new ReceivedResult();
-		int recordStatus = form.getRecordStatus();
+		Integer recordStatus = form.getRecordStatus();
 		receivedResult.setGameInfoId((Integer) session.getAttribute("game_info_id"));
 		
 		

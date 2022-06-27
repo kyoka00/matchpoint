@@ -227,7 +227,7 @@ public class PgReceivedResult implements ReceivedResultDao {
 		if (Utility.notIsEmptyNull(keyword)) {
 			columnName = COLUMN_NAME_JUDGENAME + " || " + COLUMN_NAME_MATCHID + "||" + COLUMN_NAME_COATNO + "||"
 					+ COLUMN_NAME_TOURNAMENTNO + " LIKE :" + "keyword";
-			where = !where.isEmpty() ? where + " AND " + columnName : columnName + "ORDER BY record_date";
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
 
 		return !where.isEmpty() ? " WHERE " + where : "";

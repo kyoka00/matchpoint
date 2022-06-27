@@ -52,10 +52,11 @@
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label">試合形式:</label> <input
-						type="text" th:field="*{gameTypeStr}" readonly> <span
-						th:switch="*{gameType}"> <input th:case="1" th:value="シングル"
-						readonly> <input th:case="2" th:value="ダブルス" readonly>
+					<label class="col-sm-2 control-label">試合形式:</label> 
+					<input type="hidden" th:field="*{gameTypeStr}" readonly> 
+					<span th:switch="*{gameType}"> 
+					<input type ="text" th:case="1" th:value="シングル" readonly> 
+					<input type ="text" th:case="2" th:value="ダブルス" readonly>
 					</span>
 				</div>
 			</div>

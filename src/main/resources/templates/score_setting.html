@@ -6,69 +6,70 @@
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
 <link href="/css/yuya.css" rel="stylesheet">
 </head>
-<body class="bg-score-setting">
+<body class="bg-scoreSetting">
 	<form action="game_set_result" th:object="${score_setting}" method="POST">
 		<input type="hidden" id="playerA" th:field="*{playerA}">
 		<input type="hidden" id="playerB" th:field="*{playerB}">
 		<input type="hidden" id="playerC" th:field="*{playerC}">
 		<input type="hidden" id="playerD" th:field="*{playerD}">
 		<input type="hidden" id="server" th:field="*{server}">
-		<input type="text" id="team1_point" th:field="*{team1Point}">
-		<input type="text" id="team2_point" th:field="*{team2Point}">
+		<input type="hidden" id="team1_point" th:field="*{team1Point}">
+		<input type="hidden" id="team2_point" th:field="*{team2Point}">
 		<input type="hidden" id="max_point" th:field="*{maxPoint}">
 		
-		
-		<div class="left-column">
-				<p id="playerAtext">A</p>
-				<p id="playerBtext">B</p>
-		</div>	
-		
-		<div class="right-column">
-				<p id="playerCtext">C</p>
-				<p id="playerDtext">D</p>
-		</div>
-		
-		<div>
-			<div id="team1_point_text"></div>
-		<div>
-				<div th:text="${setNumA} + 'セット'" class="get_gameAB">ABゲーム数</div>
-
-				<div th:text="${setNumA} + 'セット'">取得セット数</div>
-
-				<div>
-					<table border="1">
-						<tr th:each="score : ${score_list}">
-							<td th:text="${score}"></td>
-						</tr>
-					</table>
+		<div class="coat-view bg-warning text-white">
+				<div class="left-player">
+						<p id="playerAtext">A</p>
+						<p id="playerBtext">B</p>
+				</div>	
+				
+				<div class="right-player">
+						<p id="playerCtext">C</p>
+						<p id="playerDtext">D</p>
 				</div>
-
-				<div th:text="${setNumB} + 'セット'" class="get_gameCD">CDゲーム数</div>
-				<div th:text="${setNumB} + 'セット'">取得セット数</div>
-
-		</div>
-			<div id="team2_point_text"></div>
-		</div>
-		<div>
+			
+			
 			<div>
-				<button type="button" id="team1tasu" onClick="serverSet(1,'tasu')" class="btn btn-danger">+</button>
-				<button type="button" onClick="serverSet(1,'hiku')" class=" btn btn-primary">-</button>
+				<div id="team1_point_text"></div>
+			<div>
+					<div th:text="${setNumA} + 'セット'" class="get_gameAB">ABゲーム数</div>
+	
+					<div th:text="${setNumA} + 'セット'">取得セット数</div>
+	
+					<div>
+						<table border="1">
+							<tr th:each="score : ${score_list}">
+								<td th:text="${score}"></td>
+							</tr>
+						</table>
+					</div>
+	
+					<div th:text="${setNumB} + 'セット'" class="get_gameCD">CDゲーム数</div>
+					<div th:text="${setNumB} + 'セット'">取得セット数</div>
+	
+			</div>
+				<div id="team2_point_text"></div>
 			</div>
 			<div>
-				<button type="button" id="team2tasu" onClick="serverSet(2,'tasu')" class=" btn btn-danger">+</button>
-				<button type="button" onClick="serverSet(2,'hiku')" class=" btn btn-primary">-</button>
-
-				<button type="button" id="team1tasu" onClick="serverSet(1,'tasu')">+</button>
-				<button type="button" onClick="serverSet(1,'hiku')">-</button>
+				<div>
+					<button type="button" id="team1tasu" onClick="serverSet(1,'tasu')" class="btn btn-danger">+</button>
+					<button type="button" onClick="serverSet(1,'hiku')" class=" btn btn-primary">-</button>
+				</div>
+				<div>
+					<button type="button" id="team2tasu" onClick="serverSet(2,'tasu')" class=" btn btn-danger">+</button>
+					<button type="button" onClick="serverSet(2,'hiku')" class=" btn btn-primary">-</button>
+	
+					<button type="button" id="team1tasu" onClick="serverSet(1,'tasu')">+</button>
+					<button type="button" onClick="serverSet(1,'hiku')">-</button>
+				</div>
+				<div>
+					<button type="button" id="team2tasu" onClick="serverSet(2,'tasu')">+</button>
+					<button type="button" onClick="serverSet(2,'hiku')">-</button>
+	
+				</div>
 			</div>
-			<div>
-				<button type="button" id="team2tasu" onClick="serverSet(2,'tasu')">+</button>
-				<button type="button" onClick="serverSet(2,'hiku')">-</button>
-
-			</div>
-		</div>
-		
-		<button type="submit">ゲーム終了</button>
+			<button type="submit">ゲーム終了</button>
+	     </div>
 	</form>
 	<script src="/js/score_setting.js"></script>
 </body>

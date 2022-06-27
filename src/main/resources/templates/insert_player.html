@@ -2,14 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
-<link href="/css/commons.css" rel="stylesheet">
+<link href="/css/yuya.css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>	選手登録</title>
-<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
-	rel="stylesheet">
-	<link href="/css/commons.css" rel="stylesheet">
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
+<link href="/css/yuya.css" rel="stylesheet">
 </head>
-
 <body>
 	<table>
 		<tr th:if="${validationError}" th:each="error : ${validationError}">

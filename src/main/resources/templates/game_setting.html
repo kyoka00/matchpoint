@@ -3,47 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <title>試合設定</title>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
+<link href="/css/yuya.css" rel="stylesheet">
 <link href="/css/game_mode.css" rel="stylesheet">
 </head>
-<body>
-	<div id="app">
+<body class="bg-game_setting">
+	<div class="bg-success" id="app">
 		<form action="server_setting" th:object="${game_info}" method="POST">
-			<div>
+			<div class="text-white" id="category">
 				試合番号
 				<input type="number" id="gameNo" v-model="gameNo" th:field="*{gameNo}" @change="teamSet()"><br>
 			</div>
 			
-			<div>
+			<div class="text-white">
 				チーム1
 				<span id="team1">{{ team1 }}</span>
 			</div>
 			
-			<div>
+			<div class="text-white">
 				チーム2
 				<span id="team2">{{ team2 }}</span>
 			</div>
 			
-			<div>試合形式</div>
+			<div class="text-white" id="category">試合形式</div>
 			
-			<div>点数</div>
+			<div class="text-white" id="category">点数</div>
 			
-			<div>
+			<div class="text-white">
 				<label><input type="radio" value="11" th:field="*{maxPoint}">11点</label>
 				<label><input type="radio" value="21" th:field="*{maxPoint}">21点</label>
 				<label><input type="radio" value="31" th:field="*{maxPoint}">31点</label>
 			</div>
 			
-			<div>ゲーム数</div>
+			<div class="text-white" id="category">ゲーム数</div>
 			
-			<div>
+			<div class="text-white">
 				<label><input type="radio" value="1" th:field="*{gameCount}">1ゲーム</label>
 				<label><input type="radio" value="2" th:field="*{gameCount}">2ゲーム</label>
 				<label><input type="radio" value="3" th:field="*{gameCount}">3ゲーム</label>
 			</div>
 			
-			<div>
-				<button type="submit" name="skip">試合スキップ</button>
-				<button type="submit" name="server_setting">サーブ権設定</button>
+			<div class="text-white">
+				<button class="btn bg-info" type="submit" name="skip">試合スキップ</button>
+				<button class="btn bg-info" type="submit" name="server_setting">サーブ権設定</button>
 			</div>
 		</form>
 	</div>

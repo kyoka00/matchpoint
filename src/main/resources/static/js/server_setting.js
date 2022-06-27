@@ -37,13 +37,11 @@ function changeCoat(){
 	playerC.value = tmp1
 	playerB.value = playerD.value
 	playerD.value = tmp2
-	console.log('session:')
 	if(window.sessionStorage.getItem(['coat']) == 0){
 		window.sessionStorage.setItem(['coat'],[1]);
 	}else if(window.sessionStorage.getItem(['coat']) == 1){
 		window.sessionStorage.setItem(['coat'],[0]);
 	}
-	console.log(window.sessionStorage.getItem(['coat']))
 	document.getElementById('playerAtext').innerHTML = playerA.value
 	document.getElementById('playerBtext').innerHTML = playerB.value
 	document.getElementById('playerCtext').innerHTML = playerC.value

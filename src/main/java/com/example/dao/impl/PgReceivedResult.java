@@ -153,7 +153,6 @@ public class PgReceivedResult implements ReceivedResultDao {
 		return list.get(0).getGameInfoId();
 	}
 
-
 	@Override
 	public int update(ReceivedResult result) {
 		String sql = UPDATE + updateSql(result);

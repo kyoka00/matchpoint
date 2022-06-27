@@ -1,3 +1,25 @@
+const playerA = document.getElementById('playerA').value
+const playerB = document.getElementById('playerB').value
+const playerC = document.getElementById('playerC').value
+const playerD = document.getElementById('playerD').value
+
+const textA = document.getElementById('playerAtext')
+const textB = document.getElementById('playerBtext')
+const textC = document.getElementById('playerCtext')
+const textD = document.getElementById('playerDtext')
+
+const point1 = document.getElementById('team1_point')
+const point2 = document.getElementById('team2_point')
+
+const pointText1 = document.getElementById('team1_point_text')
+const pointText2 = document.getElementById('team2_point_text')
+
+const server = document.getElementById('server')
+const server_set = document.getElementById('server_select')
+
+const tasuBtn1 = document.getElementById('team1tasu')
+const tasuBtn2 = document.getElementById('team2tasu')
+
 window.addEventListener("load",function(){
 	let server = document.getElementById('server')
 	document.getElementById('playerAtext').innerHTML = document.getElementById('playerA').value
@@ -11,7 +33,6 @@ window.addEventListener("load",function(){
 		server.value = document.getElementById('playerC').value
 		document.getElementById('playerCtext').setAttribute('style', 'color: red;')
 	}
-	console.log(window.sessionStorage.getItem(['coat']))
 	document.getElementById('team1_point_text').innerHTML = 0
 	document.getElementById('team2_point_text').innerHTML = 0
 	document.getElementById('team1_point').value = document.getElementById('team1_point_text').innerHTML
@@ -19,27 +40,6 @@ window.addEventListener("load",function(){
 })
 
 function serverSet(team, btn){
-	const playerA = document.getElementById('playerA').value
-	const playerB = document.getElementById('playerB').value
-	const playerC = document.getElementById('playerC').value
-	const playerD = document.getElementById('playerD').value
-	
-	const textA = document.getElementById('playerAtext')
-	const textB = document.getElementById('playerBtext')
-	const textC = document.getElementById('playerCtext')
-	const textD = document.getElementById('playerDtext')
-	
-	const point1 = document.getElementById('team1_point')
-	const point2 = document.getElementById('team2_point')
-	
-	const pointText1 = document.getElementById('team1_point_text')
-	const pointText2 = document.getElementById('team2_point_text')
-	
-	const server = document.getElementById('server')
-	
-	const tasuBtn1 = document.getElementById('team1tasu')
-	const tasuBtn2 = document.getElementById('team2tasu')
-	
 	let tmp
 	var maxPoint = document.getElementById('max_point')
 	
@@ -51,8 +51,10 @@ function serverSet(team, btn){
 				textB.innerHTML = tmp
 			}else if(server.value == playerC){
 				server.value = playerB
+				server_set.value = 'playerB'
 			}else if(server.value == playerD){
 				server.value = playerA
+				server_set.value = 'playerA'
 			}
 			if(window.sessionStorage.getItem(['coat']) == null || window.sessionStorage.getItem(['coat']) == 0){
 				pointText1.innerHTML = Number(pointText1.innerHTML) + 1
@@ -68,8 +70,10 @@ function serverSet(team, btn){
 				textD.innerHTML = tmp
 			}else if(server.value == playerA){
 				server.value = playerC
+				server_set.value = 'playerC'
 			}else if(server.value == playerB){
 				server.value = playerD
+				server_set.value = 'playerD'
 			}
 			if(window.sessionStorage.getItem(['coat']) == null || window.sessionStorage.getItem(['coat']) == 0){
 				pointText2.innerHTML = Number(pointText2.innerHTML) + 1
@@ -145,5 +149,31 @@ function serverSet(team, btn){
 	if(Number(pointText1.innerHTML) >= Number(maxPoint.value) + 9 || Number(pointText2.innerHTML) >= Number(maxPoint.value) + 9) {
 		tasuBtn1.style.visibility = "hidden"
 		tasuBtn2.style.visibility = "hidden"
+	}
+}
+
+function serverChange(){
+	textA.setAttribute('style', '')
+	textB.setAttribute('style', '')
+	textC.setAttribute('style', '')
+	textD.setAttribute('style', '')
+	if(server_set.value == 'playerA'){
+		server.value = playerA
+	}else if(server_set.value == 'playerB'){
+		server.value = playerB
+	}else if(server_set.value == 'playerC'){
+		server.value = playerC
+	}else if(server_set.value == 'playerD'){
+		server.value = playerD
+	}
+	
+	if(server.value == textA.innerHTML){
+		textA.setAttribute('style', 'color: red;')
+	}else if(server.value == textB.innerHTML){
+		textB.setAttribute('style', 'color: red;')
+	}else if(server.value == textC.innerHTML){
+		textC.setAttribute('style', 'color: red;')
+	}else if(server.value == document.getElementById('playerDtext').innerHTML){
+		textD.setAttribute('style', 'color: red;')
 	}
 }

@@ -8,11 +8,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.controller.form.GameInfoForm;
 import com.example.controller.form.GamePlayerForm;
@@ -134,11 +136,9 @@ public class GameModeController{
 		return "score_setting";
 	}
 	
-	@RequestMapping(value="game_set_result")
-	public String gameSetResult(@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
+	@RequestMapping(value="insert_game_result")
+	public String insertGameResult(RedirectAttributes redirectAttributes, 
+			@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
 		Score score = new Score();
 		score.setGameInfoId((Integer)session.getAttribute("game_info_id"));
 		List<Score> list = scoreDao.selectAll(score);
@@ -153,8 +153,27 @@ public class GameModeController{
 			list.add(score);
 		}
 		scoreDao.insertScore(score);
+//		redirectAttributes.addFlashAttribute("model", list);
+		ModelMap modelMap = new ModelMap();
+		modelMap.addAttribute("form", form);
+		redirectAttributes.addFlashAttribute("model", modelMap);
+		return "redirect:/game_set_result";
+	}
+	
+	@RequestMapping(value="game_set_result")
+	public String gameSetResult(@ModelAttribute("model")ModelMap modelMap,
+			@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
+		}
 		int winCountA = 0;
 		int winCountB = 0;
+		Score score = new Score();
+		score.setGameInfoId((Integer)session.getAttribute("game_info_id"));
+		List<Score> list = scoreDao.selectAll(score);
+		form = (GamePlayerForm) modelMap.get("form");
+		System.out.print(modelMap.getAttribute("form"));
+		System.out.println(form.getPlayerA());
 		List<String> scoreList = new ArrayList<String>();
 		if(list != null) {
 			for(Score s : list) {
@@ -187,6 +206,7 @@ public class GameModeController{
 		model.addAttribute("score_list", scoreList);
 		model.addAttribute("setNumA", winCountA);
 		model.addAttribute("setNumB", winCountB);
+		
 		return "game_set_result";
 	}
 	

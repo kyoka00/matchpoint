@@ -47,7 +47,7 @@ public class TournamentController {
 	//トーナメントへ
 		@RequestMapping(value="tournament")
 		public String tournament(@ModelAttribute("compInfo") CompForm form, Model model) {
-			if(session.getAttribute("loginId") == null) {
+			if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 				return "top";
 			}
 			Integer compId =form.getCompId();
@@ -65,9 +65,6 @@ public class TournamentController {
 			List<Team> teamList = teamDao.selectAll(team, "");
 			model.addAttribute("teamList", teamList);
 			
-			if(session.getAttribute("loginId").equals("admin")) {
-				model.addAttribute("flag", true);
-				}
 
 			return "tournament";
 			
@@ -75,7 +72,7 @@ public class TournamentController {
 		//トーナメント表編集
 		@RequestMapping(value="edit_tournament")
 		public String editTournament(Model model) {
-			if(session.getAttribute("loginId") == null) {
+			if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 				return "top";
 			}
 			Integer compId = (Integer)session.getAttribute("compId");
@@ -104,7 +101,7 @@ public class TournamentController {
 		//トーナメント表のセーブ
 		@RequestMapping(value="submit_edition")
 		public String tournamentSave() {
-			if(session.getAttribute("loginId") == null) {
+			if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 				return "top";
 			}
 			return "edit_tournament";
@@ -113,15 +110,28 @@ public class TournamentController {
 		//トーナメント表からDBに更新をかける
 		@RequestMapping(value="save_tournament")
 		public String saveTournament(Model model) {
-			if(session.getAttribute("loginId") == null) {
+			if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 				return "top";
 			}
-			return "edit_tournament";
+			Comp comp = new Comp();
+			Integer compId = (Integer)session.getAttribute("compId");
+			comp.setCompId(compId);
+			comp.setTournamentEditStatus(2);
+			int count = compDao.updateComp(comp);
+			
+			if(count!= 0) {
+				model.addAttribute("msg", "トーナメント情報を確定しました");
+			}else {
+				return "edit_tournament";
+			}
+	
+			
+			return "tournament";
 		}
 		//試合番号ボタンクリック
 		@RequestMapping(value="")
 		public String gameResult(@RequestParam("gameNo")Integer gameNo, Model model) {
-			if(session.getAttribute("loginId") == null) {
+			if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 				return "top";
 			}
 			ReceivedResult result = new ReceivedResult();
@@ -143,7 +153,7 @@ public class TournamentController {
 		//試合結果からトーナメントへ
 		@RequestMapping(value="tournament_back")
 		public String tournamentBack(Model model) {
-			if(session.getAttribute("loginId") == null) {
+			if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 				return "top";
 			}
 
@@ -152,10 +162,11 @@ public class TournamentController {
 		//大会一覧へ戻る
 		@RequestMapping(value="comp_list_back")
 		public String compListBack(@ModelAttribute("compInfo") CompForm form, Model model) {
-			if(session.getAttribute("loginId") == null) {
+			if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 				return "top";
+			}else if(session.getAttribute("loginId") == null) {
+				return "comp_login";
 			}
-
 			Comp comp = new Comp();
 			model.addAttribute("resultList", compDao.selectAll(comp));
 			return "comp_list";

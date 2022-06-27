@@ -3,13 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <title>ゲーム結果</title>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
+<link href="/css/yuya.css" rel="stylesheet">
 </head>
 <body>
 	<form action="game_result" th:object="${score_setting}" method="POST">
-		<input type="text" th:field="*{playerA}">
-		<input type="text" th:field="*{playerB}">
-		<input type="text" th:field="*{playerC}">
-		<input type="text" th:field="*{playerD}">
+		<input type="hidden" th:field="*{playerA}">
+		<input type="hidden" th:field="*{playerB}">
+		<input type="hidden" th:field="*{playerC}">
+		<input type="hidden" th:field="*{playerD}">
 		
 		<div th:text="${set}">現在のゲーム数/総ゲーム数</div>
 		

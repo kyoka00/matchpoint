@@ -3,38 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <title>サーブ権設定</title>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
+<link href="/css/yuya.css" rel="stylesheet">
 <link href="css/game_mode.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-server">
 	<form action="score_setting" th:object="${score_setting}" method="POST">
 		<input type="hidden" id="playerA" th:field="*{playerA}">
 		<input type="hidden" id="playerB" th:field="*{playerB}">
 		<input type="hidden" id="playerC" th:field="*{playerC}">
 		<input type="hidden" id="playerD" th:field="*{playerD}">
-		<p>立ち位置</p>
 		
-		<div>
-			<div>
+		<div class="server-change bg-success">
+		<p>立ち位置</p> 
+			<div class="left-column">
 				<p id="playerAtext">A</p>
-				<button type="button" onclick="changeLeft()">チェンジA</button>
+				<button type="button" class="btn btn-light" onclick="changeLeft()">クリック</button>
 				<p id="playerBtext" style="color: red;">B</p>
 			</div>
 			
-			<div>
+			<div class="right-column">
 				<p id="playerCtext">C</p>
-				<button type="button" onclick="changeRight()">チェンジB</button>
+				<button type="button" class="btn btn-light" onclick="changeRight()">クリック</button>
 				<p id="playerDtext">D</p>
 			</div>
+			<button type="button" class="btn btn-light" onclick="changeCoat()">コートチェンジ</button>
 			<button type="button" onClick="changeCoat()">コートチェンジ</button>
 		</div>
 		
-		<div>
+			<div class="server-select">
 			<input type="radio" value="playerB" th:field="*{server}" onClick="serverSet(1)">
 			サーブ権を選択
 			<input type="radio" value="playerC" th:field="*{server}" onClick="serverSet(2)">
-		</div>
-		
-		<button type="submit">試合開始</button>
+			</div>
+			<button type="submit">試合開始</button>
 	</form>
 	<script src="/js/server_setting.js"></script>
 </body >

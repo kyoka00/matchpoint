@@ -95,8 +95,8 @@ public class ShomaController{
 		}
 		
 		Manage manage = new Manage();
-		manage.setLoginId(form.getLoginId());
-		manage.setPassword(form.getPassword());
+		manage.setLoginId(form.getLoginId());//後でform.getLoginId()を入れる。
+		manage.setPassword(form.getPassword());//後でform.getPassword()を入れる。
 		List<Manage> list = manageDao.selectAll(manage);
 		
 		Comp comp = new Comp();

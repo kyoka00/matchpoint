@@ -2,17 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
-<link href="/css/commons.css" rel="stylesheet">
+<link href="/css/yuya.css" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>選手一覧</title>
 </head>
-<body>
+<body class="all">
 	<!-- 選手登録画面へ -->
 	<div th:insert="header"></div>
 	<button class="text-white bg-danger btn btn-outline-light my-box btn btn-orange-moon mr-auto" type="button" onclick="location.href='edit_tournament'">トーナメント表作成</button>
-	<button class="text-white bg-primary btn btn-outline-light rounded-pill my-box btn-primary"type="button" onclick="location.href='tournament'">戻る</button>
-	<button class="text-white bg-success btn btn-outline-light"type="button" onclick="location.href='insert_player'">選手登録</button>
+	<button id="return" class="text-white bg-primary btn btn-outline-light rounded-pill my-box btn-primary" id="btn-return" type="button" onclick="location.href='tournament'">戻る</button>
+	<button class="text-white bg-success btn btn-outline-light" type="button" onclick="location.href='insert_player'">選手登録</button>
 	<form action="search" th:object="${edit_player}">
 		<input type="text" name="keyword" placeholder="キーワード検索">
 		<input type="submit" value="検索">
@@ -20,7 +20,7 @@
 	<form action="all_player" th:object="${all_player}">
 		<div class="table-responsive">
 			<div class="text-center">
-	<table class="table table-bordered table-striped mx-auto table-hover table-light" border="1" >
+	<table id="table" class="table table-bordered table-striped mx-auto table-hover table-light" border="1" >
 
 		<!-- 選手編集画面へ -->
 		<tr class="align-middle" th:each="player : ${allPlayer}">

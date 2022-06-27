@@ -69,7 +69,6 @@ public class PgReceivedResult implements ReceivedResultDao {
 		if (Utility.notIsEmptyNull(result.getGameNo())) {
 			param.addValue(COLUMN_NAME_GAMENO, result.getGameNo());
 		}
-
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
 		return resultList.isEmpty() ? null : resultList;
 //		return null;

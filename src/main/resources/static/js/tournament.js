@@ -72,18 +72,22 @@ const vue = new Vue({
         },
         // 試合番号ボタン押下時、画面遷移
         viewResultOrStartGame(event) {
-            const gameNo = event.target.value;
+            const gameNo = event.target.value;            
             // 試合番号でReceivedResultに検索
-            fetch(`searchMatchByGameNo?gameNo=${event}`).then(res => res.json().then(data => {
+            fetch(`searchMatchByGameNo?gameNo=${gameNo}`)
+            .then(res => res.json().then(data => {
+                console.log(data);
                 // 条件式：　試合番号でReceivedResultに検索を掛けても、登録済みのレコードが無い && 選手が一人しかいない試合（シード）ではない
-                if(data.length === 0 && isNotEmptyMatch(gameNo)) {
-                    // 試合設定画面に遷移
-                    
-                } else {
+                if(data.length === 1) {
                     // 試合結果画面に遷移
+                    fetch()
+                    .catch(error => error)
+                } else {
+                    // 試合設定画面に遷移
 
                 }
             }))
+            .catch(error => console.log(error));
         },
         isNotEmptyMatch(gameNo) {
             const match = this.tournaments.forEach(tournament => tournament.rounds.forEach(round => round.games.filter(game => game.gameNo === gameNo)));
@@ -92,35 +96,40 @@ const vue = new Vue({
     },
     created: function() {
         // トーナメント表作成済みか否か確認
-        if(false) {
-            document.getElementById("app").innerHTML = "トーナメントは未作成です。選手登録を完了させてトーナメントを作成してください。"
-        } else {
-            // チーム一覧取得
-            fetch('getTeamList')
-            .then(res => res.json().then(data => {
-                console.log(data);
-                this.teamLists = data;
-                this.createTournament(1, this.teamLists1);
-                this.createTournament(2, this.teamLists2);
-                this.createTournament(3, this.teamLists3);
-                this.createTournament(4, this.teamLists4);
-                this.createTournament(5, this.teamLists5);
-                this.createTournament(6, this.teamLists6);
-                this.createTournament(7, this.teamLists7);
-                this.createTournament(8, this.teamLists8);
-                this.createTournament(9, this.teamLists9);
-                this.createTournament(10, this.teamLists10);
-                // 対戦組み合わせ一覧取得
-                fetch('getMatchList')
+        let tournamentEditStatus;
+        fetch("getTournamentEditStatus")
+        .then(res => res.json().then(data => {
+            console.log(data);
+            tournamentEditStatus = data;
+            if(tournamentEditStatus === 0) {
+                document.getElementById("app").innerHTML = "トーナメントは未作成です。選手登録を完了させてトーナメントを作成してください。";
+            } else {
+                // チーム一覧取得
+                fetch('getTeamList')
                 .then(res => res.json().then(data => {
-                    console.log(data);
-                    this.existingMatchLists = data;
-                    this.allotTeam();
+                    this.teamLists = data;
+                    this.createTournament(1, this.teamLists1);
+                    this.createTournament(2, this.teamLists2);
+                    this.createTournament(3, this.teamLists3);
+                    this.createTournament(4, this.teamLists4);
+                    this.createTournament(5, this.teamLists5);
+                    this.createTournament(6, this.teamLists6);
+                    this.createTournament(7, this.teamLists7);
+                    this.createTournament(8, this.teamLists8);
+                    this.createTournament(9, this.teamLists9);
+                    this.createTournament(10, this.teamLists10);
+                    // 対戦組み合わせ一覧取得
+                    fetch('getMatchList')
+                    .then(res => res.json().then(data => {
+                        this.existingMatchLists = data;
+                        this.allotTeam();
+                    }))
+                    .catch(error => console.log(error));
                 }))
                 .catch(error => console.log(error));
-            }))
-            .catch(error => console.log(error));
-        }
+            }
+        }))
+        .catch(error => console.log(error));
     },
     computed: {
         teamLists1() {

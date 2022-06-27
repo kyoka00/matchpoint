@@ -57,11 +57,13 @@ public class TournamentRestController {
 	
 	@RequestMapping("searchMatchByGameNo")
 	public List<ReceivedResult> getGameInfo(@RequestParam("gameNo") Integer gameNo){
+		System.out.println(gameNo);
 		Integer compId = (Integer)session.getAttribute("compId");
 		ReceivedResult result = new ReceivedResult();
 		result.setCompId(compId);
 		result.setGameNo(gameNo);
 		result.setRecordStatus(1);
+		System.out.println(receivedResultDao.search(result, null));
 		return receivedResultDao.search(result, null);
 	}
 	
@@ -85,15 +87,15 @@ public class TournamentRestController {
 //		return receivedResultDao.updateMatch(result);
 //	}
 //	
-//	@RequestMapping("")
-//	public int getComp() {
-//		Integer compId = (Integer)session.getAttribute("compId");
-//		Comp comp = new Comp();
-//		comp.setCompId(compId);
-//		List<Comp> compList = compDao.selectAll(comp);
-//		return compList.isEmpty()? null: compList.get(0).getTournamentEditStatus();
-//	}
-////	
+	@RequestMapping("getTournamentEditStatus")
+	public int getComp() {
+		Integer compId = (Integer)session.getAttribute("compId");
+		Comp comp = new Comp();
+		comp.setCompId(compId);
+		List<Comp> compList = compDao.selectAll(comp);
+		return compList.isEmpty()? null: compList.get(0).getTournamentEditStatus();
+	}
+//	
 //	@RequestMapping("")
 //	public void updateComp(Integer tournamentEditStatus) {
 //		Integer compId = (Integer)session.getAttribute("compId");

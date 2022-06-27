@@ -135,8 +135,6 @@ const vue = new Vue({
                 };
             }
             const dragMatch = this.tournaments[dragTeam.tournamentNo - 1].rounds[0].games.find(match => match.gameNo == this.dragGameNo);
-            console.log("ドラッグしたチーム：", dragTeam);
-            console.log("ドラッグした試合：", dragMatch);
 
             // ドロップ情報の取得・生成
             let dropTeam = null;
@@ -151,8 +149,6 @@ const vue = new Vue({
                 };
             }
             const dropMatch = this.tournaments[dropTeam.tournamentNo - 1].rounds[0].games.find(match => match.gameNo == dropGameNo);
-            console.log("ドロップしたチーム：", dropTeam);
-            console.log("ドロップした試合：", dropMatch);
 
             // 入れ替え処理
             let changedPlayer;

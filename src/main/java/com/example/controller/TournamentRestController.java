@@ -52,7 +52,6 @@ public class TournamentRestController {
 		ReceivedResult result= new ReceivedResult();
 		result.setCompId(compId);
 		List<ReceivedResult> resultList = receivedResultDao.searchMatchTeam(result);
-		System.out.println(resultList);
 		return resultList;
 	}
 	

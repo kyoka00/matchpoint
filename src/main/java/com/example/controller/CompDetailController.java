@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -80,10 +81,10 @@ public class CompDetailController{
 			}
 			
 			Comp comp = new Comp();
-			//Date date= Date.valueOf(form.getCompDate());
+			Date date= Date.valueOf(form.getCompDate());
 			comp.setCompId((Integer)session.getAttribute("compId"));
 			comp.setCompName(form.getCompName());
-			//comp.setCompDate(date);
+			comp.setCompDate(date);
 			comp.setCompPlace(form.getCompPlace());
 			comp.setCompLoginId(form.getCompLoginId());
 			comp.setTournamentCount(form.getTournamentCount());

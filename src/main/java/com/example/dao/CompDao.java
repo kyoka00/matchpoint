@@ -7,8 +7,7 @@ import com.example.entity.Comp;
 
 public interface CompDao{
 	public List<Comp> selectAll(Comp comp);
-	public void insertComp(Comp comp);
-	public void deleteComp(Comp comp);
-	public void updateComp(Comp comp);
+	public int insertComp(Comp comp);
+	public int deleteComp(Comp comp);
+	public int updateComp(Comp comp);
 }
-

@@ -1,16 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<<<<<<< HEAD
 <meta charset="UTF-8">
 <title>トーナメント表</title>
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
 <link href="/css/yuya.css" rel="stylesheet">
+=======
+	<meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-tournament-bracket@2.1.2/dist/vue-tournament-bracket.umd.min.js"></script>
+	<link href="/css/tournament.css" rel="stylesheet">
+	<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}" rel="stylesheet">
+	<title>トーナメント表</title>
+>>>>>>> 1fc3334da7a49255c56809e2e869d6063d6368ab
 </head>
 <body>
 	<div th:insert="header"></div>
 	<button type="button" onclick="location.href='comp_list_back'">戻る</button>
 	<button type="button" onclick="location.href='all_player'">選手一覧</button>
 	<button type="button" onclick="location.href='comp_detail'">大会詳細</button>
-	<button type="button" onclick="location.href='game_result_all'">大会結果受信ボックス</button>
+	<button type="button" onclick="location.href='game_result_all'" th:if="${flag}">大会結果受信ボックス</button>
+	<div id="app">
+        <details v-for="tournament in tournaments">
+            <summary>トーナメント: {{ tournament.tournamentNo }}</summary>
+            <bracket :rounds="tournament.rounds">
+                    <template #player="{ player }">
+                        <div>
+                            <div>
+                                <b>
+                                    {{ player.name }}
+                                </b>
+                            </div>
+                        </div>
+                    </template>
+                    <template  #player-extension-bottom = " {match} ">
+                        <button type="button" @click="viewResultOrStartGame($event)" :value="match.gameNo">
+                            試合番号：{{ match.gameNo }}
+                        </button>
+                    </template>
+            </bracket>
+        </details>
+	</div>
+    <script th:src="@{js/tournament.js}"></script>
 </body>
 </html>

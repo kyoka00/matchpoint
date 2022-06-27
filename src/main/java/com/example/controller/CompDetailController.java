@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -28,7 +29,6 @@ public class CompDetailController{
 		if(session.getAttribute("loginId") == null) {
 			return "top";
 		}
-		System.out.println((Integer)session.getAttribute("compId"));
 		Comp comp = new Comp();
 		
 		//初期値を入力
@@ -38,6 +38,10 @@ public class CompDetailController{
 		
 		model.addAttribute("comp_detail", compDetail.get(0));
 		
+		if(session.getAttribute("loginId").equals("admin")) {
+		model.addAttribute("flag", true);
+		}
+		
 		return "comp_detail";
 	}
 	
@@ -46,8 +50,7 @@ public class CompDetailController{
 	public String compDelete(@ModelAttribute("comp_detail") CompForm form, Model model) {
 		if(session.getAttribute("loginId") == null) {
 			return "top";
-		}
-		System.out.println((Integer)session.getAttribute("compId"));	
+		}	
 		Comp comp = new Comp();
 		comp.setCompId((Integer)session.getAttribute("compId"));
 		compDao.deleteComp(comp);
@@ -62,7 +65,6 @@ public class CompDetailController{
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
-			System.out.println((Integer)session.getAttribute("compId"));
 			Comp comp = new Comp();
 			
 			//初期値を入力
@@ -83,11 +85,10 @@ public class CompDetailController{
 			}
 			
 			Comp comp = new Comp();
-			System.out.println((Integer)session.getAttribute("compId"));
-			//Date date= Date.valueOf(form.getCompDate());
+			Date date= Date.valueOf(form.getCompDate());
 			comp.setCompId((Integer)session.getAttribute("compId"));
 			comp.setCompName(form.getCompName());
-			//comp.setCompDate(date);
+			comp.setCompDate(date);
 			comp.setCompPlace(form.getCompPlace());
 			comp.setCompLoginId(form.getCompLoginId());
 			comp.setTournamentCount(form.getTournamentCount());
@@ -116,11 +117,11 @@ public class CompDetailController{
 			Comp comp = new Comp();
 			
 			comp.setCompId((Integer)session.getAttribute("compId"));
-			System.out.println((Integer)session.getAttribute("compId"));
 			
 			List<Comp> compDetail = compDao.selectAll(comp);
 			
 			model.addAttribute("comp_detail", compDetail.get(0));
 			return "comp_detail";
+			
 		}
 }

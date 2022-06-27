@@ -12,6 +12,7 @@ public class Comp{
 	private Date compDate;
 	private String compPlace;
 	private String compLoginId;
+	private Integer tournamentNo;
 	private Integer tournamentCount;
 	private Integer gameType;
 	private String gameTypeStr;

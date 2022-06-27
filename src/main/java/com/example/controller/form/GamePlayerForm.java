@@ -9,4 +9,7 @@ public class GamePlayerForm{
 	private String playerC;
 	private String playerD;
 	private String server;
+	private Integer team1Point;
+	private Integer team2Point;
+	private Integer maxPoint;
 }

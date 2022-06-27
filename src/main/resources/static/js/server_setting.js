@@ -3,6 +3,7 @@ window.addEventListener("load",function(){
 	document.getElementById('playerBtext').innerHTML = document.getElementById('playerB').value
 	document.getElementById('playerCtext').innerHTML = document.getElementById('playerC').value
 	document.getElementById('playerDtext').innerHTML = document.getElementById('playerD').value
+	window.sessionStorage.setItem(['coat'],[0]);
 })
 
 function changeLeft(){
@@ -16,8 +17,6 @@ function changeLeft(){
 }
 
 function changeRight(){
-	let playerA = document.getElementById('playerA')
-	let playerB = document.getElementById('playerB')
 	let playerC = document.getElementById('playerC')
 	let playerD = document.getElementById('playerD')
 	let tmp = playerC.value
@@ -38,6 +37,13 @@ function changeCoat(){
 	playerC.value = tmp1
 	playerB.value = playerD.value
 	playerD.value = tmp2
+	console.log('session:')
+	if(window.sessionStorage.getItem(['coat']) == 0){
+		window.sessionStorage.setItem(['coat'],[1]);
+	}else if(window.sessionStorage.getItem(['coat']) == 1){
+		window.sessionStorage.setItem(['coat'],[0]);
+	}
+	console.log(window.sessionStorage.getItem(['coat']))
 	document.getElementById('playerAtext').innerHTML = playerA.value
 	document.getElementById('playerBtext').innerHTML = playerB.value
 	document.getElementById('playerCtext').innerHTML = playerC.value

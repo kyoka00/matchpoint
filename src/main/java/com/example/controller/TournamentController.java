@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.controller.form.CompForm;
 import com.example.dao.CompDao;
@@ -49,24 +50,53 @@ public class TournamentController {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
+			Integer compId =form.getCompId();
+			if((Integer)session.getAttribute("compId") == null && compId != null) {
+				session.setAttribute("compId", compId);
+			}else if(compId != null) {
+				session.setAttribute("compId", compId);
+			}else {
+				compId = (Integer)session.getAttribute("compInfo");
+			}
+
 			
-			Integer compId = form.getCompId();
-			session.setAttribute("compId", compId);
 			Team team = new Team();
 			team.setCompId(compId);
 			List<Team> teamList = teamDao.selectAll(team, "");
 			model.addAttribute("teamList", teamList);
-			System.out.println((Integer)session.getAttribute("compId"));
+			
+			if(session.getAttribute("loginId").equals("admin")) {
+				model.addAttribute("flag", true);
+				}
+
 			return "tournament";
 			
 		}
 		//トーナメント表編集
 		@RequestMapping(value="edit_tournament")
-		public String editTournament() {
+		public String editTournament(Model model) {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
-			return "edit_tournament";
+			Integer compId = (Integer)session.getAttribute("compId");
+			Comp comp = new Comp();
+			comp.setCompId(compId);
+			Comp compList = compDao.selectAll(comp).get(0);
+			int status = compList.getTournamentEditStatus();
+			
+			switch(status) {
+			case 0:
+				comp.setTournamentEditStatus(1);
+				compDao.updateComp(comp);
+				
+			case 1: 
+				return "edit_tournament";
+				
+			case 2: 
+				model.addAttribute("msg","編集は完了しています。");
+				return "tournament";
+			}
+			return "all_player";
 		}
 		
 		
@@ -90,14 +120,12 @@ public class TournamentController {
 		}
 		//試合番号ボタンクリック
 		@RequestMapping(value="")
-		public String gameResult(Model model) {
+		public String gameResult(@RequestParam("gameNo")Integer gameNo, Model model) {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
-			System.out.println((Integer)session.getAttribute("compId"));
-			Integer matchId = 1;
 			ReceivedResult result = new ReceivedResult();
-			result.setMatchId(matchId);
+			result.setGameNo(gameNo);
 			result.setRecordStatus(1);
 			
 			List<ReceivedResult> resultList = receivedResultDao.search(result, null);
@@ -118,7 +146,7 @@ public class TournamentController {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
-			System.out.println((Integer)session.getAttribute("compId"));
+
 			return "tournament";
 		}
 		//大会一覧へ戻る
@@ -127,7 +155,7 @@ public class TournamentController {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
-			System.out.println((Integer)session.getAttribute("compId"));
+
 			Comp comp = new Comp();
 			model.addAttribute("resultList", compDao.selectAll(comp));
 			return "comp_list";

@@ -22,7 +22,7 @@ public class PgReceivedResult implements ReceivedResultDao {
 	private String tableName = "received_result";
 	private String gameInfoTbl ="game_info";
 	private String matchTbl="match";
-
+	private String matchTeam ="match_team";
 	private final static String ID = "game_info_id";
 
 	private static final String COLUMN_NAME_MATCHID = "match_id";
@@ -83,6 +83,22 @@ public class PgReceivedResult implements ReceivedResultDao {
 		}
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
 		return resultList.isEmpty() ? null : resultList;
+	}
+	
+
+	@Override
+	public List<ReceivedResult> searchMatchTeam(ReceivedResult receivedResult){
+		String sql = "SELECT * FROM " + matchTeam + searchSqlMatch(receivedResult);
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		if (Utility.notIsEmptyNull(receivedResult.getCompId())) {
+			param.addValue(COLUMN_NAME_COMPID, receivedResult.getCompId());
+		}
+		if (Utility.notIsEmptyNull(receivedResult.getGameNo())) {
+			param.addValue(COLUMN_NAME_GAMENO, receivedResult.getGameNo());
+		}
+		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
+		return resultList.isEmpty() ? null : resultList;
+	
 	}
 	
 	//insertはmatchとgame_infoのみinsertかけられる感じで書いてます。
@@ -149,7 +165,13 @@ public class PgReceivedResult implements ReceivedResultDao {
 		if (Utility.notIsEmptyNull(result.getRecordStatus())) {
 			param.addValue(COLUMN_NAME_RECORDSTATUS, result.getRecordStatus());
 		}
-			param.addValue(ID, result.getGameInfoId());
+		if (Utility.notIsEmptyNull(result.getCoatNo())) {
+			param.addValue(COLUMN_NAME_COATNO, result.getCoatNo());
+		}
+		if (Utility.notIsEmptyNull(result.getJudgeName())) {
+			param.addValue(COLUMN_NAME_JUDGENAME, result.getJudgeName());
+		}
+		param.addValue(ID, result.getGameInfoId());
 		
 		
 		return jdbcTemplate.update(sql, param);
@@ -300,7 +322,14 @@ public class PgReceivedResult implements ReceivedResultDao {
 			columnName = COLUMN_NAME_RECORDSTATUS + " = :" + COLUMN_NAME_RECORDSTATUS;
 			set = !set.isEmpty() ? set + "," + columnName : columnName;
 		}
-
+		if (Utility.notIsEmptyNull(result.getCoatNo())) {
+			columnName = COLUMN_NAME_COATNO + " = :" + COLUMN_NAME_COATNO;
+			set = !set.isEmpty() ? set + "," + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(result.getJudgeName())) {
+			columnName = COLUMN_NAME_JUDGENAME + " = :" + COLUMN_NAME_JUDGENAME;
+			set = !set.isEmpty() ? set + "," + columnName : columnName;
+		}
 		return !set.isEmpty() ? set + " WHERE " + ID + " = :" + ID : "";
 	}
 	public static String updateMatchSql(ReceivedResult result) {

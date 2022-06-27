@@ -10,4 +10,5 @@ public class GameResultAllForm{
 	private String judgeName;
 	private Integer tournamentNo;
 	private String keyword;
+	private String orderBy;
 }

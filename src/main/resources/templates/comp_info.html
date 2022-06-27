@@ -5,7 +5,7 @@
 <title>大会作成</title>
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
 	rel="stylesheet">
-<link href="/css/commons.css" rel="stylesheet">
+<link href="/css/shoma.css" rel="stylesheet">
 
 </head>
 <body>
@@ -48,8 +48,8 @@
 			</div>
 
 			<div class="form-group">
-				<label class="col-sm-2 control-label">開催日:</label> <input
-					type="text" th:field="*{compDate}">
+				<label class="col-sm-2 control-label mr-5">開催日:</label> <input
+					type="date" th:field="*{compDate}">
 				<div class="error" th:each="error: ${#fields.errors('compDate')}">[[
 					${error} ]]</div>
 			</div>
@@ -69,9 +69,9 @@
 			</div>
 
 			<div class="form-group">
-				<label class="col-sm-2 control-label">トーナメント数:</label> <input
-					type="number" th:field="*{tournamentNum}">
-				<div class="error" th:each="error: ${#fields.errors('tournamentNum')}">[[
+				<label class="col-sm-2 control-label mr-5">トーナメント数:</label> 
+				<input type="number" th:field="*{tournamentNo}">
+				<div class="error" th:each="error: ${#fields.errors('tournamentNo')}">[[
 					${error} ]]</div>
 			</div>
 

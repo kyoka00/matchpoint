@@ -60,7 +60,7 @@ public class EditPlayerController {
 			return "all_player";
 	}
 	
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+
 		//選手情報更新画面 delete
 		@RequestMapping(value="edit_player", params= "delete")
 		public String playerDelete(@Validated @ModelAttribute("edit_player") PlayerForm form, BindingResult bindingResult,Model model){

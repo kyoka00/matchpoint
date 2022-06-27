@@ -7,7 +7,28 @@
 <link href="/css/yuya.css" rel="stylesheet">
 </head>
 <body>
-	
-	<button type="button" onclick="location.href='game_result_all'">ゲーム終了</button>
+	<form action="update_game_info" th:object="${update_game_info}">
+		<div>試合番号:<span th:text="${game_no}"></span></div>
+		<div>
+			<div>
+				<p th:text="${playerA}"></p>
+				<p th:text="${playerB}"></p>
+			</div>
+			<div th:text="${final_score}"></div>
+			<div>
+				<p th:text="${playerC}"></p>
+				<p th:text="${playerD}"></p>
+			</div>
+		</div>
+		<div>
+			コート番号:
+			<input type="text" th:field="*{coatNo}">
+		</div>
+		<div>
+			審判名:
+			<input type="text" th:field="*{judgeName}">
+		</div>
+		<button type="submit">ゲーム終了</button>
+	</form>
 </body>
 </html>

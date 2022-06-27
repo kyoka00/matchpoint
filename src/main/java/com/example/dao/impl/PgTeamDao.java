@@ -23,7 +23,7 @@ public class PgTeamDao implements TeamDao{
 	private static final String COLUMN_NAME_PLAYER_B_NAME = "player_b_name";
 	private static final String COLUMN_NAME_TOURNAMENT_NO = "tournament_no";
 
-	private final String SELECT = "SELECT * FROM " + tableName;
+	private final String SELECT = "SELECT * FROM " + tableName; 
 	private final String INSERT = "INSERT INTO " + tableName;
 	private final String DELETE = "DELETE FROM " + tableName + " WHERE " + ID + " = :" + ID;
 	private final String UPDATE = "UPDATE " + tableName + " set ";
@@ -33,7 +33,7 @@ public class PgTeamDao implements TeamDao{
 	
 	@Override
 	public List<Team> selectAll(Team team, String keyword) {
-		String sql = SELECT + PgTeamDao.selectSql(team, keyword);
+		String sql = SELECT + PgTeamDao.selectSql(team, keyword) + " ORDER BY "+ ID;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if(Utility.notIsEmptyNull(team.getTeamId())) {
 			param.addValue(ID, team.getTeamId());
@@ -141,7 +141,7 @@ public class PgTeamDao implements TeamDao{
 			columnName = COLUMN_NAME_PLAYER_A_NAME + "||" + COLUMN_NAME_PLAYER_B_NAME + " LIKE :keyword";
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
-		return !where.isEmpty() ? " WHERE " + where : "" + " ORDER BY team_id ASC";
+		return !where.isEmpty() ? " WHERE " + where : "";
 	}
 	
 	public static String insertSql(Team team) {

@@ -13,7 +13,9 @@
 	<div th:insert="header"></div>
 	
 	<button type="button" onclick="location.href='tournament'">編集完了</button>
+	<div class="text-right">
 	<button type="button" onclick="location.href='all_player'">戻る</button>
+	</div>
 	<div id="app">
         <details v-for="tournament in tournaments">
                 <summary>トーナメント: {{ tournament.tournamentNo }}</summary>

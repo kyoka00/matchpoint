@@ -1,7 +1,7 @@
 
-/*//////////////////////// top画面 //////////////////////////////*/
+/*xxxxxxxxxxxxxxxxxxxxxxxx top画面 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
 /* *TOP背景画像* */
-body.bg-top {
+.bg-top {
 	background-image: url("../images/badminton.png");
 	background-size: cover;
 	animation: slideIn 1s cubic-bezier(0.25, 1, 0.5, 1) 1 forwards;
@@ -43,8 +43,14 @@ body.bg-top {
 
 }
 
-/*///////////////////// game_setting.html //////////////////*/
-body.bg-game_setting.html {
+
+
+
+
+
+
+/*xxxxxxxxxxxxxxxxxxxxxxxx game_setting.html xxxxxxxxxxxxxxxxxxxxxxxx*/
+.bg-gameSetting {
 	background-image: url("../images/haikei.png");
 	background-size: cover;
 }
@@ -53,12 +59,11 @@ div.bg-success {
 	font-size: 50px;
 	font-family: impact;
 	text-align: center;
- 	height: 1130px; 
+ 	height: 750px; 
  	margin-left: 25%; 
     margin-right: 25%;
-	padding: 10% 10%;
+	padding: 5 5;
 	color: #fff;
-	text-align: center;
 }
 
 /* ////////////////////server-setting.html  ////////////////////*/
@@ -71,51 +76,47 @@ font-family: "Hiragino Sans","ヒラギノ角ゴシック";
 }
 
 .left-column {
-
   float: left;
-
   width: 50%; /* 要素の幅を50%に定義 */
   background-color: #CCFFCC; /* 視覚化のための背景色 */
 
 }
 
 .right-column {
-
   float: right;
-
   width: 50%; /* 要素の幅を50%に定義 */
-
   background-color: #CCFFCC; /* 視覚化のための背景色 */
 }
 
 
 /*////////////////////// score_setting.html //////////////// */
-.bg-score-setting{
+.bg-scoreSetting{
 	background-image: url("../images/haikei.png");
+	div.bg-success {
+	font-size: 50px;
+	font-family: impact;
 	text-align: center;
+ 	height: 750px; 
+ 	margin-left: 25%; 
+    margin-right: 25%;
+	padding: 5 5;
+	color: #fff;
 }
 
-p{
-	font-family: "Hiragino Sans","ヒラギノ角ゴシック";
-}
-
-
-div.left-column {
-
-  float: left;
-
-  width: 50%; /* 要素の幅を50%に定義 */
+div.coat-view {
+  font-family: impact;
   
-  background-color: #CCFFCC; /* 視覚化のための背景色 */
-
 }
 
-div.right-column {
-
+div.left-player {
   float: right;
+  width: 25%; /* 要素の幅を50%に定義 */
+  background-color: #CCFFCC; /* 視覚化のための背景色 */
+}
 
+div.right-player {
+  float: left;
   width: 50%; /* 要素の幅を50%に定義 */
-
   background-color: #CCFFCC; /* 視覚化のための背景色 */
 }
 
@@ -133,10 +134,33 @@ div.right-column {
 
 
 
+/*xxxxxxxxxxxxxxxxxxxxxxx all系・共通部分xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
+.all {
+	background-image: url(../images/all.png);
+	background-size: cover;
+}
+
+.head{
+	text-align: center;
+	background-color:red;
+	width: 400px;
+    height: 30px;
+}
+
+
+table {
+   text-center;
+   width: 100%;
+   font-family: "メイリオ";
+   border-radius: 30px;
+}
 
 
 
-
+/* 受信ボックス */
+.deletedView{
+	background-color: #f0fff0;
+}
 
 
 /* /*Top画面の背景画像フェードイン  */ 
@@ -153,10 +177,9 @@ div.right-column {
 /* } */
 
 /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
-/* all画面 */
-/* .all { */
-/* 	background-image: url(../image/haikei.png); */
-/* } */
+
+
+
 
 
 

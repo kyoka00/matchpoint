@@ -40,42 +40,42 @@ public class GameResultAllController{
 	//試合結果受信box
 	@RequestMapping(value="game_result_all")
 	public String gameResultAll(@ModelAttribute("comp_detail") GameResultAllForm form, Model model) {
-		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
-		
+
 		List<GameResultAll> resultList = gameResultAllDao.select(0);
 		model.addAttribute("resultList", resultList);
 		return "game_result_all";
 	}
-	
-	@RequestMapping(value="game_result_registered")
+
+	@RequestMapping(value = "game_result_registered")
 	public String gameResultRegistered(@ModelAttribute("comp_detail") GameResultAllForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if (session.getAttribute("loginId") == null) {
 			return "top";
 		}
-		
+
 		List<GameResultAll> resultList = gameResultAllDao.select(1);
 		model.addAttribute("resultList", resultList);
 		return "game_result_all";
 	}
-	
+
 	@RequestMapping(value = "game_result_search")
 	public String search(@ModelAttribute("comp_detail") GameResultAllForm form, Model model) {
-if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
-	return "top";
-}
-GameResultAll gameResultAll = new GameResultAll();
-gameResultAll.setGameNo(form.getGameNo());
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
+			return "top";
+		}
+		GameResultAll gameResultAll = new GameResultAll();
+		gameResultAll.setGameNo(form.getGameNo());
 		String keyword = form.getKeyword();
 		List<GameResultAll> search = gameResultAllDao.search(keyword, 0);
 		model.addAttribute("resultList", search);
 		return "game_result_all";
 	}
-	
+
 	@RequestMapping(value = "sort")
-	public String sort(@RequestParam("orderBy")  String orderBy, Model model) {
-		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
+	public String sort(@RequestParam("orderBy") String orderBy, Model model) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
 		GameResultAll gameResultAll = new GameResultAll();
@@ -83,24 +83,24 @@ gameResultAll.setGameNo(form.getGameNo());
 		List<GameResultAll> gameResultList = gameResultAllDao.select(0);
 		if ("record_date".equals(orderBy)) {
 			gameResultList.sort((p1, p2) -> p1.getRecordDate().compareTo(p2.getRecordDate()));
-		}else if ("game_no".equals(orderBy)) {
+		} else if ("game_no".equals(orderBy)) {
 			gameResultList.sort((p1, p2) -> p1.getGameNo() >= p2.getGameNo() ? 1 : -1);
 		} else if ("coat_no".equals(orderBy)) {
-			gameResultList.sort((p1, p2) -> p1.getCoatNo() >= p2.getCoatNo() ? 1 : -1);	
+			gameResultList.sort((p1, p2) -> p1.getCoatNo() >= p2.getCoatNo() ? 1 : -1);
 		} else if ("tournament_no".equals(orderBy)) {
 			gameResultList.sort((p1, p2) -> p1.getTournamentNo() >= p2.getTournamentNo() ? 1 : -1);
 		}
 		model.addAttribute("resultList", gameResultList);
 		return "game_result_all";
 	}
-	
-	//試合結果登録へ
-	@RequestMapping(value="game_result_final")
+
+	// 試合結果登録へ
+	@RequestMapping(value = "game_result_final")
 	public String resultFinal(@ModelAttribute("comp_detail") GamePlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
-		
+
 		Score score = new Score();
 
 		score.setGameInfoId(1);

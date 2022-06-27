@@ -1,45 +1,56 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
-<link href="/css/commons.css" rel="stylesheet">
-<meta charset="UTF-8">
-<title>	選手登録</title>
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
 	rel="stylesheet">
-	<link href="/css/commons.css" rel="stylesheet">
+<link href="/css/shoma.css" rel="stylesheet">
+<meta charset="UTF-8">
+<title>選手登録</title>
+
 </head>
 
 <body>
 	<table>
 		<tr th:if="${validationError}" th:each="error : ${validationError}">
-			
+
 		</tr>
-		</table>
+	</table>
 	<div th:insert="header"></div>
-	<button type="button" onclick="location.href='all_player'" class="btn btn-primary">戻る</button>
-	<form action="insert_player"th:object="${insert_player}" th:method="post">
-		<div class="form-group">
-			<label  class="col-sm-2 control-label">プレイヤー1:</label>
-			<input type="text" th:field="*{playerAName}" placeholder="入力してください(最大●文字)">
-			<br><td th:text="${errorMsg1}"></td>
+
+	<div class="insertplayer">
+
+		<div class="text-right">
+			<button type="button" onclick="location.href='all_player'"
+				class="btn btn-primary">戻る</button>
 		</div>
-		<div>
-			<label  class="col-sm-2 control-label">プレイヤー2:</label>
-			<input type="text" th:field="*{playerBName}" placeholder="入力してください(最大●文字)">
-			<td th:text="${error}"></td>
-		</div>
-		<div>
-			<label  class="col-sm-2 control-label">トーナメント番号:</label>
-			<input type="text" th:field="*{tournamentNo}" placeholder="数値を入力(MAX●)">
-			<br><td th:text="${errorMsg2}"></td>
-		</div>
-		
-		<div class="text-center">
-		<input type="submit" name="insert" value="登録">
-		</div>
-		</div>
+
+		<form action="insert_player" th:object="${insert_player}"
+			th:method="post">
+			<div class="form-group">
+				<label class="col-sm-2 control-label mt-3">プレイヤー1:</label> <input
+					type="text" th:field="*{playerAName}" placeholder="入力してください(最大●文字)">
+				<br>
+				<td th:text="${errorMsg1}"></td>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label mt-3">プレイヤー2:</label> <input
+					type="text" th:field="*{playerBName}" placeholder="入力してください(最大●文字)">
+				<td th:text="${error}"></td>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">トーナメント番号:</label> <input
+					type="text" th:field="*{tournamentNo}" placeholder="数値を入力(MAX●)">
+				<br>
+				<td th:text="${errorMsg2}"></td>
+			</div>
+
+			<div class="text-center mt-2">
+				<input type="submit" name="insert" value="登録" class="btn btn-primary">
+			</div>
+	</div>
 	</form>
+	</div>
+
 	</div>
 </body>
 </html>

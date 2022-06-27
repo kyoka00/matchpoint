@@ -146,12 +146,14 @@ public class ShomaController{
 		List<Comp> list = compDao.selectAll(comp);
 		
 		Date date= Date.valueOf(form.getCompDate());
-		comp.setCompName(form.getCompName());
 		comp.setCompDate(date);
+		
+		comp.setCompName(form.getCompName());
 		comp.setCompPlace(form.getCompPlace());
 		comp.setTournamentCount(form.getTournamentNo());
 		comp.setGameType(form.getGameType());
-		comp.setMemo(form.getMemo());		
+		comp.setMemo(form.getMemo());	
+		
 		
 		if(list == null) {
 			

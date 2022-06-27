@@ -55,22 +55,48 @@ public class TournamentController {
 				session.setAttribute("compId", compId);
 			}else if(compId != null) {
 				session.setAttribute("compId", compId);
+			}else {
+				compId = (Integer)session.getAttribute("compInfo");
 			}
+
 			
 			Team team = new Team();
 			team.setCompId(compId);
 			List<Team> teamList = teamDao.selectAll(team, "");
 			model.addAttribute("teamList", teamList);
+			
+			if(session.getAttribute("loginId").equals("admin")) {
+				model.addAttribute("flag", true);
+				}
+
 			return "tournament";
 			
 		}
 		//トーナメント表編集
 		@RequestMapping(value="edit_tournament")
-		public String editTournament() {
+		public String editTournament(Model model) {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
-			return "edit_tournament";
+			Integer compId = (Integer)session.getAttribute("compId");
+			Comp comp = new Comp();
+			comp.setCompId(compId);
+			Comp compList = compDao.selectAll(comp).get(0);
+			int status = compList.getTournamentEditStatus();
+			
+			switch(status) {
+			case 0:
+				comp.setTournamentEditStatus(1);
+				compDao.updateComp(comp);
+				
+			case 1: 
+				return "edit_tournament";
+				
+			case 2: 
+				model.addAttribute("msg","編集は完了しています。");
+				return "tournament";
+			}
+			return "all_player";
 		}
 		
 		

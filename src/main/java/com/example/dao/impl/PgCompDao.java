@@ -75,7 +75,7 @@ public class PgCompDao implements CompDao {
 	}
 
 	@Override
-	public void insertComp(Comp comp) {
+	public int insertComp(Comp comp) {
 		String sql = INSERT + PgCompDao.insertSql(comp);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(comp.getCompLoginId())) {
@@ -104,19 +104,19 @@ public class PgCompDao implements CompDao {
 			param.addValue(COLUMN_NAME_MEMO, comp.getMemo());
 
 		}
-		jdbcTemplate.update(sql, param);
+		return jdbcTemplate.update(sql, param);
 	}
 
 	@Override
-	public void deleteComp(Comp comp) {
+	public int deleteComp(Comp comp) {
 		String sql = DELETE;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue(ID, comp.getCompId());
-		jdbcTemplate.update(sql, param);
+		return jdbcTemplate.update(sql, param);
 	}
 
 	@Override
-	public void updateComp(Comp comp) {
+	public int updateComp(Comp comp) {
 		String sql = UPDATE + updateSql(comp);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue(ID , comp.getCompId());
@@ -146,7 +146,7 @@ public class PgCompDao implements CompDao {
 			param.addValue(COLUMN_NAME_MEMO, comp.getMemo());
 
 		}
-		jdbcTemplate.update(sql, param);
+		return jdbcTemplate.update(sql, param);
 	}
 
 	public static String selectSql(Comp comp) {

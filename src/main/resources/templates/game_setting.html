@@ -10,7 +10,7 @@
 		<form action="server_setting" th:object="${game_info}" method="POST">
 			<div>
 				試合番号
-				<input type="number" id="gameNo" v-model="gameNo" th:field="*{gameNo}" @change="teamSet()"><br>
+				<input type="number" id="gameNo" v-model="gameNo" th:field="*{gameNo}" @change="teamSet()" min="1"><br>
 			</div>
 			
 			<div>

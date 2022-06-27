@@ -63,16 +63,16 @@ public class PgReceivedResult implements ReceivedResultDao {
 		if (Utility.notIsEmptyNull(keyword)) {
 			param.addValue("keyword", '%'+ keyword +'%');
 		}
-		if(Utility.notIsEmptyNull(result.getGameNo())) {
+		if (Utility.notIsEmptyNull(result.getCompId())) {
+			param.addValue(COLUMN_NAME_COMPID, result.getCompId());
+		}
+		if (Utility.notIsEmptyNull(result.getGameNo())) {
 			param.addValue(COLUMN_NAME_GAMENO, result.getGameNo());
 		}
-		System.out.println(sql);
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
 		return resultList.isEmpty() ? null : resultList;
 //		return null;
 	}
-	
-	
 	
 	@Override
 	public List<ReceivedResult> searchMatch(ReceivedResult receivedResult){
@@ -87,7 +87,6 @@ public class PgReceivedResult implements ReceivedResultDao {
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
 		return resultList.isEmpty() ? null : resultList;
 	}
-	
 
 	@Override
 	public List<ReceivedResult> searchMatchTeam(ReceivedResult receivedResult){
@@ -99,11 +98,8 @@ public class PgReceivedResult implements ReceivedResultDao {
 		if (Utility.notIsEmptyNull(receivedResult.getGameNo())) {
 			param.addValue(COLUMN_NAME_GAMENO, receivedResult.getGameNo());
 		}
-		System.out.println(sql);
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
-		System.out.println(resultList);
 		return resultList.isEmpty() ? null : resultList;
-	
 	}
 	
 	//insertはmatchとgame_infoのみinsertかけられる感じで書いてます。
@@ -170,9 +166,13 @@ public class PgReceivedResult implements ReceivedResultDao {
 		if (Utility.notIsEmptyNull(result.getRecordStatus())) {
 			param.addValue(COLUMN_NAME_RECORDSTATUS, result.getRecordStatus());
 		}
-			param.addValue(ID, result.getGameInfoId());
-		
-		
+		if (Utility.notIsEmptyNull(result.getCoatNo())) {
+			param.addValue(COLUMN_NAME_COATNO, result.getCoatNo());
+		}
+		if (Utility.notIsEmptyNull(result.getJudgeName())) {
+			param.addValue(COLUMN_NAME_JUDGENAME, result.getJudgeName());
+		}
+		param.addValue(ID, result.getGameInfoId());
 		return jdbcTemplate.update(sql, param);
 	}
 	
@@ -217,6 +217,14 @@ public class PgReceivedResult implements ReceivedResultDao {
 			columnName = COLUMN_NAME_MATCHID + " = :" + COLUMN_NAME_MATCHID;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
+		if (Utility.notIsEmptyNull(result.getGameNo())) {
+			columnName = COLUMN_NAME_GAMENO + " = :" + COLUMN_NAME_GAMENO;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(result.getCompId())) {
+			columnName = COLUMN_NAME_COMPID + " = :" + COLUMN_NAME_COMPID;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
 		if (Utility.notIsEmptyNull(keyword)) {
 			columnName = COLUMN_NAME_JUDGENAME + " || " + COLUMN_NAME_MATCHID + "||" + COLUMN_NAME_COATNO + "||"
 					+ COLUMN_NAME_TOURNAMENTNO + " LIKE :" + "keyword";
@@ -237,6 +245,7 @@ public class PgReceivedResult implements ReceivedResultDao {
 			columnName = COLUMN_NAME_GAMENO + " = :" + COLUMN_NAME_GAMENO;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
+		
 		return !where.isEmpty() ? " WHERE " + where : "";
 	}
 
@@ -321,7 +330,14 @@ public class PgReceivedResult implements ReceivedResultDao {
 			columnName = COLUMN_NAME_RECORDSTATUS + " = :" + COLUMN_NAME_RECORDSTATUS;
 			set = !set.isEmpty() ? set + "," + columnName : columnName;
 		}
-
+		if (Utility.notIsEmptyNull(result.getCoatNo())) {
+			columnName = COLUMN_NAME_COATNO + " = :" + COLUMN_NAME_COATNO;
+			set = !set.isEmpty() ? set + "," + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(result.getJudgeName())) {
+			columnName = COLUMN_NAME_JUDGENAME + " = :" + COLUMN_NAME_JUDGENAME;
+			set = !set.isEmpty() ? set + "," + columnName : columnName;
+		}
 		return !set.isEmpty() ? set + " WHERE " + ID + " = :" + ID : "";
 	}
 	public static String updateMatchSql(ReceivedResult result) {

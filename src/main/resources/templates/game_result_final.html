@@ -6,37 +6,41 @@
 </head>
 <body>
 	<div th:insert="header"></div>
-	<form action="game_result_final" th:object="${comp_detail}" method="POST">
+	<form action="tournament_register" th:object="${comp_detail}" method="POST">
 	<button type="button" onclick="location.href='game_result_all'">戻る</button>
-	<div>
-		<label>3/3</label> <!-- <input type="text" th:field="*{compName}" readonly> -->
-	</div>
-	<div>
-		<label>playerA</label> <!-- <input type="text" th:field="*{compName}" readonly> -->
-	</div>
-	<div>
-		<label>playerB</label> <!-- <input type="text" th:field="*{compName}" readonly> -->
-	</div>
-	<div>
-		<label>playerC</label> <!-- <input type="text" th:field="*{compName}" readonly> -->
-	</div>
-	<div>
-		<label>playerD</label> <!-- <input type="text" th:field="*{compName}" readonly> -->
-	</div>
-	<div>
-		<label>2</label><!--  <input type="text" th:field="*{compDate}" readonly> -->
-	</div>
-
-	<div>
-		<label>21 - 18</label> <!-- <input type="text" th:field="*{compPlace}" readonly> -->
-		<label>13 - 21</label>
-		<label>21 - 14</label>
-	</div>
-
-	<div>
-		<label>1</label> <!-- <input type="text" th:field="*{compLoginId}" readonly> -->
-	</div>
-		<button type="submit">登録</button>
+<!-- 		<input type="text" th:field="*{playerA}">
+		<input type="text" th:field="*{playerB}">
+		<input type="text" th:field="*{playerC}">
+		<input type="text" th:field="*{playerD}"> -->
+		
+		<div th:text="${set}">現在のゲーム数/総ゲーム数</div>
+		
+		<div>
+			<div>
+				<p th:text="${playerA}">A</p>
+				<p th:text="${playerB}">B</p>
+			</div>
+			
+			<div>
+				<p th:text="${playerC}">C</p>
+				<p th:text="${playerD}">D</p>
+			</div>
+		</div>
+		
+		<div>
+			<div>
+				<div th:text="${setNumA}">取得ゲーム数</div>
+				<div>
+					<table border="1">
+						<tr th:each="score : ${score_list}">
+							<td th:text="${score}"></td>
+						</tr>
+					</table>
+				</div>
+				<div th:text="${setNumB}">取得ゲーム数</div>
+			</div>
+		</div>
+		<button type="submit" name="next">トーナメントへ登録</button>
 	</form>
 </body>
 </html>

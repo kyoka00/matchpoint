@@ -10,4 +10,7 @@ public class GameInfoForm{
 	private Integer gameNo;
 	private Integer maxPoint;
 	private Integer gameCount;
+	
+	private Integer coatNo;
+	private String judgeName;
 }

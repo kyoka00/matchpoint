@@ -39,6 +39,7 @@ public class TournamentRestController {
 	
 	@RequestMapping("getTeamList")
 	public List<Team> getTeamLIst(){
+		
 		Integer compId = (Integer)session.getAttribute("compId");
 		Team team = new Team();
 		team.setCompId(compId);
@@ -51,7 +52,6 @@ public class TournamentRestController {
 		ReceivedResult result= new ReceivedResult();
 		result.setCompId(compId);
 		List<ReceivedResult> resultList = receivedResultDao.searchMatchTeam(result);
-		System.out.println(resultList);
 		return resultList;
 	}
 	

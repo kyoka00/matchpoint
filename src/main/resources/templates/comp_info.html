@@ -30,7 +30,7 @@
 
 <div class="compinfo">
 	<div class="text-center">
-		<p th:text="${errorMsg}"></p>
+		<p class="error" th:text="${errorMsg}"></p>
 	</div>
 
 	<form action="comp_list" th:object="${compInfo}" method="POST"

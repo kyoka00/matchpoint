@@ -32,7 +32,7 @@
 	<img src="./images/logo.png" class="login_logo">
 	
 	<div class="text-center">
-		<p th:text="${errorMsg}"></p>
+		<p class="error" th:text="${errorMsg}"></p>
 	</div>
 		<div class="middlelogin">
 			<form action="comp_list" th:object="${login}" method="POST">

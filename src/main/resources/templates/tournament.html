@@ -10,10 +10,10 @@
 </head>
 <body>
 	<div th:insert="header"></div>
-	<button type="button" onclick="location.href='comp_list_back'">戻る</button>
-	<button type="button" onclick="location.href='all_player'">選手一覧</button>
-	<button type="button" onclick="location.href='comp_detail'">大会詳細</button>
-	<button type="button" onclick="location.href='game_result_all'" th:if="${flag}">大会結果受信ボックス</button>
+	<button type="button" onclick="location.href='comp_list_back'" class="btn-primary">戻る</button>
+	<button type="button" onclick="location.href='all_player'" class="btn-primary">選手一覧</button>
+	<button type="button" onclick="location.href='comp_detail'" class="btn-primary">大会詳細</button>
+	<button type="button" onclick="location.href='game_result_all'" th:if="${flag}" class="btn-primary">大会結果受信ボックス</button>
 	<div id="app">
         <details v-for="tournament in tournaments">
             <summary>トーナメント: {{ tournament.tournamentNo }}</summary>

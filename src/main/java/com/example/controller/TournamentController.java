@@ -20,6 +20,7 @@ import com.example.dao.TeamDao;
 import com.example.entity.Comp;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Score;
+import com.example.entity.Team;
 
 @Controller
 public class TournamentController {
@@ -57,6 +58,17 @@ public class TournamentController {
 			}else {
 				compId = (Integer)session.getAttribute("compInfo");
 			}
+
+			
+			Team team = new Team();
+			team.setCompId(compId);
+			List<Team> teamList = teamDao.selectAll(team, "");
+			model.addAttribute("teamList", teamList);
+			
+			if(session.getAttribute("loginId").equals("admin")) {
+				model.addAttribute("flag", true);
+				}
+
 			return "tournament";
 			
 		}

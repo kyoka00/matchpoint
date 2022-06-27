@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>試合結果受信box</title>
+
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
 <link href="/css/yuya.css" rel="stylesheet"></head>
+
 
 <body>
 	<div th:insert="header"></div>
@@ -34,7 +36,7 @@
 	<div class="text-right">
 	<button type="button" onclick="location.href='tournament'">戻る</button>
 	</div>
-	<table class="mx-auto table-striped table-hover table-bordered table-light">
+	<table class="mx-auto table-striped table-hover table-bordered table-light" border="1">
 	<div class="text-center">
 		<tr>
 			<th class="table-success">日時</th>

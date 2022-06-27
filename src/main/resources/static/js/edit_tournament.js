@@ -191,8 +191,8 @@ const vue = new Vue({
                 }
             }
         },
-        // POST メソッドの実装の例
-        async postData(url = 'insertMatch', data = {matchLists: this.sentMatchLists}) {
+        // 登録用 POST メソッド
+        async insertMatch(url = 'insertMatch', data = {matchLists: this.sentMatchLists}) {
             // 既定のオプションには * が付いています
             const response = await fetch(url, {
                 method: 'POST',
@@ -208,6 +208,24 @@ const vue = new Vue({
             });
             return response;
         },
+        // 更新用 POST メソッド
+        async updateMatch(url = 'updateMatch', data = {matchLists: this.sentMatchLists}) {
+            // 既定のオプションには * が付いています
+            const response = await fetch(url, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify(data),
+            });
+            return response;
+        },
+    },
     created: function() {
         // チーム一覧取得
         fetch('getTeamList')
@@ -243,8 +261,12 @@ const vue = new Vue({
                     // 対戦一覧取得
                     fetch('getMatchList')
                     .then(res => res.json().then(data => {
+                        console.log(data);
                         this.existingMatchLists = data;
                         this.allotTeam();
+                        this.sentMatchLists
+                        this.insertMatch()
+                        .catch(error => console.log(error));
                     }))
                     .catch(error => console.log(error));
                 }

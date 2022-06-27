@@ -17,6 +17,7 @@ import com.example.dao.ReceivedResultDao;
 import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
 import com.example.entity.Comp;
+import com.example.entity.MatchList;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Score;
 import com.example.entity.Team;
@@ -71,45 +72,48 @@ public class TournamentRestController {
 	}
 	
 	@RequestMapping("insertMatch")
-	public int insertMatch(@RequestBody MatchList object) {
+	public int insertMatch(@RequestBody MatchList matchList) {
 		int insertNum = 0;
 		Integer compId = (Integer)session.getAttribute("compId");
-		for(ReceivedResult result : object.matchList) {
+		for(ReceivedResult result : matchList.getMatchList()) {
 			result.setCompId(compId);
 			insertNum += receivedResultDao.insertMatch(result);
 		}
 		return insertNum;
 	}
 	
-//	@RequestMapping("")
-//	public int updateMatch(Integer gameNo, Integer teamIdA, Integer teamIdB) {
-//		ReceivedResult result= new ReceivedResult();
-//		result.setGameNo(gameNo);
-//		result.setTeamIdA(teamIdA);
-//		result.setTeamIdB(teamIdB);
-//		return receivedResultDao.updateMatch(result);
-//	}
-//	
+	@RequestMapping("updateMatch")
+	public int updateMatch(@RequestBody MatchList matchList) {
+		int updateNum = 0;
+		Integer compId = (Integer)session.getAttribute("compId");
+		for(ReceivedResult result : matchList.getMatchList()) {
+			result.setCompId(compId);
+			updateNum += receivedResultDao.updateMatch(result);
+		}
+		return updateNum;
+	}
+	
 	@RequestMapping("getTournamentEditStatus")
 	public int getComp() {
+		int insertNum = 0;
 		Integer compId = (Integer)session.getAttribute("compId");
 		Comp comp = new Comp();
 		comp.setCompId(compId);
 		List<Comp> compList = compDao.selectAll(comp);
 		return compList.isEmpty()? null: compList.get(0).getTournamentEditStatus();
 	}
-//	
-//	@RequestMapping("")
-//	public void updateComp(Integer tournamentEditStatus) {
-//		Integer compId = (Integer)session.getAttribute("compId");
-//		Comp comp = new Comp();
-//		comp.setCompId(compId);
-//		comp.setTournamentEditStatus(tournamentEditStatus);
-//		compDao.updateComp(comp);
-//		//return compDao.updateComp(comp);
-//	}
 	
 	@RequestMapping("")
+	public void updateComp(Integer tournamentEditStatus) {
+		Integer compId = (Integer)session.getAttribute("compId");
+		Comp comp = new Comp();
+		comp.setCompId(compId);
+		comp.setTournamentEditStatus(tournamentEditStatus);
+		compDao.updateComp(comp);
+		//return compDao.updateComp(comp);
+	}
+	
+	@RequestMapping("getWinner")
 	public List<Winner> getWinner(){
 		Integer compId = (Integer)session.getAttribute("compId");
 		ReceivedResult result = new ReceivedResult();

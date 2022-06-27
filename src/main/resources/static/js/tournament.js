@@ -9,8 +9,11 @@ const vue = new Vue({
     },
     data: {
         tournaments: [],
+        // 登録済み 選手情報
         teamLists: [],
+        // 作成済みトーナメント
         existingMatchLists: [],
+        // 登録済み 試合情報
         registeredMatchLists: [],
         matchNum: 0,
     },
@@ -75,6 +78,7 @@ const vue = new Vue({
                 );
             });
         },
+        // 取得した登録済みの試合情報をもとに、試合ごとのwinnerプロパティをtrueにする
         allotMatch() {
             this.registeredMatchLists
         },
@@ -144,6 +148,7 @@ const vue = new Vue({
                             if(res === null) {
                                 // 登録された試合なし
                             } else {
+                                // 登録済みの試合を取得
                                 res.json().then(data => {
                                     this.registeredMatchLists = data;
                                     this.allotMatch();

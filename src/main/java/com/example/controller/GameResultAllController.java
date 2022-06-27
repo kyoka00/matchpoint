@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.controller.form.CompForm;
 import com.example.controller.form.GamePlayerForm;
 import com.example.controller.form.GameResultAllForm;
 import com.example.dao.GameResultAllDao;
@@ -72,7 +72,6 @@ public class GameResultAllController{
 	
 	@RequestMapping(value = "sort")
 	public String sort(@RequestParam("orderBy")  String orderBy, Model model) {
-		System.out.println("コントロール" + orderBy);
 		GameResultAll gameResultAll = new GameResultAll();
 
 		List<GameResultAll> gameResultList = gameResultAllDao.selectAll(gameResultAll, "");
@@ -144,13 +143,11 @@ public class GameResultAllController{
 			recordStatus = 1;
 			receivedResult.setRecordStatus(recordStatus);
 			receivedResultDao.update(receivedResult);
-			System.out.println(receivedResult.getRecordStatus());
 		}
 		if(Utility.notIsEmptyNull(receivedResult.getMatchId()) && receivedResult.getRecordStatus() == 1) {
 			recordStatus = 0;
 			receivedResult.setRecordStatus(recordStatus);
 			receivedResultDao.update(receivedResult);
-			System.out.println(receivedResult.getRecordStatus());
 		}
 		return "tournament";
 	}

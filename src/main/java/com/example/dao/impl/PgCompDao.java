@@ -110,7 +110,6 @@ public class PgCompDao implements CompDao {
 	@Override
 	public int deleteComp(Comp comp) {
 		String sql = DELETE;
-		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue(ID, comp.getCompId());
 		return jdbcTemplate.update(sql, param);

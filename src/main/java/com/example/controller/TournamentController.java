@@ -127,7 +127,6 @@ public class TournamentController {
 			}else {
 				return "edit_tournament";
 			}
-	
 			
 			return "tournament";
 		}

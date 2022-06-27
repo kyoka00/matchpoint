@@ -11,6 +11,7 @@ const vue = new Vue({
         tournaments: [],
         teamLists: [],
         existingMatchLists: [],
+        sentMatchLists: [],
         matchNum: 0,
         dragTeamId: null,
         dragGameNo: null,
@@ -77,7 +78,7 @@ const vue = new Vue({
                         name: '・' + teamEmpty.playerAName + teamEmpty.playerBName,
                     };
                 }
-            })
+            });
         },
         // 前回までの組み合わせを参照して、きれいにぶち込む
         allotTeam() {
@@ -87,17 +88,6 @@ const vue = new Vue({
                     'games',
                     tournament.rounds[0].games.map(game => {
                         const matchFromDb = this.existingMatchLists.find(existingMatch => game.gameNo === existingMatch.gameNo);
-                            console.log("試合:" , {
-                                gameNo: matchFromDb.gameNo,
-                                player1: {
-                                    id: matchFromDb.teamIdA,
-                                    name: matchFromDb.teamAPlayer1name + "・" + matchFromDb.teamAPlayer2,
-                                },
-                                player2: {
-                                    id: matchFromDb.teamIdB,
-                                    name: matchFromDb.teamBPlayer1 + "・" + matchFromDb.teamBPlayer2,
-                                },
-                            });
                             return {
                                 gameNo: matchFromDb.gameNo,
                                 player1: {
@@ -201,13 +191,28 @@ const vue = new Vue({
                 }
             }
         },
-    },
+        // POST メソッドの実装の例
+        async postData(url = 'insertMatch', data = {matchLists: this.sentMatchLists}) {
+            // 既定のオプションには * が付いています
+            const response = await fetch(url, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify(data),
+            });
+            return response;
+        },
     created: function() {
         // チーム一覧取得
         fetch('getTeamList')
-        .then(res => res.json()
-        .then(data => {
-            this.teamLists = data
+        .then(res => res.json().then(data => {
+            this.teamLists = data;
             this.createTournament(1, this.teamLists1);
             this.createTournament(2, this.teamLists2);
             this.createTournament(3, this.teamLists3);
@@ -222,7 +227,7 @@ const vue = new Vue({
             let tournamentStatus;
             fetch('getTournamentEditStatus')
             .then(res => {
-                tournamentStatus = res
+                tournamentStatus = res;
                 if(tournamentStatus === 0) {
                     this.allotTeamFirst(1, this.teamLists1);
                     this.allotTeamFirst(2, this.teamLists2);
@@ -235,9 +240,10 @@ const vue = new Vue({
                     this.allotTeamFirst(9, this.teamLists9);
                     this.allotTeamFirst(10, this.teamLists10);
                 } else {
+                    // 対戦一覧取得
                     fetch('getMatchList')
                     .then(res => res.json().then(data => {
-                        this.existingMatchLists = data
+                        this.existingMatchLists = data;
                         this.allotTeam();
                     }))
                     .catch(error => console.log(error));

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import com.example.dao.ManageDao;
 import com.example.dao.ReceivedResultDao;
 import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
+import com.example.entity.Comp;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Team;
 
@@ -65,17 +67,17 @@ public class TournamentRestController {
 		return receivedResultDao.search(result, null);
 	}
 	
-//	@RequestMapping("")
-//	public int insertMatch(Integer gameNo, Integer teamIdA, Integer teamIdB) {
-//		Integer compId = (Integer)session.getAttribute("compId");
-//		ReceivedResult result= new ReceivedResult();
-//		result.setCompId(compId);
-//		result.setGameNo(gameNo);
-//		result.setTeamIdA(teamIdA);
-//		result.setTeamIdB(teamIdB);
-//		return receivedResultDao.insertMatch(result);
-//	}
-//	
+	@RequestMapping("insertMatch")
+	public int insertMatch(@RequestBody MatchList object) {
+		int insertNum = 0;
+		Integer compId = (Integer)session.getAttribute("compId");
+		for(ReceivedResult result : object.matchList) {
+			result.setCompId(compId);
+			insertNum += receivedResultDao.insertMatch(result);
+		}
+		return insertNum;
+	}
+	
 //	@RequestMapping("")
 //	public int updateMatch(Integer gameNo, Integer teamIdA, Integer teamIdB) {
 //		ReceivedResult result= new ReceivedResult();

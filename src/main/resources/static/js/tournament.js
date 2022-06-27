@@ -11,22 +11,24 @@ const vue = new Vue({
         tournaments: [],
         teamLists: [],
         existingMatchLists: [],
+        registeredMatchLists: [],
         matchNum: 0,
     },
     methods:{
         // トーナメント表のひな型を作る
         createTournament(tournamentNo, teamLists) {
             let teamNum = teamLists.length;
+            let firstRoundNum = Math.ceil(teamNum / 2);
             this.tournaments.push(
                 {
                     tournamentNo: tournamentNo,
                     rounds: [],
                 }
             );
-            this.createRounds(teamNum);
+            this.createRounds(teamNum, firstRoundNum);
         },
         // ひな型を作るための再帰関数
-        createRounds(teamNum) {
+        createRounds(teamNum, firstRoundNum) {
             teamNum = Math.ceil(teamNum / 2);
             this.tournaments[this.tournaments.length - 1].rounds.push(
                 {
@@ -38,6 +40,7 @@ const vue = new Vue({
                 this.tournaments[this.tournaments.length - 1].rounds[this.tournaments[this.tournaments.length -1].rounds.length - 1].games.push(
                     {
                         gameNo: this.matchNum,
+                        next: Math.ceil(this.matchNum) + firstRoundNum,
                         player1: {},
                         player2: {},
                     }
@@ -60,38 +63,51 @@ const vue = new Vue({
                                 player1: {
                                     id: matchFromDb.teamIdA,
                                     name:  matchFromDb.teamAPlayer1 + "・" + matchFromDb.teamAPlayer2,
+                                    winner: false,
                                 },
                                 player2: {
                                     id: matchFromDb.teamIdB,
                                     name:  matchFromDb.teamBPlayer1 + "・" + matchFromDb.teamBPlayer2,
+                                    winner: false,
                                 },
                             };
                     })
                 );
             });
         },
+        allotMatch() {
+            this.registeredMatchLists
+        },
         // 試合番号ボタン押下時、画面遷移
         viewResultOrStartGame(event) {
             const gameNo = event.target.value;            
             // 試合番号でReceivedResultに検索
             fetch(`searchMatchByGameNo?gameNo=${gameNo}`)
-            .then(res => res.json().then(data => {
+            .then(res => {
                 // 条件式?　その試合が登録済みなら、試合結果画面に。 : でなければ、試合設定画面に。
-                if(data.length === 1) {
-                    // 試合結果画面に遷移
-                    fetch(`registered_game_result?gameNo=${gameNo}`)
-                    .catch(error => error);
-                } else {
+                if(res === null) {
                     // 試合設定画面に遷移
-                    fetch(`match_from_tournament?game=${gameNo}`)
-                    .catch(error => error);
+                    location.href =  `match_from_tournament?gameNo=${gameNo}`;
+                } else {
+                    res.json().then(data => {
+                        console.log(data);
+                        if(data.length === 1 && isNotEmptyMatch(gameNo)) {
+                            // 試合結果画面に遷移
+                            location.href = `registered_game_result?gameNo=${gameNo}`;
+                        } else {
+                            // 空試合です
+                        }
+                    })
                 }
-            }))
-            .catch(error => console.log(error));
+            })
+            .catch(error => {
+                console.log(error);
+            });
         },
+        // 空試合か否か
         isNotEmptyMatch(gameNo) {
             const match = this.tournaments.forEach(tournament => tournament.rounds.forEach(round => round.games.filter(game => game.gameNo === gameNo)));
-            return match.player2.teamId < 0 ? false : true;
+            return match.player2.teamId < 0 || match.player2.teamId < 0 ? false : true;
         }
     },
     created: function() {
@@ -99,7 +115,6 @@ const vue = new Vue({
         let tournamentEditStatus;
         fetch("getTournamentEditStatus")
         .then(res => res.json().then(data => {
-            console.log(data);
             tournamentEditStatus = data;
             if(tournamentEditStatus === 0) {
                 document.getElementById("app").innerHTML = "トーナメントは未作成です。選手登録を完了させてトーナメントを作成してください。";
@@ -123,6 +138,19 @@ const vue = new Vue({
                     .then(res => res.json().then(data => {
                         this.existingMatchLists = data;
                         this.allotTeam();
+                        // 登録された試合一覧取得
+                        fetch('getRegisteredMatchLists')
+                        .then(res => {
+                            if(res === null) {
+                                // 登録された試合なし
+                            } else {
+                                res.json().then(data => {
+                                    this.registeredMatchLists = data;
+                                    this.allotMatch();
+                                })
+                                .catch(error => console.log(error));
+                            }
+                        })
                     }))
                     .catch(error => console.log(error));
                 }))

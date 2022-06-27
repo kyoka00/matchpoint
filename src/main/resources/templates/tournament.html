@@ -27,8 +27,8 @@
                         </div>
                     </template>
                     <template  #player-extension-bottom = " {match} ">
-                        <button type="button" @click="viewResultOrStartGame($event)" :value="match.matchId">
-                            試合番号：{{ match.matchId }}
+                        <button type="button" @click="viewResultOrStartGame($event)" :value="match.gameNo">
+                            試合番号：{{ match.gameNo }}
                         </button>
                     </template>
             </bracket>

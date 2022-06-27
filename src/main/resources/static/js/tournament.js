@@ -37,7 +37,7 @@ const vue = new Vue({
                 this.matchNum++;
                 this.tournaments[this.tournaments.length - 1].rounds[this.tournaments[this.tournaments.length -1].rounds.length - 1].games.push(
                     {
-                        matchId: this.matchNum,
+                        gameNo: this.matchNum,
                         player1: {},
                         player2: {},
                     }
@@ -54,9 +54,9 @@ const vue = new Vue({
                     tournament.rounds[0],
                     'games',
                     tournament.rounds[0].games.map(game => {
-                        const matchFromDb = this.existingMatchLists.find(existingMatch => game.matchId === existingMatch.matchId);
+                        const matchFromDb = this.existingMatchLists.find(existingMatch => game.gameNo === existingMatch.gameNo);
                             return {
-                                matchId: matchFromDb.matchId,
+                                gameNo: matchFromDb.gameNo,
                                 player1: {
                                     id: matchFromDb.teamIdA,
                                     name:  matchFromDb.teamAPlayer1 + "・" + matchFromDb.teamAPlayer2,
@@ -72,28 +72,28 @@ const vue = new Vue({
         },
         // 試合番号ボタン押下時、画面遷移
         viewResultOrStartGame(event) {
-            const matchId = event.target.value;
+            const gameNo = event.target.value;
             // 試合番号でReceivedResultに検索
-            fetch(`searchMatchByMatchId?matchId=${event}`).then(res => res.json().then(data => {
+            fetch(`searchMatchByGameNo?gameNo=${event}`).then(res => res.json().then(data => {
                 // 条件式：　試合番号でReceivedResultに検索を掛けても、登録済みのレコードが無い && 選手が一人しかいない試合（シード）ではない
-                if(data.length === 0 && isNotEmptyMatch(matchId)) {
+                if(data.length === 0 && isNotEmptyMatch(gameNo)) {
                     // 試合設定画面に遷移
                     
                 } else {
                     // 試合結果画面に遷移
-                    
+
                 }
             }))
         },
-        isNotEmptyMatch(matchId) {
-            const match = this.tournaments.forEach(tournament => tournament.rounds.forEach(round => round.games.filter(game => game.matchId === matchId)));
+        isNotEmptyMatch(gameNo) {
+            const match = this.tournaments.forEach(tournament => tournament.rounds.forEach(round => round.games.filter(game => game.gameNo === gameNo)));
             return match.player2.teamId < 0 ? false : true;
         }
     },
     created: function() {
         // トーナメント表作成済みか否か確認
         if(false) {
-            
+            document.getElementById("app").innerHTML = "トーナメントは未作成です。選手登録を完了させてトーナメントを作成してください。"
         } else {
             // チーム一覧取得
             fetch('getTeamList')
@@ -117,9 +117,9 @@ const vue = new Vue({
                     this.existingMatchLists = data;
                     this.allotTeam();
                 }))
-                .catch(error => console.log("対戦組み合わせ一覧取得エラー: " + error));
+                .catch(error => console.log(error));
             }))
-            .catch(error => console.log("チーム一覧取得エラー: " + error));
+            .catch(error => console.log(error));
         }
     },
     computed: {

@@ -58,13 +58,11 @@ public class TournamentRestController {
 	
 	@RequestMapping("searchMatchByGameNo")
 	public List<ReceivedResult> getGameInfo(@RequestParam("gameNo") Integer gameNo){
-		System.out.println(gameNo);
 		Integer compId = (Integer)session.getAttribute("compId");
 		ReceivedResult result = new ReceivedResult();
 		result.setCompId(compId);
 		result.setGameNo(gameNo);
 		result.setRecordStatus(1);
-		System.out.println(receivedResultDao.search(result, null));
 		return receivedResultDao.search(result, null);
 	}
 	

@@ -76,15 +76,15 @@ const vue = new Vue({
             // 試合番号でReceivedResultに検索
             fetch(`searchMatchByGameNo?gameNo=${gameNo}`)
             .then(res => res.json().then(data => {
-                console.log(data);
-                // 条件式：　試合番号でReceivedResultに検索を掛けても、登録済みのレコードが無い && 選手が一人しかいない試合（シード）ではない
+                // 条件式?　その試合が登録済みなら、試合結果画面に。 : でなければ、試合設定画面に。
                 if(data.length === 1) {
                     // 試合結果画面に遷移
-                    fetch()
-                    .catch(error => error)
+                    fetch(`registered_game_result?gameNo=${gameNo}`)
+                    .catch(error => error);
                 } else {
                     // 試合設定画面に遷移
-
+                    fetch(`match_from_tournament?game=${gameNo}`)
+                    .catch(error => error);
                 }
             }))
             .catch(error => console.log(error));

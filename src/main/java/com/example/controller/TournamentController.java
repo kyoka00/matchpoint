@@ -119,7 +119,7 @@ public class TournamentController {
 			return "edit_tournament";
 		}
 		//試合番号ボタンクリック
-		@RequestMapping(value="")
+		@RequestMapping(value="registered_game_result")
 		public String gameResult(@RequestParam("gameNo")Integer gameNo, Model model) {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
@@ -137,7 +137,7 @@ public class TournamentController {
 			List<Score> scoreList = scoreDao.selectAll(score);
 			model.addAttribute("scoreList", scoreList);
 			
-			return "game_result_final_registered";		
+			return "game_result_final_registered";
 		}
 		
 		//試合結果からトーナメントへ

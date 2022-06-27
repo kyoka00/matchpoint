@@ -6,7 +6,8 @@
 </head>
 <body>
 	<div th:insert="header"></div>
-		<form action="sort">
+		<form action="sort" th:object="${comp_detail}">
+			<input type="hidden" th:field="*{recordStatus}">
 			<select class="base-text" name="orderBy" onchange="submit(this.form)">
 				<option value="normal">並び替え</option>
 				<option value="record_date">登録日時</option>
@@ -16,16 +17,20 @@
 			</select>
 		</form>
   	<form action="game_result_search" th:object="${comp_detail}">
+  		<input type="hidden" th:field="*{recordStatus}">
 		<input type="text" name="keyword" placeholder="キーワード検索">
 		<input type="submit" value="検索">
 	</form>
 	<form action="game_result_all" th:object="${comp_detail}">
+		<input type="hidden" value="0">
 		<input type="submit" value="未登録の試合を表示">
 	</form>
 	<form action="game_result_registered" th:object="${comp_detail}">
+		<input type="hidden" value="1">
 		<input type="submit" value="登録済みの試合を表示">
 	</form>
 	<button type="button" onclick="location.href='tournament'">戻る</button>
+	<!-- <input type="hidden" th:field="*{recordStatus}"> -->
 	<table border="1">
 		<tr>
 			<th>日時</th>

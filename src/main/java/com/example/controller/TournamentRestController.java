@@ -14,6 +14,7 @@ import com.example.dao.ManageDao;
 import com.example.dao.ReceivedResultDao;
 import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
+import com.example.entity.Comp;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Team;
 
@@ -57,13 +58,11 @@ public class TournamentRestController {
 	
 	@RequestMapping("searchMatchByGameNo")
 	public List<ReceivedResult> getGameInfo(@RequestParam("gameNo") Integer gameNo){
-		System.out.println(gameNo);
 		Integer compId = (Integer)session.getAttribute("compId");
 		ReceivedResult result = new ReceivedResult();
 		result.setCompId(compId);
 		result.setGameNo(gameNo);
 		result.setRecordStatus(1);
-		System.out.println(receivedResultDao.search(result, null));
 		return receivedResultDao.search(result, null);
 	}
 	

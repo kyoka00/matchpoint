@@ -139,7 +139,7 @@ public class GameModeController{
 		return "score_setting";
 	}
 	
-	@RequestMapping(value="game_set_result")
+	@RequestMapping(value="insert_game_result")
 	public String insertGameResult(RedirectAttributes redirectAttributes, 
 	@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
 		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
@@ -159,7 +159,6 @@ public class GameModeController{
 			list.add(score);
 		}
 		scoreDao.insertScore(score);
-//		redirectAttributes.addFlashAttribute("model", list);
 		ModelMap modelMap = new ModelMap();
 		modelMap.addAttribute("form", form);
 		redirectAttributes.addFlashAttribute("model", modelMap);

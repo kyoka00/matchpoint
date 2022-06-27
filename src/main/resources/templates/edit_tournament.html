@@ -32,8 +32,8 @@
                     </div>
                 </template>
                 <template  #player-extension-bottom = " {match} ">
-                    <input type="hidden" :value="match.matchId" readonly>
-                    <b style="background-color: gray;">試合番号：{{ match.matchId }}</b>
+                    <input type="hidden" :value="match.gameNo" readonly>
+                    <b style="background-color: gray;">試合番号：{{ match.gameNo }}</b>
                 </template>
             </bracket>
         </details>

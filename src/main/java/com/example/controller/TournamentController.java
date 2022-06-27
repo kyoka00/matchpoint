@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.controller.form.CompForm;
 import com.example.dao.CompDao;
@@ -107,13 +108,12 @@ public class TournamentController {
 		}
 		//試合番号ボタンクリック
 		@RequestMapping(value="")
-		public String gameResult(Model model) {
+		public String gameResult(@RequestParam("gameNo")Integer gameNo, Model model) {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
-			Integer matchId = 1;
 			ReceivedResult result = new ReceivedResult();
-			result.setMatchId(matchId);
+			result.setGameNo(gameNo);
 			result.setRecordStatus(1);
 			
 			List<ReceivedResult> resultList = receivedResultDao.search(result, null);

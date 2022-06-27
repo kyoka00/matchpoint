@@ -8,11 +8,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.controller.form.GameInfoForm;
 import com.example.controller.form.GamePlayerForm;
@@ -40,7 +42,7 @@ public class GameModeController{
 	//試合設定画面
 	@RequestMapping(value="match")
 	public String gameSetting(@ModelAttribute("game_info") GameInfoForm form) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		form.setGameNo(1);
@@ -51,7 +53,7 @@ public class GameModeController{
 	
 	@RequestMapping(value="match_from_tournament")
 	public String gameSet(@ModelAttribute("game_info") GameInfoForm form, @RequestParam("game_no") Integer gameNo) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		if(gameNo != null) {
@@ -66,7 +68,7 @@ public class GameModeController{
 	
 	@RequestMapping(value="server_setting")
 	public String redirectServerSetting(@ModelAttribute("score_setting") GamePlayerForm playerForm) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		Integer gameInfoId = (Integer)session.getAttribute("game_info_id");
@@ -85,6 +87,9 @@ public class GameModeController{
 	@RequestMapping(value="server_setting", params="server_setting")
 	public String serverSetting(@Validated @ModelAttribute("game_info") GameInfoForm form,
 			BindingResult bindingResult, @ModelAttribute("score_setting") GamePlayerForm playerForm) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
+			return "top";
+		}
 		if (bindingResult.hasErrors()) {
 			form.setGameNo(1);
             return "game_setting";
@@ -108,7 +113,7 @@ public class GameModeController{
 	
 	@RequestMapping(value="score_setting")
 	public String scoreSetting(@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		Score score = new Score();
@@ -134,9 +139,10 @@ public class GameModeController{
 		return "score_setting";
 	}
 	
-	@RequestMapping(value="game_set_result")
-	public String gameSetResult(@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+	@RequestMapping(value="insert_game_result")
+	public String insertGameResult(RedirectAttributes redirectAttributes, 
+	@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		Score score = new Score();
@@ -153,8 +159,26 @@ public class GameModeController{
 			list.add(score);
 		}
 		scoreDao.insertScore(score);
+		ModelMap modelMap = new ModelMap();
+		modelMap.addAttribute("form", form);
+		redirectAttributes.addFlashAttribute("model", modelMap);
+		return "redirect:/game_set_result";
+	}
+	
+	@RequestMapping(value="game_set_result")
+	public String gameSetResult(@ModelAttribute("model")ModelMap modelMap,
+			@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
+		if(session.getAttribute("loginId") == null) {
+			return "top";
+		}
 		int winCountA = 0;
 		int winCountB = 0;
+		Score score = new Score();
+		score.setGameInfoId((Integer)session.getAttribute("game_info_id"));
+		List<Score> list = scoreDao.selectAll(score);
+		form = (GamePlayerForm) modelMap.get("form");
+		System.out.print(modelMap.getAttribute("form"));
+		System.out.println(form.getPlayerA());
 		List<String> scoreList = new ArrayList<String>();
 		if(list != null) {
 			for(Score s : list) {
@@ -187,13 +211,14 @@ public class GameModeController{
 		model.addAttribute("score_list", scoreList);
 		model.addAttribute("setNumA", winCountA);
 		model.addAttribute("setNumB", winCountB);
+		
 		return "game_set_result";
 	}
 	
 	@RequestMapping(value="game_result", params="next")
 	public String nextGame(@ModelAttribute("score_setting") GamePlayerForm form,
 			@ModelAttribute("update_game_info") GameInfoForm gameInfoForm, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		if(session.getAttribute("winner") == null) {
@@ -229,7 +254,7 @@ public class GameModeController{
 	
 	@RequestMapping(value="update_game_info")
 	public String updateGameInfo(@ModelAttribute("update_game_info") GameInfoForm form) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		ReceivedResult receivedResult = new ReceivedResult();

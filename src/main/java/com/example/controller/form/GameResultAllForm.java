@@ -11,4 +11,5 @@ public class GameResultAllForm{
 	private Integer tournamentNo;
 	private String keyword;
 	private String orderBy;
+	private Integer recordStatus;
 }

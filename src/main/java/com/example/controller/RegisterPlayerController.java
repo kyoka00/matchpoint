@@ -29,7 +29,7 @@ public class RegisterPlayerController {
 	//選手登録へ
 	@RequestMapping(value="insert_player")
 	public String playerInsertPage(@ModelAttribute("insert_player") PlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		return "insert_player";
@@ -38,7 +38,9 @@ public class RegisterPlayerController {
 	//選手登録 登録ボタン
 	@RequestMapping(value="insert_player", params="insert")
 	public String playerInsert(@Validated@ModelAttribute("insert_player")  PlayerForm form, BindingResult bindingResult,Model model) {
-
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
+			return "top";
+		}
 		//存在チェック
 		if(bindingResult.hasErrors()) {
 			

@@ -26,7 +26,7 @@ public class CompDetailController{
 	//大会詳細画面へ
 	@RequestMapping(value="comp_detail")
 	public String compDetail(@ModelAttribute("comp_detail") CompForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null &&session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		Comp comp = new Comp();
@@ -38,19 +38,15 @@ public class CompDetailController{
 		
 		model.addAttribute("comp_detail", compDetail.get(0));
 		
-		if(session.getAttribute("loginId").equals("admin")) {
-		model.addAttribute("flag", true);
-		}
-		
 		return "comp_detail";
 	}
 	
 	//大会削除
 	@RequestMapping(value="comp_delete")
 	public String compDelete(@ModelAttribute("comp_detail") CompForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
-		}	
+		}
 		Comp comp = new Comp();
 		comp.setCompId((Integer)session.getAttribute("compId"));
 		compDao.deleteComp(comp);
@@ -62,7 +58,7 @@ public class CompDetailController{
 		
 		@RequestMapping(value="comp_detail_edit")
 		public String compDetailUpdate(@ModelAttribute("comp_detail") CompForm form, Model model) {
-			if(session.getAttribute("loginId") == null) {
+			if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 				return "top";
 			}
 			Comp comp = new Comp();
@@ -80,7 +76,7 @@ public class CompDetailController{
 		//大会編集画面
 		@RequestMapping(value="comp_detail_update", params="completion")
 		public String compUpdatePage(@ModelAttribute("comp_detail") CompForm form, Model model) {
-			if(session.getAttribute("loginId") == null) {
+			if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 				return "top";
 			}
 			
@@ -111,7 +107,7 @@ public class CompDetailController{
 		//大会編集画面から戻る
 		@RequestMapping(value="comp_detail_update", params="back")
 		public String compDetailBack(@ModelAttribute("comp_detail") CompForm form, Model model) {
-			if(session.getAttribute("loginId") == null) {
+			if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 				return "top";
 			}
 			Comp comp = new Comp();

@@ -89,15 +89,14 @@ public class TournamentRestController {
 //	}
 //	
 	@RequestMapping("getTournamentEditStatus")
-	public Comp getComp(Integer tournamentEditStatus) {
+	public int getComp() {
 		Integer compId = (Integer)session.getAttribute("compId");
 		Comp comp = new Comp();
 		comp.setCompId(compId);
-		comp.setTournamentEditStatus(tournamentEditStatus);
 		List<Comp> compList = compDao.selectAll(comp);
-		return compList.isEmpty()? null: compList.get(0);
+		return compList.isEmpty()? null: compList.get(0).getTournamentEditStatus();
 	}
-	
+//	
 //	@RequestMapping("")
 //	public void updateComp(Integer tournamentEditStatus) {
 //		Integer compId = (Integer)session.getAttribute("compId");

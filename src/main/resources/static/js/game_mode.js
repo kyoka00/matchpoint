@@ -12,14 +12,19 @@ const vue = new Vue({
 			.then(res => res.json()
 			.then(data => {
 				this.team = data
-				if(this.team != null){
-					this.team1 = this.team[0].playerAName + '・' + this.team[0].playerBName
-					this.team2 = this.team[1].playerAName + '・' + this.team[1].playerBName
+				if(this.team.matchId != null){
+					this.team1 = this.team.teamAPlayer1
+					if(this.team.teamAPlayer2){
+						this.team1 = this.team1 + '・' + this.team.teamAPlayer2
+					}
+					this.team2 = this.team.teamBPlayer1
+					if(this.team.teamBPlayer2){
+						this.team2 = this.team2 +'・' + this.team.teamBPlayer2
+					}
 				}else{
 					this.team1 = 'メンバーがいません'
 					this.team2 = 'メンバーがいません'
 				}
-				
 				}))
 		},
 	},
@@ -29,9 +34,15 @@ const vue = new Vue({
 			.then(res => res.json()
 			.then(data => {
 				this.team = data
-				if(this.team != null){
-					this.team1 = this.team[0].playerAName + '・' + this.team[0].playerBName
-					this.team2 = this.team[1].playerAName + '・' + this.team[1].playerBName
+				if(this.team.matchId != null){
+					this.team1 = this.team.teamAPlayer1
+					if(this.team.teamAPlayer2){
+						this.team1 = this.team1 + '・' + this.team.teamAPlayer2
+					}
+					this.team2 = this.team.teamBPlayer1
+					if(this.team.teamBPlayer2){
+						this.team2 = this.team2 +'・' + this.team.teamBPlayer2
+					}
 				}else{
 					this.team1 = 'メンバーがいません'
 					this.team2 = 'メンバーがいません'

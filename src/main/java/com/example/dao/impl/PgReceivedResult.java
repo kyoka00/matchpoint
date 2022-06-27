@@ -69,8 +69,6 @@ public class PgReceivedResult implements ReceivedResultDao {
 //		return null;
 	}
 	
-	
-	
 	@Override
 	public List<ReceivedResult> searchMatch(ReceivedResult receivedResult){
 		String sql = "SELECT * FROM " + matchTbl + searchSqlMatch(receivedResult);
@@ -84,7 +82,6 @@ public class PgReceivedResult implements ReceivedResultDao {
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
 		return resultList.isEmpty() ? null : resultList;
 	}
-	
 
 	@Override
 	public List<ReceivedResult> searchMatchTeam(ReceivedResult receivedResult){
@@ -96,11 +93,8 @@ public class PgReceivedResult implements ReceivedResultDao {
 		if (Utility.notIsEmptyNull(receivedResult.getGameNo())) {
 			param.addValue(COLUMN_NAME_GAMENO, receivedResult.getGameNo());
 		}
-		System.out.println(sql);
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
-		System.out.println(resultList);
 		return resultList.isEmpty() ? null : resultList;
-	
 	}
 	
 	//insertはmatchとgame_infoのみinsertかけられる感じで書いてます。
@@ -174,11 +168,6 @@ public class PgReceivedResult implements ReceivedResultDao {
 			param.addValue(COLUMN_NAME_JUDGENAME, result.getJudgeName());
 		}
 		param.addValue(ID, result.getGameInfoId());
-		
-		System.out.println(result.getGameInfoId());
-		System.out.println(result.getCoatNo());
-		System.out.println(result.getJudgeName());
-		
 		return jdbcTemplate.update(sql, param);
 	}
 	

@@ -14,6 +14,7 @@ import com.example.dao.ManageDao;
 import com.example.dao.ReceivedResultDao;
 import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
+import com.example.entity.Comp;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Team;
 
@@ -87,16 +88,16 @@ public class TournamentRestController {
 //		return receivedResultDao.updateMatch(result);
 //	}
 //	
-//	@RequestMapping("")
-//	public Comp getComp(Integer tournamentEditStatus) {
-//		Integer compId = (Integer)session.getAttribute("compId");
-//		Comp comp = new Comp();
-//		comp.setCompId(compId);
-//		comp.setTournamentEditStatus(tournamentEditStatus);
-//		List<Comp> compList = compDao.selectAll(comp);
-//		return compList.isEmpty()? null: compList.get(0);
-//	}
-//	
+	@RequestMapping("getTournamentEditStatus")
+	public Comp getComp(Integer tournamentEditStatus) {
+		Integer compId = (Integer)session.getAttribute("compId");
+		Comp comp = new Comp();
+		comp.setCompId(compId);
+		comp.setTournamentEditStatus(tournamentEditStatus);
+		List<Comp> compList = compDao.selectAll(comp);
+		return compList.isEmpty()? null: compList.get(0);
+	}
+	
 //	@RequestMapping("")
 //	public void updateComp(Integer tournamentEditStatus) {
 //		Integer compId = (Integer)session.getAttribute("compId");

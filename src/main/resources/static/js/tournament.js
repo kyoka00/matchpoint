@@ -78,12 +78,13 @@ const vue = new Vue({
             .then(res => res.json().then(data => {
                 console.log(data);
                 // 条件式：　試合番号でReceivedResultに検索を掛けても、登録済みのレコードが無い && 選手が一人しかいない試合（シード）ではない
-                if(data.length === 0 && isNotEmptyMatch(gameNo)) {
-                    // 試合設定画面に遷移
-                    
-                } else {
+                if(data.length === 1) {
                     // 試合結果画面に遷移
-                    
+                    fetch()
+                    .catch(error => error)
+                } else {
+                    // 試合設定画面に遷移
+
                 }
             }))
             .catch(error => console.log(error));
@@ -95,8 +96,11 @@ const vue = new Vue({
     },
     created: function() {
         // トーナメント表作成済みか否か確認
+        let tournamentEditStatus;
+        fetch("getTournamentEditStatus")
+        .then(res => res.json().then(data => tournamentEditStatus = data));
         if(false) {
-//            document.getElementById("app").innerHTML = "トーナメントは未作成です。選手登録を完了させてトーナメントを作成してください。"
+            document.getElementById("app").innerHTML = "トーナメントは未作成です。選手登録を完了させてトーナメントを作成してください。";
         } else {
             // チーム一覧取得
             fetch('getTeamList')

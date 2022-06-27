@@ -7,7 +7,7 @@
 <link href="/css/yuya.css" rel="stylesheet">
 </head>
 <body class="bg-score-setting">
-	<form action="game_set_result" th:object="${score_setting}" method="POST">
+	<form action="insert_game_result" th:object="${score_setting}" method="POST">
 		<input type="hidden" id="playerA" th:field="*{playerA}">
 		<input type="hidden" id="playerB" th:field="*{playerB}">
 		<input type="hidden" id="playerC" th:field="*{playerC}">
@@ -28,6 +28,7 @@
 				<p id="playerDtext">D</p>
 		</div>
 		
+		サーバー:
 		<select id="server_select" th:field="*{server}" onChange="serverChange()">
 			<option th:text="*{playerA}" value="playerA"></option>
 			<option th:text="*{playerB}" value="playerB"></option>
@@ -40,8 +41,6 @@
 		<div>
 				<div th:text="${setNumA} + 'セット'" class="get_gameAB">ABゲーム数</div>
 
-				<div th:text="${setNumA} + 'セット'">取得セット数</div>
-
 				<div>
 					<table border="1">
 						<tr th:each="score : ${score_list}">
@@ -51,8 +50,6 @@
 				</div>
 
 				<div th:text="${setNumB} + 'セット'" class="get_gameCD">CDゲーム数</div>
-				<div th:text="${setNumB} + 'セット'">取得セット数</div>
-
 		</div>
 			<div id="team2_point_text"></div>
 		</div>
@@ -64,14 +61,6 @@
 			<div>
 				<button type="button" id="team2tasu" onClick="serverSet(2,'tasu')" class=" btn btn-danger">+</button>
 				<button type="button" onClick="serverSet(2,'hiku')" class=" btn btn-primary">-</button>
-
-				<button type="button" id="team1tasu" onClick="serverSet(1,'tasu')">+</button>
-				<button type="button" onClick="serverSet(1,'hiku')">-</button>
-			</div>
-			<div>
-				<button type="button" id="team2tasu" onClick="serverSet(2,'tasu')">+</button>
-				<button type="button" onClick="serverSet(2,'hiku')">-</button>
-
 			</div>
 		</div>
 		

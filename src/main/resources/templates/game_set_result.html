@@ -8,10 +8,10 @@
 </head>
 <body>
 	<form action="game_result" th:object="${score_setting}" method="POST">
-		<input type="text" th:field="*{playerA}">
-		<input type="text" th:field="*{playerB}">
-		<input type="text" th:field="*{playerC}">
-		<input type="text" th:field="*{playerD}">
+		<input type="hidden" th:field="*{playerA}">
+		<input type="hidden" th:field="*{playerB}">
+		<input type="hidden" th:field="*{playerC}">
+		<input type="hidden" th:field="*{playerD}">
 		
 		<div th:text="${set}">現在のゲーム数/総ゲーム数</div>
 		

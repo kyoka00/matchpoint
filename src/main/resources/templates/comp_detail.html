@@ -58,29 +58,28 @@
 						readonly> <input th:case="2" th:value="ダブルス" readonly>
 					</span>
 				</div>
-				</div>
-				<div>
-					<label>大会概要:</label> <input type="text" th:field="*{memo}" readonly>
-				</div>
-				<div>
-					<!-- マージ時に使用する　th:if="${loginId != null}"  -->
-					<button type="button" onclick="openModal()" class="btn-primary">削除</button>
+			</div>
+			<div>
+				<label>大会概要:</label> <input type="text" th:field="*{memo}" readonly>
+			</div>
+			<div>
+				<!-- マージ時に使用する　th:if="${loginId != null}"  -->
+				<button type="button" onclick="openModal()" class="btn-primary">削除</button>
+				
+				<button type="submit" class="btn-primary">編集</button>
+				<div id="modal">
+					<p class="modal_message">削除しますか？</p>
 					
-					<button type="submit" class="btn-primary">編集</button>
-					<div id="modal">
-						<p class="modal_message">削除しますか？</p>
-						<div class="Modal">
-							<button type="button" onclick="location.href='comp_delete'"
-								class="basic_btn btn-primary">削除</button>
-							<button type="button" onclick="closeModal()" class="cancel_btn btn-primary">キャンセル</button>
-						</div>
-					</div>
+						<button type="button" onclick="location.href='comp_delete'"
+							class="basic_btn btn-primary">削除</button>
+						<button type="button" onclick="closeModal()" class="cancel_btn btn-primary">キャンセル</button>
+					
 				</div>
+			</div>
 		</form>
-	</div>
+	</div>	
+
+	<div id="fadeLayer"></div>
 	<script src="./js/commons.js"></script>
-</div>
-<div id="fadeLayer"></div>
 </body>
 </html>
-<script src="./comonns.js"></script>

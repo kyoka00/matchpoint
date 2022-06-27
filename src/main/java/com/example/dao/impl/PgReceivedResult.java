@@ -63,6 +63,12 @@ public class PgReceivedResult implements ReceivedResultDao {
 		if (Utility.notIsEmptyNull(keyword)) {
 			param.addValue("keyword", '%'+ keyword +'%');
 		}
+		if (Utility.notIsEmptyNull(result.getCompId())) {
+			param.addValue(COLUMN_NAME_COMPID, result.getCompId());
+		}
+		if (Utility.notIsEmptyNull(result.getGameNo())) {
+			param.addValue(COLUMN_NAME_GAMENO, result.getGameNo());
+		}
 
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
 		return resultList.isEmpty() ? null : resultList;
@@ -218,6 +224,14 @@ public class PgReceivedResult implements ReceivedResultDao {
 			columnName = COLUMN_NAME_MATCHID + " = :" + COLUMN_NAME_MATCHID;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
+		if (Utility.notIsEmptyNull(result.getGameNo())) {
+			columnName = COLUMN_NAME_GAMENO + " = :" + COLUMN_NAME_GAMENO;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(result.getCompId())) {
+			columnName = COLUMN_NAME_COMPID + " = :" + COLUMN_NAME_COMPID;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
 		if (Utility.notIsEmptyNull(keyword)) {
 			columnName = COLUMN_NAME_JUDGENAME + " || " + COLUMN_NAME_MATCHID + "||" + COLUMN_NAME_COATNO + "||"
 					+ COLUMN_NAME_TOURNAMENTNO + " LIKE :" + "keyword";
@@ -238,6 +252,7 @@ public class PgReceivedResult implements ReceivedResultDao {
 			columnName = COLUMN_NAME_GAMENO + " = :" + COLUMN_NAME_GAMENO;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
+		
 		return !where.isEmpty() ? " WHERE " + where : "";
 	}
 

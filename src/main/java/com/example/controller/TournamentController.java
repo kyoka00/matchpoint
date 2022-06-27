@@ -116,7 +116,20 @@ public class TournamentController {
 			if(session.getAttribute("loginId") == null) {
 				return "top";
 			}
-			return "edit_tournament";
+			Comp comp = new Comp();
+			Integer compId = (Integer)session.getAttribute("compId");
+			comp.setCompId(compId);
+			comp.setTournamentEditStatus(2);
+			int count = compDao.updateComp(comp);
+			
+			if(count!= 0) {
+				model.addAttribute("msg", "トーナメント情報を確定しました");
+			}else {
+				return "edit_tournament";
+			}
+	
+			
+			return "tournament";
 		}
 		//試合番号ボタンクリック
 		@RequestMapping(value="registered_game_result")

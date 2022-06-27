@@ -14,7 +14,6 @@ import com.example.dao.ManageDao;
 import com.example.dao.ReceivedResultDao;
 import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
-import com.example.entity.Comp;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Team;
 

@@ -25,8 +25,6 @@ public class GameModeRestController{
 	@RequestMapping("searchMember")
 	public ReceivedResult searchMember(@RequestParam("gameNo") Integer gameNo) {
 		ReceivedResult receivedResult = new ReceivedResult();
-		//あとから変えるやつ
-		//compIDはセッションに保存されているやつを使う
 		receivedResult.setCompId((Integer)session.getAttribute("compId"));
 		receivedResult.setGameNo(gameNo);
 		List<ReceivedResult> list = receivedResultDao.searchMatchTeam(receivedResult);

@@ -80,7 +80,18 @@ const vue = new Vue({
         },
         // 取得した登録済みの試合情報をもとに、試合ごとのwinnerプロパティをtrueにする
         allotMatch() {
-            this.registeredMatchLists
+            //this.registeredMatchLists
+            fetch("getWinner")
+            .then(res => {
+				if (res !== null){
+					const match = this.registeredMatchLists.find(registeredMatch => res.gameNo === registeredMatch.gameNo);
+					const winnerFind = match.find(winner => res.winnerTeamId === winner.teamId);
+					match.winnerFind ={
+                        winner: true
+                    }
+				}
+			})
+            
         },
         // 試合番号ボタン押下時、画面遷移
         viewResultOrStartGame(event) {

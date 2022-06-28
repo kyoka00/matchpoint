@@ -120,8 +120,9 @@ public class TournamentRestController {
 		result.setCompId(compId);
 		result.setRecordStatus(1);
 		List<ReceivedResult> resultList = receivedResultDao.search(result,null);
+		System.out.println(resultList);
 		List<Winner> winnerTeam = new ArrayList<Winner>();
-
+		
 		for(ReceivedResult r: resultList) {
 			Score score = new Score();
 			score.setGameInfoId(r.getGameInfoId());
@@ -144,6 +145,7 @@ public class TournamentRestController {
 				winnerTeam.add(new Winner(r.getGameNo(), r.getTeamIdB()));
 			}
 		}
+		System.out.println(winnerTeam);
 		return winnerTeam;
 	}
 }

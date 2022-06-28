@@ -67,8 +67,6 @@ function serverSet(team, btn){
 					server.value = playerB
 					server_set.value = 'playerB'
 				}
-				server.value = playerA
-				server_set.value = 'playerA'
 			}
 			if(window.sessionStorage.getItem(['coat']) == null || window.sessionStorage.getItem(['coat']) == 0){
 				pointText1.innerHTML = Number(pointText1.innerHTML) + 1

@@ -87,6 +87,13 @@ public class CompDetailController{
 			comp.setCompLoginId(form.getCompLoginId());
 			List<Comp> list = compDao.selectAll(comp);
 			
+			if(list != null) {
+				if(list.get(0).getCompId() != (Integer)session.getAttribute("compId")) {
+					model.addAttribute("errorMsg", "大会ログインIDが重複しています。");
+					return "comp_detail_update";
+				}
+			}
+
 			Date date= Date.valueOf(form.getCompDate());
 			comp.setCompId((Integer)session.getAttribute("compId"));
 			comp.setCompName(form.getCompName());
@@ -97,12 +104,6 @@ public class CompDetailController{
 			comp.setGameType(form.getGameType());
 			comp.setMemo(form.getMemo());
 			
-			if(comp.getCompLoginId() != null) {
-				if(!list.get(0).getCompLoginId().equals(form.getCompLoginId())) {
-					model.addAttribute("errorMsg", "大会ログインIDが重複しています。");
-					return "comp_detail_update";
-				}
-			}
 			
 			compDao.updateComp(comp);
 			

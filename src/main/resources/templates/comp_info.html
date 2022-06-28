@@ -77,9 +77,9 @@
 
 				<div class="form-group">
 					<label class="col-sm-2 control-label mr-5">トーナメント数:</label>
-					<input type="number" id="tournamentCount" th:field="*{tournamentNo}"
+					<input type="number" id="tournamentCount" th:field="*{tournamentCount}"
 						 max="10" min="1" placeholder="最大10まで" onChange="tournamentCountCheck()">
-					<span class="error" th:each="error: ${#fields.errors('tournamentNo')}">
+					<span class="error" th:each="error: ${#fields.errors('tournamentCount')}">
 						[[ ${error} ]]
 					</span>
 				</div>

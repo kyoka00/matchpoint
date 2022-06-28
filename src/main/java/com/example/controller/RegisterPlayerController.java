@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.controller.form.PlayerForm;
+import com.example.dao.CompDao;
 import com.example.dao.TeamDao;
+import com.example.entity.Comp;
 import com.example.entity.Team;
 
 //ユーザー情報 Controller
@@ -26,12 +28,16 @@ public class RegisterPlayerController {
 	@Autowired
 	TeamDao teamDao;
 
+	@Autowired
+	CompDao compDao;
+	
 	//選手登録へ
 	@RequestMapping(value="insert_player")
 	public String playerInsertPage(@ModelAttribute("insert_player") PlayerForm form, Model model) {
 		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
+		session.setAttribute("srcf", "taisaku");
 		return "insert_player";
 	}
 
@@ -41,36 +47,43 @@ public class RegisterPlayerController {
 		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
-		//存在チェック
 		if(bindingResult.hasErrors()) {
-			
-			String player1 = form.getPlayerAName();
-			Integer tournamentNum = form.getTournamentNo();
-			if(player1.isEmpty()) {
+			if(form.getPlayerAName().isEmpty()) {
 				model.addAttribute("errorMsg1", "※プレイヤー名が記入されていません。");
 			}
-			if(tournamentNum == null) {
-				model.addAttribute("errorMsg2", "※トーナメント番号を入力してください。");
+			if(form.getPlayerBName().isEmpty()) {
+				model.addAttribute("errorMsg2", "※プレイヤー名が記入されていません。");
+			}
+			if(form.getTournamentNo() == null) {
+				model.addAttribute("errorMsg3", "※トーナメント番号を入力してください。");
 			}
 			return "insert_player";
 		}
+		
+		Comp comp = new Comp();
+		comp.setCompId((Integer)session.getAttribute("compId"));
+		List<Comp> list = compDao.selectAll(comp);
+		Integer tournamentCount = list.get(0).getTournamentCount();
+		if(tournamentCount < form.getTournamentNo()) {
+			model.addAttribute("errorMsg3", tournamentCount + "以下の数字を入力して下さい。");
+			return "insert_player";
+		}
 
-		//選手の新規登録処理
 		Team team = new Team();
-		Integer compId = (Integer)session.getAttribute("compId"); //結合時に、comp_idをsession.getAttribute();で持たせる予定
+		Integer compId = (Integer)session.getAttribute("compId");
 		team.setCompId(compId);
 		team.setPlayerAName(form.getPlayerAName());
 		team.setPlayerBName(form.getPlayerBName());
 		team.setTournamentNo(form.getTournamentNo());
-		teamDao.insertTeam(team);///////////////////////////////////ここまでが個人の処理
+		if("taisaku".equals(session.getAttribute("srcf"))) {
+			teamDao.insertTeam(team);
+			session.setAttribute("srcf", null);
+		}
 		
-		//大会一覧への表示処理
 		team = new Team();
 		team.setCompId(compId);
 		List<Team> registList = teamDao.selectAll(team,"");//
 		model.addAttribute("allPlayer", registList);
 		return "all_player";
-
-		
 	}
 }

@@ -45,6 +45,16 @@ public class PgReceivedResult implements ReceivedResultDao {
 	private final String UPDATEMATCH = "UPDATE " + matchTbl + " set ";
 
 	@Override
+	public List<ReceivedResult> box(Integer compId, Integer status){
+		String sql = SELECT + " WHERE comp_id = :comp_id AND record_status = :record_status";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("comp_id", compId);
+		param.addValue("record_status", status);
+		List<ReceivedResult> list = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
+		return list;
+	}
+	
+	@Override
 	public List<ReceivedResult> search(ReceivedResult result, String keyword) {
 		String sql = SELECT + selectSql(result, keyword);
 		MapSqlParameterSource param = new MapSqlParameterSource();

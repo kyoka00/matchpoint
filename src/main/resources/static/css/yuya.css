@@ -36,7 +36,6 @@
 	margin: auto;
 	transform: translateY(-50%);
 	padding: 15px 30px;
-	background: rgba(0,0,0,0.4);
 	color: #fff;
 	text-align: center;
 	width: 1000px;
@@ -135,7 +134,7 @@ div.coat-view {
 }
 
 div.left-player {
-  float: right;
+  float: left;
   width: 50%; /* 要素の幅を50%に定義 */
   background-color: #CCFFCC; /* 視覚化のための背景色 */
   color: black;
@@ -145,7 +144,7 @@ div.left-player {
 
 
 div.right-player {
-  float: left;
+  float: right;
   width: 50%; /* 要素の幅を50%に定義 */
   background-color: #CCFFCC; /* 視覚化のための背景色 */
   color: black;
@@ -160,11 +159,36 @@ div.right-player {
 .right-float{
 	float: right;
   	width: 50%; /* 要素の幅を50%に定義 */
+  	font-size: 30px;
 }
 
 .left-float{
 	float: left;
   	width: 50%;
+  	font-size: 30px;
+}
+
+.size{
+	font-size: 30px;
+}
+
+.send{
+	margin-top: 30px;
+	width: 50%;
+	margin:auto;
+}
+
+.send label, .send input, .send button{
+	margin: 10px;
+}
+.send button{
+	margin:auto;
+	text-align:center;
+}
+
+.send label{
+	display:inline-block;
+	width: 100px;
 }
 /*game_set_result.html  */
 
@@ -178,18 +202,13 @@ div.right-player {
 
 
 /*xxxxxxxxxxxxxxxxxxxxxxx all系・共通部分xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
-.all {
-	background-image: url(../images/all.png);
-	background-size: cover;
-}
 
 .head{
-	text-align: center;
-	background-color:red;
-	width: 400px;
-    height: 30px;
+	margin: 5%;
 }
-
+.head button{
+	display:inline-box;
+}
 
 table {
    text-align: center;
@@ -199,15 +218,10 @@ table {
 }
 
 
-
 /* 受信ボックス */
 .deletedView{
 	background-color: #f0fff0;
 }
-
-
-
-
 
 
 /*xxxxxxxxxxxxxxxx エラー処理  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/

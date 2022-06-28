@@ -127,14 +127,19 @@ public class ShomaController{
 		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
+		session.setAttribute("info", "insertGO!");
 		return "comp_info";
 	}
 	
 	//大会作成画面から作成ボタンで大会一覧へ移動
 	@RequestMapping(value="comp_list", params="create")
-	public String createComp(@Validated@ModelAttribute("compInfo") CompForm form, BindingResult bindingResult, Model model) {
+	public String createComp(@Validated @ModelAttribute("compInfo") CompForm form, BindingResult bindingResult, Model model) {
 		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
+		}
+		if(session.getAttribute("info") ==null) {
+			model.addAttribute("resultList", compDao.selectAll(new Comp()));
+			return "comp_list"; 
 		}
 		if(bindingResult.hasErrors()) {
 			return "comp_info";
@@ -153,13 +158,12 @@ public class ShomaController{
 		comp.setGameType(2);
 		comp.setMemo(form.getMemo());	
 		
-		
 		if(list == null) {
-			
-			compDao.insertComp(comp);
-			comp = new Comp();
-			
-			model.addAttribute("resultList", compDao.selectAll(comp));
+			if("insertGO!".equals(session.getAttribute("info"))) {
+				compDao.insertComp(comp);
+				session.setAttribute("info", null);
+			}
+			model.addAttribute("resultList", compDao.selectAll(new Comp()));
 			return "comp_list";
 		}
 		

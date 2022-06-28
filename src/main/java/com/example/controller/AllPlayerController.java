@@ -19,17 +19,9 @@ public class AllPlayerController {
 	@Autowired
 	HttpSession session;
 
-	//	@Autowired
-	//	HttpRequest request;
-
 	@Autowired
 	TeamDao teamDao;
 
-	//検索機能作れるようにDao編集しといたから、
-	//all_player.htmlで検索用のform, input, buttonを作って、
-	//新しいRequestMapping作ってー。
-	//また詳しいことは聞いてください。
-	
 	//検索button押下
 	@RequestMapping(value="search")
 	public String search(@ModelAttribute("edit_player") PlayerForm form, Model model) {
@@ -45,8 +37,6 @@ public class AllPlayerController {
 		model.addAttribute("allPlayer", search);
 		return "all_player";
 	}
-	
-	
 
 	//選手一覧へ（全件取得）
 	@RequestMapping(value="all_player")
@@ -63,16 +53,13 @@ public class AllPlayerController {
 		return "all_player";
 	}
 	
-
 	//選手編集へ(serialNumber押下時)
 	@RequestMapping(value="edit_player")
 	public String playerEditPage(@ModelAttribute("edit_player") PlayerForm form, Model model) {
 		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
-
-		//チーム情報を保持したまま、編集画面に遷移
-		
+		session.setAttribute("srcf", "taisaku");
 		Team team = new Team();
 		
 		Integer compId = (Integer)session.getAttribute("compId");

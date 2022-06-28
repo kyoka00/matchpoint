@@ -155,7 +155,7 @@ public class PgScoreDao implements ScoreDao {
 			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
 		}
 		
-		return column + values;
+		return column + ")" + values + ")";
 	}
 	
 	public static String updateSql(Score score) {

@@ -22,6 +22,7 @@ import com.example.dao.TeamDao;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Score;
 import com.example.entity.Team;
+import com.example.util.Utility;
 
 @Controller
 public class GameModeController {
@@ -243,7 +244,9 @@ public class GameModeController {
 		receivedResult.setGameInfoId((Integer) session.getAttribute("game_info_id"));
 		receivedResult.setCoatNo(form.getCoatNo());
 		receivedResult.setJudgeName(form.getJudgeName());
-		receivedResultDao.update(receivedResult);
+		if(Utility.notIsEmptyNull(form.getCoatNo()) || Utility.notIsEmptyNull(form.getJudgeName())) {
+			receivedResultDao.update(receivedResult);
+		}
 		return "tournament";
 	}
 }

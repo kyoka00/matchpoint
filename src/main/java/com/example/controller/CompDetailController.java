@@ -81,7 +81,9 @@ public class CompDetailController{
 			}
 			
 			Comp comp = new Comp();
+			System.out.print("dateStr:" + form.getCompDate());
 			Date date= Date.valueOf(form.getCompDate());
+			System.out.println("date:" + date);
 			comp.setCompId((Integer)session.getAttribute("compId"));
 			comp.setCompName(form.getCompName());
 			comp.setCompDate(date);

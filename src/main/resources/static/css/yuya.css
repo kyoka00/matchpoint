@@ -135,7 +135,7 @@ div.coat-view {
 }
 
 div.left-player {
-  float: right;
+  float: left;
   width: 50%; /* 要素の幅を50%に定義 */
   background-color: #CCFFCC; /* 視覚化のための背景色 */
   color: black;
@@ -145,7 +145,7 @@ div.left-player {
 
 
 div.right-player {
-  float: left;
+  float: right;
   width: 50%; /* 要素の幅を50%に定義 */
   background-color: #CCFFCC; /* 視覚化のための背景色 */
   color: black;
@@ -160,11 +160,36 @@ div.right-player {
 .right-float{
 	float: right;
   	width: 50%; /* 要素の幅を50%に定義 */
+  	font-size: 30px;
 }
 
 .left-float{
 	float: left;
   	width: 50%;
+  	font-size: 30px;
+}
+
+.size{
+	font-size: 30px;
+}
+
+.send{
+	margin-top: 30px;
+	width: 50%;
+	margin:auto;
+}
+
+.send label, .send input, .send button{
+	margin: 10px;
+}
+.send button{
+	margin:auto;
+	text-align:center;
+}
+
+.send label{
+	display:inline-block;
+	width: 100px;
 }
 /*game_set_result.html  */
 

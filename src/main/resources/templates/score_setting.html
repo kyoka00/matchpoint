@@ -10,14 +10,14 @@
 <body class="bg-score-setting">
 	<form action="game_set_result" th:object="${score_setting}"
 		method="POST">
-		<input type="hidden" id="playerA" th:field="*{playerA}"> <input
-			type="hidden" id="playerB" th:field="*{playerB}"> <input
-			type="hidden" id="playerC" th:field="*{playerC}"> <input
-			type="hidden" id="playerD" th:field="*{playerD}"> <input
-			type="hidden" id="server" th:field="*{server}"> <input
-			type="hidden" id="team1_point" th:field="*{team1Point}"> <input
-			type="hidden" id="team2_point" th:field="*{team2Point}"> <input
-			type="hidden" id="max_point" th:field="*{maxPoint}">
+		<input type="hidden" id="playerA" th:field="*{playerA}"> 
+		<input type="hidden" id="playerB" th:field="*{playerB}"> 
+		<input type="hidden" id="playerC" th:field="*{playerC}"> 
+		<input type="hidden" id="playerD" th:field="*{playerD}"> 
+		<input type="hidden" id="server" th:field="*{server}"> 
+		<input type="hidden" id="team1_point" th:field="*{team1Point}"> 
+		<input type="hidden" id="team2_point" th:field="*{team2Point}">
+		<input type="hidden" id="max_point" th:field="*{maxPoint}">
 
 		<div class="coat-view text-white">
 			<div class="left-player">
@@ -40,14 +40,13 @@
 		</div>
 
 		<div class="score-set text-center">
-			<div class="right-float">
+			<table>
+				<tr th:each="score : ${score_list}">
+					<td th:text="${score}"></td>
+				</tr>
+			</table>
+			<div class="left-float">
 				<div id="team1_point_text"></div>
-				<div th:text="${setNumA} + 'セット'" class="get_gameAB">ABゲーム数</div>
-				<table border="1">
-					<tr th:each="score : ${score_list}">
-						<td th:text="${score}"></td>
-					</tr>
-				</table>
 				<div>
 					<button type="button" id="team1tasu" onClick="serverSet(1,'tasu')"
 						class="btn btn-danger">+</button>
@@ -56,9 +55,8 @@
 				</div>
 			</div>
 
-			<div class="left-float">
+			<div class="right-float">
 				<div id="team2_point_text"></div>
-				<div th:text="${setNumB} + 'セット'" class="get_gameCD">CDゲーム数</div>
 				<div>
 					<button type="button" id="team2tasu" onClick="serverSet(2,'tasu')"
 						class=" btn btn-danger">+</button>

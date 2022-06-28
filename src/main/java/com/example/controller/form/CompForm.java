@@ -18,7 +18,6 @@ public class CompForm{
 	@NotBlank
 	private String compLoginId;
 	@NotNull
-	private Integer tournamentNo;
 	private Integer tournamentCount;
 	private Integer gameType;
 	private String gameTypeStr;

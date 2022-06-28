@@ -39,7 +39,6 @@ public class PgCompDao implements CompDao {
 	@Override
 	public List<Comp> selectAll(Comp comp) {
 		String sql = SELECT + PgCompDao.selectSql(comp)+ " ORDER BY " + ID + " DESC";
-		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(comp.getCompId())) {
 			param.addValue(COLUMN_NAME_COMP_ID, comp.getCompId());

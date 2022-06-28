@@ -12,9 +12,12 @@
 <body>
 	<div th:insert="header"></div>
 	
-	<button type="button" onclick="location.href='tournament'">編集完了</button>
+	<button type="button" @click="finishEdit">編集完了</button>
+	<div class="text-right">
 	<button type="button" onclick="location.href='all_player'">戻る</button>
+	</div>
 	<div id="app">
+        <h4 id="msg"></h4>
         <details v-for="tournament in tournaments">
                 <summary>トーナメント: {{ tournament.tournamentNo }}</summary>
             <bracket :rounds="tournament.rounds">
@@ -41,7 +44,7 @@
 	</div>
     <script th:src="@{js/edit_tournament.js}"></script>
 
-	<button type="button" @click="">セーブ</button>
+	<button type="button" @click="save">セーブ</button>
 
 </body>
 </html>

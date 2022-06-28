@@ -15,6 +15,7 @@ const vue = new Vue({
         matchNum: 0,
         dragTeamId: null,
         dragGameNo: null,
+        updated: 0,
     },
     methods:{
         // トーナメント表のひな型を作る
@@ -189,11 +190,12 @@ const vue = new Vue({
                         };
                     }
                 }
+                this.updated = 1;
             }
         },
         // 登録用 POST メソッド
         async insertMatch(url = 'insertMatch', data = {matchLists: this.sentMatchLists}) {
-            // 既定のオプションには * が付いています
+            prepareInsert();
             const response = await fetch(url, {
                 method: 'POST',
                 mode: 'cors',
@@ -208,9 +210,45 @@ const vue = new Vue({
             });
             return response;
         },
+        // 登録用オブジェクト 生成メソッド
+        prepareInsert() {
+            let tournamentNo;
+            this.tournaments.forEach(tournament => {
+                tournamentNo = tournament.tournamentNo;
+                tournament.rounds[0].games.forEach(game => {
+                    this.sentMatchLists.push(
+                        {
+                            tournamentNo: tournamentNo,
+                            gameNo: game.gameNo,
+                            teamIdA: game.teamIdA,
+                            teamIdB: game.teamIdB
+                        }
+                    )
+                })
+            })
+        },
+        // セーブ機能
+        save() {
+            const updateResult = updateMatch()
+            .catch(error => console.log(error));
+            if(updateResult != null) {
+                document.getElementById("msg").innerHTML = "セーブできました";
+            } else {
+                document.getElementById("msg").innerHTML = "セーブできませんでした";
+            }
+        },
+        // 編集完了機能
+        finishEdit() {
+            const updateResult = updateMatch()
+            .catch(error => console.log(error));
+            if(updateResult != null) {
+                location.href = "tournament";
+            } else {
+                document.getElementById("msg").innerHTML = "セーブできませんでした";
+            }
+        },
         // 更新用 POST メソッド
         async updateMatch(url = 'updateMatch', data = {matchLists: this.sentMatchLists}) {
-            // 既定のオプションには * が付いています
             const response = await fetch(url, {
                 method: 'POST',
                 mode: 'cors',
@@ -257,16 +295,14 @@ const vue = new Vue({
                     this.allotTeamFirst(8, this.teamLists8);
                     this.allotTeamFirst(9, this.teamLists9);
                     this.allotTeamFirst(10, this.teamLists10);
+                    this.insertMatch()
+                    .catch(error => console.log(error));
                 } else {
                     // 対戦一覧取得
                     fetch('getMatchList')
                     .then(res => res.json().then(data => {
-                        console.log(data);
                         this.existingMatchLists = data;
                         this.allotTeam();
-                        this.sentMatchLists
-                        this.insertMatch()
-                        .catch(error => console.log(error));
                     }))
                     .catch(error => console.log(error));
                 }

@@ -136,12 +136,13 @@ public class GameModeController{
 		model.addAttribute("score_list", scoreList);
 		model.addAttribute("setNumA", winCountA);
 		model.addAttribute("setNumB", winCountB);
+		session.setAttribute("abcdefg", "abcdefg");
 		return "score_setting";
 	}
 	
-	@RequestMapping(value="insert_game_result")
-	public String insertGameResult(RedirectAttributes redirectAttributes, 
-	@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
+
+@RequestMapping(value="game_set_result")
+	public String gameSetResult(@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
 		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
@@ -151,34 +152,20 @@ public class GameModeController{
 		score.setTeamAScore(form.getTeam1Point());
 		score.setTeamBScore(form.getTeam2Point());
 		if(list == null) {
-			score.setSetNo(0);
+			score.setSetNo(1);
 			list = new ArrayList<Score>();
-			list.add(score);
 		}else {
 			score.setSetNo(list.size() + 1);
+		}
+		
+		if(session.getAttribute("abcdefg") != null) {
 			list.add(score);
+			scoreDao.insertScore(score);
+			session.setAttribute("abcdefg", null);
 		}
-		scoreDao.insertScore(score);
-		ModelMap modelMap = new ModelMap();
-		modelMap.addAttribute("form", form);
-		redirectAttributes.addFlashAttribute("model", modelMap);
-		return "redirect:/game_set_result";
-	}
-	
-	@RequestMapping(value="game_set_result")
-	public String gameSetResult(@ModelAttribute("model")ModelMap modelMap,
-			@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
-			return "top";
-		}
+		
 		int winCountA = 0;
 		int winCountB = 0;
-		Score score = new Score();
-		score.setGameInfoId((Integer)session.getAttribute("game_info_id"));
-		List<Score> list = scoreDao.selectAll(score);
-		form = (GamePlayerForm) modelMap.get("form");
-		System.out.print(modelMap.getAttribute("form"));
-		System.out.println(form.getPlayerA());
 		List<String> scoreList = new ArrayList<String>();
 		if(list != null) {
 			for(Score s : list) {
@@ -192,10 +179,10 @@ public class GameModeController{
 		}
 		String btnStr = "";
 		int winNum = (Integer)session.getAttribute("game_count") / 2 + 1;
-		if(winNum == winCountA) {
+		if(winNum <= winCountA) {
 			btnStr = "試合終了";
 			session.setAttribute("winner", "teamA");
-		}else if(winNum == winCountB) {
+		}else if(winNum <= winCountB) {
 			btnStr = "試合終了";
 			session.setAttribute("winner", "teamB");
 		}
@@ -211,7 +198,6 @@ public class GameModeController{
 		model.addAttribute("score_list", scoreList);
 		model.addAttribute("setNumA", winCountA);
 		model.addAttribute("setNumB", winCountB);
-		
 		return "game_set_result";
 	}
 	

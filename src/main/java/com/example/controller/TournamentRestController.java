@@ -73,23 +73,27 @@ public class TournamentRestController {
 	
 	@RequestMapping("insertMatch")
 	public int insertMatch(@RequestBody MatchList matchList) {
+		System.out.println("insertMatch");
 		int insertNum = 0;
 		Integer compId = (Integer)session.getAttribute("compId");
 		for(ReceivedResult result : matchList.getMatchList()) {
 			result.setCompId(compId);
 			insertNum += receivedResultDao.insertMatch(result);
 		}
+		System.out.println("insert is finished");
 		return insertNum;
 	}
 	
 	@RequestMapping("updateMatch")
 	public int updateMatch(@RequestBody MatchList matchList) {
+		System.out.println("updateMatch");
 		int updateNum = 0;
 		Integer compId = (Integer)session.getAttribute("compId");
 		for(ReceivedResult result : matchList.getMatchList()) {
 			result.setCompId(compId);
 			updateNum += receivedResultDao.updateMatch(result);
 		}
+		System.out.println("update is finished");
 		return updateNum;
 	}
 	
@@ -103,7 +107,7 @@ public class TournamentRestController {
 		return compList.isEmpty()? null: compList.get(0).getTournamentEditStatus();
 	}
 	
-	@RequestMapping("")
+	@RequestMapping("changeEditStatus")
 	public void updateComp(Integer tournamentEditStatus) {
 		Integer compId = (Integer)session.getAttribute("compId");
 		Comp comp = new Comp();
@@ -146,5 +150,38 @@ public class TournamentRestController {
 		}
 		return winnerTeam;
 	}
+//	@RequestMapping("")
+//	public List<Winner> getWinner(){
+//		Integer compId = (Integer)session.getAttribute("compId");
+//		ReceivedResult result = new ReceivedResult();
+//		result.setCompId(compId);
+//		result.setRecordStatus(1);
+//		List<ReceivedResult> resultList = receivedResultDao.search(result,null);
+//		List<Winner> winnerTeam = new ArrayList<Winner>();
+//
+//		for(ReceivedResult r: resultList) {
+//			Score score = new Score();
+//			score.setGameInfoId(r.getGameInfoId());
+//			List<Score> scoreList = scoreDao.selectAll(score);
+//			
+//			int winCountA = 0;
+//			int winCountB = 0;
+//			if(scoreList != null) {
+//				for(Score s : scoreList) {
+//					if(s.getTeamAScore() > s.getTeamBScore()) {
+//						winCountA ++;
+//					}else if(s.getTeamAScore() < s.getTeamBScore()){
+//						winCountB ++;
+//					}
+//				}
+//			}
+//			if(winCountA > winCountB) {
+//				winnerTeam.add(new Winner(r.getGameNo(), r.getTeamIdA()));
+//			}else {
+//				winnerTeam.add(new Winner(r.getGameNo(), r.getTeamIdB()));
+//			}
+//		}
+//		return winnerTeam;
+//	}
 }
 

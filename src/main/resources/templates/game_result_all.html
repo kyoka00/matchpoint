@@ -3,38 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <title>試合結果受信box</title>
-<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
-<link href="/css/yuya.css" rel="stylesheet"></head>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
+	rel="stylesheet">
+<link href="/css/yuya.css" rel="stylesheet">
+</head>
+
 
 <body>
 	<div th:insert="header"></div>
-	<select id="selbox" onchange="change();">
-		<option value="1">削除済みを表示</option>
-		<option value="2">削除済みを非表示</option>
-	  </select>
-	  <form action="sort">
-		<select class="base-text" name="orderBy" onchange="submit(this.form)">
-			<option value="normal">並び替え</option>
-			<option value="record_date">登録日時</option>
-			<option value="game_no">試合番号</option>
-			<option value="coat_no">コート番号</option>
-			<option value="tournament_no">トーナメント番号</option>
-		</select>
-	</form>
-	  <form action="game_result_search" th:object="${comp_detail}">
+		<form action="sort" th:object="${comp_detail}">
+			<input type="hidden" th:field="*{recordStatus}">
+			<select class="base-text" name="orderBy" onchange="submit(this.form)">
+				<option value="normal">並び替え</option>
+				<option value="record_date">登録日時</option>
+				<option value="game_no">試合番号</option>
+				<option value="coat_no">コート番号</option>
+				<option value="tournament_no">トーナメント番号</option>
+			</select>
+		</form>
+  	<form action="game_result_search" th:object="${comp_detail}">
+  		<input type="hidden" th:field="*{recordStatus}">
 		<input type="text" name="keyword" placeholder="キーワード検索">
 		<input type="submit" value="検索">
 	</form>
 	<form action="game_result_all" th:object="${comp_detail}">
+		<input type="hidden" value="0">
 		<input type="submit" value="未登録の試合を表示">
 	</form>
 	<form action="game_result_registered" th:object="${comp_detail}">
+		<input type="hidden" value="1">
 		<input type="submit" value="登録済みの試合を表示">
 	</form>
 	<div class="text-right">
 	<button type="button" onclick="location.href='tournament'">戻る</button>
 	</div>
-	<table class="mx-auto table-striped table-hover table-bordered table-light">
+	<table class="table table-bordered table-striped mx-auto table-hover table-light"
+	border="1">
 	<div class="text-center">
 		<tr>
 			<th class="table-success">日時</th>
@@ -50,6 +54,7 @@
 			<td>[[${GameResultAll.judgeName}]]</td>
 			<td>[[${GameResultAll.tournamentNo}]]</td>
 		</tr>
+		</div>
 	</table>
 </body>
 

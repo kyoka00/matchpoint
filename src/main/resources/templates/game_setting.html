@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <title>試合設定</title>
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
-<link href="/css/yuya.css" rel="stylesheet">
+ <link href="/css/yuya.css" rel="stylesheet">
 <link href="/css/game_mode.css" rel="stylesheet">
 </head>
 <body class="bg-gameSetting">
-	<div class="bg-success-50" id="app">
+	<div class="game-setting text-center" id="app">
 		<form action="server_setting" th:object="${game_info}" method="POST">
 			<div class="text-white" id="category">
 				試合番号
@@ -43,7 +43,7 @@
 				<label><input type="radio" value="5" th:field="*{gameCount}">5ゲーム</label>
 			</div>
 			
-			<div class="text-white">
+			<div class="text-center">
 				<button class="btn bg-info" type="submit" name="server_setting">サーブ権設定</button>
 			</div>
 		</form>

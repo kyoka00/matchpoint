@@ -11,31 +11,33 @@
 	<form action="score_setting" th:object="${score_setting}" method="POST">
 		<input type="hidden" id="playerA" th:field="*{playerA}">
 		<input type="hidden" id="playerB" th:field="*{playerB}">
-		<input type="hidden" id="playerC" th:field="*{playerC}">
-		<input type="hidden" id="playerD" th:field="*{playerD}">
-		
-		<div class="server-change bg-success">
-		<p>立ち位置</p> 
+		<input type="hidden" id="playerC" th:field="*{playerC}"> <input
+			type="hidden" id="playerD" th:field="*{playerD}">
+
+		<div class="bg-success">
+			<p>立ち位置</p>
 			<div class="left-column">
 				<p id="playerAtext">A</p>
 				<button type="button" class="btn btn-light" onclick="changeLeft()">位置を変更</button>
 				<p id="playerBtext" style="color: red;">B</p>
 			</div>
-			
+
 			<div class="right-column">
 				<p id="playerCtext">C</p>
 				<button type="button" class="btn btn-light" onclick="changeRight()">位置を変更</button>
 				<p id="playerDtext">D</p>
 			</div>
-		</div>
-		
+
+
 			<div class="server-select">
-			<input type="radio" value="playerB" th:field="*{server}" onClick="serverSet(1)">
-			サーブ権を選択
-			<input type="radio" value="playerC" th:field="*{server}" onClick="serverSet(2)">
+				<input type="radio" value="playerB" th:field="*{server}"
+					onClick="serverSet(1)"> サーブ権を選択 <input type="radio"
+					value="playerC" th:field="*{server}" onClick="serverSet(2)">
 			</div>
 			<button type="submit">試合開始</button>
+		</div>
 	</form>
+
 	<script src="/js/server_setting.js"></script>
 </body >
 </html>

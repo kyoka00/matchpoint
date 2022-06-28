@@ -30,7 +30,7 @@
 	text-align: center;
 	width: 1000px;
 }
-}
+
 
 .mode{
 	margin: auto;
@@ -55,16 +55,7 @@
 	background-size: cover;
 }
 
-div.bg-success {
-	font-size: 50px;
-	font-family: impact;
-	text-align: center;
- 	height: 750px; 
- 	margin-left: 25%; 
-    margin-right: 25%;
-	padding: 5 5;
-	color: #fff;
-}
+
 
 /* ////////////////////server-setting.html  ////////////////////*/
 body.bg-server{
@@ -79,6 +70,11 @@ font-family: "Hiragino Sans","ヒラギノ角ゴシック";
   float: left;
   width: 50%; /* 要素の幅を50%に定義 */
   background-color: #CCFFCC; /* 視覚化のための背景色 */
+  text-align:center;
+  padding: 30px;
+  color: black;
+  font-size: 50px;
+  margin-bottom: 20px;
 
 }
 
@@ -86,43 +82,90 @@ font-family: "Hiragino Sans","ヒラギノ角ゴシック";
   float: right;
   width: 50%; /* 要素の幅を50%に定義 */
   background-color: #CCFFCC; /* 視覚化のための背景色 */
+  text-align:center;
+  padding: 30px;
+  color:black;
+  font-size: 50px;
+  margin-bottom: 20px;
 }
-
+div.bg-success {
+	font-size: 20px;
+	font-family: impact;
+	text-align: center;
+ 	margin-left: 25%; 
+    margin-right: 25%;
+	padding: 50px;
+	color: #fff;
+	margin:50px;
+	
+}
+.bg-success p{
+	font-size: 50px;
+}
+.server-select{
+	margin: 20px;
+}
 
 /*////////////////////// score_setting.html //////////////// */
 .bg-scoreSetting{
 	background-image: url("../images/haikei.png");
-	div.bg-success {
-	font-size: 50px;
-	font-family: impact;
-	text-align: center;
- 	height: 750px; 
- 	margin-left: 25%; 
-    margin-right: 25%;
-	padding: 5 5;
-	color: #fff;
+	
+}
+
+.game-setting{
+	margin:50px auto;
+	background-color:grey;
+	width: 70%;
+	height: 60%;
+	padding: 40px;
+	font-size: 30px;
 }
 
 div.coat-view {
   font-family: impact;
-  
+  	font-size: 20px;
+	font-family: impact;
+	text-align: center;
+ 	margin-left: 25%; 
+    margin-right: 25%;
+	padding: 50px;
+	color: #fff;
+	margin:50px;
+	background-color:#36b840;
 }
 
 div.left-player {
   float: right;
-  width: 25%; /* 要素の幅を50%に定義 */
+  width: 50%; /* 要素の幅を50%に定義 */
   background-color: #CCFFCC; /* 視覚化のための背景色 */
+  color: black;
+  padding: 30px;
+  margin-bottom: 20px;
 }
+
 
 div.right-player {
   float: left;
   width: 50%; /* 要素の幅を50%に定義 */
   background-color: #CCFFCC; /* 視覚化のための背景色 */
+  color: black;
+  padding: 30px;
+  margin-bottom: 20px;
 }
 
+.score-set{
+	margin:auto;
+}
 
+.right-float{
+	float: right;
+  	width: 50%; /* 要素の幅を50%に定義 */
+}
 
-
+.left-float{
+	float: left;
+  	width: 50%;
+}
 /*game_set_result.html  */
 
 /* #table { */
@@ -149,7 +192,7 @@ div.right-player {
 
 
 table {
-   text-center;
+   text-align: center;
    width: 100%;
    font-family: "メイリオ";
    border-radius: 30px;
@@ -281,7 +324,7 @@ div.error {
 /* 	line-height: 1.5em; */
 /* } */
 
-/* /**後ろに白背景**/ */
+/* /**後ろに白背景**/ 
 /* .compinfo { */
 /* 	width: 950px; */
 /* 	height: 550px; */
@@ -305,7 +348,7 @@ div.error {
 /* 	background-color: white; */
 /* } */
 
-/* /**ボタン色**/ */
+/* /**ボタン色**/ 
 /* .btn-orange-moon { */
 /*     background: #fc4a1a;  fallback for old browsers */
 /*     background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);  Chrome 10-25, Safari 5.1-6 */

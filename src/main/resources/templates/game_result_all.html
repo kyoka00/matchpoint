@@ -10,7 +10,7 @@
 <body>
 	<div th:insert="header"></div>
 	<div class="text-right">
-	<button type="button" onclick="location.href='tournament'">戻る</button>
+	<button class="text-white btn-primary" type="button" onclick="location.href='tournament'">戻る</button>
 	</div>
 	<form action="sort" th:object="${comp_detail}">
 		<input type="hidden" th:field="*{recordStatus}">
@@ -48,7 +48,7 @@
 		</tr>
 		<tr th:each="result : ${list}" >
 			<td>[[${result.recordDate}]]</td>
-			<td><a class="btn btn-info" role="button"  th:href="location.href='game_result_final?gameInfoId =' + ${result.gameInfoId}">第[[${result.gameNo}]]試合</a></td>
+			<td><a class="btn btn-info" role="button"  th:href="'/game_result_final?gameInfoId=' + ${result.gameInfoId}">第[[${result.gameNo}]]試合</a></td>
 			<td>[[${result.coatNo}]]</td>
 			<td>[[${result.judgeName}]]</td>
 			<td>[[${result.tournamentNo}]]</td>

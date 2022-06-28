@@ -21,7 +21,6 @@ import com.example.dao.ScoreDao;
 import com.example.entity.GameResultAll;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Score;
-import com.example.util.Utility;
 
 @Controller
 public class GameResultAllController{
@@ -129,13 +128,12 @@ public class GameResultAllController{
 
 	// 試合結果登録へ
 	@RequestMapping(value = "game_result_final")
-	public String resultFinal(@ModelAttribute("comp_detail") GamePlayerForm form, Model model) {
+	public String resultFinal(@ModelAttribute("team") GamePlayerForm form, Model model) {
 		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
 
-		Integer gameInfoId = (Integer) session.getAttribute("game_info_id");
-		System.out.println(gameInfoId);
+		Integer gameInfoId = form.getGameInfoId();
 		Score score = new Score();
 		score.setGameInfoId(gameInfoId);
 		List<Score> list = scoreDao.selectAll(score);
@@ -161,6 +159,7 @@ public class GameResultAllController{
 				}
 			}
 		}
+		System.out.println(searchResult);
 		model.addAttribute("set", (winCountA + winCountB) + "/" + searchResult.getGameCount());
 		model.addAttribute("team", searchResult);
 		model.addAttribute("score_list", scoreList);
@@ -170,29 +169,52 @@ public class GameResultAllController{
 		return "game_result_final";
 	}
 	
-	@RequestMapping(value="tournament_register")
-	public String tournamentRegister(@ModelAttribute("comp_detail") GamePlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
+	@RequestMapping(value = "tournament_register", params = "register")
+	public String tournamentRegister(@ModelAttribute("team") GamePlayerForm form, Model model) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
-		
-		ReceivedResult receivedResult = new ReceivedResult();
-		Integer recordStatus = form.getRecordStatus();
-		receivedResult.setGameInfoId((Integer) session.getAttribute("game_info_id"));
-		
-		
-		if(recordStatus == 0) {
-			recordStatus = 1;
-			receivedResult.setRecordStatus(recordStatus);
-			receivedResultDao.update(receivedResult);
-			return "tournament";
+
+		if (form.getRecordStatus() == 0) {
+			ReceivedResult search = new ReceivedResult();
+			search.setGameNo(form.getGameNo());
+			search.setRecordStatus(1);
+			List<ReceivedResult> check = receivedResultDao.search(search, null);
+			if (check != null) {
+				model.addAttribute("msg", "既に登録済みの情報があります。");
+			} else {
+				ReceivedResult receivedResult = new ReceivedResult();
+				receivedResult.setGameInfoId(form.getGameInfoId());
+				receivedResult.setRecordStatus(1);
+				int count = receivedResultDao.update(receivedResult);
+				if (count == 0) {
+					model.addAttribute("msg", "登録できませんでした。");
+				} else {
+					model.addAttribute("msg", "登録しました");
+				}
+			}
+
 		}
-		
-		if(Utility.notIsEmptyNull(receivedResult.getMatchId()) && recordStatus == 1) {
-			recordStatus = 0;
-			receivedResult.setRecordStatus(recordStatus);
-			receivedResultDao.update(receivedResult);
+		return "tournament";
+	}
+	@RequestMapping(value = "tournament_register", params = "delete")
+	public String tournamentDelete(@ModelAttribute("comp_detail") GamePlayerForm form, Model model) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
+			return "top";
 		}
+
+		if (form.getRecordStatus() == 0) {
+				ReceivedResult receivedResult = new ReceivedResult();
+				receivedResult.setGameInfoId(form.getGameInfoId());
+				receivedResult.setRecordStatus(2);
+				int count = receivedResultDao.update(receivedResult);
+				if (count == 0) {
+					model.addAttribute("msg", "削除できませんでした。");
+				} else {
+					model.addAttribute("msg", "削除しました");
+				}
+			}
+
 		return "tournament";
 	}
 }

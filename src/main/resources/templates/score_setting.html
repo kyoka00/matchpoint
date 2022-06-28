@@ -9,6 +9,7 @@
 </head>
 <body class="bg-score-setting">
 <div th:insert="header"></div>
+<div class="coat-setting">
 	<form action="game_set_result" th:object="${score_setting}"
 		method="POST">
 		<input type="hidden" id="playerA" th:field="*{playerA}"> 
@@ -69,6 +70,7 @@
 			<button type="submit">ゲーム終了</button>
 		</div>
 	</form>
+	</div>
 	<script src="/js/score_setting.js"></script>
 </body>
 </html>

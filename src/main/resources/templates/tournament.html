@@ -14,6 +14,9 @@
 </head>
 <body>
 	<div th:insert="header"></div>
+	<div class="text-center">
+		<p th:text="${msg}">MSG</p>
+		</div>
 	<div class="tournament">
 		<div class="text-right">
 			<button type="button" onclick="location.href='comp_list_back'">戻る</button>
@@ -26,6 +29,7 @@
 				<button type="button" onclick="location.href='game_result_all'">大会結果受信ボックス</button>
 			</div>
 		</div>
+		
 		<div id="app">
 			<details v-for="tournament in tournaments">
 				<summary>トーナメント: {{ tournament.tournamentNo }}</summary>

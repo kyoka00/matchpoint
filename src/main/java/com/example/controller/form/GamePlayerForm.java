@@ -13,4 +13,6 @@ public class GamePlayerForm{
 	private Integer team2Point;
 	private Integer maxPoint;
 	private Integer recordStatus;
+	private Integer gameInfoId;
+	private Integer gameNo;
 }

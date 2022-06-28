@@ -7,23 +7,21 @@
 	rel="stylesheet">
 <link href="/css/yuya.css" rel="stylesheet">
 </head>
-
-
 <body>
 	<div th:insert="header"></div>
 	<div class="text-right">
 	<button type="button" onclick="location.href='tournament'">戻る</button>
 	</div>
-		<form action="sort" th:object="${comp_detail}">
-			<input type="hidden" th:field="*{recordStatus}">
-			<select class="base-text" name="orderBy" onchange="submit(this.form)">
-				<option value="normal">並び替え</option>
-				<option value="record_date">登録日時</option>
-				<option value="game_no">試合番号</option>
-				<option value="coat_no">コート番号</option>
-				<option value="tournament_no">トーナメント番号</option>
-			</select>
-		</form>
+	<form action="sort" th:object="${comp_detail}">
+		<input type="hidden" th:field="*{recordStatus}">
+		<select class="base-text" name="orderBy" onchange="submit(this.form)">
+			<option value="normal">並び替え</option>
+			<option value="record_date">登録日時</option>
+			<option value="game_no">試合番号</option>
+			<option value="coat_no">コート番号</option>
+			<option value="tournament_no">トーナメント番号</option>
+		</select>
+	</form>
   	<form action="game_result_search" th:object="${comp_detail}">
   		<input type="hidden" th:field="*{recordStatus}">
 		<input type="text" name="keyword" placeholder="キーワード検索">

@@ -44,7 +44,7 @@ public class GameResultAllController{
 			return "top";
 		}
 		Integer compId = (Integer)session.getAttribute("compId");
-		List<ReceivedResult> list = receivedResultDao.box(compId, 1);
+		List<ReceivedResult> list = receivedResultDao.box(compId, 0);
 		model.addAttribute("list", list);
 		return "game_result_all";
 	}
@@ -54,10 +54,10 @@ public class GameResultAllController{
 		if (session.getAttribute("loginId") == null) {
 			return "top";
 		}
-		
-//		List<GameResultAll> resultList = gameResultAllDao.select(1);
+		Integer compId = (Integer)session.getAttribute("compId");
+		List<ReceivedResult> list = receivedResultDao.box(compId, 1);
+		model.addAttribute("list", list);
 		form.setRecordStatus(1);
-//		model.addAttribute("resultList", resultList);
 		return "game_result_all";
 	}
 
@@ -70,7 +70,6 @@ public class GameResultAllController{
 		int recordStatus = form.getRecordStatus();
 		String keyword = form.getKeyword();
 
-		
 		if(recordStatus == 0){
 			List<GameResultAll> search = gameResultAllDao.search(keyword, 0);
 			model.addAttribute("resultList", search);
@@ -86,7 +85,6 @@ public class GameResultAllController{
 	}
 
 	@RequestMapping(value = "sort")
-
 	public String sort(@RequestParam("orderBy")  String orderBy,
 			@ModelAttribute("comp_detail") GameResultAllForm form,Model model) {
 		

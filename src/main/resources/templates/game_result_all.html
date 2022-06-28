@@ -11,6 +11,9 @@
 
 <body>
 	<div th:insert="header"></div>
+	<div class="text-right">
+	<button type="button" onclick="location.href='tournament'">戻る</button>
+	</div>
 		<form action="sort" th:object="${comp_detail}">
 			<input type="hidden" th:field="*{recordStatus}">
 			<select class="base-text" name="orderBy" onchange="submit(this.form)">
@@ -34,12 +37,11 @@
 		<input type="hidden" value="1">
 		<input type="submit" value="登録済みの試合を表示">
 	</form>
-	<div class="text-right">
-	<button type="button" onclick="location.href='tournament'">戻る</button>
-	</div>
+	
+	<div class="text-center">
 	<table class="table table-bordered table-striped mx-auto table-hover table-light"
 	border="1">
-	<div class="text-center">
+	
 		<tr>
 			<th class="table-success">日時</th>
 			<th class="table-success">試合番号</th>
@@ -54,8 +56,8 @@
 			<td>[[${GameResultAll.judgeName}]]</td>
 			<td>[[${GameResultAll.tournamentNo}]]</td>
 		</tr>
-		</div>
 	</table>
+	</div>
 </body>
 
 </html>

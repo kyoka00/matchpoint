@@ -230,21 +230,19 @@ div.error {
   font-size: 12px;
 }
 
+/* 大会受信BOX  */
+label{
+	width: 20%;
+	display: inline-box;
+}
 
+input{
+	width: 7%;
+}
 
-
-/* /*Top画面の背景画像フェードイン  */ 
-/* .anim-box.fadein.is-animated { */
-/*   animation: fadeIn 0.7s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards; */
-/* } */
-/* @keyframes fadeIn { */
-/*   0% { */
-/*     opacity: 0; */
-/*   } */
-/*   100% { */
-/*     opacity: 1; */
-/*   } */
-/* } */
+input.mr-2{
+	width: 20%;
+}
 
 /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
 

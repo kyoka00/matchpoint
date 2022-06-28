@@ -241,7 +241,15 @@ div.error {
   font-size: 12px;
 }
 
+/* 大会受信BOX  */
+label{
+	width: 20%;
+	display: inline-box;
+}
 
+input{
+	width: 7%;
+}
 
 /* /*Top画面の背景画像フェードイン  */ 
 /* .anim-box.fadein.is-animated { */
@@ -255,6 +263,9 @@ div.error {
 /*     opacity: 1; */
 /*   } */
 /* } */
+input.mr-2{
+	width: 20%;
+}
 
 /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
 

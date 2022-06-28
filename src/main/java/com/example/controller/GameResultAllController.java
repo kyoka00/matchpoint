@@ -198,7 +198,7 @@ public class GameResultAllController{
 		return "tournament";
 	}
 	@RequestMapping(value = "tournament_register", params = "delete")
-	public String tournamentDelete(@ModelAttribute("comp_detail") GamePlayerForm form, Model model) {
+	public String tournamentDelete(@ModelAttribute("team") GamePlayerForm form, Model model) {
 		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}

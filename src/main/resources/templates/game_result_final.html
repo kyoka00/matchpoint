@@ -19,13 +19,13 @@
 		
 		<div>
 			<div>
-				<p th:text="${playerA}">A</p>
-				<p th:text="${playerB}">B</p>
+				<p th:text="${team.getTeamAPlayer1()}">A</p>
+				<p th:text="${team.getTeamAPlayer2()}">B</p>
 			</div>
 			
 			<div>
-				<p th:text="${playerC}">C</p>
-				<p th:text="${playerD}">D</p>
+				<p th:text="${team.getTeamBPlayer1()}">C</p>
+				<p th:text="${team.getTeamBPlayer2()}">D</p>
 			</div>
 		</div>
 		

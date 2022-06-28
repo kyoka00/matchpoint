@@ -39,7 +39,6 @@
 	<div class="text-center">
 	<table class="table table-bordered table-striped mx-auto table-hover table-light"
 		border="1">
-	<div class="text-center">
 		<tr>
 			<th class="table-success">日時</th>
 			<th class="table-success">試合番号</th>
@@ -49,7 +48,7 @@
 		</tr>
 		<tr th:each="result : ${list}" >
 			<td>[[${result.recordDate}]]</td>
-			<td><button type="button" onClick="location.href='game_result_final'">第[[${result.gameNo}]]試合</button></td>
+			<td><a class="btn btn-info" role="button"  th:href="location.href='game_result_final?gameInfoId =' + ${result.gameInfoId}">第[[${result.gameNo}]]試合</a></td>
 			<td>[[${result.coatNo}]]</td>
 			<td>[[${result.judgeName}]]</td>
 			<td>[[${result.tournamentNo}]]</td>

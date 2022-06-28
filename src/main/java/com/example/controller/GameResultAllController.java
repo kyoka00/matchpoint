@@ -128,31 +128,35 @@ public class GameResultAllController{
 			return "top";
 		}
 
+		Integer gameInfoId = (Integer) session.getAttribute("game_info_id");
+		System.out.println(gameInfoId);
 		Score score = new Score();
-
-		score.setGameInfoId((Integer) session.getAttribute("game_info_id"));
+		score.setGameInfoId(gameInfoId);
 		List<Score> list = scoreDao.selectAll(score);
-		if(list == null) {
-			score.getSetNo();
-			list = new ArrayList<Score>();
-		}
-		score.setTeamAScore(form.getTeam1Point());
-		score.setTeamBScore(form.getTeam2Point());
-		scoreDao.insertScore(score);
-		//insert??
-		int winCountA = score.getTeamAScore();
-		int winCountB = score.getTeamBScore();
+		
+		ReceivedResult result = new ReceivedResult();
+		result.setGameInfoId(gameInfoId);
+		ReceivedResult searchResult = receivedResultDao.search(result, "").get(0);
+		
+		int winCountA = 0;
+		int winCountB = 0;
 		List<String> scoreList = new ArrayList<String>();
+
+		
 		if(list != null) {
+
 			for(Score s : list) {
 				scoreList.add(s.getTeamAScore() + "対" + s.getTeamBScore());
+				
+				if(s.getTeamAScore() > s.getTeamBScore()) {
+					winCountA ++;
+				}else if(s.getTeamAScore() < s.getTeamBScore()){
+					winCountB ++;
+				}
 			}
 		}
-		model.addAttribute("set", (winCountA + winCountB) + "/" + session.getAttribute("game_count"));
-		model.addAttribute("playerA", form.getPlayerA());
-		model.addAttribute("playerB", form.getPlayerB());
-		model.addAttribute("playerC", form.getPlayerC());
-		model.addAttribute("playerD", form.getPlayerD());
+		model.addAttribute("set", (winCountA + winCountB) + "/" + searchResult.getGameCount());
+		model.addAttribute("team", searchResult);
 		model.addAttribute("score_list", scoreList);
 		model.addAttribute("setNumA", winCountA);
 		model.addAttribute("setNumB", winCountB);

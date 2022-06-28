@@ -8,6 +8,7 @@
 <link href="/css/yuya.css" rel="stylesheet">
 </head>
 <body>
+<div th:insert="header"></div>
 	<form action="game_result" th:object="${score_setting}" method="POST">
 		<input type="hidden" th:field="*{playerA}"> <input
 			type="hidden" th:field="*{playerB}"> <input type="hidden"

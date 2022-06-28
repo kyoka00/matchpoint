@@ -55,6 +55,15 @@ public class TournamentController {
 				session.setAttribute("compId", compId);
 			}else if(compId != null) {
 				session.setAttribute("compId", compId);
+			}else if ((Integer)session.getAttribute("compId") == null){
+				if(session.getAttribute("loginId") == null) {
+					return "comp_login";
+					
+				}else if(session.getAttribute("compLoginId")== null) {
+					Comp comp = new Comp();
+					model.addAttribute("resultList", compDao.selectAll(comp));
+					return "comp_list";
+				}
 			}else {
 				compId = (Integer)session.getAttribute("compInfo");
 			}
@@ -166,6 +175,7 @@ public class TournamentController {
 			}else if(session.getAttribute("loginId") == null) {
 				return "comp_login";
 			}
+			session.setAttribute("compId",null);
 			Comp comp = new Comp();
 			model.addAttribute("resultList", compDao.selectAll(comp));
 			return "comp_list";

@@ -5,9 +5,9 @@
 <title>試合設定</title>
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
  <link href="/css/yuya.css" rel="stylesheet">
-<link href="/css/game_mode.css" rel="stylesheet">
 </head>
 <body class="bg-gameSetting">
+<div th:insert="header"></div>
 	<div class="game-setting text-center" id="app">
 		<form action="server_setting" th:object="${game_info}" method="POST">
 			<div class="text-white" id="category">

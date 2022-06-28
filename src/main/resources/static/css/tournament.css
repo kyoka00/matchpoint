@@ -1,6 +1,8 @@
 @charset "UTF-8";
 .tournament{
-	margin: 10%;
+	margin: 5%;
+	background-color: beige;
+	padding: 5%;
 }
 .buttons{
 	display: inline-block;
@@ -22,7 +24,7 @@
 }
 .vtb-item-players {
     flex-direction: column;
-    background-color:white;
+    background-color:beige;
     margin: 0;
     padding: 20px, 0px;
     color: white;

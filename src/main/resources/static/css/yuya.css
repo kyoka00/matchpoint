@@ -36,7 +36,6 @@
 	margin: auto;
 	transform: translateY(-50%);
 	padding: 15px 30px;
-	background: rgba(0,0,0,0.4);
 	color: #fff;
 	text-align: center;
 	width: 1000px;
@@ -203,16 +202,12 @@ div.right-player {
 
 
 /*xxxxxxxxxxxxxxxxxxxxxxx all系・共通部分xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
-.all {
-	background-image: url(../images/all.png);
-	background-size: cover;
-}
 
 .head{
 	text-align: center;
-	background-color:red;
 	width: 400px;
     height: 30px;
+    margin-top: 30px;
 }
 
 
@@ -224,15 +219,10 @@ table {
 }
 
 
-
 /* 受信ボックス */
 .deletedView{
 	background-color: #f0fff0;
 }
-
-
-
-
 
 
 /*xxxxxxxxxxxxxxxx エラー処理  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/

@@ -8,51 +8,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>選手一覧</title>
 </head>
-<body class="all">
-	<!-- 選手登録画面へ -->
+<body>
 	<div th:insert="header"></div>
-<div class="head">
-<div th:if ="${session.loginId}">
-	<button class="text-white bg-danger btn btn-outline-light my-box btn btn-orange-moon mr-auto" type="button" onclick="location.href='edit_tournament'">トーナメント表作成</button>
-	</div>
-	<div class="text-right">
-	<button  class="text-white bg-primary btn btn-outline-light rounded-pill my-box btn-primary" id="btn-return" type="button" onclick="location.href='tournament'">戻る</button>
-	</div>
-	<div th:if ="${session.loginId}">
-	<button class="text-white btn btn-outline-light" type="button" onclick="location.href='insert_player'">選手登録</button>
-	</div>
-	<div class="text-center">
-	<form action="search" th:object="${edit_player}">
-		<input type="text" name="keyword" placeholder="キーワード検索">
-		<input type="submit" value="検索">
-	</form>
-	</div>
-</div>
-	<form action="all_player" th:object="${all_player}">
-		<div class="table-responsive">
-			<div class="text-center">
-				<table
-					class="table table-bordered table-striped mx-auto table-hover table-light"
-					border="1">
 
-					<!-- 選手一覧表へ -->
-					<tr>
-						<th class="table-success">番号</th>
-						<th class="table-success">プレイヤー1</th>
-						<th class="table-success">プレイヤ―2</th>
-						<th class="table-success">トーナメント番号</th>
-					</tr>
-					<tr class="align-middle" th:each="player : ${allPlayer}">
-						<td><a class="btn btn-info "
-							th:href="'/edit_player?teamId=' + ${player.teamId}" role="button">[[
-								${#strings.escapeXml(player.teamId)} ]]</a></td>
-						<td>[[ ${#strings.escapeXml(player.playerAName)} ]]</td>
-						<td>[[ ${#strings.escapeXml(player.playerBName)} ]]</td>
-						<td>[[ ${#strings.escapeXml(player.tournamentNo)} ]]</td>
-					</tr>
-				</table>
+		<div class="head">
+			<div th:if="${session.loginId}">
+				<button
+					class="text-white bg-danger btn btn-outline-light my-box btn btn-orange-moon mr-auto"
+					type="button" onclick="location.href='edit_tournament'">トーナメント表作成</button>
+			</div>
+			<div class="text-right">
+				<button
+					class="text-white bg-primary btn btn-outline-light rounded-pill my-box btn-primary"
+					id="btn-return" type="button" onclick="location.href='tournament'">戻る</button>
+			</div>
+			<div th:if="${session.loginId}">
+				<button class="text-white btn btn-outline-light" type="button"
+					onclick="location.href='insert_player'">選手登録</button>
+			</div>
+			<div class="text-center">
+				<form action="search" th:object="${edit_player}">
+					<input type="text" name="keyword" placeholder="キーワード検索"> <input
+						type="submit" value="検索">
+				</form>
 			</div>
 		</div>
-	</form>
+		<form action="all_player" th:object="${all_player}">
+			<div class="table-responsive">
+				<div class="text-center">
+					<table
+						class="table table-bordered table-striped mx-auto table-hover table-light"
+						border="1">
+
+						<!-- 選手一覧表へ -->
+						<tr>
+							<th class="table-success">番号</th>
+							<th class="table-success">プレイヤー1</th>
+							<th class="table-success">プレイヤ―2</th>
+							<th class="table-success">トーナメント番号</th>
+						</tr>
+						<tr class="align-middle" th:each="player : ${allPlayer}">
+							<td><a class="btn btn-info "
+								th:href="'/edit_player?teamId=' + ${player.teamId}"
+								role="button">[[ ${#strings.escapeXml(player.teamId)} ]]</a></td>
+							<td>[[ ${#strings.escapeXml(player.playerAName)} ]]</td>
+							<td>[[ ${#strings.escapeXml(player.playerBName)} ]]</td>
+							<td>[[ ${#strings.escapeXml(player.tournamentNo)} ]]</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</form>
 </body>
 </html>

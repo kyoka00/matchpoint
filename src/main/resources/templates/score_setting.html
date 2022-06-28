@@ -8,6 +8,7 @@
 <link href="/css/yuya.css" rel="stylesheet">
 </head>
 <body class="bg-score-setting">
+<div th:insert="header"></div>
 	<form action="game_set_result" th:object="${score_setting}"
 		method="POST">
 		<input type="hidden" id="playerA" th:field="*{playerA}"> 

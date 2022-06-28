@@ -160,6 +160,7 @@ public class PgReceivedResult implements ReceivedResultDao {
 	@Override
 	public int update(ReceivedResult result) {
 		String sql = UPDATE + updateSql(result);
+		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(result.getRecordStatus())) {
 			param.addValue(COLUMN_NAME_RECORDSTATUS, result.getRecordStatus());

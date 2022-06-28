@@ -15,22 +15,24 @@ const pointText1 = document.getElementById('team1_point_text')
 const pointText2 = document.getElementById('team2_point_text')
 
 const server = document.getElementById('server')
+let first_server
 const server_set = document.getElementById('server_select')
 
 const tasuBtn1 = document.getElementById('team1tasu')
 const tasuBtn2 = document.getElementById('team2tasu')
 
 window.addEventListener("load",function(){
-	let server = document.getElementById('server')
 	document.getElementById('playerAtext').innerHTML = document.getElementById('playerA').value
 	document.getElementById('playerBtext').innerHTML = document.getElementById('playerB').value
 	document.getElementById('playerCtext').innerHTML = document.getElementById('playerC').value
 	document.getElementById('playerDtext').innerHTML = document.getElementById('playerD').value
 	if(server.value == 'playerB'){
 		server.value = document.getElementById('playerB').value
+		first_server = server.value
 		document.getElementById('playerBtext').setAttribute('style', 'color: red;')
 	}else if(server.value == 'playerC'){
 		server.value = document.getElementById('playerC').value
+		first_server = server.value
 		document.getElementById('playerCtext').setAttribute('style', 'color: red;')
 	}
 	document.getElementById('team1_point_text').innerHTML = 0
@@ -42,7 +44,7 @@ window.addEventListener("load",function(){
 function serverSet(team, btn){
 	let tmp
 	var maxPoint = document.getElementById('max_point')
-	
+	console.log(first_server)
 	if(btn == 'tasu'){
 		if(team == 1){
 			if(server.value == playerA || server.value == playerB){
@@ -50,9 +52,21 @@ function serverSet(team, btn){
 				textA.innerHTML = textB.innerHTML
 				textB.innerHTML = tmp
 			}else if(server.value == playerC){
-				server.value = playerB
-				server_set.value = 'playerB'
+				if(first_server == playerB){
+					server.value = playerB
+					server_set.value = 'playerB'
+				}else{
+					server.value = playerA
+					server_set.value = 'playerA'
+				}
 			}else if(server.value == playerD){
+				if(first_server == playerB){
+					server.value = playerA
+					server_set.value = 'playerA'
+				}else{
+					server.value = playerB
+					server_set.value = 'playerB'
+				}
 				server.value = playerA
 				server_set.value = 'playerA'
 			}
@@ -69,11 +83,23 @@ function serverSet(team, btn){
 				textC.innerHTML = textD.innerHTML
 				textD.innerHTML = tmp
 			}else if(server.value == playerA){
-				server.value = playerC
-				server_set.value = 'playerC'
+				if(first_server == playerB){
+					server.value = playerC
+					server_set.value = 'playerC'
+				}else {
+					server.value = playerD
+					server_set.value = 'playerD'
+				}
+				
 			}else if(server.value == playerB){
-				server.value = playerD
-				server_set.value = 'playerD'
+				if(first_server == playerB){
+					server.value = playerD
+					server_set.value = 'playerD'
+				}else{
+					server.value = playerC
+					server_set.value = 'playerC'
+				}
+				
 			}
 			if(window.sessionStorage.getItem(['coat']) == null || window.sessionStorage.getItem(['coat']) == 0){
 				pointText2.innerHTML = Number(pointText2.innerHTML) + 1

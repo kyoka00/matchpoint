@@ -43,10 +43,9 @@ public class GameResultAllController{
 		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
-
-		List<GameResultAll> resultList = gameResultAllDao.select(0);
-		form.setRecordStatus(0);
-		model.addAttribute("resultList", resultList);
+		Integer compId = (Integer)session.getAttribute("compId");
+		List<ReceivedResult> list = receivedResultDao.box(compId, 1);
+		model.addAttribute("list", list);
 		return "game_result_all";
 	}
 
@@ -55,10 +54,10 @@ public class GameResultAllController{
 		if (session.getAttribute("loginId") == null) {
 			return "top";
 		}
-
-		List<GameResultAll> resultList = gameResultAllDao.select(1);
+		
+//		List<GameResultAll> resultList = gameResultAllDao.select(1);
 		form.setRecordStatus(1);
-		model.addAttribute("resultList", resultList);
+//		model.addAttribute("resultList", resultList);
 		return "game_result_all";
 	}
 

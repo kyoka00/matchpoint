@@ -11,11 +11,11 @@
 <div th:insert="header"></div>
 	<form action="game_set_result" th:object="${score_setting}"
 		method="POST">
-		<input type="hidden" id="playerA" th:field="*{playerA}"> 
-		<input type="hidden" id="playerB" th:field="*{playerB}"> 
-		<input type="hidden" id="playerC" th:field="*{playerC}"> 
-		<input type="hidden" id="playerD" th:field="*{playerD}"> 
-		<input type="hidden" id="server" th:field="*{server}"> 
+		<input type="text" id="playerA" th:field="*{playerA}"> 
+		<input type="text" id="playerB" th:field="*{playerB}"> 
+		<input type="text" id="playerC" th:field="*{playerC}"> 
+		<input type="text" id="playerD" th:field="*{playerD}"> 
+		<input type="text" id="server" th:field="*{server}"> 
 		<input type="hidden" id="team1_point" th:field="*{team1Point}"> 
 		<input type="hidden" id="team2_point" th:field="*{team2Point}">
 		<input type="hidden" id="max_point" th:field="*{maxPoint}">

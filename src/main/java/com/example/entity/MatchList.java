@@ -7,4 +7,9 @@ import lombok.Data;
 @Data
 public class MatchList {
 	private List<ReceivedResult> matchList;
+
+	public List<ReceivedResult> getMatchList() {
+		// TODO 自動生成されたメソッド・スタブ
+		return this.matchList;
+	}
 }

@@ -11,9 +11,11 @@ const vue = new Vue({
         tournaments: [],
         teamLists: [],
         existingMatchLists: [],
+        sentMatchLists: [],
         matchNum: 0,
         dragTeamId: null,
         dragGameNo: null,
+        updated: 0,
     },
     methods:{
         // トーナメント表のひな型を作る
@@ -77,7 +79,7 @@ const vue = new Vue({
                         name: '・' + teamEmpty.playerAName + teamEmpty.playerBName,
                     };
                 }
-            })
+            });
         },
         // 前回までの組み合わせを参照して、きれいにぶち込む
         allotTeam() {
@@ -87,17 +89,6 @@ const vue = new Vue({
                     'games',
                     tournament.rounds[0].games.map(game => {
                         const matchFromDb = this.existingMatchLists.find(existingMatch => game.gameNo === existingMatch.gameNo);
-                            console.log("試合:" , {
-                                gameNo: matchFromDb.gameNo,
-                                player1: {
-                                    id: matchFromDb.teamIdA,
-                                    name: matchFromDb.teamAPlayer1name + "・" + matchFromDb.teamAPlayer2,
-                                },
-                                player2: {
-                                    id: matchFromDb.teamIdB,
-                                    name: matchFromDb.teamBPlayer1 + "・" + matchFromDb.teamBPlayer2,
-                                },
-                            });
                             return {
                                 gameNo: matchFromDb.gameNo,
                                 player1: {
@@ -199,31 +190,100 @@ const vue = new Vue({
                         };
                     }
                 }
+                this.updated = 1;
             }
+        },
+        // 登録用 POST メソッド
+        async insertMatch(url = 'insertMatch', data = {matchLists: this.sentMatchLists}) {
+            prepareInsert();
+            const response = await fetch(url, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify(data),
+            });
+            return response;
+        },
+        // 登録用オブジェクト 生成メソッド
+        prepareInsert() {
+            let tournamentNo;
+            this.tournaments.forEach(tournament => {
+                tournamentNo = tournament.tournamentNo;
+                tournament.rounds[0].games.forEach(game => {
+                    this.sentMatchLists.push(
+                        {
+                            tournamentNo: tournamentNo,
+                            gameNo: game.gameNo,
+                            teamIdA: game.teamIdA,
+                            teamIdB: game.teamIdB
+                        }
+                    )
+                })
+            })
+        },
+        // セーブ機能
+        save() {
+            const updateResult = updateMatch()
+            .catch(error => console.log(error));
+            if(updateResult != null) {
+                document.getElementById("msg").innerHTML = "セーブできました";
+            } else {
+                document.getElementById("msg").innerHTML = "セーブできませんでした";
+            }
+        },
+        // 編集完了機能
+        finishEdit() {
+            const updateResult = updateMatch()
+            .catch(error => console.log(error));
+            if(updateResult != null) {
+                location.href = "tournament";
+            } else {
+                document.getElementById("msg").innerHTML = "セーブできませんでした";
+            }
+        },
+        // 更新用 POST メソッド
+        async updateMatch(url = 'updateMatch', data = {matchLists: this.sentMatchLists}) {
+            const response = await fetch(url, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify(data),
+            });
+            return response;
         },
     },
     created: function() {
         // チーム一覧取得
         fetch('getTeamList')
-            .then(res => res.json()
-            .then(data => {
-                this.teamLists = data
-                this.createTournament(1, this.teamLists1);
-                this.createTournament(2, this.teamLists2);
-                this.createTournament(3, this.teamLists3);
-                this.createTournament(4, this.teamLists4);
-                this.createTournament(5, this.teamLists5);
-                this.createTournament(6, this.teamLists6);
-                this.createTournament(7, this.teamLists7);
-                this.createTournament(8, this.teamLists8);
-                this.createTournament(9, this.teamLists9);
-                this.createTournament(10, this.teamLists10);
-                // 分岐: トーナメント作成済みか否か
-                let tournamentStatus;
-                // fetch('getTournamentStatus')
-                //     .then(res => tournamentStatus = res)
-                //     .catch(error => console.log(error));
-                tournamentStatus = 0;
+        .then(res => res.json().then(data => {
+            this.teamLists = data;
+            this.createTournament(1, this.teamLists1);
+            this.createTournament(2, this.teamLists2);
+            this.createTournament(3, this.teamLists3);
+            this.createTournament(4, this.teamLists4);
+            this.createTournament(5, this.teamLists5);
+            this.createTournament(6, this.teamLists6);
+            this.createTournament(7, this.teamLists7);
+            this.createTournament(8, this.teamLists8);
+            this.createTournament(9, this.teamLists9);
+            this.createTournament(10, this.teamLists10);
+            // 分岐: トーナメント作成済みか否か
+            let tournamentStatus;
+            fetch('getTournamentEditStatus')
+            .then(res => {
+                tournamentStatus = res;
                 if(tournamentStatus === 0) {
                     this.allotTeamFirst(1, this.teamLists1);
                     this.allotTeamFirst(2, this.teamLists2);
@@ -235,14 +295,21 @@ const vue = new Vue({
                     this.allotTeamFirst(8, this.teamLists8);
                     this.allotTeamFirst(9, this.teamLists9);
                     this.allotTeamFirst(10, this.teamLists10);
-                } else {
-                    fetch('getMatchList')
-                    .then(res => res.json().then(data => this.existingMatchLists = data))
+                    this.insertMatch()
                     .catch(error => console.log(error));
-                    this.allotTeam();
+                } else {
+                    // 対戦一覧取得
+                    fetch('getMatchList')
+                    .then(res => res.json().then(data => {
+                        this.existingMatchLists = data;
+                        this.allotTeam();
+                    }))
+                    .catch(error => console.log(error));
                 }
-            }))
+            })
             .catch(error => console.log(error));
+        }))
+        .catch(error => console.log(error));
     },
     computed: {
         teamLists1() {

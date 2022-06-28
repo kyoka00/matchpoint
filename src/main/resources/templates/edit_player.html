@@ -22,16 +22,31 @@
 		<div class="form-group mt-1">
 			<label class="col-sm-2 control-label">プレイヤー1:</label>
 			<input type="text" th:field="*{playerAName}">
+			<br>
+			<div class="error">
+			<td th:text="${errorMsg1}">
+			</td>
+			</div>
 		</div>
 		
 		<div class="form-group mt-4">
 			<label class="col-sm-2 control-label">プレイヤー2:</label>
 			<input type="text" th:field="*{playerBName}">
+			<br>
+			<div class="error">
+			<td th:text="${errorMsg2}">
+			</td>
+			</div>
 		</div>
 		
 		<div class="form-group mt-4">
 			<label class="col-sm-2 control-label">トーナメント番号:</label>
 			<input type="text" th:field="*{tournamentNo}">
+			<br>
+			<div class="error">
+			<td th:text="${errorMsg3}">
+			</td>
+			</div>
 		</div>
 
 

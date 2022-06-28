@@ -71,7 +71,6 @@ public class PgReceivedResult implements ReceivedResultDao {
 		}
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
 		return resultList.isEmpty() ? null : resultList;
-//		return null;
 	}
 	
 	@Override

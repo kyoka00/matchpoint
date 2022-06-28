@@ -29,17 +29,16 @@
 	</form>
 	<form action="game_result_all" th:object="${comp_detail}">
 		<input type="hidden" value="0">
-		<input type="submit" value="未登録の試合を表示">
+		<input type="submit" value="未登録の試合を全表示">
 	</form>
 	<form action="game_result_registered" th:object="${comp_detail}">
 		<input type="hidden" value="1">
-		<input type="submit" value="登録済みの試合を表示">
+		<input type="submit" value="登録済みの試合を全表示">
 	</form>
 	
 	<div class="text-center">
-	<table class="table table-bordered table-striped mx-auto table-hover table-light"
+	<table class="table table-bordered table-striped mx-auto table-hover table-light text-center"
 		border="1">
-	<div class="text-center">
 		<tr>
 			<th class="table-success">日時</th>
 			<th class="table-success">試合番号</th>

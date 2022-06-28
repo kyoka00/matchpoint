@@ -44,7 +44,8 @@ public class GameResultAllController{
 			return "top";
 		}
 		Integer compId = (Integer)session.getAttribute("compId");
-		List<ReceivedResult> list = receivedResultDao.box(compId, 0);
+		List<ReceivedResult> list = receivedResultDao.box(compId, 0, "");
+		form.setRecordStatus(0);
 		model.addAttribute("list", list);
 		return "game_result_all";
 	}
@@ -55,9 +56,9 @@ public class GameResultAllController{
 			return "top";
 		}
 		Integer compId = (Integer)session.getAttribute("compId");
-		List<ReceivedResult> list = receivedResultDao.box(compId, 1);
-		model.addAttribute("list", list);
+		List<ReceivedResult> list = receivedResultDao.box(compId, 1, "");
 		form.setRecordStatus(1);
+		model.addAttribute("list", list);
 		return "game_result_all";
 	}
 
@@ -66,21 +67,26 @@ public class GameResultAllController{
 		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
-	
-		int recordStatus = form.getRecordStatus();
-		String keyword = form.getKeyword();
-
-		if(recordStatus == 0){
-			List<GameResultAll> search = gameResultAllDao.search(keyword, 0);
-			model.addAttribute("resultList", search);
-			return "game_result_all";
-		}
 		
-		if(recordStatus == 1){
-			List<GameResultAll> search = gameResultAllDao.search(keyword, 1);
-			model.addAttribute("resultList", search);
-		}
-
+		
+		Integer compId = (Integer)session.getAttribute("compId");
+		List<ReceivedResult> list = receivedResultDao.box(compId, form.getRecordStatus(), form.getKeyword());
+		form.setRecordStatus(1);
+		model.addAttribute("list", list);
+		System.out.println(list.get(0).getGameInfoId());
+		
+		
+//		int recordStatus = form.getRecordStatus();
+//		String keyword = form.getKeyword();
+//
+//		if(Utility.notIsEmptyNull(keyword)){
+//			List<GameResultAll> search = gameResultAllDao.search(keyword, recordStatus);
+//			model.addAttribute("resultList", search);
+//			return "game_result_all";
+//		} else {
+//			List<GameResultAll> search = gameResultAllDao.search("", recordStatus);
+//			model.addAttribute("resultList", search);
+//		}
 		return "game_result_all";
 	}
 

@@ -19,7 +19,7 @@
 	<button  class="text-white bg-primary btn btn-outline-light rounded-pill my-box btn-primary" id="btn-return" type="button" onclick="location.href='tournament'">戻る</button>
 	</div>
 	<div th:if ="${session.loginId}">
-	<button class="text-white bg-success btn btn-outline-light" type="button" onclick="location.href='insert_player'">選手登録</button>
+	<button class="text-white btn btn-outline-light" type="button" onclick="location.href='insert_player'">選手登録</button>
 	</div>
 	<div class="text-center">
 	<form action="search" th:object="${edit_player}">

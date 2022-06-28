@@ -3,32 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <title>スコア画面</title>
-<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
+	rel="stylesheet">
 <link href="/css/yuya.css" rel="stylesheet">
 </head>
 <body>
 	<form action="update_game_info" th:object="${update_game_info}">
-		<div>試合番号:<span th:text="${game_no}"></span></div>
-		<div>
-			<div>
+		<div class="coat-view text-white">
+			<div class="left-player">
 				<p th:text="${playerA}"></p>
 				<p th:text="${playerB}"></p>
 			</div>
-			<div th:text="${final_score}"></div>
-			<div>
+			
+			<div class="right-player">
 				<p th:text="${playerC}"></p>
 				<p th:text="${playerD}"></p>
 			</div>
+			<div th:text="${final_score}"></div>
+			
 		</div>
-		<div>
-			コート番号:
-			<input type="text" th:field="*{coatNo}">
+		<div class ="send">
+		<label>試合番号:</label>
+		<span th:text="${game_no}"></span><br>
+			<label>コート番号: </label>
+			<input type="text" th:field="*{coatNo}"> <br>
+			<label>審判名: </label>
+			<input type="text" th:field="*{judgeName}"><br>
+			<button type="submit">ゲーム終了</button>
 		</div>
-		<div>
-			審判名:
-			<input type="text" th:field="*{judgeName}">
-		</div>
-		<button type="submit">ゲーム終了</button>
 	</form>
 </body>
 </html>

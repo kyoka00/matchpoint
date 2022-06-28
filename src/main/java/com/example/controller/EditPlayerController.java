@@ -34,8 +34,29 @@ public class EditPlayerController {
 	@RequestMapping(value="edit_player", params= "edit")
 	public String playerEdit(@Validated @ModelAttribute("edit_player") PlayerForm form, BindingResult bindingResult,Model model) {
 		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
-			return "top";
+				return "top";
 		}
+		if (bindingResult.hasErrors()) {
+            return "edit_player";
+	    }
+			
+			
+			//存在チェック
+			String player1 = form.getPlayerAName();
+			String player2 = form.getPlayerBName();
+			Integer tournamentNum = form.getTournamentNo();
+			if(player1.isEmpty()) {
+				model.addAttribute("errorMsg1", "※プレイヤー名が記入されていません。");
+			}
+			if(player2.isEmpty()) {
+				model.addAttribute("errorMsg2", "※プレイヤー名が記入されていません。");
+			}
+			if(tournamentNum == null) {
+				model.addAttribute("errorMsg3", "※トーナメント番号を入力してください。");
+			}
+		
+		
+		
 			Team team = new Team();
 			Integer teamId = form.getTeamId();
 			Integer compId = (Integer)session.getAttribute("compId"); //結合時に、comp_idをsession.getAttribute();で持たせる予定

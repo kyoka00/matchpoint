@@ -11,20 +11,23 @@
 <body class="all">
 	<!-- 選手登録画面へ -->
 	<div th:insert="header"></div>
-	<div class="head">
-		<button
-			class="text-white bg-danger btn btn-outline-light my-box btn btn-orange-moon mr-auto"
-			type="button" onclick="location.href='edit_tournament'">トーナメント表作成</button>
-		<button
-			class="text-white bg-primary btn btn-outline-light rounded-pill my-box btn-primary"
-			id="btn-return" type="button" onclick="location.href='tournament'">戻る</button>
-		<button class="text-white bg-success btn btn-outline-light"
-			type="button" onclick="location.href='insert_player'">選手登録</button>
-		<form action="search" th:object="${edit_player}">
-			<input type="text" name="keyword" placeholder="キーワード検索"> <input
-				type="submit" value="検索">
-		</form>
+<div class="head">
+<div th:if ="${session.loginId}">
+	<button class="text-white bg-danger btn btn-outline-light my-box btn btn-orange-moon mr-auto" type="button" onclick="location.href='edit_tournament'">トーナメント表作成</button>
 	</div>
+	<div class="text-right">
+	<button  class="text-white bg-primary btn btn-outline-light rounded-pill my-box btn-primary" id="btn-return" type="button" onclick="location.href='tournament'">戻る</button>
+	</div>
+	<div th:if ="${session.loginId}">
+	<button class="text-white btn btn-outline-light" type="button" onclick="location.href='insert_player'">選手登録</button>
+	</div>
+	<div class="text-center">
+	<form action="search" th:object="${edit_player}">
+		<input type="text" name="keyword" placeholder="キーワード検索">
+		<input type="submit" value="検索">
+	</form>
+	</div>
+</div>
 	<form action="all_player" th:object="${all_player}">
 		<div class="table-responsive">
 			<div class="text-center">

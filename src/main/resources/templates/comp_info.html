@@ -9,92 +9,101 @@
 
 </head>
 <body>
-	  <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav4" aria-controls="navbarNav4" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a href="/" class="navbar-brand"><img src="./images/ゆうやロゴ1.png" class="login_logo">Match Point</a>
-        <div class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-            
-            	<li class="nav-item">
-                    <a href="/match" class="nav-link">試合モード</a>
-                </li>
-               
-                <li class="nav-item active">
-                    <a class="nav-link" href="/logout">ログアウト</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav4" aria-controls="navbarNav4"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a href="/" class="navbar-brand"><img src="./images/ゆうやロゴ1.png"
+			class="login_logo">Match Point</a>
+		<div class="collapse navbar-collapse justify-content-end">
+			<ul class="navbar-nav">
 
-<div class="compinfo">
-	<div class="text-center">
-		<p th:text="${errorMsg}"></p>
-	</div>
+				<li class="nav-item"><a href="/match" class="nav-link">試合モード</a>
+				</li>
 
-	<form action="comp_list" th:object="${compInfo}" method="POST"
-		class="form-horizontal">
-		<div class="text-right">
-			<button type="button" onclick="location.href='comp_list_back'" class="btn btn-primary">戻る</button>
+				<li class="nav-item active"><a class="nav-link" href="/logout">ログアウト</a>
+				</li>
+			</ul>
 		</div>
+	</nav>
 
+	<div class="compinfo">
 		<div class="text-center">
-			<div class="form-group">
-				<label class="col-sm-2 control-label">大会名:</label> <input
-					type="text" th:field="*{compName}">
-				<div class="error" th:each="error: ${#fields.errors('compName')}">[[
-					${error} ]]</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-sm-2 control-label mr-5">開催日:</label> <input
-					type="date" th:field="*{compDate}">
-				<div class="error" th:each="error: ${#fields.errors('compDate')}">[[
-					${error} ]]</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-sm-2 control-label">場所:</label> <input type="text"
-					th:field="*{compPlace}">
-				<div class="error" th:each="error: ${#fields.errors('compPlace')}">[[
-					${error} ]]</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-sm-2 control-label">大会ログインID:</label> <input
-					type="text" th:field="*{compLoginId}">
-				<div class="error" th:each="error: ${#fields.errors('compLoginId')}">[[
-					${error} ]]</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-sm-2 control-label mr-5">トーナメント数:</label> 
-				<input type="number" th:field="*{tournamentNo}">
-				<div class="error" th:each="error: ${#fields.errors('tournamentNo')}">[[
-					${error} ]]</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-sm-2 control-label">試合形式:</label> <select
-					th:field="*{gameType}">
-					<option th:value="1" th:text="シングルス"></option>
-					<option th:value="2" th:text="ダブルス"></option>
-				</select>
-
-			</div>
-
-			<div class="form-group">
-				<label class="col-sm-2 control-label">大会概要:</label> <input
-					type="text" th:field="*{memo}">
-			</div>
-
+			<p class="error" th:text="${errorMsg}"></p>
 		</div>
 
-		<div class="text-center">
-			<button type="submit" name="create" class="btn btn-primary">作成</button>
-		</div>
-	</form>
+		<form action="comp_list" th:object="${compInfo}" method="POST"
+			class="form-horizontal">
+			<div class="text-right">
+				<button type="button" onclick="location.href='comp_list_back'" class="btn btn-primary">
+					戻る
+				</button>
+			</div>
+
+			<div class="text-center">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">大会名:</label>
+					<input type="text" th:field="*{compName}">
+					<span class="error" th:each="error: ${#fields.errors('compName')}">
+						[[ ${error}	]]
+					</span>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label mr-5">開催日:</label>
+					<input type="date" th:field="*{compDate}">
+					<span class="error" th:each="error: ${#fields.errors('compDate')}">
+						[[ ${error} ]]
+					</span>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">場所:</label>
+					<input type="text" th:field="*{compPlace}">
+					<span class="error"	th:each="error: ${#fields.errors('compPlace')}">
+						[[ ${error} ]]
+					</span>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">大会ログインID:</label>
+					<input type="text" th:field="*{compLoginId}">
+					<span class="error" th:each="error: ${#fields.errors('compLoginId')}">
+						[[ ${error} ]]
+					</span>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label mr-5">トーナメント数:</label>
+					<input type="number" id="tournamentCount" th:field="*{tournamentNo}"
+						 max="10" min="1" placeholder="最大10まで" onChange="tournamentCountCheck()">
+					<span class="error" th:each="error: ${#fields.errors('tournamentNo')}">
+						[[ ${error} ]]
+					</span>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">大会概要:</label>
+					<input type="text" th:field="*{memo}">
+				</div>
+			</div>
+
+			<div class="text-center">
+				<button type="submit" name="create" class="btn btn-primary">作成</button>
+			</div>
+		</form>
 	</div>
+	
+	<script>
+		function tournamentCountCheck(){
+			const tournamentCount = document.getElementById('tournamentCount')
+			
+			if(tournamentCount.value > 10){
+				tournamentCount.value = 10
+			}
+		}
+	</script>
 </body>
 </html>

@@ -34,7 +34,7 @@ public class PgScoreDao implements ScoreDao {
 
 	@Override
 	public List<Score> selectAll(Score score) {
-		String sql = SELECT + PgScoreDao.selectSql(score);
+		String sql = SELECT + PgScoreDao.selectSql(score) + " ORDER BY " + ID;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if(Utility.notIsEmptyNull(score.getScoreId())) {
 			param.addValue(COLUMN_NAME_SCORE_ID, score.getScoreId());
@@ -58,6 +58,7 @@ public class PgScoreDao implements ScoreDao {
 	@Override
 	public void insertScore(Score score) {
 		String sql = INSERT + PgScoreDao.insertSql(score);
+		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if(Utility.notIsEmptyNull(score.getGameInfoId())) {
 			param.addValue(COLUMN_NAME_GAME_INFO_ID, score.getGameInfoId());
@@ -153,9 +154,8 @@ public class PgScoreDao implements ScoreDao {
 			column = !column.isEmpty() ? column + ", " + columnName : " (" + columnName;
 			values = !values.isEmpty() ? values + ", :" + columnName : " values(:" + columnName;
 		}
-		column = !column.isEmpty() ? column + ")" : column;
-		values = !values.isEmpty() ? values + ")" : column;
-		return column + values;
+		
+		return column + ")" + values + ")";
 	}
 	
 	public static String updateSql(Score score) {

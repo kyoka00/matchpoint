@@ -8,73 +8,54 @@
 <link href="/css/yuya.css" rel="stylesheet">
 </head>
 
+
 <body>
 	<div th:insert="header"></div>
-	<select class="deletedView" id="selbox" onchange="change();">
-		<option value="1">削除済みを表示</option>
-		<option value="2">削除済みを非表示</option>
-	</select>
-	<form action="sort">
-		<select class="base-text" name="orderBy" onchange="submit(this.form)">
-			<option value="normal">並び替え</option>
-			<option value="record_date">登録日時</option>
-			<option value="game_no">試合番号</option>
-			<option value="coat_no">コート番号</option>
-			<option value="tournament_no">トーナメント番号</option>
-		</select>
+		<form action="sort" th:object="${comp_detail}">
+			<input type="hidden" th:field="*{recordStatus}">
+			<select class="base-text" name="orderBy" onchange="submit(this.form)">
+				<option value="normal">並び替え</option>
+				<option value="record_date">登録日時</option>
+				<option value="game_no">試合番号</option>
+				<option value="coat_no">コート番号</option>
+				<option value="tournament_no">トーナメント番号</option>
+			</select>
+		</form>
+  	<form action="game_result_search" th:object="${comp_detail}">
+  		<input type="hidden" th:field="*{recordStatus}">
+		<input type="text" name="keyword" placeholder="キーワード検索">
+		<input type="submit" value="検索">
 	</form>
-
-	<form action="game_result_search" th:object="${comp_detail}">
-		<input type="text" name="keyword" placeholder="キーワード検索"> <input
-			type="submit" value="検索">
+	<form action="game_result_all" th:object="${comp_detail}">
+		<input type="hidden" value="0">
+		<input type="submit" value="未登録の試合を表示">
+	</form>
+	<form action="game_result_registered" th:object="${comp_detail}">
+		<input type="hidden" value="1">
+		<input type="submit" value="登録済みの試合を表示">
 	</form>
 	<div class="text-right">
-		<button type="button" onclick="location.href='tournament'"
-			class="btn btn-primary">戻る</button>
+	<button type="button" onclick="location.href='tournament'">戻る</button>
 	</div>
-
+	<table class="table table-bordered table-striped mx-auto table-hover table-light"
+	border="1">
 	<div class="text-center">
-		<div th:if="${recordStatus == 0}">
-			<table class="table table-bordered table-striped mx-auto table-hover table-light"
-					border="1">
-				<tr>
-					<th class="table-success">日時</th>
-					<th class="table-success">試合番号</th>
-					<th class="table-success">コート番号</th>
-					<th class="table-success">審判名</th>
-					<th class="table-success">トーナメント番号</th>
-				</tr>
-				<tr th:each="GameResultAll : ${resultList}">
-					<td>[[${GameResultAll.recordDate}]]</td>
-					<td><button type="button"
-							onClick="location.href='game_result_final'">第[[${GameResultAll.gameNo}]]試合</button></td>
-					<td>[[${GameResultAll.coatNo}]]</td>
-					<td>[[${GameResultAll.judgeName}]]</td>
-					<td>[[${GameResultAll.tournamentNo}]]</td>
-				</tr>
-			</table>
+		<tr>
+			<th class="table-success">日時</th>
+			<th class="table-success">試合番号</th>
+			<th class="table-success">コート番号</th>
+			<th class="table-success">審判名</th>
+			<th class="table-success">トーナメント番号</th>
+		</tr>
+		<tr th:each="GameResultAll : ${resultList}" >
+			<td>[[${GameResultAll.recordDate}]]</td>
+			<td><button type="button" onClick="location.href='game_result_final'">第[[${GameResultAll.gameNo}]]試合</button></td>
+			<td>[[${GameResultAll.coatNo}]]</td>
+			<td>[[${GameResultAll.judgeName}]]</td>
+			<td>[[${GameResultAll.tournamentNo}]]</td>
+		</tr>
 		</div>
-	</div>
-
-	<div>
-		<table class="table table-bordered table-striped mx-auto table-hover table-light"
-					border="1">
-			<tr>
-				<th class="table-success">日時</th>
-				<th class="table-success">試合番号</th>
-				<th class="table-success">コート番号</th>
-				<th class="table-success">審判名</th>
-				<th class="table-success">トーナメント番号</th>
-			</tr>
-			<tr th:each="GameResultAll : ${resultList}">
-				<td>[[${GameResultAll.recordDate}]]</td>
-				<td><button type="button"
-						onClick="location.href='game_result_final'">第[[${GameResultAll.gameNo}]]試合</button></td>
-				<td>[[${GameResultAll.coatNo}]]</td>
-				<td>[[${GameResultAll.judgeName}]]</td>
-				<td>[[${GameResultAll.tournamentNo}]]</td>
-			</tr>
-		</table>
-	</div>
+	</table>
 </body>
+
 </html>

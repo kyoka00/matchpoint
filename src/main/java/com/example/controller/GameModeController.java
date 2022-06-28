@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.controller.form.GameInfoForm;
 import com.example.controller.form.GamePlayerForm;
@@ -21,25 +22,26 @@ import com.example.dao.TeamDao;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Score;
 import com.example.entity.Team;
+import com.example.util.Utility;
 
 @Controller
-public class GameModeController{
+public class GameModeController {
 	@Autowired
 	HttpSession session;
-	
+
 	@Autowired
 	ReceivedResultDao receivedResultDao;
-	
+
 	@Autowired
 	TeamDao teamDao;
-	
+
 	@Autowired
 	ScoreDao scoreDao;
-	
-	//試合設定画面
-	@RequestMapping(value="match")
+
+	// 試合設定画面
+	@RequestMapping(value = "match")
 	public String gameSetting(@ModelAttribute("game_info") GameInfoForm form) {
-		if(session.getAttribute("loginId") == null) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
 		form.setGameNo(1);
@@ -47,13 +49,28 @@ public class GameModeController{
 		form.setGameCount(3);
 		return "game_setting";
 	}
-	
-	@RequestMapping(value="server_setting")
-	public String redirectServerSetting(@ModelAttribute("score_setting") GamePlayerForm playerForm) {
-		if(session.getAttribute("loginId") == null) {
+
+	@RequestMapping(value = "match_from_tournament")
+	public String gameSet(@ModelAttribute("game_info") GameInfoForm form, @RequestParam("game_no") Integer gameNo) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
-		Integer gameInfoId = (Integer)session.getAttribute("game_info_id");
+		if (gameNo != null) {
+			form.setGameNo(gameNo);
+		} else {
+			form.setGameNo(1);
+		}
+		form.setMaxPoint(21);
+		form.setGameCount(3);
+		return "game_setting";
+	}
+
+	@RequestMapping(value = "server_setting")
+	public String redirectServerSetting(@ModelAttribute("score_setting") GamePlayerForm playerForm) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
+			return "top";
+		}
+		Integer gameInfoId = (Integer) session.getAttribute("game_info_id");
 		ReceivedResult receivedResult = new ReceivedResult();
 		receivedResult.setGameInfoId(gameInfoId);
 		List<ReceivedResult> list = receivedResultDao.search(receivedResult, "");
@@ -65,22 +82,22 @@ public class GameModeController{
 		playerForm.setServer("playerB");
 		return "server_setting";
 	}
-	
-	@RequestMapping(value="server_setting", params="server_setting")
-	public String serverSetting(@Validated @ModelAttribute("game_info") GameInfoForm form,
-			BindingResult bindingResult, @ModelAttribute("score_setting") GamePlayerForm playerForm) {
+
+	@RequestMapping(value = "server_setting", params = "server_setting")
+	public String serverSetting(@Validated @ModelAttribute("game_info") GameInfoForm form, BindingResult bindingResult,
+			@ModelAttribute("score_setting") GamePlayerForm playerForm) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
+			return "top";
+		}
 		if (bindingResult.hasErrors()) {
-			form.setMaxPoint(form.getMaxPoint());
-			form.setGameCount(form.getGameCount());
-            return "game_setting";
-        }
+			form.setGameNo(1);
+			return "game_setting";
+		}
 		ReceivedResult receivedResult = new ReceivedResult();
 		receivedResult.setGameNo(form.getGameNo());
-		//あとから変えるやつ
-		//compIDはセッションに保存されているやつを使う
-		receivedResult.setCompId(1);
+		receivedResult.setCompId((Integer) session.getAttribute("compId"));
 		List<ReceivedResult> list = receivedResultDao.searchMatch(receivedResult);
-		if(list == null) {
+		if (list == null) {
 			return "game_setting";
 		}
 		receivedResult.setMatchId(list.get(0).getMatchId());
@@ -92,77 +109,81 @@ public class GameModeController{
 		session.setAttribute("max_point", form.getMaxPoint());
 		return "redirect:/server_setting";
 	}
-	
-	@RequestMapping(value="score_setting")
+
+	@RequestMapping(value = "score_setting")
 	public String scoreSetting(@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
 		Score score = new Score();
-		score.setGameInfoId((Integer)session.getAttribute("game_info_id"));
+		score.setGameInfoId((Integer) session.getAttribute("game_info_id"));
 		List<Score> list = scoreDao.selectAll(score);
 		int winCountA = 0;
 		int winCountB = 0;
 		List<String> scoreList = new ArrayList<String>();
-		if(list != null) {
-			for(Score s : list) {
-				if(s.getTeamAScore() > s.getTeamBScore()) {
-					winCountA ++;
-				}else if(s.getTeamAScore() > s.getTeamBScore()){
-					winCountB ++;
+		if (list != null) {
+			for (Score s : list) {
+				if (s.getTeamAScore() > s.getTeamBScore()) {
+					winCountA++;
+				} else if (s.getTeamAScore() > s.getTeamBScore()) {
+					winCountB++;
 				}
 				scoreList.add(s.getTeamAScore() + "対" + s.getTeamBScore());
 			}
 		}
-		form.setMaxPoint((Integer)session.getAttribute("max_point"));
+		form.setMaxPoint((Integer) session.getAttribute("max_point"));
 		model.addAttribute("score_list", scoreList);
 		model.addAttribute("setNumA", winCountA);
 		model.addAttribute("setNumB", winCountB);
+		session.setAttribute("abcdefg", "abcdefg");
 		return "score_setting";
 	}
-	
-	@RequestMapping(value="game_set_result")
+
+	@RequestMapping(value = "game_set_result")
 	public String gameSetResult(@ModelAttribute("score_setting") GamePlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
 		Score score = new Score();
-		score.setGameInfoId((Integer)session.getAttribute("game_info_id"));
+		score.setGameInfoId((Integer) session.getAttribute("game_info_id"));
 		List<Score> list = scoreDao.selectAll(score);
 		score.setTeamAScore(form.getTeam1Point());
 		score.setTeamBScore(form.getTeam2Point());
-		if(list == null) {
-			score.setSetNo(0);
+		if (list == null) {
+			score.setSetNo(1);
 			list = new ArrayList<Score>();
-			list.add(score);
-		}else {
+		} else {
 			score.setSetNo(list.size() + 1);
-			list.add(score);
 		}
-		scoreDao.insertScore(score);
+
+		if (session.getAttribute("abcdefg") != null) {
+			list.add(score);
+			scoreDao.insertScore(score);
+			session.setAttribute("abcdefg", null);
+		}
+
 		int winCountA = 0;
 		int winCountB = 0;
 		List<String> scoreList = new ArrayList<String>();
-		if(list != null) {
-			for(Score s : list) {
-				if(s.getTeamAScore() > s.getTeamBScore()) {
-					winCountA ++;
-				}else if(s.getTeamAScore() < s.getTeamBScore()){
-					winCountB ++;
+		if (list != null) {
+			for (Score s : list) {
+				if (s.getTeamAScore() > s.getTeamBScore()) {
+					winCountA++;
+				} else if (s.getTeamAScore() < s.getTeamBScore()) {
+					winCountB++;
 				}
 				scoreList.add(s.getTeamAScore() + "対" + s.getTeamBScore());
 			}
 		}
 		String btnStr = "";
-		int winNum = (Integer)session.getAttribute("game_count") / 2 + 1;
-		if(winNum == winCountA) {
+		int winNum = (Integer) session.getAttribute("game_count") / 2 + 1;
+		if (winNum <= winCountA) {
 			btnStr = "試合終了";
 			session.setAttribute("winner", "teamA");
-		}else if(winNum == winCountB) {
+		} else if (winNum <= winCountB) {
 			btnStr = "試合終了";
 			session.setAttribute("winner", "teamB");
-		}
-		else {
+		} else {
 			btnStr = "次のゲームへ";
 		}
 		model.addAttribute("btn", btnStr);
@@ -176,32 +197,32 @@ public class GameModeController{
 		model.addAttribute("setNumB", winCountB);
 		return "game_set_result";
 	}
-	
-	@RequestMapping(value="game_result", params="next")
+
+	@RequestMapping(value = "game_result", params = "next")
 	public String nextGame(@ModelAttribute("score_setting") GamePlayerForm form,
 			@ModelAttribute("update_game_info") GameInfoForm gameInfoForm, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
-		if(session.getAttribute("winner") == null) {
+		if (session.getAttribute("winner") == null) {
 			return "redirect:/server_setting";
-		}else {
+		} else {
 			Score score = new Score();
-			score.setGameInfoId((Integer)session.getAttribute("game_info_id"));
+			score.setGameInfoId((Integer) session.getAttribute("game_info_id"));
 			List<Score> list = scoreDao.selectAll(score);
 			int winCountA = 0;
 			int winCountB = 0;
-			if(list != null) {
-				for(Score s : list) {
-					if(s.getTeamAScore() > s.getTeamBScore()) {
-						winCountA ++;
-					}else if(s.getTeamAScore() < s.getTeamBScore()){
-						winCountB ++;
+			if (list != null) {
+				for (Score s : list) {
+					if (s.getTeamAScore() > s.getTeamBScore()) {
+						winCountA++;
+					} else if (s.getTeamAScore() < s.getTeamBScore()) {
+						winCountB++;
 					}
 				}
 			}
 			ReceivedResult receivedResult = new ReceivedResult();
-			receivedResult.setGameInfoId((Integer)session.getAttribute("game_info_id"));
+			receivedResult.setGameInfoId((Integer) session.getAttribute("game_info_id"));
 			List<ReceivedResult> resultList = receivedResultDao.search(receivedResult, "");
 			session.setAttribute("winner", null);
 			model.addAttribute("game_no", resultList.get(0).getGameNo());
@@ -213,17 +234,19 @@ public class GameModeController{
 			return "game_result";
 		}
 	}
-	
-	@RequestMapping(value="update_game_info")
+
+	@RequestMapping(value = "update_game_info")
 	public String updateGameInfo(@ModelAttribute("update_game_info") GameInfoForm form) {
-		if(session.getAttribute("loginId") == null) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
 		ReceivedResult receivedResult = new ReceivedResult();
-		receivedResult.setGameInfoId((Integer)session.getAttribute("game_info_id"));
+		receivedResult.setGameInfoId((Integer) session.getAttribute("game_info_id"));
 		receivedResult.setCoatNo(form.getCoatNo());
 		receivedResult.setJudgeName(form.getJudgeName());
-		receivedResultDao.update(receivedResult);
+		if(Utility.notIsEmptyNull(form.getCoatNo()) || Utility.notIsEmptyNull(form.getJudgeName())) {
+			receivedResultDao.update(receivedResult);
+		}
 		return "tournament";
 	}
 }

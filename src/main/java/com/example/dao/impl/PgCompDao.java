@@ -28,7 +28,7 @@ public class PgCompDao implements CompDao {
 	private static final String COLUMN_NAME_MEMO = "memo";
 	private static final String COLUMN_NAME_TORNAMET_EDIT_STATUS = "tournament_edit_status";
 
-	private final String SELECT = "SELECT * FROM " + tableName;
+	private final String SELECT = "SELECT * FROM " + tableName ;
 	private final String INSERT = "INSERT INTO " + tableName;
 	private final String DELETE = "DELETE FROM " + tableName + " WHERE " + ID + " = :" + ID;
 	private final String UPDATE = "UPDATE " + tableName + " set ";
@@ -38,8 +38,7 @@ public class PgCompDao implements CompDao {
 
 	@Override
 	public List<Comp> selectAll(Comp comp) {
-		String sql = SELECT + PgCompDao.selectSql(comp);
-
+		String sql = SELECT + PgCompDao.selectSql(comp)+ " ORDER BY " + ID + " DESC";
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(comp.getCompId())) {
 			param.addValue(COLUMN_NAME_COMP_ID, comp.getCompId());

@@ -9,4 +9,5 @@ public class GameResultAll{
 	private Integer coatNo;
 	private String judgeName;
 	private Integer tournamentNo;
+	private Integer recordStatus;
 }

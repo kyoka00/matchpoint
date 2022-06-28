@@ -57,6 +57,7 @@ public class ShomaController{
 	@RequestMapping(value="login")
 	public String loginPage(@ModelAttribute("login") LoginForm form) {
 		form.setLoginId("admin");
+		form.setPassword("admin");
 		return "login";
 	}
 	
@@ -69,8 +70,6 @@ public class ShomaController{
 	//プレイヤーでログインをトーナメント
 	@RequestMapping(value="tournament_player")
 	public String tournamentPlayer(@RequestParam("compLoginId") String compLoginID,Model model) {
-		
-		
 		Comp comp = new Comp();
 		comp.setCompLoginId(compLoginID);
 		List<Comp> list = compDao.selectAll(comp);
@@ -82,30 +81,29 @@ public class ShomaController{
 			model.addAttribute("errorMsg", "大会ログインIDは必須です。");
 			return "comp_login";
 		}
-		session.setAttribute("loginId", compLoginID);
+		session.setAttribute("compId", list.get(0).getCompId());
+		session.setAttribute("compLoginId", compLoginID);
 		return "tournament";
 	}
 	
 	//運営ログイン画面から大会一覧へ
 	@RequestMapping(value="comp_list")
 	public String login(@Validated@ModelAttribute("login") LoginForm form,BindingResult bindingResult,Model model) {
-		
 		if(bindingResult.hasErrors()) {
 			return "login";
 		}
 		
 		Manage manage = new Manage();
-		manage.setLoginId(form.getLoginId());//後でform.getLoginId()を入れる。
-		manage.setPassword(form.getPassword());//後でform.getPassword()を入れる。
+		manage.setLoginId(form.getLoginId());
+		manage.setPassword(form.getPassword());
 		List<Manage> list = manageDao.selectAll(manage);
-		
-		Comp comp = new Comp();
 		
 		if (list == null) {
 			model.addAttribute("errorMsg", "IDまたはパスワードが不正です。");
 			return "login";
 		}
-	
+		
+		Comp comp = new Comp();
 		if(session.getAttribute("loginId") == null && form.getLoginId() == null){
 			return "top";
 		}else if(session.getAttribute("loginId") == null) {
@@ -126,7 +124,7 @@ public class ShomaController{
 	//大会一覧から大会作成画面へ
 	@RequestMapping(value="comp_info")
 	public String createCompPage(@ModelAttribute("compInfo") CompForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		return "comp_info";
@@ -135,11 +133,12 @@ public class ShomaController{
 	//大会作成画面から作成ボタンで大会一覧へ移動
 	@RequestMapping(value="comp_list", params="create")
 	public String createComp(@Validated@ModelAttribute("compInfo") CompForm form, BindingResult bindingResult, Model model) {
-		
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
+			return "top";
+		}
 		if(bindingResult.hasErrors()) {
 			return "comp_info";
 		}
-		
 		
 		Comp comp = new Comp();
 		comp.setCompLoginId(form.getCompLoginId());
@@ -150,8 +149,8 @@ public class ShomaController{
 		
 		comp.setCompName(form.getCompName());
 		comp.setCompPlace(form.getCompPlace());
-		comp.setTournamentCount(form.getTournamentNo());
-		comp.setGameType(form.getGameType());
+		comp.setTournamentCount(form.getTournamentCount());
+		comp.setGameType(2);
 		comp.setMemo(form.getMemo());	
 		
 		

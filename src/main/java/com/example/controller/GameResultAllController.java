@@ -1,5 +1,6 @@
 package com.example.controller;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,87 +40,122 @@ public class GameResultAllController{
 	//試合結果受信box
 	@RequestMapping(value="game_result_all")
 	public String gameResultAll(@ModelAttribute("comp_detail") GameResultAllForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
-		
-		GameResultAll gameResultAll = new GameResultAll();
-		ReceivedResult receivedResult = new ReceivedResult();
-		
-		gameResultAll.setGameNo(form.getGameNo());
-		receivedResult.setRecordStatus(0);
-		
-		if(receivedResult.getRecordStatus() == 0 || receivedResult.getRecordStatus() == 1) {
-			List<GameResultAll> resultList = gameResultAllDao.selectAll(gameResultAll, "");
-			model.addAttribute("resultList", resultList);
-		}
+
+		List<GameResultAll> resultList = gameResultAllDao.select(0);
+		form.setRecordStatus(0);
+		model.addAttribute("resultList", resultList);
 		return "game_result_all";
 	}
-	
+
+	@RequestMapping(value = "game_result_registered")
+	public String gameResultRegistered(@ModelAttribute("comp_detail") GameResultAllForm form, Model model) {
+		if (session.getAttribute("loginId") == null) {
+			return "top";
+		}
+
+		List<GameResultAll> resultList = gameResultAllDao.select(1);
+		form.setRecordStatus(1);
+		model.addAttribute("resultList", resultList);
+		return "game_result_all";
+	}
+
 	@RequestMapping(value = "game_result_search")
 	public String search(@ModelAttribute("comp_detail") GameResultAllForm form, Model model) {
-		
-		GameResultAll gameResultAll = new GameResultAll();
-		
-		gameResultAll.setGameNo(form.getGameNo());
-		
-		String keyword = form.getKeyword();
-
-		List<GameResultAll> search = gameResultAllDao.selectAll(gameResultAll, keyword);
-		model.addAttribute("resultList", search);
-		return "game_result_all";
-	}
-	
-	@RequestMapping(value = "sort")
-	public String sort(@RequestParam("orderBy")  String orderBy, Model model) {
-		GameResultAll gameResultAll = new GameResultAll();
-
-		List<GameResultAll> gameResultList = gameResultAllDao.selectAll(gameResultAll, "");
-		if ("record_date".equals(orderBy)) {
-			gameResultList.sort((p1, p2) -> p1.getRecordDate().compareTo(p2.getRecordDate()));
-		}else if ("game_no".equals(orderBy)) {
-			gameResultList.sort((p1, p2) -> p1.getGameNo() >= p2.getGameNo() ? 1 : -1);
-		} else if ("coat_no".equals(orderBy)) {
-			gameResultList.sort((p1, p2) -> p1.getCoatNo() >= p2.getCoatNo() ? 1 : -1);	
-		} else if ("tournament_no".equals(orderBy)) {
-			gameResultList.sort((p1, p2) -> p1.getTournamentNo() >= p2.getTournamentNo() ? 1 : -1);
-		}
-		model.addAttribute("resultList", gameResultList);
-		return "game_result_all";
-	}
-	
-	//試合結果登録へ
-	@RequestMapping(value="game_result_final")
-	public String resultFinal(@ModelAttribute("comp_detail") GamePlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
+	
+		int recordStatus = form.getRecordStatus();
+		String keyword = form.getKeyword();
+
 		
+		if(recordStatus == 0){
+			List<GameResultAll> search = gameResultAllDao.search(keyword, 0);
+			model.addAttribute("resultList", search);
+			return "game_result_all";
+		}
+		
+		if(recordStatus == 1){
+			List<GameResultAll> search = gameResultAllDao.search(keyword, 1);
+			model.addAttribute("resultList", search);
+		}
+
+		return "game_result_all";
+	}
+
+	@RequestMapping(value = "sort")
+
+	public String sort(@RequestParam("orderBy")  String orderBy,
+			@ModelAttribute("comp_detail") GameResultAllForm form,Model model) {
+		
+		int recordStatus = form.getRecordStatus();
+
+		if(recordStatus == 0) {
+			List<GameResultAll> gameResultList = gameResultAllDao.select(0);
+			if ("record_date".equals(orderBy)) {
+				gameResultList.sort((p1, p2) -> p1.getRecordDate().compareTo(p2.getRecordDate()));
+			}else if ("game_no".equals(orderBy)) {
+				gameResultList.sort((p1, p2) -> p1.getGameNo() >= p2.getGameNo() ? 1 : -1);
+			} else if ("coat_no".equals(orderBy)) {
+				gameResultList.sort((p1, p2) -> p1.getCoatNo() >= p2.getCoatNo() ? 1 : -1);	
+			} else if ("tournament_no".equals(orderBy)) {
+				gameResultList.sort((p1, p2) -> p1.getTournamentNo() >= p2.getTournamentNo() ? 1 : -1);
+			}
+			model.addAttribute("resultList", gameResultList);
+			return "game_result_all";
+		}
+		
+		if(recordStatus == 1) {
+			List<GameResultAll> gameResultList = gameResultAllDao.select(1);
+			if ("record_date".equals(orderBy)) {
+				gameResultList.sort((p1, p2) -> p1.getRecordDate().compareTo(p2.getRecordDate()));
+			}else if ("game_no".equals(orderBy)) {
+				gameResultList.sort((p1, p2) -> p1.getGameNo() >= p2.getGameNo() ? 1 : -1);
+			} else if ("coat_no".equals(orderBy)) {
+				gameResultList.sort((p1, p2) -> p1.getCoatNo() >= p2.getCoatNo() ? 1 : -1);	
+			} else if ("tournament_no".equals(orderBy)) {
+				gameResultList.sort((p1, p2) -> p1.getTournamentNo() >= p2.getTournamentNo() ? 1 : -1);
+			}
+			model.addAttribute("resultList", gameResultList);
+		}
+		return "game_result_all";
+	}
+
+	// 試合結果登録へ
+	@RequestMapping(value = "game_result_final")
+	public String resultFinal(@ModelAttribute("comp_detail") GamePlayerForm form, Model model) {
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
+			return "top";
+		}
+
 		Score score = new Score();
 
-		score.setGameInfoId(1);
+		score.setGameInfoId((Integer) session.getAttribute("game_info_id"));
 		List<Score> list = scoreDao.selectAll(score);
-		score.setTeamAScore(11);
-		score.setTeamBScore(8);
 		if(list == null) {
-			score.setSetNo(0);
+			score.getSetNo();
 			list = new ArrayList<Score>();
-			list.add(score);
-		}else {
-			score.setSetNo(list.size() + 1);
-			list.add(score);
 		}
+		score.setTeamAScore(form.getTeam1Point());
+		score.setTeamBScore(form.getTeam2Point());
 		scoreDao.insertScore(score);
-		int winCountA = 2;
-		int winCountB = 1;
+		//insert??
+		int winCountA = score.getTeamAScore();
+		int winCountB = score.getTeamBScore();
 		List<String> scoreList = new ArrayList<String>();
-		
-		scoreList.add(11 + "対" + 8);
-		model.addAttribute("set", (winCountA + winCountB) + "/" + 3);
-		model.addAttribute("playerA", "大城");
-		model.addAttribute("playerB", "金城");
-		model.addAttribute("playerC", "名嘉");
-		model.addAttribute("playerD", "野原");
+		if(list != null) {
+			for(Score s : list) {
+				scoreList.add(s.getTeamAScore() + "対" + s.getTeamBScore());
+			}
+		}
+		model.addAttribute("set", (winCountA + winCountB) + "/" + session.getAttribute("game_count"));
+		model.addAttribute("playerA", form.getPlayerA());
+		model.addAttribute("playerB", form.getPlayerB());
+		model.addAttribute("playerC", form.getPlayerC());
+		model.addAttribute("playerD", form.getPlayerD());
 		model.addAttribute("score_list", scoreList);
 		model.addAttribute("setNumA", winCountA);
 		model.addAttribute("setNumB", winCountB);
@@ -129,22 +165,23 @@ public class GameResultAllController{
 	
 	@RequestMapping(value="tournament_register")
 	public String tournamentRegister(@ModelAttribute("comp_detail") GamePlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		
 		ReceivedResult receivedResult = new ReceivedResult();
-		int recordStatus = 0;
-		receivedResult.setGameInfoId(1);
+		Integer recordStatus = form.getRecordStatus();
+		receivedResult.setGameInfoId((Integer) session.getAttribute("game_info_id"));
 		
-		receivedResult.setRecordStatus(recordStatus);
 		
-		if(Utility.notIsEmptyNull(receivedResult.getMatchId()) && receivedResult.getRecordStatus() == 0) {
+		if(recordStatus == 0) {
 			recordStatus = 1;
 			receivedResult.setRecordStatus(recordStatus);
 			receivedResultDao.update(receivedResult);
+			return "tournament";
 		}
-		if(Utility.notIsEmptyNull(receivedResult.getMatchId()) && receivedResult.getRecordStatus() == 1) {
+		
+		if(Utility.notIsEmptyNull(receivedResult.getMatchId()) && recordStatus == 1) {
 			recordStatus = 0;
 			receivedResult.setRecordStatus(recordStatus);
 			receivedResultDao.update(receivedResult);

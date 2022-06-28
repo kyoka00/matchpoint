@@ -63,13 +63,15 @@ public class PgReceivedResult implements ReceivedResultDao {
 		if (Utility.notIsEmptyNull(keyword)) {
 			param.addValue("keyword", '%'+ keyword +'%');
 		}
-
+		if (Utility.notIsEmptyNull(result.getCompId())) {
+			param.addValue(COLUMN_NAME_COMPID, result.getCompId());
+		}
+		if (Utility.notIsEmptyNull(result.getGameNo())) {
+			param.addValue(COLUMN_NAME_GAMENO, result.getGameNo());
+		}
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
 		return resultList.isEmpty() ? null : resultList;
-//		return null;
 	}
-	
-	
 	
 	@Override
 	public List<ReceivedResult> searchMatch(ReceivedResult receivedResult){
@@ -84,7 +86,6 @@ public class PgReceivedResult implements ReceivedResultDao {
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
 		return resultList.isEmpty() ? null : resultList;
 	}
-	
 
 	@Override
 	public List<ReceivedResult> searchMatchTeam(ReceivedResult receivedResult){
@@ -98,7 +99,6 @@ public class PgReceivedResult implements ReceivedResultDao {
 		}
 		List<ReceivedResult> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
 		return resultList.isEmpty() ? null : resultList;
-	
 	}
 	
 	//insertはmatchとgame_infoのみinsertかけられる感じで書いてます。
@@ -157,10 +157,10 @@ public class PgReceivedResult implements ReceivedResultDao {
 		return list.get(0).getGameInfoId();
 	}
 
-
 	@Override
 	public int update(ReceivedResult result) {
 		String sql = UPDATE + updateSql(result);
+		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(result.getRecordStatus())) {
 			param.addValue(COLUMN_NAME_RECORDSTATUS, result.getRecordStatus());
@@ -172,8 +172,6 @@ public class PgReceivedResult implements ReceivedResultDao {
 			param.addValue(COLUMN_NAME_JUDGENAME, result.getJudgeName());
 		}
 		param.addValue(ID, result.getGameInfoId());
-		
-		
 		return jdbcTemplate.update(sql, param);
 	}
 	
@@ -218,10 +216,18 @@ public class PgReceivedResult implements ReceivedResultDao {
 			columnName = COLUMN_NAME_MATCHID + " = :" + COLUMN_NAME_MATCHID;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
+		if (Utility.notIsEmptyNull(result.getGameNo())) {
+			columnName = COLUMN_NAME_GAMENO + " = :" + COLUMN_NAME_GAMENO;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
+		if (Utility.notIsEmptyNull(result.getCompId())) {
+			columnName = COLUMN_NAME_COMPID + " = :" + COLUMN_NAME_COMPID;
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
+		}
 		if (Utility.notIsEmptyNull(keyword)) {
 			columnName = COLUMN_NAME_JUDGENAME + " || " + COLUMN_NAME_MATCHID + "||" + COLUMN_NAME_COATNO + "||"
 					+ COLUMN_NAME_TOURNAMENTNO + " LIKE :" + "keyword";
-			where = !where.isEmpty() ? where + " AND " + columnName : columnName + "ORDER BY record_date";
+			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
 
 		return !where.isEmpty() ? " WHERE " + where : "";
@@ -238,6 +244,7 @@ public class PgReceivedResult implements ReceivedResultDao {
 			columnName = COLUMN_NAME_GAMENO + " = :" + COLUMN_NAME_GAMENO;
 			where = !where.isEmpty() ? where + " AND " + columnName : columnName;
 		}
+		
 		return !where.isEmpty() ? " WHERE " + where : "";
 	}
 

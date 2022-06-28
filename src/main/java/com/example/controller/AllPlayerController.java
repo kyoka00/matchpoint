@@ -33,7 +33,7 @@ public class AllPlayerController {
 	//検索button押下
 	@RequestMapping(value="search")
 	public String search(@ModelAttribute("edit_player") PlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		
@@ -51,7 +51,7 @@ public class AllPlayerController {
 	//選手一覧へ（全件取得）
 	@RequestMapping(value="all_player")
 	public String playerList(Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 		
@@ -67,7 +67,7 @@ public class AllPlayerController {
 	//選手編集へ(serialNumber押下時)
 	@RequestMapping(value="edit_player")
 	public String playerEditPage(@ModelAttribute("edit_player") PlayerForm form, Model model) {
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
 			return "top";
 		}
 

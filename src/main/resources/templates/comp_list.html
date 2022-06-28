@@ -32,35 +32,26 @@
 	<a href="/comp_info" class="btn btn-success">大会作成</a>
 
 	<div class="table-responsive">
-		<div class="text-center">
-			<h1>大会一覧</h1>
-
-			<table
-				class="table table-bordered table-striped mx-auto table-hover table-light"
-					border="1">
-				<tr>
-					<th class="table-success">番号</th>
-					<th class="table-success">大会</th>
-					<th class="table-success">開催日</th>
-					<th class="table-success">トーナメント表へ</th>
-				</tr>
-				<!-- データベースの値参照 -->
-				<tr th:each="complist : ${resultList}">
-					<td><span class="d-inline-block" tabindex="0"
-						data-toggle="tooltip" th:title="|${complist.memo}|">[[
-							${complist.compId} ]]</span></td>
-					<td><span class="d-inline-block" tabindex="0"
-						data-toggle="tooltip" th:title="|${complist.memo}|">[[
-							${complist.compName} ]]</span></td>
-					<td><span class="d-inline-block" tabindex="0"
-						data-toggle="tooltip" th:title="|${complist.memo}|">[[
-							${complist.compDate} ]]</span></td>
-					<td><a th:href="'/tournament?compId=' + ${complist.compId}"
-						class="btn-light-moon　btn-lg btn-block">GO!</a></td>
-				</tr>
-			</table>
-
-		</div>
+	<div class="text-center">
+		<h1>大会一覧</h1>
+		
+		<table class="table table-bordered table-striped mx-auto table-hover table-light">
+		
+			<tr>
+				<th class="table-success">番号</th>
+				<th class="table-success">大会</th>
+				<th class="table-success">開催日</th>
+				<th class="table-success">トーナメント表へ</th>
+			</tr>
+			<!-- データベースの値参照 -->
+			<tr th:each="complist : ${resultList}">				
+				<td ><span class="d-inline-block" tabindex="0" data-toggle="tooltip" th:title="|${complist.memo}|">[[ ${complist.compId} ]]</span></td>
+				<td><span class="d-inline-block" tabindex="0" data-toggle="tooltip" th:title="|${complist.memo}|">[[ ${complist.compName} ]]</span></td>
+				<td><span class="d-inline-block" tabindex="0" data-toggle="tooltip" th:title="|${complist.memo}|">[[ ${complist.compDate} ]]</span></td>
+				<td><a th:href="'/tournament?compId=' + ${complist.compId}" class="btn-light-moon btn-lg btn-block">GO!</a></td>
+			</tr>
+		</table>
+		
 	</div>
 
 

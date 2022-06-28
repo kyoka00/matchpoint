@@ -19,20 +19,23 @@ public class PgGameResultAllDao implements GameResultAllDao{
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
 	@Override
-	public List<GameResultAll> selectAll(GameResultAll gameResultAll, String keyword){
+	public List<GameResultAll> search(String keyword, Integer status){
 		if(Utility.notIsEmptyNull(keyword)) {
-			String sql = "select g.record_date, m.game_no, g.coat_no, g.judge_name, t.tournament_no, g.record_status from match m join game_info g on m.match_id = g.match_id join team t on t.team_id = m.team_id_a where g.judge_name like :keyword ";
+			String sql = "select g.record_date, m.game_no, g.coat_no, g.judge_name, t.tournament_no, g.record_status from match m join game_info g on m.match_id = g.match_id join team t on t.team_id = m.team_id_a where g.record_status = :record_status and g.judge_name like :keyword order by g.record_date desc";
 			MapSqlParameterSource param = new MapSqlParameterSource();
 	        param.addValue("keyword", '%'+ keyword + '%');
-			List<GameResultAll> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<GameResultAll>(GameResultAll.class));
-			return resultList.isEmpty() ? null : resultList;
-		}else {
-			String sql = "select g.record_date, m.game_no, g.coat_no, g.judge_name, t.tournament_no, g.record_status from match m join game_info g on m.match_id = g.match_id join team t on t.team_id = m.team_id_a";
-			System.out.print(sql);
-			MapSqlParameterSource param = new MapSqlParameterSource();
-			param.addValue("gameResultAll", gameResultAll);
+	        param.addValue("record_status", status);
 			List<GameResultAll> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<GameResultAll>(GameResultAll.class));
 			return resultList.isEmpty() ? null : resultList;
 		}
+		return null;
+	}
+	
+	public List<GameResultAll> select(Integer status){
+		String sql = "select g.record_date, m.game_no, g.coat_no, g.judge_name, t.tournament_no from match m join game_info g on m.match_id = g.match_id join team t on t.team_id = m.team_id_a where g.record_status = :record_status order by g.record_date desc";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("record_status", status);
+		List<GameResultAll> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<GameResultAll>(GameResultAll.class));
+		return resultList.isEmpty() ? null : resultList;
 	}
 }

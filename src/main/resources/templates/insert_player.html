@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>	選手登録</title>
-<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"rel="stylesheet">
+<title>選手登録</title>
+<link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
+	rel="stylesheet">
 <link href="/css/yuya.css" rel="stylesheet">
 <!-- <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}" -->
 <!-- 	rel="stylesheet"> -->
@@ -23,38 +24,41 @@
 				class="btn btn-primary">戻る</button>
 		</div>
 
-		<form action="insert_player" th:object="${insert_player}" th:method="post">
+		<form action="insert_player" th:object="${insert_player}"
+			th:method="post">
 			<div class="form-group">
 				<label class="col-sm-2 control-label mt-3">プレイヤー1:</label> <input
-					type="text" th:field="*{playerAName}" placeholder="入力してください(最大●文字)">
-				<br>
-				<td th:text="${errorMsg1}">
-				
-				</td>
+					type="text" th:field="*{playerAName}"
+					placeholder="入力してください(最大20文字)"> <br>
+				<div class="error">
+					<td th:text="${errorMsg1}"></td>
+				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<label class="col-sm-2 control-label mt-3">プレイヤー2:</label> <input
-					type="text" th:field="*{playerBName}" placeholder="入力してください(最大●文字)">
-				<td th:text="${error}">
-				
-				</td>
+					type="text" th:field="*{playerBName}"
+					placeholder="入力してください(最大20文字)"> <br>
+				<div class="error">
+					<td th:text="${errorMsg1}"></td>
+				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<label class="col-sm-2 control-label">トーナメント番号:</label> <input
-					type="text" th:field="*{tournamentNo}" placeholder="数値を入力(MAX●)">
+					type="text" th:field="*{tournamentNo}" placeholder="数値を入力(1～10)">
 				<br>
-				<td th:text="${errorMsg2}">
-				
-				</td>
+				<div class="error">
+					<td th:text="${errorMsg2}"></td>
+				</div>
 			</div>
 
 			<div class="text-center mt-2">
-				<input type="submit" name="insert" value="登録" class="btn btn-primary">
+				<input type="submit" name="insert" value="登録"
+					class="btn btn-primary">
 			</div>
-			
-		 </form>
-	 </div>
+
+		</form>
+	</div>
 </body>
 </html>

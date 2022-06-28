@@ -163,6 +163,19 @@ table {
 }
 
 
+
+
+
+
+/*xxxxxxxxxxxxxxxx エラー処理  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+div.error {
+  color: red;
+  font-size: 12px;
+}
+
+
+
+
 /* /*Top画面の背景画像フェードイン  */ 
 /* .anim-box.fadein.is-animated { */
 /*   animation: fadeIn 0.7s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards; */

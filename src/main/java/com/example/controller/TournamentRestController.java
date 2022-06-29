@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +16,6 @@ import com.example.dao.ReceivedResultDao;
 import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
 import com.example.entity.Comp;
-import com.example.entity.MatchList;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Score;
 import com.example.entity.Team;
@@ -89,16 +87,20 @@ public class TournamentRestController {
 	}
 	
 	@RequestMapping("updateMatch")
-	public int updateMatch(@RequestBody MatchList matchList) {
+	public int updateMatch(
+			@RequestParam("tournamentNo") Integer tournamentNo,
+			@RequestParam("gameNo") Integer gameNo,
+			@RequestParam("teamIdA") Integer teamIdA,
+			@RequestParam("teamIdB") Integer teamIdB) {
 		System.out.println("updateMatch");
-		int updateNum = 0;
 		Integer compId = (Integer)session.getAttribute("compId");
-		for(ReceivedResult result : matchList.getMatchList()) {
-			result.setCompId(compId);
-			updateNum += receivedResultDao.updateMatch(result);
-		}
-		System.out.println("update is finished");
-		return updateNum;
+		ReceivedResult result = new ReceivedResult();
+		result.setCompId(compId);
+		result.setTournamentNo(tournamentNo);
+		result.setGameNo(gameNo);
+		result.setTeamIdA(teamIdA);
+		result.setTeamIdB(teamIdB);
+		return receivedResultDao.updateMatch(result);
 	}
 	
 	@RequestMapping("getTournamentEditStatus")
@@ -112,13 +114,12 @@ public class TournamentRestController {
 	}
 	
 	@RequestMapping("changeEditStatus")
-	public void updateComp(Integer tournamentEditStatus) {
+	public int updateComp(Integer tournamentEditStatus) {
 		Integer compId = (Integer)session.getAttribute("compId");
 		Comp comp = new Comp();
 		comp.setCompId(compId);
 		comp.setTournamentEditStatus(tournamentEditStatus);
-		compDao.updateComp(comp);
-		//return compDao.updateComp(comp);
+		return compDao.updateComp(comp);
 	}
 	
 	@RequestMapping("getWinner")

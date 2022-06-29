@@ -54,6 +54,7 @@ public class TournamentController {
 			//セッションがないけどcompIdがセットされている（初期状態）
 			if((Integer)session.getAttribute("compId") == null && compId != null) {
 				session.setAttribute("compId", compId);
+				
 			//compIdがセットされているとき（セッションも破棄されていない）
 			}else if(compId != null) {
 				session.setAttribute("compId", compId);
@@ -68,11 +69,13 @@ public class TournamentController {
 					return "comp_list";
 				}
 			}else {
-				compId = (Integer)session.getAttribute("compInfo");
+				compId = (Integer)session.getAttribute("compId");
 			}
 			Comp newComp = new Comp();
-			comp
-			
+			newComp.setCompId(compId);
+			Comp result = compDao.selectAll(newComp).get(0);
+			session.setAttribute("tournamentEditStatus",result.getTournamentEditStatus());
+			System.out.println(result.getTournamentEditStatus());
 			return "tournament";
 			
 		}
@@ -122,8 +125,8 @@ public class TournamentController {
 		comp.setCompId(compId);
 		comp.setTournamentEditStatus(2);
 		int count = compDao.updateComp(comp);
-		
-		if(count!= 0) {
+		session.setAttribute("tournamentEditStatus",2);
+		if(count!= 2) {
 			model.addAttribute("msg", "トーナメント情報を確定しました");
 		}else {
 			return "edit_tournament";

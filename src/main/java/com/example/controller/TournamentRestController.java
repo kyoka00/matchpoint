@@ -114,6 +114,8 @@ public class TournamentRestController {
 		comp.setCompId(compId);
 		comp.setTournamentEditStatus(tournamentEditStatus);
 		compDao.updateComp(comp);
+		session.setAttribute("tournamentEditStatus",tournamentEditStatus);
+		System.out.println(tournamentEditStatus);
 		//return compDao.updateComp(comp);
 	}
 	

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.controller.form.PlayerForm;
 import com.example.dao.CompDao;
 import com.example.dao.TeamDao;
-import com.example.entity.Comp;
 import com.example.entity.Team;
 
 @Controller
@@ -56,10 +55,6 @@ public class AllPlayerController {
 		List<Team> resultList = teamDao.selectAll(team, "");
 		model.addAttribute("allPlayer", resultList);
 		
-		Comp comp = new Comp();
-		comp.setCompId(compId);
-		Comp searchComp = compDao.selectAll(comp).get(0);
-		model.addAttribute("tournamentEditStatus", searchComp.getTournamentEditStatus());
 		return "all_player";
 	}
 	
@@ -79,10 +74,6 @@ public class AllPlayerController {
 		List<Team> teamList = teamDao.selectAll(team, "");
 		model.addAttribute("edit_player", teamList.get(0));
 		
-		Comp comp = new Comp();
-		comp.setCompId(compId);
-		Comp searchComp = compDao.selectAll(comp).get(0);
-		model.addAttribute("tournamentEditStatus", searchComp.getTournamentEditStatus());
 		return "edit_player";
 	}
 }

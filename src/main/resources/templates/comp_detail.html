@@ -68,6 +68,7 @@
 			<div>
 				<label>大会概要:</label> <input type="text" th:field="*{memo}" readonly>
 			</div>
+			<div th:if="${session.loginId}">
 				<!-- マージ時に使用する　th:if="${loginId != null}"  -->
 				<button type="button" onclick="openModal()" class="btn-primary">削除</button>
 				<button type="submit" class="btn-primary">編集</button>
@@ -86,6 +87,7 @@
 							class="basic_btn btn-primary">削除</button>
 						<button type="button" onclick="closeModal()" class="cancel_btn btn-primary">キャンセル</button>
 				</div>
+			</div>
 			</div>
 		</form>
 	</div>	

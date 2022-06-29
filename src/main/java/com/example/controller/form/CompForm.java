@@ -22,6 +22,6 @@ public class CompForm{
 	private Integer gameType;
 	private String gameTypeStr;
 	private String memo;
-	
+	private Integer tournamentEditStatus;
 }
 

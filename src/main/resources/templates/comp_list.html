@@ -39,7 +39,7 @@
 				<th class="table-success">開催日</th>
 				<th class="table-success">トーナメント表へ</th>
 			</tr>
-			<!-- データベースの値参照 -->
+			
 			<tr th:each="complist : ${resultList}">				
 				<td ><span class="d-inline-block" tabindex="0" data-toggle="tooltip" th:title="|${complist.memo}|">[[ ${complist.compId} ]]</span></td>
 				<td><span class="d-inline-block" tabindex="0" data-toggle="tooltip" th:title="|${complist.memo}|">[[ ${complist.compName} ]]</span></td>
@@ -47,7 +47,6 @@
 				<td><a th:href="'/tournament?compId=' + ${complist.compId}" class="btn-light-moon btn-lg btn-block">GO!</a></td>
 			</tr>
 		</table>
-		
 	</div>
 </div>
 

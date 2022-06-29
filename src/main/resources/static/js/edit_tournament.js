@@ -195,11 +195,11 @@ const vue = new Vue({
         },
         // 登録用insert メソッド
         insertMatch() {
-			this.prepareInsert();
+			this.prepareUpdate();
 			let match = this.sentMatchLists[0];
 			this.sentMatchLists.forEach(match => {
 				fetch(`insertMatch?tournamentNo=${match.tournamentNo}&gameNo=${match.gameNo}&teamIdA=${match.teamIdA}&teamIdB=${match.teamIdB}`)
-				.then(res => res.json().then(data => console.log("insertMatch3")))
+				.then(res => res.json().then(data => console.log(data)))
 				.catch(error => console.log(error));
 			})
 		},
@@ -221,9 +221,8 @@ const vue = new Vue({
             return response;
         },*/
         // 登録用オブジェクト 生成メソッド
-        prepareInsert() {
+        prepareUpdate() {
             let tournamentNo;
-            console.log('aaasa');
             this.tournaments.forEach(tournament => {
                 tournamentNo = tournament.tournamentNo;
                 tournament.rounds[0].games.forEach(game => {
@@ -235,35 +234,24 @@ const vue = new Vue({
                         })
                 })
             })
-            console.log(this.sentMatchLists);
         },
         // セーブ機能
         save() {
-            const updateResult = updateMatch()
-            .catch(error => console.log(error));
-            if(updateResult != null) {
-                document.getElementById("msg").innerHTML = "セーブできました";
-            } else {
-                document.getElementById("msg").innerHTML = "セーブできませんでした";
-            }
+            updateMatch();
+            document.getElementById("msg").innerHTML = "セーブしました";
         },
         // 編集完了機能
         finishEdit() {
-            const updateResult = updateMatch()
-            .catch(error => console.log(error));
-            if(updateResult != null) {
-                location.href = "tournament";
-            } else {
-                document.getElementById("msg").innerHTML = "セーブできませんでした";
-            }
+            updateMatch();
+            location.href = "tournament";
         },
-        // 登録用insert メソッド
+        // 登録用updates メソッド
         updateMatch() {
-			this.prepareInsert();
-			let match = this.sentMatchLists[0];
+            console.log(a);
+			this.prepareUpdate();
 			this.sentMatchLists.forEach(match => {
-				fetch(`insertMatch?tournamentNo=${match.tournamentNo}&gameNo=${match.gameNo}&teamIdA=${match.teamIdA}&teamIdB=${match.teamIdB}`)
-				.then(res => res.json().then(data => console.log("insertMatch3")))
+				fetch(`updateMatch?tournamentNo=${match.tournamentNo}&gameNo=${match.gameNo}&teamIdA=${match.teamIdA}&teamIdB=${match.teamIdB}`)
+				.then(res => res.json().then(data => console.log(data)))
 				.catch(error => console.log(error));
 			})
 		},
@@ -318,6 +306,9 @@ const vue = new Vue({
                     this.allotTeamFirst(10, this.teamLists10);
                     console.log(this.sentMatchLists);
                     this.insertMatch();
+                    fetch('changeEditStatus')
+                    .then(res => res.json().then(data => console.log(data)))
+                    .catch(error => console.log(error));
                 } else {
                     // 対戦一覧取得
                     fetch('getMatchList')

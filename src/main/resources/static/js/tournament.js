@@ -61,58 +61,61 @@ const vue = new Vue({
                     'games',
                     tournament.rounds[0].games.map(game => {
                         const matchFromDb = this.existingMatchLists.find(existingMatch => game.gameNo === existingMatch.gameNo);
-                            return {
-                                gameNo: matchFromDb.gameNo,
-                                player1: {
-                                    id: matchFromDb.teamIdA,
-                                    name:  matchFromDb.teamAPlayer1 + "・" + matchFromDb.teamAPlayer2,
-                                    winner: false,
-                                },
-                                player2: {
-                                    id: matchFromDb.teamIdB,
-                                    name:  matchFromDb.teamBPlayer1 + "・" + matchFromDb.teamBPlayer2,
-                                    winner: false,
-                                },
-                            };
+                            try {
+                                return {
+                                    gameNo: matchFromDb.gameNo,
+                                    player1: {
+                                        id: matchFromDb.teamIdA,
+                                        name:  matchFromDb.teamAPlayer1 + "・" + matchFromDb.teamAPlayer2,
+                                        winner: false,
+                                    },
+                                    player2: {
+                                        id: matchFromDb.teamIdB,
+                                        name:  matchFromDb.teamBPlayer1 + "・" + matchFromDb.teamBPlayer2,
+                                        winner: false,
+                                    },
+                                };    
+                            } catch (error) {
+                                console.log(error);
+                            }
                     })
                 );
             });
         },
-        // 取得した登録済みの試合情報をもとに、試合ごとのwinnerプロパティをtrueにする
-        allotMatch() {
-            this.registeredMatchLists
-        },
-        // 試合番号ボタン押下時、画面遷移
-        viewResultOrStartGame(event) {
-            const gameNo = event.target.value;            
-            // 試合番号でReceivedResultに検索
-            fetch(`searchMatchByGameNo?gameNo=${gameNo}`)
-            .then(res => {
-                // 条件式?　その試合が登録済みなら、試合結果画面に。 : でなければ、試合設定画面に。
-                if(res === null) {
-                    // 試合設定画面に遷移
-                    location.href =  `match_from_tournament?gameNo=${gameNo}`;
-                } else {
-                    res.json().then(data => {
-                        console.log(data);
-                        if(data.length === 1 && isNotEmptyMatch(gameNo)) {
-                            // 試合結果画面に遷移
-                            location.href = `registered_game_result?gameNo=${gameNo}`;
-                        } else {
-                            // 空試合です
-                        }
-                    })
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
-        },
+        // // 取得した登録済みの試合情報をもとに、試合ごとのwinnerプロパティをtrueにする
+        // allotMatch() {
+        //     this.registeredMatchLists
+        // },
+        // // 試合番号ボタン押下時、画面遷移
+        // viewResultOrStartGame(event) {
+        //     const gameNo = event.target.value;            
+        //     // 試合番号でReceivedResultに検索
+        //     fetch(`searchMatchByGameNo?gameNo=${gameNo}`)
+        //     .then(res => {
+        //         // 条件式?　その試合が登録済みなら、試合結果画面に。 : でなければ、試合設定画面に。
+        //         if(res === null) {
+        //             // 試合設定画面に遷移
+        //             location.href =  `match_from_tournament?gameNo=${gameNo}`;
+        //         } else {
+        //             res.json().then(data => {
+        //                 if(data.length === 1 && isNotEmptyMatch(gameNo)) {
+        //                     // 試合結果画面に遷移
+        //                     location.href = `registered_game_result?gameNo=${gameNo}`;
+        //                 } else {
+        //                     // 空試合です
+        //                 }
+        //             })
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //     });
+        // },
         // 空試合か否か
-        isNotEmptyMatch(gameNo) {
-            const match = this.tournaments.forEach(tournament => tournament.rounds.forEach(round => round.games.filter(game => game.gameNo === gameNo)));
-            return match.player2.teamId < 0 || match.player2.teamId < 0 ? false : true;
-        }
+        // isNotEmptyMatch(gameNo) {
+        //     const match = this.tournaments.forEach(tournament => tournament.rounds.forEach(round => round.games.filter(game => game.gameNo === gameNo)));
+        //     return match.player1.teamId < 0 || match.player2.teamId < 0 ? false : true;
+        // }
     },
     created: function() {
         // トーナメント表作成済みか否か確認
@@ -127,9 +130,13 @@ const vue = new Vue({
                 fetch('getTeamList')
                 .then(res => res.json().then(data => {
                     this.teamLists = data;
+                    console.log("リスト1:", this.teamLists1);
+                    console.log("リスト3:", this.teamLists3);
                     this.createTournament(1, this.teamLists1);
                     this.createTournament(2, this.teamLists2);
+                    console.log("前：", this.tournaments);
                     this.createTournament(3, this.teamLists3);
+                    console.log("後：", this.tournaments);
                     this.createTournament(4, this.teamLists4);
                     this.createTournament(5, this.teamLists5);
                     this.createTournament(6, this.teamLists6);
@@ -148,12 +155,13 @@ const vue = new Vue({
                             if(res === null) {
                                 // 登録された試合なし
                             } else {
-                                // 登録済みの試合を取得
-                                res.json().then(data => {
-                                    this.registeredMatchLists = data;
-                                    this.allotMatch();
-                                })
-                                .catch(error => console.log(error));
+                                // // 登録済みの試合を取得
+                                // res.json().then(data => {
+                                //     // console.log(data);
+                                //     this.registeredMatchLists = data;
+                                //     this.allotMatch();
+                                // })
+                                // .catch(error => console.log(error));
                             }
                         })
                     }))

@@ -60,6 +60,19 @@ public class GameResultAllController{
 		model.addAttribute("list", list);
 		return "game_result_all";
 	}
+	
+	@RequestMapping(value = "game_result_deleted")
+	public String gameResultDeleted(@ModelAttribute("comp_detail") GameResultAllForm form, Model model) {
+		if (session.getAttribute("loginId") == null) {
+			return "top";
+		}
+		Integer compId = (Integer)session.getAttribute("compId");
+		List<ReceivedResult> list = receivedResultDao.box(compId, 2, "");
+		form.setRecordStatus(2);
+		model.addAttribute("list", list);
+		return "game_result_all";
+	}
+
 
 	@RequestMapping(value = "game_result_search")
 	public String search(@ModelAttribute("comp_detail") GameResultAllForm form, Model model) {
@@ -161,7 +174,7 @@ public class GameResultAllController{
 		}
 		System.out.println(searchResult);
 		model.addAttribute("set", (winCountA + winCountB) + "/" + searchResult.getGameCount());
-		model.addAttribute("team", searchResult);
+		model.addAttribute("comp_detail", searchResult);
 		model.addAttribute("score_list", scoreList);
 		model.addAttribute("setNumA", winCountA);
 		model.addAttribute("setNumB", winCountB);
@@ -170,7 +183,7 @@ public class GameResultAllController{
 	}
 	
 	@RequestMapping(value = "tournament_register", params = "register")
-	public String tournamentRegister(@ModelAttribute("team") GamePlayerForm form, Model model) {
+	public String tournamentRegister(@ModelAttribute("comp_detail") GamePlayerForm form, Model model) {
 		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
@@ -193,28 +206,36 @@ public class GameResultAllController{
 					model.addAttribute("msg", "登録しました");
 				}
 			}
-
+		} else if(form.getRecordStatus() == 1) {
+			model.addAttribute("msg", "既に登録済みの情報です。");
+		} else {
+			model.addAttribute("msg", "既に削除済みの情報です。");
 		}
-		return "tournament";
+		
+		return "game_result_all";
 	}
 	@RequestMapping(value = "tournament_register", params = "delete")
-	public String tournamentDelete(@ModelAttribute("team") GamePlayerForm form, Model model) {
+	public String tournamentDelete(@ModelAttribute("comp_detail") GamePlayerForm form, Model model) {
 		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
 
 		if (form.getRecordStatus() == 0) {
-				ReceivedResult receivedResult = new ReceivedResult();
-				receivedResult.setGameInfoId(form.getGameInfoId());
-				receivedResult.setRecordStatus(2);
-				int count = receivedResultDao.update(receivedResult);
-				if (count == 0) {
-					model.addAttribute("msg", "削除できませんでした。");
-				} else {
-					model.addAttribute("msg", "削除しました");
-				}
+			ReceivedResult receivedResult = new ReceivedResult();
+			receivedResult.setGameInfoId(form.getGameInfoId());
+			receivedResult.setRecordStatus(2);
+			int count = receivedResultDao.update(receivedResult);
+			if (count == 0) {
+				model.addAttribute("msg", "削除できませんでした。");
+			} else {
+				model.addAttribute("msg", "削除しました");
 			}
+		} else if(form.getRecordStatus() == 1) {
+			model.addAttribute("msg", "既に登録済みの情報です。");
+		} else {
+			model.addAttribute("msg", "既に削除済みの情報です。");
+		}
 
-		return "tournament";
+		return "game_result_all";
 	}
 }

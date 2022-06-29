@@ -10,7 +10,10 @@
 <body>
 	<div th:insert="header"></div>
 	<div class="text-right">
-	<button class="text-white btn-primary" type="button" onclick="location.href='tournament'">戻る</button>
+		<button class="text-white btn-primary" type="button" onclick="location.href='tournament'">戻る</button>
+	</div>
+	<div class="text-center">
+		<p th:text="${msg}">MSG</p>
 	</div>
 	<form action="sort" th:object="${comp_detail}">
 		<input type="hidden" th:field="*{recordStatus}">
@@ -34,6 +37,10 @@
 	<form action="game_result_registered" th:object="${comp_detail}">
 		<input type="hidden" value="1">
 		<input type="submit" value="登録済みの試合を全表示">
+	</form>
+	<form action="game_result_deleted" th:object="${comp_detail}">
+		<input type="hidden" value="2">
+		<input type="submit" value="削除済みの試合を全表示">
 	</form>
 	
 	<div class="text-center">

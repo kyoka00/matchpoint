@@ -244,9 +244,13 @@ input.mr-2{
 	width: 20%;
 }
 
-/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
+/* TTTTTTTTTTTTTTTTTTTTTTTTTTT大会詳細更新・削除画面TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT */
 
-
+div.compInfo{
+	background-color: #008040;
+	color: white;
+	
+}
 
 
 

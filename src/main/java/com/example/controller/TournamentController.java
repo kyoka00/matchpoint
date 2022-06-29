@@ -20,7 +20,6 @@ import com.example.dao.TeamDao;
 import com.example.entity.Comp;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Score;
-import com.example.entity.Team;
 
 @Controller
 public class TournamentController {
@@ -71,42 +70,13 @@ public class TournamentController {
 			}else {
 				compId = (Integer)session.getAttribute("compInfo");
 			}
-
+			Comp newComp = new Comp();
+			comp
 			
-			Team team = new Team();
-			team.setCompId(compId);
-			List<Team> teamList = teamDao.selectAll(team, "");
-			model.addAttribute("teamList", teamList);
-			
-
 			return "tournament";
 			
 		}
-		Integer compId = form.getCompId();
-		if((Integer)session.getAttribute("compId") == null && compId != null) {
-			session.setAttribute("compId", compId);
-		}else if(compId != null) {
-			session.setAttribute("compId", compId);
-		}else if ((Integer)session.getAttribute("compId") == null){
-			if(session.getAttribute("loginId") == null) {
-				return "comp_login";
-				
-			}else if(session.getAttribute("compLoginId")== null) {
-				Comp comp = new Comp();
-				model.addAttribute("resultList", compDao.selectAll(comp));
-				return "comp_list";
-			}
-		}else {
-			compId = (Integer)session.getAttribute("compInfo");
-		}
-		
-		Team team = new Team();
-		team.setCompId(compId);
-		List<Team> teamList = teamDao.selectAll(team, "");
-		model.addAttribute("teamList", teamList);
-		return "tournament";
-		
-	}
+
 	//トーナメント表編集
 	@RequestMapping(value="edit_tournament")
 	public String editTournament(Model model) {

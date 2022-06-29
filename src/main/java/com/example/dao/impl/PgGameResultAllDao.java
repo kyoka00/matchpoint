@@ -52,7 +52,7 @@ public class PgGameResultAllDao implements GameResultAllDao{
 				+ "FROM match m "
 				+ "JOIN game_info g ON m.match_id = g.match_id "
 				+ "JOIN team t ON t.team_id = m.team_id_a "
-				+ "WHERE g.record_status = :record_status"
+				+ "WHERE g.record_status = :record_status "
 				+ "ORDER BY g.record_date desc";
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("record_status", status);

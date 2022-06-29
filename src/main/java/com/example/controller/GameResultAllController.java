@@ -18,7 +18,6 @@ import com.example.controller.form.GameResultAllForm;
 import com.example.dao.GameResultAllDao;
 import com.example.dao.ReceivedResultDao;
 import com.example.dao.ScoreDao;
-import com.example.entity.GameResultAll;
 import com.example.entity.ReceivedResult;
 import com.example.entity.Score;
 
@@ -66,63 +65,62 @@ public class GameResultAllController{
 		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
 			return "top";
 		}
-		
-		
 		Integer compId = (Integer)session.getAttribute("compId");
 		List<ReceivedResult> list = receivedResultDao.box(compId, form.getRecordStatus(), form.getKeyword());
-		form.setRecordStatus(1);
 		model.addAttribute("list", list);
-		System.out.println(list.get(0).getGameInfoId());
-		
-		
-//		int recordStatus = form.getRecordStatus();
-//		String keyword = form.getKeyword();
-//
-//		if(Utility.notIsEmptyNull(keyword)){
-//			List<GameResultAll> search = gameResultAllDao.search(keyword, recordStatus);
-//			model.addAttribute("resultList", search);
-//			return "game_result_all";
-//		} else {
-//			List<GameResultAll> search = gameResultAllDao.search("", recordStatus);
-//			model.addAttribute("resultList", search);
-//		}
 		return "game_result_all";
 	}
 
 	@RequestMapping(value = "sort")
 	public String sort(@RequestParam("orderBy")  String orderBy,
 			@ModelAttribute("comp_detail") GameResultAllForm form,Model model) {
-		
+		if (session.getAttribute("loginId") == null && session.getAttribute("compLoginId") == null) {
+			return "top";
+		}
 		int recordStatus = form.getRecordStatus();
-
-		if(recordStatus == 0) {
-			List<GameResultAll> gameResultList = gameResultAllDao.select(0);
-			if ("record_date".equals(orderBy)) {
-				gameResultList.sort((p1, p2) -> p1.getRecordDate().compareTo(p2.getRecordDate()));
-			}else if ("game_no".equals(orderBy)) {
-				gameResultList.sort((p1, p2) -> p1.getGameNo() >= p2.getGameNo() ? 1 : -1);
-			} else if ("coat_no".equals(orderBy)) {
-				gameResultList.sort((p1, p2) -> p1.getCoatNo() >= p2.getCoatNo() ? 1 : -1);	
-			} else if ("tournament_no".equals(orderBy)) {
-				gameResultList.sort((p1, p2) -> p1.getTournamentNo() >= p2.getTournamentNo() ? 1 : -1);
-			}
-			model.addAttribute("resultList", gameResultList);
-			return "game_result_all";
+		System.out.println(orderBy);
+		Integer compId = (Integer)session.getAttribute("compId");
+		List<ReceivedResult> list = receivedResultDao.box(compId, recordStatus, "");
+		model.addAttribute("list", list);
+		
+		if ("record_date".equals(orderBy)) {
+			list.sort((p1, p2) -> p2.getRecordDate().compareTo(p1.getRecordDate()));
+		}else if ("game_no".equals(orderBy)) {
+			list.sort((p1, p2) -> p1.getGameNo() >= p2.getGameNo() ? 1 : -1);
+		} else if ("coat_no".equals(orderBy)) {
+			list.sort((p1, p2) -> p1.getCoatNo() >= p2.getCoatNo() ? 1 : -1);	
+		} else if ("tournament_no".equals(orderBy)) {
+			list.sort((p1, p2) -> p1.getTournamentNo() >= p2.getTournamentNo() ? 1 : -1);
 		}
 		
-		if(recordStatus == 1) {
-			List<GameResultAll> gameResultList = gameResultAllDao.select(1);
-			if ("record_date".equals(orderBy)) {
-				gameResultList.sort((p1, p2) -> p1.getRecordDate().compareTo(p2.getRecordDate()));
-			}else if ("game_no".equals(orderBy)) {
-				gameResultList.sort((p1, p2) -> p1.getGameNo() >= p2.getGameNo() ? 1 : -1);
-			} else if ("coat_no".equals(orderBy)) {
-				gameResultList.sort((p1, p2) -> p1.getCoatNo() >= p2.getCoatNo() ? 1 : -1);	
-			} else if ("tournament_no".equals(orderBy)) {
-				gameResultList.sort((p1, p2) -> p1.getTournamentNo() >= p2.getTournamentNo() ? 1 : -1);
-			}
-			model.addAttribute("resultList", gameResultList);
-		}
+//		if(recordStatus == 0) {
+//			List<GameResultAll> gameResultList = gameResultAllDao.select(0);
+//			if ("record_date".equals(orderBy)) {
+//				gameResultList.sort((p1, p2) -> p1.getRecordDate().compareTo(p2.getRecordDate()));
+//			}else if ("game_no".equals(orderBy)) {
+//				gameResultList.sort((p1, p2) -> p1.getGameNo() >= p2.getGameNo() ? 1 : -1);
+//			} else if ("coat_no".equals(orderBy)) {
+//				gameResultList.sort((p1, p2) -> p1.getCoatNo() >= p2.getCoatNo() ? 1 : -1);	
+//			} else if ("tournament_no".equals(orderBy)) {
+//				gameResultList.sort((p1, p2) -> p1.getTournamentNo() >= p2.getTournamentNo() ? 1 : -1);
+//			}
+//			model.addAttribute("resultList", gameResultList);
+//			return "game_result_all";
+//		}
+//		
+//		if(recordStatus == 1) {
+//			List<GameResultAll> gameResultList = gameResultAllDao.select(1);
+//			if ("record_date".equals(orderBy)) {
+//				gameResultList.sort((p1, p2) -> p1.getRecordDate().compareTo(p2.getRecordDate()));
+//			}else if ("game_no".equals(orderBy)) {
+//				gameResultList.sort((p1, p2) -> p1.getGameNo() >= p2.getGameNo() ? 1 : -1);
+//			} else if ("coat_no".equals(orderBy)) {
+//				gameResultList.sort((p1, p2) -> p1.getCoatNo() >= p2.getCoatNo() ? 1 : -1);	
+//			} else if ("tournament_no".equals(orderBy)) {
+//				gameResultList.sort((p1, p2) -> p1.getTournamentNo() >= p2.getTournamentNo() ? 1 : -1);
+//			}
+//			model.addAttribute("resultList", gameResultList);
+//		}
 		return "game_result_all";
 	}
 

@@ -304,7 +304,7 @@ const vue = new Vue({
             fetch('getTournamentEditStatus')
             .then(res => res.json().then(data => {
 				console.log(data);
-                tournamentStatus = 0;
+                tournamentStatus = data;
                 if(tournamentStatus === 0) {
                     this.allotTeamFirst(1, this.teamLists1);
                     this.allotTeamFirst(2, this.teamLists2);

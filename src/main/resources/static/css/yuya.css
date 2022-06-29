@@ -247,9 +247,6 @@ label{
 	display: inline-box;
 }
 
-input{
-	width: 7%;
-}
 
 /* /*Top画面の背景画像フェードイン  */ 
 /* .anim-box.fadein.is-animated { */
@@ -275,7 +272,9 @@ input.mr-2{
 
 
 
-
+body {
+	font-size: 1.3rem;
+}
 
 
 /* body { */

@@ -51,15 +51,19 @@ public class TournamentController {
 				return "top";
 			}
 			Integer compId =form.getCompId();
+			
+			//セッションがないけどcompIdがセットされている（初期状態）
 			if((Integer)session.getAttribute("compId") == null && compId != null) {
 				session.setAttribute("compId", compId);
+			//compIdがセットされているとき（セッションも破棄されていない）
 			}else if(compId != null) {
 				session.setAttribute("compId", compId);
+				
+			//sessionに値がセットされていない時
 			}else if ((Integer)session.getAttribute("compId") == null){
-				if(session.getAttribute("loginId") == null) {
-					return "comp_login";
-					
-				}else if(session.getAttribute("compLoginId")== null) {
+				
+				//運営側でヘッダーからアクセスするときのための条件分岐
+				if(session.getAttribute("compLoginId")== null) {
 					Comp comp = new Comp();
 					model.addAttribute("resultList", compDao.selectAll(comp));
 					return "comp_list";

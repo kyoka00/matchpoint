@@ -20,14 +20,14 @@
 		<div class="btn-toolbar">
 			<div class="btn-group">
 				<div th:if="${session.loginId}">
-					<div th:if="${tournamentEditStatus == 2}">
+					<div th:if="${session.tournamentEditStatus != 2}">
 					<button class="text-white bg-danger btn mr-3" type="button"
 						onclick="location.href='edit_tournament'">トーナメント表作成</button>
 					</div>
 				</div>
 				
 				<div th:if="${session.loginId}">
-					<div th:if="${tournamentEditStatus == 0}">
+					<div th:if="${session.tournamentEditStatus == 0}">
 						<button class="text-white bg-success btn"
 							onclick="location.href='insert_player'">選手登録</button>
 					</div>

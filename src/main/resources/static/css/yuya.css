@@ -264,19 +264,16 @@ input.mr-2{
 	width: 20%;
 }
 
-/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
-
-
-
-
-
-
-
 body {
-	font-size: 1.3rem;
+	font-size: 1.1rem;
 }
 
-
+.top-margin{
+	padding-top: 5%;
+}
+.width-setting{
+	margin:0 5%;
+}
 /* body { */
 /* 	background-color: #DDDDDD; */
 /* 	color: black; */

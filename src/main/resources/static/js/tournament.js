@@ -130,13 +130,9 @@ const vue = new Vue({
                 fetch('getTeamList')
                 .then(res => res.json().then(data => {
                     this.teamLists = data;
-                    console.log("リスト1:", this.teamLists1);
-                    console.log("リスト3:", this.teamLists3);
                     this.createTournament(1, this.teamLists1);
                     this.createTournament(2, this.teamLists2);
-                    console.log("前：", this.tournaments);
                     this.createTournament(3, this.teamLists3);
-                    console.log("後：", this.tournaments);
                     this.createTournament(4, this.teamLists4);
                     this.createTournament(5, this.teamLists5);
                     this.createTournament(6, this.teamLists6);

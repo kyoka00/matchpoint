@@ -6,6 +6,7 @@
 <link th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
 	rel="stylesheet">
 <link href="/css/shoma.css" rel="stylesheet">
+<link href="/css/yuya.css" rel="stylesheet">
 
 </head>
 <body>
@@ -15,8 +16,8 @@
 			aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<a href="tournament" class="navbar-brand"><img src="./images/ゆうやロゴ1.png"
-			class="login_logo">Match Point</a>
+		<a href="tournament" class="navbar-brand"><img
+			src="./images/ゆうやロゴ1.png" class="login_logo">Match Point</a>
 		<div class="collapse navbar-collapse justify-content-end">
 			<ul class="navbar-nav">
 
@@ -33,57 +34,53 @@
 
 		<form action="comp_list" th:object="${compInfo}" method="POST"
 			class="form-horizontal">
-			<div class="text-right">
-				<button type="button" onclick="location.href='comp_list_back'" class="btn btn-primary">
-					戻る
-				</button>
+			<div class="width-setting">
+				<div class="text-right">
+					<button type="button" onclick="location.href='comp_list_back'"
+						class="btn btn-primary">戻る</button>
+				</div>
 			</div>
-
 			<div class="text-center">
 				<div class="form-group">
-					<label class="col-sm-2 control-label">大会名:</label>
-					<input type="text" th:field="*{compName}">
-					<span class="error" th:each="error: ${#fields.errors('compName')}">
-						[[ ${error}	]]
-					</span>
+					<label class="col-sm-2 control-label">大会名:</label> <input
+						type="text" th:field="*{compName}"> <span class="error"
+						th:each="error: ${#fields.errors('compName')}"> [[ ${error}
+						]] </span>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label mr-5">開催日:</label>
-					<input type="date" th:field="*{compDate}">
-					<span class="error" th:each="error: ${#fields.errors('compDate')}">
-						[[ ${error} ]]
-					</span>
+					<label class="col-sm-2 control-label mr-5">開催日:</label> <input
+						type="date" th:field="*{compDate}"> <span class="error"
+						th:each="error: ${#fields.errors('compDate')}"> [[ ${error}
+						]] </span>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label">場所:</label>
-					<input type="text" th:field="*{compPlace}">
-					<span class="error"	th:each="error: ${#fields.errors('compPlace')}">
-						[[ ${error} ]]
-					</span>
+					<label class="col-sm-2 control-label">場所:</label> <input
+						type="text" th:field="*{compPlace}"> <span class="error"
+						th:each="error: ${#fields.errors('compPlace')}"> [[
+						${error} ]] </span>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label">大会ログインID:</label>
-					<input type="text" th:field="*{compLoginId}">
-					<span class="error" th:each="error: ${#fields.errors('compLoginId')}">
-						[[ ${error} ]]
-					</span>
+					<label class="col-sm-2 control-label">大会ログインID:</label> <input
+						type="text" th:field="*{compLoginId}"> <span class="error"
+						th:each="error: ${#fields.errors('compLoginId')}"> [[
+						${error} ]] </span>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label mr-5">トーナメント数:</label>
-					<input type="number" id="tournamentCount" th:field="*{tournamentCount}"
-						 max="10" min="1" placeholder="最大10まで" onChange="tournamentCountCheck()">
-					<span class="error" th:each="error: ${#fields.errors('tournamentCount')}">
-						[[ ${error} ]]
-					</span>
+					<label class="col-sm-2 control-label mr-5">トーナメント数:</label> <input
+						type="number" id="tournamentCount" th:field="*{tournamentCount}"
+						max="10" min="1" placeholder="最大10まで"
+						onChange="tournamentCountCheck()"> <span class="error"
+						th:each="error: ${#fields.errors('tournamentCount')}"> [[
+						${error} ]] </span>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label">大会概要:</label>
-					<input type="text" th:field="*{memo}">
+					<label class="col-sm-2 control-label">大会概要:</label> <input
+						type="text" th:field="*{memo}">
 				</div>
 			</div>
 
@@ -92,12 +89,12 @@
 			</div>
 		</form>
 	</div>
-	
+
 	<script>
-		function tournamentCountCheck(){
+		function tournamentCountCheck() {
 			const tournamentCount = document.getElementById('tournamentCount')
-			
-			if(tournamentCount.value > 10){
+
+			if (tournamentCount.value > 10) {
 				tournamentCount.value = 10
 			}
 		}

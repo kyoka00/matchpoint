@@ -12,13 +12,10 @@
 <body>
 	<div th:insert="header"></div>
 	<div class="tournament">
-<<<<<<< HEAD
-	<button type="button" onclick="location.href='save_tournament'">編集完了</button>
-=======
-	<button type="button" @click="finishEdit()">編集完了</button>
->>>>>>> origin/takahiro
+	<button type="button" onclick="location.href='save_tournament'" class="text-white bg-success btn">編集完了</button>
+
 	<div class="text-right">
-	<button type="button" onclick="location.href='all_player'">戻る</button>
+	<button type="button" onclick="location.href='all_player'" class="text-white btn-primary">戻る</button>
 	</div>
 	<div id="app">
         <h4 id="msg"></h4>
@@ -47,12 +44,9 @@
         </details>
 	</div>
     <script th:src="@{js/edit_tournament.js}"></script>
-
-<<<<<<< HEAD
 	<!-- <button type="button" @click="save">セーブ</button> -->
-=======
-	<button type="button" @click="save()">セーブ</button>
->>>>>>> origin/takahiro
+
+
 </div>
 </body>
 </html>

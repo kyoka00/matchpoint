@@ -1,7 +1,5 @@
 package com.example.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.controller.form.CompForm;
 import com.example.dao.CompDao;
@@ -18,8 +15,6 @@ import com.example.dao.ReceivedResultDao;
 import com.example.dao.ScoreDao;
 import com.example.dao.TeamDao;
 import com.example.entity.Comp;
-import com.example.entity.ReceivedResult;
-import com.example.entity.Score;
 
 @Controller
 public class TournamentController {
@@ -75,7 +70,6 @@ public class TournamentController {
 			newComp.setCompId(compId);
 			Comp result = compDao.selectAll(newComp).get(0);
 			session.setAttribute("tournamentEditStatus",result.getTournamentEditStatus());
-			System.out.println(result.getTournamentEditStatus());
 			return "tournament";
 			
 		}
@@ -134,27 +128,27 @@ public class TournamentController {
 		
 		return "tournament";
 	}
-	//試合番号ボタンクリック
-	@RequestMapping(value="registered_game_result")
-	public String gameResult(@RequestParam("gameNo")Integer gameNo, Model model) {
-		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
-			return "top";
-		}
-		ReceivedResult result = new ReceivedResult();
-		result.setGameNo(gameNo);
-		result.setRecordStatus(1);
-		
-		List<ReceivedResult> resultList = receivedResultDao.search(result, null);
-		ReceivedResult matchInfo = resultList.get(0);
-		model.addAttribute("matchInfo",resultList);
-		
-		Score score = new Score();
-		score.setGameInfoId(matchInfo.getGameInfoId());
-		List<Score> scoreList = scoreDao.selectAll(score);
-		model.addAttribute("scoreList", scoreList);
-		
-		return "game_result_final_registered";
-	}
+//	//試合番号ボタンクリック
+//	@RequestMapping(value="registered_game_result")
+//	public String gameResult(@RequestParam("gameNo")Integer gameNo, Model model) {
+//		if(session.getAttribute("loginId") == null && session.getAttribute("compLoginId")== null) {
+//			return "top";
+//		}
+//		ReceivedResult result = new ReceivedResult();
+//		result.setGameNo(gameNo);
+//		result.setRecordStatus(1);
+//		
+//		List<ReceivedResult> resultList = receivedResultDao.search(result, null);
+//		ReceivedResult matchInfo = resultList.get(0);
+//		model.addAttribute("matchInfo",resultList);
+//		
+//		Score score = new Score();
+//		score.setGameInfoId(matchInfo.getGameInfoId());
+//		List<Score> scoreList = scoreDao.selectAll(score);
+//		model.addAttribute("scoreList", scoreList);
+//		
+//		return "game_result_final_registered";
+//	}
 	
 	//試合結果からトーナメントへ
 	@RequestMapping(value="tournament_back")

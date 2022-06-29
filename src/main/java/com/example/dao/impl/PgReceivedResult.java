@@ -119,6 +119,7 @@ public class PgReceivedResult implements ReceivedResultDao {
 	@Override
 	public int insertMatch(ReceivedResult result) {
 		String sql = INSERTMATCH + insertSqlMatch(result);
+		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(result.getCompId())) {
 			param.addValue(COLUMN_NAME_COMPID, result.getCompId());

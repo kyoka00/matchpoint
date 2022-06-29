@@ -77,7 +77,6 @@ public class TournamentRestController {
 			@RequestParam("gameNo") Integer gameNo,
 			@RequestParam("teamIdA") Integer teamIdA,
 			@RequestParam("teamIdB") Integer teamIdB) {
-		System.out.println("insertMatch");
 		Integer compId = (Integer)session.getAttribute("compId");
 		ReceivedResult result = new ReceivedResult();
 		result.setCompId(compId);
@@ -90,14 +89,12 @@ public class TournamentRestController {
 	
 	@RequestMapping("updateMatch")
 	public int updateMatch(@RequestBody MatchList matchList) {
-		System.out.println("updateMatch");
 		int updateNum = 0;
 		Integer compId = (Integer)session.getAttribute("compId");
 		for(ReceivedResult result : matchList.getMatchList()) {
 			result.setCompId(compId);
 			updateNum += receivedResultDao.updateMatch(result);
 		}
-		System.out.println("update is finished");
 		return updateNum;
 	}
 	
@@ -107,7 +104,6 @@ public class TournamentRestController {
 		Comp comp = new Comp();
 		comp.setCompId(compId);
 		List<Comp> compList = compDao.selectAll(comp);
-		System.out.println(compList.get(0).getTournamentEditStatus());
 		return compList.isEmpty()? null: compList.get(0).getTournamentEditStatus();
 	}
 	

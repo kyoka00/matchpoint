@@ -91,7 +91,6 @@ public class GameResultAllController{
 			return "top";
 		}
 		int recordStatus = form.getRecordStatus();
-		System.out.println(orderBy);
 		Integer compId = (Integer)session.getAttribute("compId");
 		List<ReceivedResult> list = receivedResultDao.box(compId, recordStatus, "");
 		model.addAttribute("list", list);
@@ -170,7 +169,6 @@ public class GameResultAllController{
 				}
 			}
 		}
-		System.out.println(searchResult);
 		model.addAttribute("set", (winCountA + winCountB) + "/" + searchResult.getGameCount());
 		model.addAttribute("comp_detail", searchResult);
 		model.addAttribute("score_list", scoreList);

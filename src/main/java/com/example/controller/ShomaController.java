@@ -73,7 +73,6 @@ public class ShomaController{
 		Comp comp = new Comp();
 		comp.setCompLoginId(compLoginID);
 		List<Comp> list = compDao.selectAll(comp);
-		
 		if(list == null) {
 			model.addAttribute("errorMsg", "大会ログインIDが違います。");
 			return "comp_login";
@@ -109,7 +108,8 @@ public class ShomaController{
 		}else if(session.getAttribute("loginId") == null) {
 			if(list.get(0).getLoginId().equals(form.getLoginId())&&list.get(0).getPassword().equals(form.getPassword())) {
 				session.setAttribute("loginId", form.getLoginId());
-				model.addAttribute("resultList", compDao.selectAll(comp));
+				List<Comp> compList = compDao.selectAll(comp);
+				model.addAttribute("resultList", compList);
 				return "comp_list";
 			}else {
 				return "login";

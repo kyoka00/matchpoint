@@ -27,14 +27,9 @@
 				<div class="buttons mr-3">
 					<button class="text-white btn-warning" type="button" onclick="location.href='all_player'">選手一覧</button>
 					<button class="text-white btn-dark" type="button" onclick="location.href='comp_detail'">大会詳細</button>
-
-
-					<!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
-
 				</div>
 			</div>
 		</div>
-		
 		<div id="app">
 			<details v-for="tournament in tournaments">
 				<summary>トーナメント: {{ tournament.tournamentNo }}</summary>

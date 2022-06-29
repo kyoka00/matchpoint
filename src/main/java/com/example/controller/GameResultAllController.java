@@ -209,7 +209,10 @@ public class GameResultAllController{
 		} else {
 			model.addAttribute("msg", "既に削除済みの情報です。");
 		}
-		
+		Integer compId = (Integer)session.getAttribute("compId");
+		List<ReceivedResult> list = receivedResultDao.box(compId, 0, "");
+		form.setRecordStatus(0);
+		model.addAttribute("list", list);
 		return "game_result_all";
 	}
 	@RequestMapping(value = "tournament_register", params = "delete")
@@ -233,7 +236,10 @@ public class GameResultAllController{
 		} else {
 			model.addAttribute("msg", "既に削除済みの情報です。");
 		}
-
+		Integer compId = (Integer)session.getAttribute("compId");
+		List<ReceivedResult> list = receivedResultDao.box(compId, 0, "");
+		form.setRecordStatus(0);
+		model.addAttribute("list", list);
 		return "game_result_all";
 	}
 }

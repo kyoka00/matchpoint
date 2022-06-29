@@ -105,4 +105,6 @@
 .vtb-item-child:only-child:after {
     display: none;
 }
-
+body {
+	font-size: 1.1rem;
+}

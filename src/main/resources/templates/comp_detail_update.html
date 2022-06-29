@@ -16,12 +16,12 @@
 		<button type="submit" name="back" class="btn btn-primary">戻る</button>
 		</div>
 		
-		<div class="text-center">
+		<div class="text-center input-size">
 		<div>
 			<input type="hidden" th:field="*{compId}">
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label">大会名:</label>
+			<label>大会名:</label>
 			<input type="text" th:field="*{compName}">
 			<span class="error" th:each="error: ${#fields.errors('compName')}">
 				[[ ${error} ]]
@@ -29,7 +29,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-2 control-label">開催日:</label>
+			<label>開催日:</label>
 			<input type="date" th:field="*{compDate}">
 			<span class="error" th:each="error: ${#fields.errors('compDate')}">
 				[[ ${error} ]]
@@ -37,7 +37,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-2 control-label">場所:</label>
+			<label>場所:</label>
 			<input type="text" th:field="*{compPlace}">
 			<span class="error" th:each="error: ${#fields.errors('compPlace')}">
 				[[ ${error} ]]
@@ -45,7 +45,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-2 control-label">大会ログインID:</label>
+			<label>大会ログインID:</label>
 			<input type="text" th:field="*{compLoginId}">
 			<span class="error" th:each="error: ${#fields.errors('compLoginId')}">
 				[[ ${error} ]]
@@ -54,7 +54,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-2 control-label">トーナメント数:</label>
+			<label>トーナメント数:</label>
 			<input type="number" id="tournamentCount" th:field="*{tournamentCount}"
 					max="10" min="1" placeholder="最大10まで" onChange="tournamentCountCheck()">
 			<span class="error" th:each="error: ${#fields.errors('tournamentCount')}">
@@ -63,9 +63,10 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-2 control-label">大会概要:</label> <input type="text" th:field="*{memo}">
+			<label>大会概要:</label> <input type="text" th:field="*{memo}">
 		</div>
-		<button type="submit" name="completion" class="btn btn-primary">完了</button>
+		<button type="submit" name="completion" class="btn btn-primary my-5">完了</button>
+		
 		</div>
 	</form>
 	

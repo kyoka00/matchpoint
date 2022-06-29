@@ -245,12 +245,15 @@ div.error {
 label{
 	width: 20%;
 	display: inline-box;
+	text-align:right;
 }
 
-input{
-	width: 7%;
+.input-size input{
+	width:20%;
 }
-
+.input-number{
+	width: 30%;
+}
 /* /*Top画面の背景画像フェードイン  */ 
 /* .anim-box.fadein.is-animated { */
 /*   animation: fadeIn 0.7s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards; */
@@ -267,17 +270,16 @@ input.mr-2{
 	width: 20%;
 }
 
-/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
+body {
+	font-size: 1.1rem;
+}
 
-
-
-
-
-
-
-
-
-
+.top-margin{
+	padding-top: 5%;
+}
+.width-setting{
+	margin:0 5%;
+}
 /* body { */
 /* 	background-color: #DDDDDD; */
 /* 	color: black; */

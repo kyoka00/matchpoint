@@ -58,7 +58,6 @@ public class PgScoreDao implements ScoreDao {
 	@Override
 	public void insertScore(Score score) {
 		String sql = INSERT + PgScoreDao.insertSql(score);
-		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if(Utility.notIsEmptyNull(score.getGameInfoId())) {
 			param.addValue(COLUMN_NAME_GAME_INFO_ID, score.getGameInfoId());

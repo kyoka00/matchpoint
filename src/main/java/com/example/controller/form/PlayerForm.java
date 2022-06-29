@@ -17,12 +17,12 @@ public class PlayerForm{
 	
 	//プレイヤー１	
 	@NotBlank
-	@Size(max = 25, message = "名前は25文字以内で入力してください")
+	@Size(max = 15, message = "名前は15文字以内で入力してください")
 	private String playerAName;
 	
 	//プレイヤー２
 	@NotBlank
-	@Size(max = 25, message = "名前は25文字以内で入力してください")
+	@Size(max = 15, message = "名前は15文字以内で入力してください")
 	private String playerBName;
 	
 	//トーナメント番号

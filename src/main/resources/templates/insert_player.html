@@ -25,24 +25,24 @@
 		</div>
 
 		<form action="insert_player" th:object="${insert_player}"
-			th:method="post">
+			th:method="post" class="input-size">
 			<div class="form-group">
-				<label class="col-sm-2 control-label mt-3">プレイヤー1:</label>
-				<input type="text" th:field="*{playerAName}" placeholder="入力してください(最大25文字)">
+				<label>プレイヤー1:</label>
+				<input type="text" th:field="*{playerAName}" placeholder="最大15文字">
 				<span class="error" th:text="${errorMsg1}"></span>
 			</div>
 
 			<div class="form-group">
-				<label class="col-sm-2 control-label mt-3">プレイヤー2:</label> 
-				<input type="text" th:field="*{playerBName}" placeholder="入力してください(最大25文字)">
+				<label>プレイヤー2:</label> 
+				<input type="text" th:field="*{playerBName}" placeholder="最大15文字">
 					<span class="error" th:text="${errorMsg2}"></span>
 			</div>
 
 			<div class="form-group">
-				<label class="col-sm-2 control-label">トーナメント番号:</label>
+				<label>トーナメント番号:</label>
 				<input type="number" id="tournamentNo" th:field="*{tournamentNo}" 
 					max="10" min="1" placeholder="数値を入力(1～10)" 
-					onChange="tournamentNoCheck()">
+					onChange="tournamentNoCheck()" class="input-number">
 				<span class="error" th:text="${errorMsg3}"></span>
 			</div>
 			<div class="text-center mt-2">

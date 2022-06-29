@@ -20,13 +20,17 @@
 		<div class="btn-toolbar">
 			<div class="btn-group">
 				<div th:if="${session.loginId}">
+
 					<button class="text-white bg-danger btn mr-3" type="button"
 						onclick="location.href='edit_tournament'">トーナメント表作成</button>
+
 				</div>
 
 				<div th:if="${session.loginId}">
-					<button class="text-white bg-success btn"
-						onclick="location.href='insert_player'">選手登録</button>
+					<div th:if="${tournamentEditStatus == 0}">
+						<button class="text-white bg-success btn"
+							onclick="location.href='insert_player'">選手登録</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -38,12 +42,13 @@
 		</div>
 	</div>
 	<form action="all_player" th:object="${all_player}">
+
 		<div class="table-responsive">
 			<div class="text-center">
 				<table
 					class="table table-bordered table-striped mx-auto table-hover table-light"
 					border="1">
-
+					
 					<!-- 選手一覧表へ -->
 					<tr>
 						<th class="table-success">番号</th>

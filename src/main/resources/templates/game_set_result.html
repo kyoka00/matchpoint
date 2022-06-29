@@ -9,6 +9,7 @@
 </head>
 <body>
 <div th:insert="header"></div>
+<div class="coat-setting">
 	<form action="game_result" th:object="${score_setting}" method="POST">
 		<input type="hidden" th:field="*{playerA}"> <input
 			type="hidden" th:field="*{playerB}"> <input type="hidden"
@@ -49,5 +50,6 @@
 		</div>
 		
 	</form>
+	</div>
 </body>
 </html>

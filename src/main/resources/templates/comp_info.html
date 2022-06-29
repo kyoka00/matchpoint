@@ -27,7 +27,7 @@
 		</div>
 	</nav>
 
-	<div class="compinfo">
+	<div class="compinfo input-size">
 		<div class="text-center">
 			<p class="error" th:text="${errorMsg}"></p>
 		</div>
@@ -42,35 +42,35 @@
 			</div>
 			<div class="text-center">
 				<div class="form-group">
-					<label class="col-sm-2 control-label">大会名:</label> <input
+					<label>大会名:</label> <input
 						type="text" th:field="*{compName}"> <span class="error"
 						th:each="error: ${#fields.errors('compName')}"> [[ ${error}
 						]] </span>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label mr-5">開催日:</label> <input
+					<label>開催日:</label> <input
 						type="date" th:field="*{compDate}"> <span class="error"
 						th:each="error: ${#fields.errors('compDate')}"> [[ ${error}
 						]] </span>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label">場所:</label> <input
+					<label>場所:</label> <input
 						type="text" th:field="*{compPlace}"> <span class="error"
 						th:each="error: ${#fields.errors('compPlace')}"> [[
 						${error} ]] </span>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label">大会ログインID:</label> <input
+					<label>大会ログインID:</label> <input
 						type="text" th:field="*{compLoginId}"> <span class="error"
 						th:each="error: ${#fields.errors('compLoginId')}"> [[
 						${error} ]] </span>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label mr-5">トーナメント数:</label> <input
+					<label>トーナメント数:</label> <input
 						type="number" id="tournamentCount" th:field="*{tournamentCount}"
 						max="10" min="1" placeholder="最大10まで"
 						onChange="tournamentCountCheck()"> <span class="error"
@@ -79,7 +79,7 @@
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label">大会概要:</label> <input
+					<label>大会概要:</label> <input
 						type="text" th:field="*{memo}">
 				</div>
 			</div>

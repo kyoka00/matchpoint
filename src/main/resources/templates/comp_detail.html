@@ -12,7 +12,7 @@
 <body>
 	<div th:insert="header"></div>
 
-	<div class="compinfo">
+	<div class="compinfo input-size">
 		<form action="comp_detail_edit" th:object="${comp_detail}"
 			method="POST">
 			<div class="width-setting">
@@ -21,38 +21,38 @@
 						class="btn btn-primary">戻る</button>
 				</div>
 			</div>
-			<div class="text-center">
+			<div class="text-center input-size">
 				<div>
 					<input type="hidden" th:field="*{compId}">
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label">大会名:</label> <input
+					<label>大会名:</label> <input
 						type="text" th:field="*{compName}" readonly>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label">開催日:</label> <input
+					<label>開催日:</label> <input
 						type="text" th:field="*{compDate}" readonly>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label">場所:</label> <input
+					<label>場所:</label> <input
 						type="text" th:field="*{compPlace}" readonly>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label">大会ログインID:</label> <input
+					<label>大会ログインID:</label> <input
 						type="text" th:field="*{compLoginId}" readonly>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label">トーナメント数:</label> <input
-						type="number" th:field="*{tournamentCount}" readonly>
+					<label>トーナメント数:</label> <input
+						type="number" th:field="*{tournamentCount}" class="input-number" readonly>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label">試合形式:</label> <span
+					<label>試合形式:</label> <span
 						th:switch="*{gameType}"> <input th:case="1" th:value="シングル"
 						readonly> <input th:case="2" th:value="ダブルス" readonly>
 					</span>
@@ -71,7 +71,7 @@
 			</div>
 			<div th:if="${session.loginId}">
 				<!-- マージ時に使用する　th:if="${loginId != null}"  -->
-				<button type="button" onclick="openModal()" class="btn-primary">削除</button>
+				<button type="button" onclick="openModal()" class="btn-primary my-5">削除</button>
 				<button type="submit" class="btn-primary">編集</button>
 				<div id="modal">
 					<p class="modal_message">削除しますか？</p>

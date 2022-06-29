@@ -20,9 +20,9 @@
 		
 		<form action="edit_player" th:object="${edit_player}">
 		
-			<div class="text-center">
+			<div class="text-center input-size">
 				<div class="form-group mt-1">
-				<label class="col-sm-2 control-label">プレイヤー1:</label>
+				<label>プレイヤー1:</label>
 				<input type="text"  th:field="*{playerAName}">
 				<div class="error" th:each="error: ${#fields.errors('playerAName')}">
 					[[${error} ]]
@@ -30,7 +30,7 @@
 			</div>
 			
 			<div class="form-group mt-4">
-				<label class="col-sm-2 control-label">プレイヤー2:</label>
+				<label>プレイヤー2:</label>
 				<input type="text" th:field="*{playerBName}">
 				<div class="error" th:each="error: ${#fields.errors('playerBName')}">
 					[[${error} ]]
@@ -38,10 +38,10 @@
 			</div>
 			
 			<div class="form-group mt-4">
-				<label class="col-sm-2 control-label">トーナメント番号:</label>
+				<label>トーナメント番号:</label>
 				<input type="number" id="tournamentNo" th:field="*{tournamentNo}" 
 					max="10" min="1" placeholder="数値を入力(1～10)" 
-					onChange="tournamentNoCheck()">
+					onChange="tournamentNoCheck()" class="input-number">
 				<div class="error" th:each="error: ${#fields.errors('tournamentNo')}">
 					[[${error} ]]
 				</div>

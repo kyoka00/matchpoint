@@ -174,3 +174,12 @@ th {
     color: #000;
     border: 3px solid #eee;
 }
+.input-size input{
+	width:20%;
+}
+label{
+	width: 20%;
+	display: inline-box;
+	text-align:right;
+}
+

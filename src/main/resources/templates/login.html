@@ -41,14 +41,14 @@
 			<form action="comp_list" th:object="${login}" method="POST">
 				<div class="text-center">
 					<div>
-						<label>ログインID:</label>
+						<label class="w-auto">ログインID:</label>
 						<input class="base_input" type="text" th:field="*{loginId}">
 						<div class="error" th:each="error: ${#fields.errors('loginId')}">
 							[[${error} ]]
 						</div>
 					</div>
 					<div class="mt-4">
-						<label>パスワード:</label>
+						<label class="w-auto">パスワード:</label>
 						<input class="base_input" type="password" th:field="*{password}">
 						<div class="error" th:each="error: ${#fields.errors('password')}">
 							[[ ${error} ]]

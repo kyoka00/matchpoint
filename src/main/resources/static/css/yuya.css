@@ -86,6 +86,7 @@ font-family: "Hiragino Sans","ヒラギノ角ゴシック";
   color:black;
   font-size: 50px;
   margin-bottom: 20px;
+  border-left: 3px solid white;
 }
 div.bg-success {
 	font-size: 20px;
@@ -140,6 +141,7 @@ div.left-player {
   color: black;
   padding: 30px;
   margin-bottom: 20px;
+  
 }
 
 
@@ -150,6 +152,7 @@ div.right-player {
   color: black;
   padding: 30px;
   margin-bottom: 20px;
+  border-left: 3px solid white;
 }
 
 .score-set{
@@ -223,15 +226,30 @@ table {
 	background-color: #f0fff0;
 }
 
+.table-padding{
+	margin-top: 50px;
+	margin: 30px;
+	padding: 20px;
+}
 
+.coat-setting{
+	margin: 5% 10%;
+}
 /*xxxxxxxxxxxxxxxx エラー処理  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
 div.error {
   color: red;
   font-size: 12px;
 }
 
+/* 大会受信BOX  */
+label{
+	width: 20%;
+	display: inline-box;
+}
 
-
+input{
+	width: 7%;
+}
 
 /* /*Top画面の背景画像フェードイン  */ 
 /* .anim-box.fadein.is-animated { */
@@ -245,6 +263,9 @@ div.error {
 /*     opacity: 1; */
 /*   } */
 /* } */
+input.mr-2{
+	width: 20%;
+}
 
 /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
 

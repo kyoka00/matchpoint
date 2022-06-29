@@ -15,17 +15,26 @@
 <body>
 	<div th:insert="header"></div>
 	<div class="tournament">
-		<div class="text-right">
-			<button type="button" onclick="location.href='comp_list_back'">戻る</button>
-		</div>
-		<div clas="buttons">
-			<button type="button" onclick="location.href='all_player'">選手一覧</button>
-			<button type="button" onclick="location.href='comp_detail'">大会詳細</button>
 
-			<div th:if="${session.loginId}">
-				<button type="button" onclick="location.href='game_result_all'">大会結果受信ボックス</button>
+		<div class="text-right">
+			<button class="text-white btn-primary" type="button" onclick="location.href='comp_list_back'">戻る</button>
+			<div class="mt-4" th:if="${session.loginId}">
+				<button class="text-white btn-danger" type="button" onclick="location.href='game_result_all'">大会結果受信ボックス</button>
 			</div>
 		</div>
+		<div class="btn-toolbar">
+			<div class="btn-group">
+				<div class="buttons mr-3">
+					<button class="text-white btn-warning" type="button" onclick="location.href='all_player'">選手一覧</button>
+					<button class="text-white btn-dark" type="button" onclick="location.href='comp_detail'">大会詳細</button>
+
+
+					<!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+
+				</div>
+			</div>
+		</div>
+		
 		<div id="app">
 			<details v-for="tournament in tournaments">
 				<summary>トーナメント: {{ tournament.tournamentNo }}</summary>

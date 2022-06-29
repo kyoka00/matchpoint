@@ -45,11 +45,12 @@ public class PgReceivedResult implements ReceivedResultDao {
 	private final String UPDATEMATCH = "UPDATE " + matchTbl + " set ";
 
 	@Override
-	public List<ReceivedResult> box(Integer compId, Integer status){
-		String sql = SELECT + " WHERE comp_id = :comp_id AND record_status = :record_status";
+	public List<ReceivedResult> box(Integer compId, Integer status, String keyword){
+		String sql = SELECT + " WHERE comp_id = :comp_id AND record_status = :record_status AND judge_name LIKE :keyword";
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("comp_id", compId);
 		param.addValue("record_status", status);
+		param.addValue("keyword", '%' + keyword + '%');
 		List<ReceivedResult> list = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<ReceivedResult>(ReceivedResult.class));
 		return list;
 	}
@@ -118,6 +119,7 @@ public class PgReceivedResult implements ReceivedResultDao {
 	@Override
 	public int insertMatch(ReceivedResult result) {
 		String sql = INSERTMATCH + insertSqlMatch(result);
+		System.out.println(sql);
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		if (Utility.notIsEmptyNull(result.getCompId())) {
 			param.addValue(COLUMN_NAME_COMPID, result.getCompId());

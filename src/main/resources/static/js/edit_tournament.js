@@ -65,18 +65,18 @@ const vue = new Vue({
                 // 試合にチームを挿入
                 obj.player1 = {
                     id: team1.teamId,
-                    name: '・' + team1.playerAName + team1.playerBName,
+                    name: team1.playerAName + '・' + team1.playerBName,
                 };
                 // 二つ目のチームは、空チームにも対応
                 if(teamLists.length >= gameNoEveryTournament * 2) {
                     obj.player2 = {
                         id: team2.teamId,
-                        name: '・' + team2.playerAName + team2.playerBName,
+                        name: team2.playerAName + '・' + team2.playerBName,
                     };
                 } else {
                     obj.player2 = {
                         id: teamEmpty.teamId,
-                        name: '・' + teamEmpty.playerAName + teamEmpty.playerBName,
+                        name: teamEmpty.playerAName + '・' + teamEmpty.playerBName,
                     };
                 }
             });
@@ -121,7 +121,7 @@ const vue = new Vue({
                 dragTeam = {
                     teamId: this.dragTeamId,
                     playerAName: 'empty',
-                    playerBName: '',
+                    playerBName: 'empty',
                     tournamentNo: this.dragTeamId * -1
                 };
             }
@@ -135,7 +135,7 @@ const vue = new Vue({
                 dropTeam = {
                     teamId: dropTeamId,
                     playerAName: 'empty',
-                    playerBName: '',
+                    playerBName: 'empty',
                     tournamentNo: dropTeamId * -1
                 };
             }
@@ -193,7 +193,17 @@ const vue = new Vue({
                 this.updated = 1;
             }
         },
-        // 登録用 POST メソッド
+        // 登録用insert メソッド
+        insertMatch() {
+			this.prepareInsert();
+			let match = this.sentMatchLists[0];
+			this.sentMatchLists.forEach(match => {
+				fetch(`insertMatch?tournamentNo=${match.tournamentNo}&gameNo=${match.gameNo}&teamIdA=${match.teamIdA}&teamIdB=${match.teamIdB}`)
+				.then(res => res.json().then(data => console.log("insertMatch3")))
+				.catch(error => console.log(error));
+			})
+		},
+        /*// 登録用 POST メソッド
         async insertMatch(url = 'insertMatch', data = {matchLists: this.sentMatchLists}) {
             prepareInsert();
             const response = await fetch(url, {
@@ -209,23 +219,23 @@ const vue = new Vue({
                 body: JSON.stringify(data),
             });
             return response;
-        },
+        },*/
         // 登録用オブジェクト 生成メソッド
         prepareInsert() {
             let tournamentNo;
+            console.log('aaasa');
             this.tournaments.forEach(tournament => {
                 tournamentNo = tournament.tournamentNo;
                 tournament.rounds[0].games.forEach(game => {
-                    this.sentMatchLists.push(
-                        {
+                    this.sentMatchLists.push({
                             tournamentNo: tournamentNo,
                             gameNo: game.gameNo,
-                            teamIdA: game.teamIdA,
-                            teamIdB: game.teamIdB
-                        }
-                    )
+                            teamIdA: game.player1.id,
+                            teamIdB: game.player2.id
+                        })
                 })
             })
+            console.log(this.sentMatchLists);
         },
         // セーブ機能
         save() {
@@ -247,7 +257,17 @@ const vue = new Vue({
                 document.getElementById("msg").innerHTML = "セーブできませんでした";
             }
         },
-        // 更新用 POST メソッド
+        // 登録用insert メソッド
+        updateMatch() {
+			this.prepareInsert();
+			let match = this.sentMatchLists[0];
+			this.sentMatchLists.forEach(match => {
+				fetch(`insertMatch?tournamentNo=${match.tournamentNo}&gameNo=${match.gameNo}&teamIdA=${match.teamIdA}&teamIdB=${match.teamIdB}`)
+				.then(res => res.json().then(data => console.log("insertMatch3")))
+				.catch(error => console.log(error));
+			})
+		},
+        /*// 更新用 POST メソッド
         async updateMatch(url = 'updateMatch', data = {matchLists: this.sentMatchLists}) {
             const response = await fetch(url, {
                 method: 'POST',
@@ -262,7 +282,7 @@ const vue = new Vue({
                 body: JSON.stringify(data),
             });
             return response;
-        },
+        },*/
     },
     created: function() {
         // チーム一覧取得
@@ -282,8 +302,9 @@ const vue = new Vue({
             // 分岐: トーナメント作成済みか否か
             let tournamentStatus;
             fetch('getTournamentEditStatus')
-            .then(res => {
-                tournamentStatus = res;
+            .then(res => res.json().then(data => {
+				console.log(data);
+                tournamentStatus = 0;
                 if(tournamentStatus === 0) {
                     this.allotTeamFirst(1, this.teamLists1);
                     this.allotTeamFirst(2, this.teamLists2);
@@ -295,8 +316,8 @@ const vue = new Vue({
                     this.allotTeamFirst(8, this.teamLists8);
                     this.allotTeamFirst(9, this.teamLists9);
                     this.allotTeamFirst(10, this.teamLists10);
-                    this.insertMatch()
-                    .catch(error => console.log(error));
+                    console.log(this.sentMatchLists);
+                    this.insertMatch();
                 } else {
                     // 対戦一覧取得
                     fetch('getMatchList')
@@ -306,7 +327,7 @@ const vue = new Vue({
                     }))
                     .catch(error => console.log(error));
                 }
-            })
+            }))
             .catch(error => console.log(error));
         }))
         .catch(error => console.log(error));

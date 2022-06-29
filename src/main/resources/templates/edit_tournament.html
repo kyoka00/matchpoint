@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div th:insert="header"></div>
-	
+	<div class="tournament">
 	<button type="button" @click="finishEdit">編集完了</button>
 	<div class="text-right">
 	<button type="button" onclick="location.href='all_player'">戻る</button>
@@ -45,6 +45,6 @@
     <script th:src="@{js/edit_tournament.js}"></script>
 
 	<button type="button" @click="save">セーブ</button>
-
+</div>
 </body>
 </html>

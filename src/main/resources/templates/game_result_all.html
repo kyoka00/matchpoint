@@ -7,23 +7,24 @@
 	rel="stylesheet">
 <link href="/css/yuya.css" rel="stylesheet">
 </head>
-
-
 <body>
 	<div th:insert="header"></div>
 	<div class="text-right">
-	<button type="button" onclick="location.href='tournament'">戻る</button>
+		<button class="text-white btn-primary" type="button" onclick="location.href='tournament'">戻る</button>
 	</div>
-		<form action="sort" th:object="${comp_detail}">
-			<input type="hidden" th:field="*{recordStatus}">
-			<select class="base-text" name="orderBy" onchange="submit(this.form)">
-				<option value="normal">並び替え</option>
-				<option value="record_date">登録日時</option>
-				<option value="game_no">試合番号</option>
-				<option value="coat_no">コート番号</option>
-				<option value="tournament_no">トーナメント番号</option>
-			</select>
-		</form>
+	<div class="text-center">
+		<p th:text="${msg}">MSG</p>
+	</div>
+	<form action="sort" th:object="${comp_detail}">
+		<input type="hidden" th:field="*{recordStatus}">
+		<select class="base-text" name="orderBy" onchange="submit(this.form)">
+			<option value="normal">並び替え</option>
+			<option value="record_date">登録日時</option>
+			<option value="game_no">試合番号</option>
+			<option value="coat_no">コート番号</option>
+			<option value="tournament_no">トーナメント番号</option>
+		</select>
+	</form>
   	<form action="game_result_search" th:object="${comp_detail}">
   		<input type="hidden" th:field="*{recordStatus}">
 		<input type="text" name="keyword" placeholder="キーワード検索">
@@ -31,17 +32,20 @@
 	</form>
 	<form action="game_result_all" th:object="${comp_detail}">
 		<input type="hidden" value="0">
-		<input type="submit" value="未登録の試合を表示">
+		<input type="submit" value="未登録の試合を全表示">
 	</form>
 	<form action="game_result_registered" th:object="${comp_detail}">
 		<input type="hidden" value="1">
-		<input type="submit" value="登録済みの試合を表示">
+		<input type="submit" value="登録済みの試合を全表示">
+	</form>
+	<form action="game_result_deleted" th:object="${comp_detail}">
+		<input type="hidden" value="2">
+		<input type="submit" value="削除済みの試合を全表示">
 	</form>
 	
 	<div class="text-center">
-	<table class="table table-bordered table-striped mx-auto table-hover table-light"
+	<table class="table table-bordered table-striped mx-auto table-hover table-light text-center"
 		border="1">
-	<div class="text-center">
 		<tr>
 			<th class="table-success">日時</th>
 			<th class="table-success">試合番号</th>
@@ -51,7 +55,7 @@
 		</tr>
 		<tr th:each="result : ${list}" >
 			<td>[[${result.recordDate}]]</td>
-			<td><button type="button" onClick="location.href='game_result_final'">第[[${result.gameNo}]]試合</button></td>
+			<td><a class="btn btn-info" role="button"  th:href="'/game_result_final?gameInfoId=' + ${result.gameInfoId}">第[[${result.gameNo}]]試合</a></td>
 			<td>[[${result.coatNo}]]</td>
 			<td>[[${result.judgeName}]]</td>
 			<td>[[${result.tournamentNo}]]</td>

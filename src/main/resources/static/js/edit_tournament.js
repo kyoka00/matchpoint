@@ -89,17 +89,27 @@ const vue = new Vue({
                     'games',
                     tournament.rounds[0].games.map(game => {
                         const matchFromDb = this.existingMatchLists.find(existingMatch => game.gameNo === existingMatch.gameNo);
-                            return {
+                            if(matchFromDb != null) {
+                                let player1NameFromDb = matchFromDb.teamAPlayer1 + "・" + matchFromDb.teamAPlayer2;
+                                let player2NameFromDb = matchFromDb.teamBPlayer1 + "・" + matchFromDb.teamBPlayer2;
+                                if(matchFromDb.teamIdA === null) {
+                                    player1NameFromDb = "empty" + "・" + "empty";
+                                } else if(matchFromDb.teamIdB === null) {
+                                    player2NameFromDb = "empty" + "・" + "empty";
+                                }  
+                                return {
                                 gameNo: matchFromDb.gameNo,
                                 player1: {
                                     id: matchFromDb.teamIdA,
-                                    name: matchFromDb.teamAPlayer1 + "・" + matchFromDb.teamAPlayer2,
+                                    name: player1NameFromDb,
                                 },
                                 player2: {
                                     id: matchFromDb.teamIdB,
-                                    name: matchFromDb.teamBPlayer1 + "・" + matchFromDb.teamBPlayer2,
+                                    name: player2NameFromDb,
                                 },
                             };
+                            }
+                            
                     })
                 );
             });
@@ -196,8 +206,12 @@ const vue = new Vue({
         // 登録用insert メソッド
         insertMatch() {
 			this.prepareUpdate();
-			let match = this.sentMatchLists[0];
 			this.sentMatchLists.forEach(match => {
+                if(match.teamIdA < 0) {
+                    match.teamIdA = null;
+                } else if(match.teamIdB < 0) {
+                    match.teamIdB = null;
+                }
 				fetch(`insertMatch?tournamentNo=${match.tournamentNo}&gameNo=${match.gameNo}&teamIdA=${match.teamIdA}&teamIdB=${match.teamIdB}`)
 				.then(res => res.json().then(data => console.log(data)))
 				.catch(error => console.log(error));

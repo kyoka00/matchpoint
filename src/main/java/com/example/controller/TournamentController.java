@@ -91,11 +91,7 @@ public class TournamentController {
 			int status = compList.getTournamentEditStatus();
 			
 			switch(status) {
-			case 0:
-				comp.setTournamentEditStatus(1);
-				compDao.updateComp(comp);
-				
-			case 1: 
+			case 0, 1: 
 				return "edit_tournament";
 				
 			case 2: 
